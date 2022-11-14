@@ -1,0 +1,38 @@
+from datetime import timedelta
+from typing import Any, Dict
+
+from fastapi import APIRouter, Depends, HTTPException
+from fastapi.security import OAuth2PasswordRequestForm
+from sqlalchemy.orm import Session
+
+from backend.app import schemas, crud
+from backend.app.api import deps
+from backend.app.core import security
+from backend.app.core.config import settings
+from backend.app.crud import crud_user
+
+router = APIRouter()
+
+
+@router.post("/login/access-token", response_model=schemas.Token)
+def login_access_token(
+        db: Session = Depends(deps.get_db),
+        form_data: OAuth2PasswordRequestForm = Depends()
+) -> Dict | Any:
+    """
+    OAuth2 compatible token login, get an access token for future requests
+    """
+    try:
+        user = crud_user.authenticate(
+            email=form_data.username, password=form_data.password, db=db
+        )
+    except HTTPException as e:
+        raise HTTPException(status_code=401, detail=e.detail)
+
+    if not user:
+        raise HTTPException(status_code=402, detail="Incorrect email or password or role")
+    elif not crud.user.is_active(user):
+        raise HTTPException(status_code=401, detail="Inactive user")
+    access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+    data = security.create_access_token(sub=user.id, expires_delta=access_token_expires)
+    return data

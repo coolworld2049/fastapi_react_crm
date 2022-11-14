@@ -1,0 +1,146 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="CssUnknownProperty" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myCustomPropertiesEnabled" value="true" />
+      <option name="myIgnoreVendorSpecificProperties" value="false" />
+      <option name="myCustomPropertiesList">
+        <value>
+          <list size="3">
+            <item index="0" class="java.lang.String" itemvalue="transform" />
+            <item index="1" class="java.lang.String" itemvalue="flex-box" />
+            <item index="2" class="java.lang.String" itemvalue="filter" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="DuplicatedCode" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <Languages>
+        <language minSize="241" name="Python" />
+      </Languages>
+    </inspection_tool>
+    <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="3">
+            <item index="0" class="java.lang.String" itemvalue="examplemodal" />
+            <item index="1" class="java.lang.String" itemvalue="vertical-align" />
+            <item index="2" class="java.lang.String" itemvalue="pattern" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+    <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="16">
+            <item index="0" class="java.lang.String" itemvalue="nobr" />
+            <item index="1" class="java.lang.String" itemvalue="noembed" />
+            <item index="2" class="java.lang.String" itemvalue="comment" />
+            <item index="3" class="java.lang.String" itemvalue="noscript" />
+            <item index="4" class="java.lang.String" itemvalue="embed" />
+            <item index="5" class="java.lang.String" itemvalue="script" />
+            <item index="6" class="java.lang.String" itemvalue="router-view" />
+            <item index="7" class="java.lang.String" itemvalue="v-spacer" />
+            <item index="8" class="java.lang.String" itemvalue="li" />
+            <item index="9" class="java.lang.String" itemvalue="a_sign_up" />
+            <item index="10" class="java.lang.String" itemvalue="h3" />
+            <item index="11" class="java.lang.String" itemvalue="button-sign-up" />
+            <item index="12" class="java.lang.String" itemvalue="button-login" />
+            <item index="13" class="java.lang.String" itemvalue="sign-up" />
+            <item index="14" class="java.lang.String" itemvalue="login" />
+            <item index="15" class="java.lang.String" itemvalue="error_info" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+    <inspection_tool class="HttpUrlsUsage" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="30">
+            <item index="0" class="java.lang.String" itemvalue="python-dotenv" />
+            <item index="1" class="java.lang.String" itemvalue="dotenvy" />
+            <item index="2" class="java.lang.String" itemvalue="django-emoji" />
+            <item index="3" class="java.lang.String" itemvalue="pytube" />
+            <item index="4" class="java.lang.String" itemvalue="aioify" />
+            <item index="5" class="java.lang.String" itemvalue="pymongo" />
+            <item index="6" class="java.lang.String" itemvalue="redis" />
+            <item index="7" class="java.lang.String" itemvalue="tqdm" />
+            <item index="8" class="java.lang.String" itemvalue="appdirs" />
+            <item index="9" class="java.lang.String" itemvalue="six" />
+            <item index="10" class="java.lang.String" itemvalue="packaging" />
+            <item index="11" class="java.lang.String" itemvalue="requests" />
+            <item index="12" class="java.lang.String" itemvalue="pyparsing" />
+            <item index="13" class="java.lang.String" itemvalue="google" />
+            <item index="14" class="java.lang.String" itemvalue="ffprobe" />
+            <item index="15" class="java.lang.String" itemvalue="ffmpeg" />
+            <item index="16" class="java.lang.String" itemvalue="async_class" />
+            <item index="17" class="java.lang.String" itemvalue="YooMoney" />
+            <item index="18" class="java.lang.String" itemvalue="jsmin" />
+            <item index="19" class="java.lang.String" itemvalue="psycopg2" />
+            <item index="20" class="java.lang.String" itemvalue="validate-email" />
+            <item index="21" class="java.lang.String" itemvalue="FlightRadar24" />
+            <item index="22" class="java.lang.String" itemvalue="sqlalchemy_serializer" />
+            <item index="23" class="java.lang.String" itemvalue="SQLAlchemy" />
+            <item index="24" class="java.lang.String" itemvalue="sqlite_utils" />
+            <item index="25" class="java.lang.String" itemvalue="Telethon" />
+            <item index="26" class="java.lang.String" itemvalue="greenlet" />
+            <item index="27" class="java.lang.String" itemvalue="typed-ast" />
+            <item index="28" class="java.lang.String" itemvalue="orjson" />
+            <item index="29" class="java.lang.String" itemvalue="decouple" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyPep8Inspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="E501" />
+          <option value="W605" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyPep8NamingInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="N806" />
+          <option value="N803" />
+          <option value="N801" />
+          <option value="N802" />
+          <option value="N814" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyShadowingBuiltinsInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredNames">
+        <list>
+          <option value="id" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="random.random.randint" />
+          <option value="int.__getitem__" />
+          <option value="str.data" />
+          <option value="typing.Coroutine.__getitem__" />
+          <option value="list.__sub__" />
+          <option value="str.decode" />
+          <option value="typing.Iterable.__getitem__" />
+          <option value="pathlib.Path.__add__" />
+          <option value="telethon.client.telegramclient.TelegramClient.__await__" />
+          <option value="str.__matmul__" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="SpellCheckingInspection" enabled="false" level="TYPO" enabled_by_default="false">
+      <option name="processCode" value="true" />
+      <option name="processLiterals" value="true" />
+      <option name="processComments" value="true" />
+    </inspection_tool>
+  </profile>
+</component>
