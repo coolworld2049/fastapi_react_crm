@@ -2,7 +2,6 @@ import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql as ps
 
 from backend.app.db.base_class import Base
-from backend.app.schemas import column_type
 
 
 class Token(Base):

@@ -3,7 +3,7 @@ from sqlalchemy.dialects import postgresql as ps
 
 
 class UserRole(BaseModel):
-    default: str
+    user: str
     admin: str
     manager: str
     ranker: str
@@ -98,7 +98,7 @@ class TaskType(BaseModel):
         return 'task_type'
 
 
-user_role_inst = UserRole(default='default', admin='admin', manager='manager', ranker='ranker', client='client')
+user_role_inst = UserRole(user='user', admin='admin', manager='manager', ranker='ranker', client='client')
 
 client_type_inst = ClientType(current='current', potential='potential')
 
@@ -153,4 +153,4 @@ market_sector = ps.ENUM(*[x[1] for x in market_sector_inst], name=MarketSector.g
 
 company_size = ps.ENUM(*[x[1] for x in company_size_inst], name=CompanySize.get_type_name())
 
-contract_stage = ps.ENUM(*[x[1] for x in contract_stage_inst],name=ContractStage.get_type_name())
+contract_stage = ps.ENUM(*[x[1] for x in contract_stage_inst], name=ContractStage.get_type_name())

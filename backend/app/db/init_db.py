@@ -1,13 +1,14 @@
 import logging
 from datetime import datetime
 
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncConnection
+from sqlalchemy.orm import Session  # noqa
 
 from backend.app import crud, schemas
-from backend.app.db import base  # noqa: F401
 from backend.app.core.config import settings
+from backend.app.db import base  # noqa: F401
 from backend.app.db.base_class import Base
-from backend.app.db.session import engine
+from backend.app.db.session import async_engine, AsyncSessionLocal  # noqa
 from backend.app.schemas import column_type
 
 logger = logging.getLogger(__name__)
@@ -18,13 +19,22 @@ logger = logging.getLogger(__name__)
 # for more details: https://github.com/tiangolo/full-stack-fastapi-postgresql/issues/28
 
 
-def init_db(db: Session) -> None:
+# noinspection PyBroadException
+async def init_db() -> None:
     # Tables should be created with Alembic migrations
     # But if you don't want to use migrations, create
     # the tables un-commenting the next line
-    Base.metadata.create_all(bind=engine)
+    db = AsyncSessionLocal()
+    async with async_engine.begin() as conn:
+        try:
+            conn: AsyncConnection
+            Base.metadata.bind = async_engine
+            await conn.run_sync(Base.metadata.create_all)
+        except Exception:
+            await conn.rollback()
+            await conn.close()
 
-    user = crud.user.get_by_email(db, email=settings.FIRST_SUPERUSER_USERNAME)
+    user = await crud.user.get_by_email(db, email=settings.FIRST_SUPERUSER_USERNAME)
     if not user:
         user_in = schemas.UserCreate(
             email=settings.FIRST_SUPERUSER_USERNAME,
@@ -36,4 +46,4 @@ def init_db(db: Session) -> None:
             role=column_type.user_role_inst.admin,
             create_date=datetime.today()
         )
-        user = crud.user.create(db, obj_in=user_in)  # noqa: F841
+        user = await crud.user.create(db, obj_in=user_in)  # noqa: F841

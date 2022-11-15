@@ -17,3 +17,6 @@ class User(Base):
     is_active = sa.Column(ps.BOOLEAN, default=True)
     is_superuser = sa.Column(ps.BOOLEAN, default=False)
     create_date = sa.Column(ps.TIMESTAMP)
+
+    def __repr__(self):
+        return f"User(id={self.id!r}, name={self.email!r})"

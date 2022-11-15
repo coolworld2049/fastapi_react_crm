@@ -19,5 +19,5 @@ class Token(BaseModel):
 
 
 class TokenPayload(BaseModel):
-    username: Optional[str] = None
+    sub: Optional[str] = None  # user_id
     expires_in: Optional[datetime] = None

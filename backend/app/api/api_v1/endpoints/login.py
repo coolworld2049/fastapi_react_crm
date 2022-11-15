@@ -1,9 +1,10 @@
 from datetime import timedelta
-from typing import Any, Dict
+from typing import Any
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from fastapi.security import OAuth2PasswordRequestForm
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
+from starlette import status
 
 from backend.app import schemas, crud
 from backend.app.api import deps
@@ -14,25 +15,25 @@ from backend.app.crud import crud_user
 router = APIRouter()
 
 
-@router.post("/login/access-token", response_model=schemas.Token)
-def login_access_token(
-        db: Session = Depends(deps.get_db),
+@router.post("/login", response_model=schemas.Token)
+async def login_access_token(
+        db: AsyncSession = Depends(deps.get_async_db),
         form_data: OAuth2PasswordRequestForm = Depends()
-) -> Dict | Any:
+) -> Any:
     """
     OAuth2 compatible token login, get an access token for future requests
     """
     try:
-        user = crud_user.authenticate(
+        user = await crud_user.user.authenticate(
             email=form_data.username, password=form_data.password, db=db
         )
     except HTTPException as e:
-        raise HTTPException(status_code=401, detail=e.detail)
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=e.detail)
 
     if not user:
-        raise HTTPException(status_code=402, detail="Incorrect email or password or role")
+        raise HTTPException(status_code=status.HTTP_402_PAYMENT_REQUIRED, detail="Incorrect email or password or role")
     elif not crud.user.is_active(user):
-        raise HTTPException(status_code=401, detail="Inactive user")
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Inactive user")
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     data = security.create_access_token(sub=user.id, expires_delta=access_token_expires)
     return data
