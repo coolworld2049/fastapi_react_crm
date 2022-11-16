@@ -14,7 +14,7 @@ from backend.app.core.config import settings
 from backend.app.core.security import oauth2Scheme
 from backend.app.db.session import AsyncSessionLocal, SessionLocal
 from backend.app.models.user import User
-from backend.app.schemas.request_params import RequestParams
+from backend.app.schemas.ext.request_params import RequestParams
 
 
 def get_sync_db() -> Generator:

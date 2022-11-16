@@ -1,14 +1,13 @@
 from pathlib import Path
 
 import uvicorn
-from fastapi import FastAPI, APIRouter, Request
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.utils import get_openapi
 from fastapi.templating import Jinja2Templates
 
 from backend.app.api.api_v1.api import api_router
 from backend.app.core.config import settings
-
 
 BASE_PATH = Path(__file__).resolve().parent
 TEMPLATES = Jinja2Templates(directory=str(BASE_PATH / "templates"))
@@ -64,4 +63,4 @@ if __name__ == '__main__':
     log_config = uvicorn.config.LOGGING_CONFIG
     log_config["formatters"]["access"]["fmt"] = "%(asctime)s - %(levelname)s - %(message)s"
     log_config["formatters"]["default"]["fmt"] = "%(asctime)s - %(levelname)s - %(message)s"
-    uvicorn.run(app, port=8001, log_config=log_config)
+    uvicorn.run(app, port=8000, log_config=log_config)

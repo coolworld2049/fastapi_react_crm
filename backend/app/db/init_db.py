@@ -43,7 +43,7 @@ async def init_db() -> None:
             first_name='John',
             last_name='Doe',
             phone='+79998880001',
-            role=column_type.user_role_inst.admin,
+            role=column_type.userRole.admin,
             create_date=datetime.today()
         )
         user = await crud.user.create(db, obj_in=user_in)  # noqa: F841
