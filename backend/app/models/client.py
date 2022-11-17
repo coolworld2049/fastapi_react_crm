@@ -6,8 +6,6 @@ from backend.app.schemas import column_type
 
 
 class Client(Base):
-    id = sa.Column(ps.INTEGER, primary_key=True)
+    id = sa.Column(ps.INTEGER, sa.ForeignKey('user.id'), primary_key=True)
     company_id = sa.Column(ps.INTEGER, sa.ForeignKey('company.id'), nullable=False)
-    phone = sa.Column(ps.VARCHAR(20), nullable=False)
-    type = sa.Column(column_type.client_type, nullable=False)
-    create_date = sa.Column(sa.TIMESTAMP)
+    type = sa.Column(column_type.clientTypePostgresEnum, nullable=False)

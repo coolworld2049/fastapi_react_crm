@@ -7,9 +7,9 @@ from passlib.context import CryptContext
 
 from backend.app.core.config import settings
 
-PWD_CONTEXT = CryptContext(schemes=["bcrypt"], deprecated="auto")
+cryptContext = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"{settings.API_V1_STR}/login/access-token")
+oauth2Scheme = OAuth2PasswordBearer(tokenUrl=f"{settings.API_V1_STR}/auth/jwt/login")
 
 
 def create_access_token(
@@ -26,7 +26,7 @@ def create_access_token(
     return {
         'access_token': encoded_jwt,
         'expires_in': to_encode.get('expires_in'),
-        'user_id': str(sub),
+        'sub': str(sub),
         "token_type": "bearer"
     }
 
@@ -56,8 +56,8 @@ def _create_token(
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    return PWD_CONTEXT.verify(plain_password, hashed_password)
+    return cryptContext.verify(plain_password, hashed_password)
 
 
 def get_password_hash(password: str) -> str:
-    return PWD_CONTEXT.hash(password)
+    return cryptContext.hash(password)

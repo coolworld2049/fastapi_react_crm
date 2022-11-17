@@ -2,11 +2,10 @@ import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql as ps
 
 from backend.app.db.base_class import Base
-from backend.app.schemas import column_type
 
 
 class Token(Base):
-    user_id = sa.Column(sa.ForeignKey("user.id"), primary_key=True, nullable=False)
-    token = sa.Column(ps.TEXT, unique=True)
-    expires_in = sa.Column(ps.TIMESTAMP)
-    scopes = sa.Column(ps.TEXT)
+    sub = sa.Column(ps.INTEGER, sa.ForeignKey("user.id"), primary_key=True, nullable=False)
+    access_token = sa.Column(ps.TEXT, unique=True)
+    expires_in = sa.Column(ps.TIMESTAMP(timezone=False))
+    token_type = sa.Column(ps.TEXT)

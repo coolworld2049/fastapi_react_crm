@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel, EmailStr, validator
+from pydantic import BaseModel, EmailStr, validator, Field
 from pydantic.types import constr
 
 from backend.app.schemas import column_type
@@ -10,19 +10,22 @@ from backend.app.schemas import column_type
 class UserBase(BaseModel):
     email: Optional[EmailStr] = None
     phone: Optional[constr(strip_whitespace=True, regex=r"^(\+)[1-9][0-9\-\(\)\.]{9,15}$", )] = None
-    role: str = column_type.user_role_inst.default  # UserRole model
+    role: str = Field(
+        column_type.userRole.user,
+        description=f"required: {column_type.userRole.schema().get('required')}"
+    )
+
+    @validator("role")
+    def role_validate(cls, value):  # noqa
+        if value not in column_type.userRole.schema().get('required'):
+            raise ValueError("Not valid user role")
+        return value
+
     is_active: Optional[bool] = True
     is_superuser: bool = False
     first_name: Optional[str] = None
     last_name: Optional[str] = None
-
-    @validator("role")
-    def check_storage_type(cls, value):  # noqa
-        if value not in [x[1] for x in column_type.user_role_inst]:
-            raise ValueError("Not valid user role")
-        return value
-
-    create_date: datetime = None
+    create_date: datetime = datetime.replace(datetime.today(), tzinfo=None)
 
     class Config:
         use_enum_values = True
@@ -32,11 +35,25 @@ class UserBase(BaseModel):
 class UserCreate(UserBase):
     email: EmailStr
     password: str
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    role: str = Field(
+        column_type.userRole.user,
+        description=f"required: {column_type.userRole.schema().get('required')}"
+    )
+
+
+class UserCreateOpen(UserBase):
+    email: EmailStr
+    password: str
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    role: str = Field(column_type.userRole.user, description=f"required: ['user']")
 
 
 # Properties to receive via API on update
 class UserUpdate(UserBase):
-    ...
+    password: Optional[str] = None
 
 
 class UserInDBBase(UserBase):
@@ -53,4 +70,4 @@ class UserInDB(UserInDBBase):
 
 # Additional properties to return via API
 class User(UserInDBBase):
-    ...
+    pass

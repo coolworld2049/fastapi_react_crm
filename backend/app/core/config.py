@@ -1,8 +1,7 @@
 import pathlib
 
-from pydantic import AnyHttpUrl, BaseSettings, EmailStr, validator
+from pydantic import AnyHttpUrl, BaseSettings, EmailStr, validator, PostgresDsn
 from typing import List, Optional, Union
-
 
 # Project Directories
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -29,20 +28,25 @@ class Settings(BaseSettings):
         str
     ] = "https.*\.(netlify.app|herokuapp.com)"  # noqa: W605
 
+    # noinspection PyMethodParameters
     @validator("BACKEND_CORS_ORIGINS", pre=True)
-    def assemble_cors_origins(cls, v: Union[str, List[str]]) -> Union[List[str], str]:  #noqa
+    def assemble_cors_origins(cls, v: Union[str, List[str]]) -> Union[List[str], str]:  # noqa
         if isinstance(v, str) and not v.startswith("["):
             return [i.strip() for i in v.split(",")]
         elif isinstance(v, (list, str)):
             return v
         raise ValueError(v)
 
-    SQLALCHEMY_DATABASE_URI: Optional[str] = "postgresql://postgres:postgres@localhost:5432/client_management"
+    SYNC_DATABASE_URI: Optional[PostgresDsn] = "postgresql://postgres:postgres@localhost:5432/client_management"
+    ASYNC_DATABASE_URL: Optional[
+        PostgresDsn] = "postgresql+asyncpg://postgres:postgres@localhost:5432/client_management"
     FIRST_SUPERUSER_USERNAME: EmailStr = "admin@gmail.com"
     FIRST_SUPERUSER_PASSWORD: str = "admin"
 
     class Config:
         case_sensitive = True
+
+    USERS_OPEN_REGISTRATION = True
 
 
 settings = Settings()

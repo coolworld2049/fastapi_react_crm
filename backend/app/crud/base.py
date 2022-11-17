@@ -2,7 +2,9 @@ from typing import Any, Dict, Generic, List, Optional, Type, TypeVar, Union
 
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
-from sqlalchemy.orm import Session
+from sqlalchemy import select
+from sqlalchemy.engine import Result
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.app.db.base_class import Base
 
@@ -21,25 +23,27 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         """
         self.model = model
 
-    def get(self, db: Session, id: Any) -> Optional[ModelType]:
-        return db.query(self.model).filter(self.model.id == id).first()
+    async def get(self, db: AsyncSession, id: Any) -> Optional[ModelType]:
+        result: Result = await db.execute(select(self.model).where(self.model.id == id))
+        return result.scalar()
 
-    def get_multi(
-        self, db: Session, *, skip: int = 0, limit: int = 5000
+    async def get_multi(
+        self, db: AsyncSession, *, skip: int = 0, limit: int = 5000
     ) -> List[ModelType]:
-        return (db.query(self.model).order_by(self.model.id).offset(skip).limit(limit).all()) # noqa
+        result: Result = await db.execute(select(self.model).order_by(self.model.id).offset(skip).limit(limit))
+        return result.scalars().all() # noqa
 
-    def create(self, db: Session, *, obj_in: CreateSchemaType) -> ModelType:
+    async def create(self, db: AsyncSession, *, obj_in: CreateSchemaType) -> ModelType:
         obj_in_data = jsonable_encoder(obj_in)
         db_obj = self.model(**obj_in_data)  # type: ignore
         db.add(db_obj)
-        db.commit()
-        db.refresh(db_obj)
+        await db.commit()
+        await db.refresh(db_obj)
         return db_obj
 
-    def update(
+    async def update(
         self,
-        db: Session,
+        db: AsyncSession,
         *,
         db_obj: ModelType,
         obj_in: Union[UpdateSchemaType, Dict[str, Any]]
@@ -53,11 +57,12 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
             if field in update_data:
                 setattr(db_obj, field, update_data[field])
         db.add(db_obj)
-        db.refresh(db_obj)
+        await db.commit()
+        await db.refresh(db_obj)
         return db_obj
 
-    def remove(self, db: Session, *, id: int) -> ModelType:
-        obj = db.query(self.model).get(id)
-        db.delete(obj)
-        db.commit()
+    async def remove(self, db: AsyncSession, *, id: int) -> ModelType:
+        obj = await self.get(db, id)
+        await db.delete(obj)
+        await db.commit()
         return obj
