@@ -64,7 +64,7 @@ async def get_current_user_async(
     return user
 
 
-def get_current_active_user_async(
+async def get_current_active_user_async(
         current_user: models.User = Depends(get_current_user_async),
 ) -> models.User:
     if not crud.user.is_active(current_user):
@@ -72,7 +72,7 @@ def get_current_active_user_async(
     return current_user
 
 
-def get_current_active_superuser_async(
+async def get_current_active_superuser_async(
         current_user: User = Depends(get_current_user_async),
 ) -> User:
     if not crud.user.is_superuser(current_user):

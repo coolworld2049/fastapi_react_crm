@@ -9,7 +9,7 @@ class User(Base):
     id = sa.Column(ps.INTEGER, primary_key=True)
     email = sa.Column(ps.TEXT, nullable=False)
     hashed_password = sa.Column(ps.TEXT, nullable=False)
-    role = sa.Column(column_type.userRolePostgresEnum)
+    role = sa.Column(column_type.userRolePostgresEnum, nullable=False)
     first_name = sa.Column(ps.TEXT)
     last_name = sa.Column(ps.TEXT)
     avatar = sa.Column(ps.TEXT, default=None)

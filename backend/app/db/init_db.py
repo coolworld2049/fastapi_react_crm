@@ -30,20 +30,22 @@ async def init_db() -> None:
             conn: AsyncConnection
             Base.metadata.bind = async_engine
             await conn.run_sync(Base.metadata.create_all)
-        except Exception:
-            await conn.rollback()
-            await conn.close()
+        except Exception as e:
+            logger.error(f'init_db: Base.metadata.create_all(): {e}')
 
-    user = await crud.user.get_by_email(db, email=settings.FIRST_SUPERUSER_USERNAME)
-    if not user:
-        user_in = schemas.UserCreate(
-            email=settings.FIRST_SUPERUSER_USERNAME,
-            password=settings.FIRST_SUPERUSER_PASSWORD,
-            is_superuser=True,
-            first_name='John',
-            last_name='Doe',
-            phone='+79998880001',
-            role=column_type.userRole.admin,
-            create_date=datetime.today()
-        )
-        user = await crud.user.create(db, obj_in=user_in)  # noqa: F841
+    try:
+        user = await crud.user.get_by_email(db, email=settings.FIRST_SUPERUSER_USERNAME)
+        if not user:
+            user_in = schemas.UserCreate(
+                email=settings.FIRST_SUPERUSER_USERNAME,
+                password=settings.FIRST_SUPERUSER_PASSWORD,
+                is_superuser=True,
+                first_name='John',
+                last_name='Doe',
+                phone='+79998880001',
+                role=column_type.userRole.admin,
+                create_date=datetime.today()
+            )
+            user = await crud.user.create(db, obj_in=user_in)  # noqa: F841
+    except Exception:
+        logger.info('init_db: user is None')

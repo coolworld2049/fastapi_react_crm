@@ -35,11 +35,25 @@ class UserBase(BaseModel):
 class UserCreate(UserBase):
     email: EmailStr
     password: str
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    role: str = Field(
+        column_type.userRole.user,
+        description=f"required: {column_type.userRole.schema().get('required')}"
+    )
+
+
+class UserCreateOpen(UserBase):
+    email: EmailStr
+    password: str
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    role: str = Field(column_type.userRole.user, description=f"required: ['user']")
 
 
 # Properties to receive via API on update
 class UserUpdate(UserBase):
-    pass
+    password: Optional[str] = None
 
 
 class UserInDBBase(UserBase):

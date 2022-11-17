@@ -1,4 +1,3 @@
-from datetime import datetime
 from typing import Any, Dict, Optional, Union
 
 import sqlalchemy
@@ -31,8 +30,11 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             update_data = obj_in
         else:
             update_data = obj_in.dict(exclude_unset=True)
-
-        return await super().update(db, db_obj=db_obj, obj_in=update_data)
+        if update_data.get('password'):
+            update_data.pop('password')
+            update_data.update({'hashed_password': get_password_hash(obj_in.password)})
+        result = await super().update(db, db_obj=db_obj, obj_in=update_data)
+        return result
 
     async def get_by_id(self, db: AsyncSession, *, id: int) -> Optional[User]:  # noqa
         result: Result = await db.execute(sqlalchemy.select(User).where(User.id == id))

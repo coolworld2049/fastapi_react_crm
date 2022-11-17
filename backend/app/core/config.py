@@ -46,5 +46,7 @@ class Settings(BaseSettings):
     class Config:
         case_sensitive = True
 
+    USERS_OPEN_REGISTRATION = True
+
 
 settings = Settings()
