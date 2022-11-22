@@ -11,7 +11,7 @@ class UserBase(BaseModel):
     email: Optional[EmailStr] = None
     phone: Optional[constr(strip_whitespace=True, regex=r"^(\+)[1-9][0-9\-\(\)\.]{9,15}$", )] = None
     role: str = Field(
-        column_type.userRole.user,
+        default=column_type.userRole.user,
         description=f"required: {column_type.userRole.schema().get('required')}"
     )
 

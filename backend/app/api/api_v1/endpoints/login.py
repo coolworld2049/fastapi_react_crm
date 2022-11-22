@@ -10,21 +10,20 @@ from backend.app import schemas, crud
 from backend.app.api import deps
 from backend.app.core import security
 from backend.app.core.config import settings
-from backend.app.crud import crud_user
 
 router = APIRouter()
 
 
-@router.post("/login", response_model=schemas.Token)
+@router.post("/auth/jwt", response_model=schemas.Token)
 async def login_access_token(
-        db: AsyncSession = Depends(deps.get_async_db),
+        db: AsyncSession = Depends(deps.get_async_session),
         form_data: OAuth2PasswordRequestForm = Depends()
 ) -> Any:
     """
     OAuth2 compatible token login, get an access token for future requests
     """
     try:
-        user = await crud_user.user.authenticate(
+        user = await crud.user.authenticate( # noqa
             email=form_data.username, password=form_data.password, db=db
         )
     except HTTPException as e:

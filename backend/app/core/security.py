@@ -9,7 +9,7 @@ from backend.app.core.config import settings
 
 cryptContext = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-oauth2Scheme = OAuth2PasswordBearer(tokenUrl=f"{settings.API_V1_STR}/auth/jwt/login")
+oauth2Scheme = OAuth2PasswordBearer(tokenUrl=f"{settings.API_V1_STR}/auth/jwt")
 
 
 def create_access_token(

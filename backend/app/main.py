@@ -24,7 +24,8 @@ if settings.BACKEND_CORS_ORIGINS:
         allow_origin_regex=settings.BACKEND_CORS_ORIGIN_REGEX,
         allow_credentials=True,
         allow_methods=["*"],
-        allow_headers=["*"],
+        expose_headers=["Content-Range", "Range"],
+        allow_headers=["*", "Authorization", "Range", "Content-Range"],
     )
 
 app.include_router(api_router, prefix=settings.API_V1_STR)
