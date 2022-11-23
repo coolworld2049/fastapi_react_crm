@@ -1,4 +1,4 @@
-from typing import Any, List, Optional
+from typing import Any, List
 
 from fastapi import APIRouter, Body, Depends, HTTPException, Response
 from fastapi.encoders import jsonable_encoder
@@ -9,8 +9,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.app import crud, models, schemas
 from backend.app.api import deps
-from backend.app.core.config import settings
-from backend.app.schemas import column_type
 
 router = APIRouter()
 
@@ -20,7 +18,7 @@ router = APIRouter()
 async def read_users(
         response: Response,
         db: AsyncSession = Depends(deps.get_async_session),
-        current_user: models.User = Depends(deps.get_current_active_superuser),
+        current_user: models.User = Depends(deps.get_current_active_user),
         skip: int = 0,
         limit: int = 100,
 ) -> Any:
@@ -60,6 +58,7 @@ async def update_user_me(
         db: AsyncSession = Depends(deps.get_async_session),
         password: str = Body(None),
         email: EmailStr = Body(None),
+        role: str = Body(None),
         current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
@@ -67,10 +66,12 @@ async def update_user_me(
     """
     current_user_data = jsonable_encoder(current_user)
     user_in = schemas.UserUpdate(**current_user_data)
-    if password is not None:
+    if password:
         user_in.password = password
-    if email is not None:
+    if email:
         user_in.email = email
+    if role:
+        user_in.role = role
     user = await crud.user.update(db, db_obj=current_user, obj_in=user_in)
     return user
 
@@ -113,7 +114,7 @@ async def update_user(
         db: AsyncSession = Depends(deps.get_async_session),
         user_id: int,
         user_in: schemas.UserUpdate,
-        current_user: models.User = Depends(deps.get_current_active_superuser),
+        current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
     Update a user.

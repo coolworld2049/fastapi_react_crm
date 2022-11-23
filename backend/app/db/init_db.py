@@ -36,16 +36,41 @@ async def init_db() -> None:
     try:
         user = await crud.user.get_by_email(db, email=settings.FIRST_SUPERUSER_USERNAME)
         if not user:
-            user_in = schemas.UserCreate(
+            user_in_admin = schemas.UserCreate(
                 email=settings.FIRST_SUPERUSER_USERNAME,
                 password=settings.FIRST_SUPERUSER_PASSWORD,
                 is_superuser=True,
-                first_name='John',
-                last_name='Doe',
+                first_name='I',
+                last_name='Am',
                 phone='+79998880001',
                 role=column_type.userRole.admin,
                 create_date=datetime.today()
             )
-            user = await crud.user.create(db, obj_in=user_in)  # noqa: F841
+            user_in_manager = schemas.UserCreate(
+                email='alex@gmail.com',
+                password='alex',
+                first_name='alex',
+                phone='+79998880002',
+                role=column_type.userRole.manager,
+                create_date=datetime.today()
+            )
+            user_in_ranker = schemas.UserCreate(
+                email='mia@gmail.com',
+                password='mia',
+                first_name='mia',
+                phone='+79998880003',
+                role=column_type.userRole.ranker,
+                create_date=datetime.today()
+            )
+            user_in_client = schemas.UserCreate(
+                email='liam@gmail.com',
+                password='liam',
+                first_name='liam',
+                phone='+79998880004',
+                role=column_type.userRole.client,
+                create_date=datetime.today()
+            )
+            for user in [user_in_admin, user_in_manager, user_in_ranker, user_in_client]:
+                await crud.user.create(db, obj_in=user)
     except Exception:
         logger.info('init_db: user is None')

@@ -10,13 +10,13 @@ from backend.app.core.config import settings
 
 cryptContext = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-oauth2Scheme = OAuth2PasswordBearer(tokenUrl=f"{settings.API_V1_STR}/auth/jwt")
+oauth2Scheme = OAuth2PasswordBearer(tokenUrl=f"{settings.API_V1_STR}/login/access-token")
 
 
 def create_access_token(
         sub: Union[int, Any],
+        scopes: List[str] = None,
         expires_delta: timedelta = None,
-        scopes: List[str] = None
 ) -> dict:
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
@@ -27,7 +27,13 @@ def create_access_token(
     to_encode = {"expires_delta": str(expire), "sub": str(sub), "scopes": scopes}
     encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
 
-    token = schemas.TokenPayload(sub=str(sub), access_token=encoded_jwt, token_type="bearer", expires_delta=expire)
+    token = schemas.TokenPayload(
+        sub=str(sub),
+        access_token=encoded_jwt,
+        token_type="bearer",
+        expires_delta=expire,
+        scopes=scopes
+    )
     return token.dict()
 
 

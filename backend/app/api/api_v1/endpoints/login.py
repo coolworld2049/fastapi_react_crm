@@ -14,7 +14,7 @@ from backend.app.core.config import settings
 router = APIRouter()
 
 
-@router.post("/auth/jwt", response_model=schemas.TokenPayload)
+@router.post("/login/access-token", response_model=schemas.TokenPayload)
 async def login_access_token(
         db: AsyncSession = Depends(deps.get_async_session),
         form_data: OAuth2PasswordRequestForm = Depends()
