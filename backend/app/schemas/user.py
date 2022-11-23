@@ -11,7 +11,7 @@ class UserBase(BaseModel):
     email: Optional[EmailStr] = None
     phone: Optional[constr(strip_whitespace=True, regex=r"^(\+)[1-9][0-9\-\(\)\.]{9,15}$", )] = None
     role: str = Field(
-        column_type.userRole.user,
+        default=column_type.userRole.user,
         description=f"required: {column_type.userRole.schema().get('required')}"
     )
 
@@ -25,7 +25,7 @@ class UserBase(BaseModel):
     is_superuser: bool = False
     first_name: Optional[str] = None
     last_name: Optional[str] = None
-    create_date: datetime = datetime.replace(datetime.today(), tzinfo=None)
+    create_date: datetime
 
     class Config:
         use_enum_values = True
@@ -35,20 +35,7 @@ class UserBase(BaseModel):
 class UserCreate(UserBase):
     email: EmailStr
     password: str
-    first_name: Optional[str] = None
-    last_name: Optional[str] = None
-    role: str = Field(
-        column_type.userRole.user,
-        description=f"required: {column_type.userRole.schema().get('required')}"
-    )
-
-
-class UserCreateOpen(UserBase):
-    email: EmailStr
-    password: str
-    first_name: Optional[str] = None
-    last_name: Optional[str] = None
-    role: str = Field(column_type.userRole.user, description=f"required: ['user']")
+    role: str
 
 
 # Properties to receive via API on update

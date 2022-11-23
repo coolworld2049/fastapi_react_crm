@@ -4,6 +4,7 @@ import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.utils import get_openapi
+from fastapi.routing import APIRoute
 from fastapi.templating import Jinja2Templates
 
 from backend.app.api.api_v1.api import api_router
@@ -24,7 +25,8 @@ if settings.BACKEND_CORS_ORIGINS:
         allow_origin_regex=settings.BACKEND_CORS_ORIGIN_REGEX,
         allow_credentials=True,
         allow_methods=["*"],
-        allow_headers=["*"],
+        expose_headers=["Content-Range", "Range"],
+        allow_headers=["*", "Authorization", "Range", "Content-Range"],
     )
 
 app.include_router(api_router, prefix=settings.API_V1_STR)
@@ -58,6 +60,25 @@ def custom_openapi():
 
 
 app.openapi = custom_openapi
+
+
+def use_route_names_as_operation_ids(app: FastAPI) -> None: # noqa
+    """
+    Simplify operation IDs so that generated API clients have simpler function
+    names.
+
+    Should be called only after all routes have been added.
+    """
+    route_names = set()
+    for route in app.routes:
+        if isinstance(route, APIRoute):
+            if route.name in route_names:
+                raise Exception("Route function names should be unique")
+            route.operation_id = route.name
+            route_names.add(route.name)
+
+
+use_route_names_as_operation_ids(app)
 
 if __name__ == '__main__':
     log_config = uvicorn.config.LOGGING_CONFIG

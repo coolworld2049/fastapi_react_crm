@@ -1,7 +1,7 @@
 import pathlib
+from typing import List, Optional, Union
 
 from pydantic import AnyHttpUrl, BaseSettings, EmailStr, validator, PostgresDsn
-from typing import List, Optional, Union
 
 # Project Directories
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -24,9 +24,7 @@ class Settings(BaseSettings):
     ]
 
     # Origins that match this regex OR are in the above list are allowed
-    BACKEND_CORS_ORIGIN_REGEX: Optional[
-        str
-    ] = "https.*\.(netlify.app|herokuapp.com)"  # noqa: W605
+    BACKEND_CORS_ORIGIN_REGEX: Optional[str] = "https.*\.(netlify.app|herokuapp.com)"  # noqa: W605
 
     # noinspection PyMethodParameters
     @validator("BACKEND_CORS_ORIGINS", pre=True)
@@ -37,16 +35,15 @@ class Settings(BaseSettings):
             return v
         raise ValueError(v)
 
-    SYNC_DATABASE_URI: Optional[PostgresDsn] = "postgresql://postgres:postgres@localhost:5432/client_management"
-    ASYNC_DATABASE_URL: Optional[
-        PostgresDsn] = "postgresql+asyncpg://postgres:postgres@localhost:5432/client_management"
+    ASYNC_DATABASE_URL: Optional[PostgresDsn] = \
+        "postgresql+asyncpg://postgres:postgres@localhost:5432/client_management"
+
     FIRST_SUPERUSER_USERNAME: EmailStr = "admin@gmail.com"
     FIRST_SUPERUSER_PASSWORD: str = "admin"
+    USERS_OPEN_REGISTRATION = True
 
     class Config:
         case_sensitive = True
-
-    USERS_OPEN_REGISTRATION = True
 
 
 settings = Settings()

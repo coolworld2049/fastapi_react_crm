@@ -20,9 +20,9 @@ class TaskBase(BaseModel):
         None,
         description=f"required: {column_type.taskType.schema().get('required')}"
     )
-    create_date: datetime = datetime.now(tz=None)
-    deadline_date: Optional[datetime] = None
-    completion_date: Optional[datetime] = None
+    create_date: datetime
+    deadline_date: Optional[datetime]
+    completion_date: Optional[datetime]
 
     class Config:
         use_enum_values = True
@@ -30,12 +30,16 @@ class TaskBase(BaseModel):
 
 # Properties to receive via API on creation
 class TaskCreate(TaskBase):
-    pass
+    client_id: int
+    author_id: int
+    executor_id: int
 
 
 # Properties to receive via API on update
 class TaskUpdate(TaskBase):
-    pass
+    executor_id: int
+    description: Optional[str]
+    completion_date: Optional[datetime]
 
 
 class TaskInDBBase(TaskBase):

@@ -1,5 +1,5 @@
 import json
-from typing import Optional, Generator
+from typing import Optional
 
 from fastapi import Depends, status
 from fastapi import HTTPException, Query
@@ -12,31 +12,22 @@ from sqlalchemy.orm.session import Session
 from backend.app import crud, models, schemas
 from backend.app.core.config import settings
 from backend.app.core.security import oauth2Scheme
-from backend.app.db.session import AsyncSessionLocal, SessionLocal
+from backend.app.db.session import AsyncSessionLocal
 from backend.app.models.user import User
-from backend.app.schemas.ext.request_params import RequestParams
+from backend.app.schemas.request_params import RequestParams
 
 
-def get_sync_db() -> Generator:
-    session = SessionLocal()
-    session.current_user_id = None
-    try:
-        yield session
-    finally:
-        session.close()
-
-
-async def get_async_db():
+async def get_async_session():
     session: AsyncSession = AsyncSessionLocal()
     try:
         session.current_user_id = None
-        return session
+        yield session
     finally:
         await session.close()
 
 
 async def get_current_user_async(
-        db: Session = Depends(get_async_db), token: str = Depends(oauth2Scheme)
+        db: Session = Depends(get_async_session), token: str = Depends(oauth2Scheme)
 ) -> User:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -51,9 +42,10 @@ async def get_current_user_async(
             options={"verify_aud": False},
         )
         subject: str = payload.get("sub")
-        if subject is None:
+        scopes: str = payload.get("scopes")
+        if not subject:
             raise credentials_exception
-        token_data = schemas.TokenPayload(sub=subject)
+        token_data = schemas.TokenPayload(sub=subject, scopes=scopes)
     except JWTError:
         raise credentials_exception
     if not token_data.sub.isdigit():
@@ -64,7 +56,7 @@ async def get_current_user_async(
     return user
 
 
-async def get_current_active_user_async(
+def get_current_active_user(
         current_user: models.User = Depends(get_current_user_async),
 ) -> models.User:
     if not crud.user.is_active(current_user):
@@ -72,7 +64,7 @@ async def get_current_active_user_async(
     return current_user
 
 
-async def get_current_active_superuser_async(
+def get_current_active_superuser(
         current_user: User = Depends(get_current_user_async),
 ) -> User:
     if not crud.user.is_superuser(current_user):
@@ -104,7 +96,7 @@ def parse_react_admin_params(model: DeclarativeMeta) -> RequestParams:
             start, end = json.loads(range_)
             skip, limit = start, (end - start + 1)
 
-        order_by = desc(model.id)
+        order_by = desc(model.id) # noqa
         if sort_:
             sort_column, sort_order = json.loads(sort_)
             if sort_order.lower() == "asc":
@@ -113,8 +105,8 @@ def parse_react_admin_params(model: DeclarativeMeta) -> RequestParams:
                 direction = desc
             else:
                 raise HTTPException(400, f"Invalid sort direction {sort_order}")
-            order_by = direction(model.__table__.c[sort_column])
+            order_by = direction(model.__table__.c[sort_column]) # noqa
 
         return RequestParams(skip=skip, limit=limit, order_by=order_by)
 
-    return inner
+    return inner # noqa

@@ -14,7 +14,6 @@ from backend.app.schemas.user import UserCreate, UserUpdate
 class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
 
     async def create(self, db: AsyncSession, *, obj_in: UserCreate) -> User:
-        obj_in.create_date.replace(tzinfo=None)
         create_data: dict = obj_in.dict()
         create_data.pop("password")
         db_obj = User(**create_data)

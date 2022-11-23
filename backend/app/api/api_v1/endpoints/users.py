@@ -19,8 +19,8 @@ router = APIRouter()
 @router.get("/", response_model=List[schemas.User])
 async def read_users(
         response: Response,
-        db: AsyncSession = Depends(deps.get_async_db),
-        current_user: models.User = Depends(deps.get_current_active_superuser_async),
+        db: AsyncSession = Depends(deps.get_async_session),
+        current_user: models.User = Depends(deps.get_current_active_superuser),
         skip: int = 0,
         limit: int = 100,
 ) -> Any:
@@ -37,9 +37,9 @@ async def read_users(
 @router.post("/", response_model=schemas.User)
 async def create_user(
         *,
-        db: AsyncSession = Depends(deps.get_async_db),
+        db: AsyncSession = Depends(deps.get_async_session),
         user_in: schemas.UserCreate,
-        current_user: models.User = Depends(deps.get_current_active_superuser_async),
+        current_user: models.User = Depends(deps.get_current_active_superuser),
 ) -> Any:
     """
     Create new user.
@@ -57,10 +57,10 @@ async def create_user(
 @router.put("/me", response_model=schemas.User)
 async def update_user_me(
         *,
-        db: AsyncSession = Depends(deps.get_async_db),
+        db: AsyncSession = Depends(deps.get_async_session),
         password: str = Body(None),
         email: EmailStr = Body(None),
-        current_user: models.User = Depends(deps.get_current_active_user_async),
+        current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
     Update own user.
@@ -78,8 +78,8 @@ async def update_user_me(
 # noinspection PyUnusedLocal
 @router.get("/me", response_model=schemas.User)
 async def read_user_me(
-        db: AsyncSession = Depends(deps.get_async_db),
-        current_user: models.User = Depends(deps.get_current_active_user_async),
+        db: AsyncSession = Depends(deps.get_async_session),
+        current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
     Get current user.
@@ -87,51 +87,11 @@ async def read_user_me(
     return current_user
 
 
-@router.post("/open", response_model=schemas.User)
-async def create_user_open(
-        *,
-        db: AsyncSession = Depends(deps.get_async_db),
-        password: str = Body(...),
-        email: EmailStr = Body(...),
-        first_name: Optional[str] = Body(None),
-        last_name: Optional[str] = Body(None),
-        role: str = Body('user')
-) -> Any:
-    """
-    Create new user without the need to be logged in.
-    """
-    if not settings.USERS_OPEN_REGISTRATION:
-        raise HTTPException(
-            status_code=403,
-            detail="Open user registration is forbidden on this server",
-        )
-    user = await crud.user.get_by_email(db, email=email)
-    if user:
-        raise HTTPException(
-            status_code=400,
-            detail="The user with this username already exists in the system",
-        )
-    if role != column_type.userRole.user:
-        raise HTTPException(
-            status_code=400,
-            detail="'role' is invalid",
-        )
-    user_in = schemas.UserCreateOpen(
-        password=password,
-        email=email,
-        first_name=first_name,
-        last_name=last_name,
-        role=role
-    )
-    user = await crud.user.create(db, obj_in=user_in)
-    return user
-
-
 @router.get("/{user_id}", response_model=schemas.User)
 async def read_user_by_id(
         user_id: int,
-        current_user: models.User = Depends(deps.get_current_active_user_async),
-        db: AsyncSession = Depends(deps.get_async_db),
+        current_user: models.User = Depends(deps.get_current_active_user),
+        db: AsyncSession = Depends(deps.get_async_session),
 ) -> Any:
     """
     Get a specific user by id.
@@ -150,10 +110,10 @@ async def read_user_by_id(
 @router.put("/{user_id}", response_model=schemas.User)
 async def update_user(
         *,
-        db: AsyncSession = Depends(deps.get_async_db),
+        db: AsyncSession = Depends(deps.get_async_session),
         user_id: int,
         user_in: schemas.UserUpdate,
-        current_user: models.User = Depends(deps.get_current_active_superuser_async),
+        current_user: models.User = Depends(deps.get_current_active_superuser),
 ) -> Any:
     """
     Update a user.
