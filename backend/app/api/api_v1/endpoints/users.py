@@ -87,46 +87,6 @@ async def read_user_me(
     return current_user
 
 
-@router.post("/open", response_model=schemas.User)
-async def create_user_open(
-        *,
-        db: AsyncSession = Depends(deps.get_async_session),
-        password: str = Body(...),
-        email: EmailStr = Body(...),
-        first_name: Optional[str] = Body(None),
-        last_name: Optional[str] = Body(None),
-        role: str = Body('user')
-) -> Any:
-    """
-    Create new user without the need to be logged in.
-    """
-    if not settings.USERS_OPEN_REGISTRATION:
-        raise HTTPException(
-            status_code=403,
-            detail="Open user registration is forbidden on this server",
-        )
-    user = await crud.user.get_by_email(db, email=email)
-    if user:
-        raise HTTPException(
-            status_code=400,
-            detail="The user with this username already exists in the system",
-        )
-    if role != column_type.userRole.user:
-        raise HTTPException(
-            status_code=400,
-            detail="'role' is invalid",
-        )
-    user_in = schemas.UserCreateOpen(
-        password=password,
-        email=email,
-        first_name=first_name,
-        last_name=last_name,
-        role=role
-    )
-    user = await crud.user.create(db, obj_in=user_in)
-    return user
-
-
 @router.get("/{user_id}", response_model=schemas.User)
 async def read_user_by_id(
         user_id: int,

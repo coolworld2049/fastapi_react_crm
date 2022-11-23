@@ -4,6 +4,12 @@ from pydantic import BaseModel
 from sqlalchemy.dialects import postgresql as ps
 
 
+class ExtendedEnum(Enum):
+    @classmethod
+    def dict(cls):
+        return {cls.__name__: list(map(lambda c: c.value, cls))}
+
+
 class UserRole(BaseModel):
     user: str
     admin: str
@@ -120,21 +126,21 @@ contractStage = ContractStage(generation='generation',
 
 # ----------------------------------------------------------------------------------------------------------------------
 
-userRoleEnum = Enum(value=UserRole.__name__, names=userRole.dict())
+userRoleEnum = ExtendedEnum(value=UserRole.__name__, names=userRole.dict())
 
-clientTypeEnum = Enum(value=ClientType.__name__, names=clientType.dict())
+clientTypeEnum = ExtendedEnum(value=ClientType.__name__, names=clientType.dict())
 
-taskTypeEnum = Enum(value=TaskType.__name__, names=taskType.dict())
+taskTypeEnum = ExtendedEnum(value=TaskType.__name__, names=taskType.dict())
 
-taskPriorityEnum = Enum(value=TaskPriority.__name__, names=taskPriority.dict())
+taskPriorityEnum = ExtendedEnum(value=TaskPriority.__name__, names=taskPriority.dict())
 
-equipmentStatusEnum = Enum(value=EquipmentStatus.__name__, names=equipmentStatus.dict())
+equipmentStatusEnum = ExtendedEnum(value=EquipmentStatus.__name__, names=equipmentStatus.dict())
 
-marketSectorEnum = Enum(value=MarketSector.__name__, names=marketSector.dict())
+marketSectorEnum = ExtendedEnum(value=MarketSector.__name__, names=marketSector.dict())
 
-companySizeEnum = Enum(value=CompanySize.__name__, names=companySize.dict())
+companySizeEnum = ExtendedEnum(value=CompanySize.__name__, names=companySize.dict())
 
-contractStageEnum = Enum(value=ContractStage.__name__, names=contractStage.dict())
+contractStageEnum = ExtendedEnum(value=ContractStage.__name__, names=contractStage.dict())
 
 # ----------------------------------------------------------------------------------------------------------------------
 

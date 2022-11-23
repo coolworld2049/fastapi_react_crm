@@ -14,7 +14,7 @@ from backend.app.core.config import settings
 router = APIRouter()
 
 
-@router.post("/auth/jwt", response_model=schemas.Token)
+@router.post("/auth/jwt", response_model=schemas.TokenPayload)
 async def login_access_token(
         db: AsyncSession = Depends(deps.get_async_session),
         form_data: OAuth2PasswordRequestForm = Depends()
@@ -34,5 +34,5 @@ async def login_access_token(
     elif not crud.user.is_active(user):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Inactive user")
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
-    data = security.create_access_token(sub=user.id, expires_delta=access_token_expires)
+    data = security.create_access_token(sub=user.id, expires_delta=access_token_expires, scopes=form_data.scopes)
     return data

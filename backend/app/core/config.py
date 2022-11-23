@@ -1,8 +1,7 @@
 import pathlib
-import sys
+from typing import List, Optional, Union
 
 from pydantic import AnyHttpUrl, BaseSettings, EmailStr, validator, PostgresDsn
-from typing import List, Optional, Union, Dict, Any
 
 # Project Directories
 ROOT = pathlib.Path(__file__).resolve().parent.parent

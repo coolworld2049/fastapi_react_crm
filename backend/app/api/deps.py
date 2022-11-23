@@ -14,7 +14,7 @@ from backend.app.core.config import settings
 from backend.app.core.security import oauth2Scheme
 from backend.app.db.session import AsyncSessionLocal
 from backend.app.models.user import User
-from backend.app.schemas.ext.request_params import RequestParams
+from backend.app.schemas.request_params import RequestParams
 
 
 async def get_async_session():
@@ -42,9 +42,10 @@ async def get_current_user_async(
             options={"verify_aud": False},
         )
         subject: str = payload.get("sub")
-        if subject is None:
+        scopes: str = payload.get("scopes")
+        if not subject:
             raise credentials_exception
-        token_data = schemas.TokenPayload(sub=subject)
+        token_data = schemas.TokenPayload(sub=subject, scopes=scopes)
     except JWTError:
         raise credentials_exception
     if not token_data.sub.isdigit():
@@ -95,7 +96,7 @@ def parse_react_admin_params(model: DeclarativeMeta) -> RequestParams:
             start, end = json.loads(range_)
             skip, limit = start, (end - start + 1)
 
-        order_by = desc(model.id)
+        order_by = desc(model.id) # noqa
         if sort_:
             sort_column, sort_order = json.loads(sort_)
             if sort_order.lower() == "asc":
@@ -104,8 +105,8 @@ def parse_react_admin_params(model: DeclarativeMeta) -> RequestParams:
                 direction = desc
             else:
                 raise HTTPException(400, f"Invalid sort direction {sort_order}")
-            order_by = direction(model.__table__.c[sort_column])
+            order_by = direction(model.__table__.c[sort_column]) # noqa
 
         return RequestParams(skip=skip, limit=limit, order_by=order_by)
 
-    return inner
+    return inner # noqa

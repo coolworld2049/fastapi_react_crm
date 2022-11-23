@@ -1,10 +1,11 @@
 from datetime import datetime, timedelta
-from typing import Union, Any
+from typing import Union, Any, List
 
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt
 from passlib.context import CryptContext
 
+from backend.app import schemas
 from backend.app.core.config import settings
 
 cryptContext = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -13,7 +14,9 @@ oauth2Scheme = OAuth2PasswordBearer(tokenUrl=f"{settings.API_V1_STR}/auth/jwt")
 
 
 def create_access_token(
-        sub: Union[int, Any], expires_delta: timedelta = None
+        sub: Union[int, Any],
+        expires_delta: timedelta = None,
+        scopes: List[str] = None
 ) -> dict:
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
@@ -21,14 +24,11 @@ def create_access_token(
         expire = datetime.utcnow() + timedelta(
             minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
         )
-    to_encode = {"expires_in": str(expire), "sub": str(sub)}
+    to_encode = {"expires_delta": str(expire), "sub": str(sub), "scopes": scopes}
     encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
-    return {
-        'access_token': encoded_jwt,
-        'expires_in': to_encode.get('expires_in'),
-        'sub': str(sub),
-        "token_type": "bearer"
-    }
+
+    token = schemas.TokenPayload(sub=str(sub), access_token=encoded_jwt, token_type="bearer", expires_delta=expire)
+    return token.dict()
 
 
 def _create_token(
