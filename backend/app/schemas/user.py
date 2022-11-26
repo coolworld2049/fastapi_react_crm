@@ -27,15 +27,11 @@ class UserBase(BaseModel):
     last_name: Optional[str] = None
     create_date: datetime
 
-    class Config:
-        use_enum_values = True
-
 
 # Properties to receive via API on creation
 class UserCreate(UserBase):
     email: EmailStr
     password: str
-    role: str
 
 
 # Properties to receive via API on update
@@ -59,4 +55,4 @@ class UserInDB(UserInDBBase):
 
 # Additional properties to return via API
 class User(UserInDBBase):
-    pass
+    meta = [column_type.userRoleEnum.dict()]

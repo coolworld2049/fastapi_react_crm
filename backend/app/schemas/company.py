@@ -9,19 +9,16 @@ from backend.app.schemas import column_type
 class CompanyBase(BaseModel):
     name: str = None
     sector: Optional[str] = Field(
-        None,
+        ...,
         description=f"required: {column_type.marketSector.schema().get('required')}"
     )
     size: Optional[str] = Field(
-        None,
+        ...,
         description=f"required: {column_type.companySize.schema().get('required')}"
     )
     address: Optional[str] = None
     website: Optional[str] = None
-    create_date: datetime = None
-
-    class Config:
-        use_enum_values = True
+    create_date: datetime = datetime.utcnow()
 
 
 # Properties to receive via API on creation
@@ -48,4 +45,4 @@ class CompanyInDB(CompanyInDBBase):
 
 # Additional properties to return via API
 class Company(CompanyInDBBase):
-    pass
+    meta = [column_type.marketSectorEnum.dict(), column_type.companySizeEnum.dict()]

@@ -13,26 +13,21 @@ class TaskBase(BaseModel):
     name: Optional[str] = None
     description: Optional[str] = None
     type: Optional[str] = Field(
-        None,
+        ...,
         description=f"required: {column_type.taskType.schema().get('required')}"
     )
     priority: Optional[str] = Field(
-        None,
-        description=f"required: {column_type.taskType.schema().get('required')}"
+        ...,
+        description=f"required: {column_type.taskPriority.schema().get('required')}"
     )
     create_date: datetime
     deadline_date: Optional[datetime]
     completion_date: Optional[datetime]
 
-    class Config:
-        use_enum_values = True
-
 
 # Properties to receive via API on creation
 class TaskCreate(TaskBase):
-    client_id: int
-    author_id: int
-    executor_id: int
+    pass
 
 
 # Properties to receive via API on update
@@ -56,4 +51,4 @@ class TaskInDB(TaskInDBBase):
 
 # Additional properties to return via API
 class Task(TaskInDBBase):
-    pass
+    meta = [column_type.taskTypeEnum.dict(), column_type.taskPriorityEnum.dict()]

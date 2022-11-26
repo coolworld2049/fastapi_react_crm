@@ -16,7 +16,7 @@ class ContractBase(BaseModel):
     name: Optional[str] = None
     description: Optional[str] = None
     create_date: datetime = datetime.now(tz=None)
-    completion_date: datetime
+    completion_date: datetime = datetime.utcnow()
 
     class Config:
         use_enum_values = True

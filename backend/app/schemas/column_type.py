@@ -6,7 +6,7 @@ from sqlalchemy.dialects import postgresql as ps
 
 class ExtendedEnum(Enum):
     @classmethod
-    def dict(cls):
+    def dict(cls) -> dict[str, list[str]]:
         return {cls.__name__: list(map(lambda c: c.value, cls))}
 
 
@@ -102,21 +102,21 @@ equipmentStatus = EquipmentStatus(accepted='accepted',
 
 marketSector = MarketSector(healthcare='healthcare',
                             materials='materials',
-                            real_estate='real estate',
-                            consumer_staples='consumer staples',
-                            consumer_discretionary='consumer discretionary',
+                            real_estate='real_estate',
+                            consumer_staples='consumer_staples',
+                            consumer_discretionary='consumer_discretionary',
                             energy='energy',
                             industrials='industrials',
-                            consumer_services='consumer services',
+                            consumer_services='consumer_services',
                             financials='financials',
                             technology='technology',
                             utilities='utilities')
 
-companySize = CompanySize(individual='1 employee',
-                          small='2-9 employees',
-                          medium='10-49 employees',
-                          big='50-249 employees',
-                          huge='250 or more employees')
+companySize = CompanySize(individual='individual',
+                          small='small',
+                          medium='medium',
+                          big='big',
+                          huge='huge')
 
 contractStage = ContractStage(generation='generation',
                               negotiation='negotiation',

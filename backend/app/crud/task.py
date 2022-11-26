@@ -10,7 +10,7 @@ from backend.app.schemas import TaskCreate, TaskUpdate
 
 
 class CRUDTask(CRUDBase[Task, TaskCreate, TaskUpdate]):
-    async def create_with_author(
+    async def create(
             self, db: AsyncSession, *, obj_in: TaskCreate
     ) -> Task:
         create_data: dict = obj_in.dict()
