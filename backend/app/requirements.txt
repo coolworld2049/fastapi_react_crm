@@ -13,3 +13,4 @@ pytest~=7.2.0
 bcrypt~=4.0.1
 httpx~=0.23.0
 envparse~=0.2.0
+fastapi-filter~=0.4.0

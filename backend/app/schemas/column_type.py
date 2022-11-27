@@ -6,8 +6,12 @@ from sqlalchemy.dialects import postgresql as ps
 
 class ExtendedEnum(Enum):
     @classmethod
-    def dict(cls) -> dict[str, list[str]]:
-        return {cls.__name__: list(map(lambda c: c.value, cls))}
+    def to_list(cls) -> list[str]:
+        return list(map(lambda c: c.value, cls))
+
+    @classmethod
+    def class_name(cls) -> str:
+        return cls.__name__
 
 
 class UserRole(BaseModel):
@@ -36,20 +40,6 @@ class EquipmentStatus(BaseModel):
     terminated: str
 
 
-class MarketSector(BaseModel):
-    healthcare: str
-    materials: str
-    real_estate: str
-    consumer_staples: str
-    consumer_discretionary: str
-    energy: str
-    industrials: str
-    consumer_services: str
-    financials: str
-    technology: str
-    utilities: str
-
-
 class CompanySize(BaseModel):
     individual: str
     small: str
@@ -66,14 +56,6 @@ class ContractStage(BaseModel):
     storage: str
 
 
-class TaskType(BaseModel):
-    website_design: str
-    ui_design: str
-    phone_call: str
-    copywriting: str
-    other: str
-
-
 # ----------------------------------------------------------------------------------------------------------------------
 
 userRole = UserRole(user='user',
@@ -85,11 +67,6 @@ userRole = UserRole(user='user',
 clientType = ClientType(current='current',
                         potential='potential')
 
-taskType = TaskType(website_design='website_design',
-                    ui_design='ui_design',
-                    phone_call='phone_call',
-                    copywriting='copywriting',
-                    other='other')
 
 taskPriority = TaskPriority(high='high',
                             medium='medium',
@@ -99,18 +76,6 @@ equipmentStatus = EquipmentStatus(accepted='accepted',
                                   progress='progress',
                                   completed='completed',
                                   terminated='terminated')
-
-marketSector = MarketSector(healthcare='healthcare',
-                            materials='materials',
-                            real_estate='real_estate',
-                            consumer_staples='consumer_staples',
-                            consumer_discretionary='consumer_discretionary',
-                            energy='energy',
-                            industrials='industrials',
-                            consumer_services='consumer_services',
-                            financials='financials',
-                            technology='technology',
-                            utilities='utilities')
 
 companySize = CompanySize(individual='individual',
                           small='small',
@@ -130,13 +95,9 @@ userRoleEnum = ExtendedEnum(value=UserRole.__name__, names=userRole.dict())
 
 clientTypeEnum = ExtendedEnum(value=ClientType.__name__, names=clientType.dict())
 
-taskTypeEnum = ExtendedEnum(value=TaskType.__name__, names=taskType.dict())
-
 taskPriorityEnum = ExtendedEnum(value=TaskPriority.__name__, names=taskPriority.dict())
 
 equipmentStatusEnum = ExtendedEnum(value=EquipmentStatus.__name__, names=equipmentStatus.dict())
-
-marketSectorEnum = ExtendedEnum(value=MarketSector.__name__, names=marketSector.dict())
 
 companySizeEnum = ExtendedEnum(value=CompanySize.__name__, names=companySize.dict())
 
@@ -148,13 +109,9 @@ userRolePostgresEnum = ps.ENUM(*userRole.schema().get('required'), name=UserRole
 
 clientTypePostgresEnum = ps.ENUM(*clientType.schema().get('required'), name=ClientType.__name__)
 
-taskTypePostgresEnum = ps.ENUM(*taskType.schema().get('required'), name=TaskType.__name__)
-
 taskPriorityPostgresEnum = ps.ENUM(*taskPriority.schema().get('required'), name=TaskPriority.__name__)
 
 equipmentStatusPostgresEnum = ps.ENUM(*equipmentStatus.schema().get('required'), name=EquipmentStatus.__name__)
-
-marketSectorPostgresEnum = ps.ENUM(*marketSector.schema().get('required'), name=MarketSector.__name__)
 
 companySizePostgreseEnum = ps.ENUM(*companySize.schema().get('required'), name=CompanySize.__name__)
 

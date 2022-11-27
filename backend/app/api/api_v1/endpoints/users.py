@@ -1,9 +1,9 @@
-from typing import Any, List
+from typing import Any, List, Optional
 
 from fastapi import APIRouter, Body, Depends, HTTPException, Response
 from fastapi.encoders import jsonable_encoder
 from pydantic.networks import EmailStr
-from sqlalchemy import select, func
+from sqlalchemy import select, func, or_
 from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -26,7 +26,46 @@ async def read_users(
     Retrieve users.
     """
     total: Result = await db.execute(select(func.count(models.User.id)))
-    users = await crud.user.get_multi(db, skip=skip, limit=limit)
+    users = await crud.user.get_multi_by_filter(db, skip=skip, limit=limit)
+    response.headers["Content-Range"] = f"{skip}-{skip + len(users)}/{len(total.scalars().all())}"
+    return users
+
+
+# noinspection PyUnusedLocal
+@router.get("/role/{role}", response_model=List[schemas.User])
+async def read_users_by_role(
+        response: Response,
+        db: AsyncSession = Depends(deps.get_async_session),
+        current_user: models.User = Depends(deps.get_current_active_user),
+        skip: int = 0,
+        limit: int = 100,
+        role: Optional[str] = None
+) -> Any:
+    """
+    Retrieve users.
+    """
+    total: Result = await db.execute(select(func.count(models.User.id)).where(models.User.role == role))
+    users = await crud.user.get_multi_by_filter(db, skip=skip, limit=limit, role=role)
+    response.headers["Content-Range"] = f"{skip}-{skip + len(users)}/{len(total.scalars().all())}"
+    return users
+
+
+# noinspection PyUnusedLocal
+@router.get("/employees", response_model=List[schemas.User])
+async def read_users_employees(
+        response: Response,
+        db: AsyncSession = Depends(deps.get_async_session),
+        current_user: models.User = Depends(deps.get_current_active_user),
+        skip: int = 0,
+        limit: int = 100,
+) -> Any:
+    """
+    Retrieve users.
+    """
+    total: Result = await db.execute(select(func.count(models.User.id))
+                                     .filter(or_(models.User.role == schemas.userRole.manager
+                                                 , models.User.role == schemas.userRole.ranker)))
+    users = await crud.user.get_multi_by_filter(db, skip=skip, limit=limit, employees=True)
     response.headers["Content-Range"] = f"{skip}-{skip + len(users)}/{len(total.scalars().all())}"
     return users
 
@@ -58,7 +97,7 @@ async def update_user_me(
         db: AsyncSession = Depends(deps.get_async_session),
         password: str = Body(None),
         email: EmailStr = Body(None),
-        role: str = Body(None),
+        role: schemas.column_type.userRoleEnum = Body(None),
         current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """

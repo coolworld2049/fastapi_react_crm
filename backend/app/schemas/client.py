@@ -37,5 +37,5 @@ class ClientInDB(ClientInDBBase):
 
 # Additional properties to return via API
 class Client(ClientInDBBase):
-    meta = [column_type.clientTypeEnum.dict()]
+    meta = [column_type.clientTypeEnum.to_list()]
 

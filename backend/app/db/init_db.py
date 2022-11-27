@@ -40,8 +40,7 @@ async def init_db() -> None:
                 email=settings.FIRST_SUPERUSER_USERNAME,
                 password=settings.FIRST_SUPERUSER_PASSWORD,
                 is_superuser=True,
-                first_name='I',
-                last_name='Am',
+                full_name='I Am',
                 phone='+79998880001',
                 role=column_type.userRole.admin,
                 create_date=datetime.strptime(datetime.now(tz=None).__str__(), '%Y-%m-%d %H:%M:%S.%f')
@@ -49,7 +48,7 @@ async def init_db() -> None:
             user_in_manager = schemas.UserCreate(
                 email='alex@gmail.com',
                 password='alex',
-                first_name='alex',
+                full_name='alex',
                 phone='+79998880002',
                 role=column_type.userRole.manager,
                 create_date=datetime.strptime(datetime.now(tz=None).__str__(), '%Y-%m-%d %H:%M:%S.%f')
@@ -57,7 +56,7 @@ async def init_db() -> None:
             user_in_ranker = schemas.UserCreate(
                 email='mia@gmail.com',
                 password='mia',
-                first_name='mia',
+                full_name='mia',
                 phone='+79998880003',
                 role=column_type.userRole.ranker,
                 create_date=datetime.strptime(datetime.now(tz=None).__str__(), '%Y-%m-%d %H:%M:%S.%f')
@@ -65,7 +64,7 @@ async def init_db() -> None:
             user_in_client_1 = schemas.UserCreate(
                 email='sam@gmail.com',
                 password='sam',
-                first_name='sam',
+                full_name='sam',
                 phone='+79998880005',
                 role=column_type.userRole.client,
                 create_date=datetime.strptime(datetime.now(tz=None).__str__(), '%Y-%m-%d %H:%M:%S.%f')
@@ -73,7 +72,7 @@ async def init_db() -> None:
             user_in_client_2 = schemas.UserCreate(
                 email='karen@gmail.com',
                 password='karen',
-                first_name='karen',
+                full_name='karen',
                 phone='+79998880006',
                 role=column_type.userRole.client,
                 create_date=datetime.strptime(datetime.now(tz=None).__str__(), '%Y-%m-%d %H:%M:%S.%f')
@@ -87,7 +86,6 @@ async def init_db() -> None:
 
             company_in_1 = schemas.CompanyCreate(
                 name='Group IB',
-                sector=column_type.marketSector.technology,
                 size=column_type.companySize.medium,
                 address='Шарикоподшипниковская ул., 1, Москва, 115080',
                 website='https://www.group-ib.ru/',
@@ -95,7 +93,6 @@ async def init_db() -> None:
             )
             company_in_2 = schemas.CompanyCreate(
                 name='Selectel',
-                sector=column_type.marketSector.technology,
                 size=column_type.companySize.big,
                 address='ул. Берзарина, д. 36, стр. 3, Москва, 123060',
                 website='https://selectel.ru/',
@@ -123,7 +120,6 @@ async def init_db() -> None:
                 executor_id=user_obj_ranker.id,
                 name='test task',
                 description='do',
-                type=column_type.taskType.phone_call,
                 priority=column_type.taskPriority.medium,
                 create_date=datetime.strptime(datetime.now(tz=None).__str__(), '%Y-%m-%d %H:%M:%S.%f'),
                 deadline_date=None,
@@ -135,7 +131,6 @@ async def init_db() -> None:
                 executor_id=user_obj_manager.id,
                 name='test task 2',
                 description='do 2',
-                type=column_type.taskType.copywriting,
                 priority=column_type.taskPriority.high,
                 create_date=datetime.strptime(datetime.now(tz=None).__str__(), '%Y-%m-%d %H:%M:%S.%f'),
                 deadline_date=None,
@@ -147,7 +142,6 @@ async def init_db() -> None:
                 executor_id=user_obj_ranker.id,
                 name='test task 3',
                 description='do 3',
-                type=column_type.taskType.website_design,
                 priority=column_type.taskPriority.high,
                 create_date=datetime.strptime(datetime.now(tz=None).__str__(), '%Y-%m-%d %H:%M:%S.%f'),
                 deadline_date=datetime.strptime('2022-12-25 08:00:00.000000', '%Y-%m-%d %H:%M:%S.%f'),

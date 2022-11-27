@@ -1,4 +1,4 @@
-from typing import Any, List
+from typing import Any, List, Dict
 
 from fastapi import APIRouter, Depends, HTTPException, Response
 from sqlalchemy import select, func

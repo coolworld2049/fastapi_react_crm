@@ -12,10 +12,7 @@ class TaskBase(BaseModel):
     executor_id: Optional[int] = None
     name: Optional[str] = None
     description: Optional[str] = None
-    type: Optional[str] = Field(
-        ...,
-        description=f"required: {column_type.taskType.schema().get('required')}"
-    )
+    type: Optional[str] = None
     priority: Optional[str] = Field(
         ...,
         description=f"required: {column_type.taskPriority.schema().get('required')}"
@@ -51,4 +48,4 @@ class TaskInDB(TaskInDBBase):
 
 # Additional properties to return via API
 class Task(TaskInDBBase):
-    meta = [column_type.taskTypeEnum.dict(), column_type.taskPriorityEnum.dict()]
+    task_priority = column_type.taskPriorityEnum.to_list()

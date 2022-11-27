@@ -8,10 +8,7 @@ from backend.app.schemas import column_type
 
 class CompanyBase(BaseModel):
     name: str = None
-    sector: Optional[str] = Field(
-        ...,
-        description=f"required: {column_type.marketSector.schema().get('required')}"
-    )
+    sector: Optional[str] = None
     size: Optional[str] = Field(
         ...,
         description=f"required: {column_type.companySize.schema().get('required')}"
@@ -45,4 +42,4 @@ class CompanyInDB(CompanyInDBBase):
 
 # Additional properties to return via API
 class Company(CompanyInDBBase):
-    meta = [column_type.marketSectorEnum.dict(), column_type.companySizeEnum.dict()]
+    pass

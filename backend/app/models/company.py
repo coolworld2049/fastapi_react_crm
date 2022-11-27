@@ -8,7 +8,7 @@ from backend.app.schemas import column_type
 class Company(Base):
     id = sa.Column(ps.INTEGER, primary_key=True)
     name = sa.Column(ps.TEXT, nullable=False)
-    sector = sa.Column(column_type.marketSectorPostgresEnum)
+    sector = sa.Column(ps.TEXT)
     size = sa.Column(column_type.companySizePostgreseEnum)
     address = sa.Column(sa.TEXT)
     website = sa.Column(ps.TEXT)
