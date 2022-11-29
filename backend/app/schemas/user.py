@@ -60,7 +60,6 @@ class User(UserInDBBase):
 
 class UserFilter(Filter):
     role: Optional[str]
-    order_by: Optional[list[str]] = ['full_name']
 
     class Constants(Filter.Constants):
         model = models.User

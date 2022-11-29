@@ -7,6 +7,7 @@ from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.app.db.base_class import Base
+from backend.app.schemas.request_params import RequestParams
 
 ModelType = TypeVar("ModelType", bound=Base)
 CreateSchemaType = TypeVar("CreateSchemaType", bound=BaseModel)
@@ -28,9 +29,11 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         return result.scalar()
 
     async def get_multi(
-        self, db: AsyncSession, *, skip: int = 0, limit: int = 5000
+        self, db: AsyncSession, request_params: RequestParams,
     ) -> List[ModelType]:
-        result: Result = await db.execute(select(self.model).order_by(self.model.id).offset(skip).limit(limit))
+        query = select(self.model).offset(request_params.skip).limit(request_params.limit)\
+            .order_by(request_params.order_by)
+        result: Result = await db.execute(query)
         return result.scalars().all() # noqa
 
     async def create(self, db: AsyncSession, *, obj_in: CreateSchemaType) -> ModelType:

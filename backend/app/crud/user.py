@@ -9,6 +9,7 @@ from backend.app import schemas
 from backend.app.core.security import get_password_hash, verify_password
 from backend.app.crud.base import CRUDBase
 from backend.app.models.user import User
+from backend.app.schemas.request_params import RequestParams
 from backend.app.schemas.user import UserCreate, UserUpdate
 
 
@@ -44,12 +45,13 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         result: Result = await db.execute(sqlalchemy.select(User).where(User.email == email))
         return result.scalar()
 
-    async def get_multi_by_filter(self, db: AsyncSession, *, skip: int = 0, limit: int = 100, # noqa
+    async def get_multi_by_filter(self, db: AsyncSession, request_params: RequestParams,   # noqa
                                   user_filter: schemas.UserFilter = None,
                                   role: Optional[str] = None,
                                   employees: Optional[bool] = None,
-                               ) -> List[User]:
+                                  ) -> List[User]:
         query = select(User)
+        query = query.offset(request_params.skip).limit(request_params.limit).order_by(request_params.order_by)
         if user_filter:
             query = user_filter.filter(query)
             query = user_filter.sort(query)
@@ -57,10 +59,10 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             query = query.where(User.role == role)
         if employees:
             query = query.filter(or_(User.role == schemas.userRole.manager, User.role == schemas.userRole.ranker))
-        result: Result = await db.execute(query.offset(skip).limit(limit).order_by(User.id))
+        result: Result = await db.execute(query)
         return result.scalars().all()
 
-    async def authenticate(  # noqa
+    async def authenticate(
             self,
             *,
             email: str,

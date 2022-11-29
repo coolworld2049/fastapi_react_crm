@@ -9,6 +9,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.app import crud, models, schemas
 from backend.app.api import deps
+from backend.app.schemas.request_params import RequestParams
+
 
 router = APIRouter()
 
@@ -19,15 +21,15 @@ async def read_users(
         response: Response,
         db: AsyncSession = Depends(deps.get_async_session),
         current_user: models.User = Depends(deps.get_current_active_user),
-        skip: int = 0,
-        limit: int = 100,
+        request_params: RequestParams = Depends(deps.parse_react_admin_params(models.User))   # noqa
 ) -> Any:
     """
     Retrieve users.
     """
     total: Result = await db.execute(select(func.count(models.User.id)))
-    users = await crud.user.get_multi_by_filter(db, skip=skip, limit=limit)
-    response.headers["Content-Range"] = f"{skip}-{skip + len(users)}/{len(total.scalars().all())}"
+    users = await crud.user.get_multi_by_filter(db, request_params)
+    response.headers["Content-Range"] = \
+        f"{request_params.skip}-{request_params.skip + len(users)}/{len(total.scalars().all())}"
     return users
 
 
@@ -37,16 +39,16 @@ async def read_users_by_role(
         response: Response,
         db: AsyncSession = Depends(deps.get_async_session),
         current_user: models.User = Depends(deps.get_current_active_user),
-        skip: int = 0,
-        limit: int = 100,
+        request_params: RequestParams = Depends(deps.parse_react_admin_params(models.User)),  # noqa
         role: Optional[str] = None
 ) -> Any:
     """
     Retrieve users.
     """
     total: Result = await db.execute(select(func.count(models.User.id)).where(models.User.role == role))
-    users = await crud.user.get_multi_by_filter(db, skip=skip, limit=limit, role=role)
-    response.headers["Content-Range"] = f"{skip}-{skip + len(users)}/{len(total.scalars().all())}"
+    users = await crud.user.get_multi_by_filter(db, request_params, role=role)
+    response.headers["Content-Range"] = \
+        f"{request_params.skip}-{request_params.skip + len(users)}/{len(total.scalars().all())}"
     return users
 
 
@@ -56,17 +58,17 @@ async def read_users_employees(
         response: Response,
         db: AsyncSession = Depends(deps.get_async_session),
         current_user: models.User = Depends(deps.get_current_active_user),
-        skip: int = 0,
-        limit: int = 100,
+        request_params: RequestParams = Depends(deps.parse_react_admin_params(models.User))   # noqa
 ) -> Any:
     """
     Retrieve users.
     """
     total: Result = await db.execute(select(func.count(models.User.id))
-                                     .filter(or_(models.User.role == schemas.userRole.manager
-                                                 , models.User.role == schemas.userRole.ranker)))
-    users = await crud.user.get_multi_by_filter(db, skip=skip, limit=limit, employees=True)
-    response.headers["Content-Range"] = f"{skip}-{skip + len(users)}/{len(total.scalars().all())}"
+                                     .filter(or_(models.User.role == schemas.userRole.manager,
+                                                 models.User.role == schemas.userRole.ranker)))
+    users = await crud.user.get_multi_by_filter(db, request_params, employees=True)
+    response.headers["Content-Range"] = \
+        f"{request_params.skip}-{request_params.skip + len(users)}/{len(total.scalars().all())}"
     return users
 
 
@@ -127,16 +129,16 @@ async def read_user_me(
     return current_user
 
 
-@router.get("/{user_id}", response_model=schemas.User)
+@router.get("/{id}", response_model=schemas.User)
 async def read_user_by_id(
-        user_id: int,
+        id: int,
         current_user: models.User = Depends(deps.get_current_active_user),
         db: AsyncSession = Depends(deps.get_async_session),
 ) -> Any:
     """
     Get a specific user by id.
     """
-    user = await crud.user.get(db, id=user_id)
+    user = await crud.user.get(db, id=id)
     if user == current_user:
         return user
     if not crud.user.is_superuser(current_user):
@@ -147,18 +149,18 @@ async def read_user_by_id(
 
 
 # noinspection PyUnusedLocal
-@router.put("/{user_id}", response_model=schemas.User)
+@router.put("/{id}", response_model=schemas.User)
 async def update_user(
         *,
         db: AsyncSession = Depends(deps.get_async_session),
-        user_id: int,
+        id: int,
         user_in: schemas.UserUpdate,
         current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
     Update a user.
     """
-    user = await crud.user.get(db, id=user_id)
+    user = await crud.user.get(db, id=id)
     if not user:
         raise HTTPException(
             status_code=404,

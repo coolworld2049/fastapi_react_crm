@@ -36,6 +36,9 @@ class Settings(BaseSettings):
         f"@localhost:{env.str('PG_PORT')}" \
         f"/{env.str('PG_NAME')}"
 
+    '''ASYNC_DATABASE_URL: Optional[PostgresDsn] = \
+        f"postgresql+asyncpg://mia:12345@localhost:{env.str('PG_PORT')}/{env.str('PG_NAME')}"'''
+
     FIRST_SUPERUSER_USERNAME: EmailStr = env.str('FIRST_SUPERUSER_USERNAME')
     FIRST_SUPERUSER_PASSWORD: str = env.str('FIRST_SUPERUSER_PASSWORD')
 

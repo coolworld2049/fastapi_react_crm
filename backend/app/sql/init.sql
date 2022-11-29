@@ -1,26 +1,29 @@
 \connect app;
 
 ------------------------------------------------------POLICES-----------------------------------------------------------
-CREATE ROLE admin LOGIN CREATEDB CREATEROLE ;
-CREATE ROLE manager LOGIN;
-CREATE ROLE ranker LOGIN;
+DROP ROLE admin;
+DROP ROLE manager;
+DROP ROLE ranker;
+CREATE ROLE admin INHERIT CREATEDB CREATEROLE;
+CREATE ROLE manager INHERIT;
+CREATE ROLE ranker INHERIT;
 
-ALTER TABLE task ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.task ENABLE ROW LEVEL SECURITY;
 
 --Админ Может изменить автора задания или внести изменения в завершенное задание.
-GRANT USAGE ON SCHEMA public to admin;
-GRANT SELECT, UPDATE, DELETE ON task to admin;
+GRANT ALL ON SCHEMA public to admin;
+GRANT SELECT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public to admin;
 
 --Менеджеры назначают задания себе или кому-либо из рядовых сотрудников
-GRANT USAGE ON SCHEMA public to manager;
-GRANT SELECT, INSERT, UPDATE, DELETE ON task to manager;
-GRANT SELECT, INSERT, UPDATE ON contract to manager;
-GRANT SELECT ON "user" to manager;
+GRANT ALL ON SCHEMA public  to manager;
+GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE public.task to manager;
+GRANT SELECT, INSERT, UPDATE ON TABLE contract to manager;
+GRANT SELECT ON public."user" to manager;
 
 --Рядовые сотрудники не могут назначать задания
-GRANT USAGE ON SCHEMA public to ranker;
-GRANT SELECT, UPDATE, DELETE ON TABLE task to ranker;
-GRANT SELECT ON "user" to ranker;
+GRANT ALL ON SCHEMA public to ranker;
+GRANT SELECT, UPDATE, DELETE ON TABLE public.task to ranker;
+GRANT SELECT ON public."user" to ranker;
 
 
 --POLICES FUNCTIONS
@@ -67,7 +70,7 @@ CREATE POLICY ranker_update_tasks ON task AS PERMISSIVE FOR UPDATE TO ranker USI
 
 
 --Просматривать задание, автором которого является менеджер, может ... автор, исполнитель задания.
-CREATE POLICY manager_select_task_self ON task AS PERMISSIVE FOR SELECT TO manager USING
+CREATE POLICY manager_select_task_self ON task AS PERMISSIVE FOR SELECT  TO manager USING
     (is_manager(author_id) = 1);
 
 CREATE POLICY manager_select_task_ranker ON task AS PERMISSIVE FOR SELECT TO manager USING
