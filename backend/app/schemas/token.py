@@ -14,8 +14,8 @@ class TokenBase(BaseModel):
 
 
 class TokenPayload(TokenBase):
-    sub: Optional[str] = None
-    scopes: List[str] = []
+    sub: Optional[str]
+    scopes: List[str]
 
 
 class Token(TokenPayload):

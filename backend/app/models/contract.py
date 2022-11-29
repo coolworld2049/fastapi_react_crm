@@ -12,5 +12,5 @@ class Contract(Base):
     stage = sa.Column(column_type.contractStagePostgreseEnum)
     name = sa.Column(ps.TEXT)
     description = sa.Column(ps.TEXT)
-    create_date = sa.Column(ps.TIMESTAMP(timezone=False), nullable=False)
-    completion_date = sa.Column(ps.TIMESTAMP(timezone=False), nullable=False)
+    create_date = sa.Column(sa.DateTime(timezone=True), nullable=False)
+    completion_date = sa.Column(sa.DateTime(timezone=True), nullable=False)

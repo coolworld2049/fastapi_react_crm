@@ -10,13 +10,12 @@ class User(Base):
     email = sa.Column(ps.TEXT, nullable=False)
     hashed_password = sa.Column(ps.TEXT, nullable=False)
     role = sa.Column(column_type.userRolePostgresEnum, nullable=False)
-    first_name = sa.Column(ps.TEXT)
-    last_name = sa.Column(ps.TEXT)
+    full_name = sa.Column(ps.TEXT)
     avatar = sa.Column(ps.TEXT, default=None)
     phone = sa.Column(ps.VARCHAR(20))
     is_active = sa.Column(ps.BOOLEAN, default=True)
     is_superuser = sa.Column(ps.BOOLEAN, default=False)
-    create_date = sa.Column(ps.TIMESTAMP(timezone=False))
+    create_date = sa.Column(sa.DateTime(timezone=True))
 
     def __repr__(self):
-        return f"User(id={self.id!r}, name={self.email!r})"
+        return f"User(id={self.id!r}, email={self.email!r}, role={self.role!r})"

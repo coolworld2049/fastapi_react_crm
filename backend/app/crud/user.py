@@ -1,6 +1,7 @@
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, Optional, Union, List
 
 import sqlalchemy
+from sqlalchemy import select, or_
 from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -8,6 +9,7 @@ from backend.app import schemas
 from backend.app.core.security import get_password_hash, verify_password
 from backend.app.crud.base import CRUDBase
 from backend.app.models.user import User
+from backend.app.schemas.request_params import RequestParams
 from backend.app.schemas.user import UserCreate, UserUpdate
 
 
@@ -43,7 +45,24 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         result: Result = await db.execute(sqlalchemy.select(User).where(User.email == email))
         return result.scalar()
 
-    async def authenticate(  # noqa
+    async def get_multi_by_filter(self, db: AsyncSession, request_params: RequestParams,   # noqa
+                                  user_filter: schemas.UserFilter = None,
+                                  role: Optional[str] = None,
+                                  employees: Optional[bool] = None,
+                                  ) -> List[User]:
+        query = select(User)
+        query = query.offset(request_params.skip).limit(request_params.limit).order_by(request_params.order_by)
+        if user_filter:
+            query = user_filter.filter(query)
+            query = user_filter.sort(query)
+        if role:
+            query = query.where(User.role == role)
+        if employees:
+            query = query.filter(or_(User.role == schemas.userRole.manager, User.role == schemas.userRole.ranker))
+        result: Result = await db.execute(query)
+        return result.scalars().all()
+
+    async def authenticate(
             self,
             *,
             email: str,
@@ -56,19 +75,6 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         if not verify_password(password, user.hashed_password):
             return None
         return user
-
-    async def sign_up_new_user(self, db: AsyncSession, email: str, password: str):
-        user = await self.get_by_email(db, email=email)  # noqa
-        if user:
-            return False  # User already exists
-        obj_in = schemas.UserCreate(
-            email=email,
-            password=password
-        )
-        new_user = await self.create(
-            db=db, obj_in=obj_in
-        )
-        return new_user
 
     def is_active(self, user: User) -> bool:  # noqa
         return user.is_active

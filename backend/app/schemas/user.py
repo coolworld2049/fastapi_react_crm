@@ -1,9 +1,11 @@
 from datetime import datetime
 from typing import Optional
 
+from fastapi_filter.contrib.sqlalchemy import Filter
 from pydantic import BaseModel, EmailStr, validator, Field
 from pydantic.types import constr
 
+from backend.app import models
 from backend.app.schemas import column_type
 
 
@@ -23,24 +25,20 @@ class UserBase(BaseModel):
 
     is_active: Optional[bool] = True
     is_superuser: bool = False
-    first_name: Optional[str] = None
-    last_name: Optional[str] = None
+    full_name: str = None
     create_date: datetime
-
-    class Config:
-        use_enum_values = True
 
 
 # Properties to receive via API on creation
 class UserCreate(UserBase):
     email: EmailStr
     password: str
-    role: str
 
 
 # Properties to receive via API on update
 class UserUpdate(UserBase):
     password: Optional[str] = None
+    full_name: str = True
 
 
 class UserInDBBase(UserBase):
@@ -57,4 +55,11 @@ class UserInDB(UserInDBBase):
 
 # Additional properties to return via API
 class User(UserInDBBase):
-    pass
+    user_role = column_type.userRoleEnum.to_list()
+
+
+class UserFilter(Filter):
+    role: Optional[str]
+
+    class Constants(Filter.Constants):
+        model = models.User

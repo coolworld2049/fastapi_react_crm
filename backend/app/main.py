@@ -1,18 +1,15 @@
 from pathlib import Path
 
 import uvicorn
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.utils import get_openapi
 from fastapi.routing import APIRoute
-from fastapi.templating import Jinja2Templates
+from starlette.responses import FileResponse
+from starlette.staticfiles import StaticFiles
 
 from backend.app.api.api_v1.api import api_router
 from backend.app.core.config import settings
-
-BASE_PATH = Path(__file__).resolve().parent
-TEMPLATES = Jinja2Templates(directory=str(BASE_PATH / "templates"))
-
 
 app = FastAPI(title="fast-api-react-crm",
               openapi_url=f"{settings.API_V1_STR}/openapi.json",
@@ -31,25 +28,18 @@ if settings.BACKEND_CORS_ORIGINS:
 
 app.include_router(api_router, prefix=settings.API_V1_STR)
 
+BASE_PATH = Path(__file__).resolve().parent
 
-@app.get("/", status_code=200)
-def root(request: Request, ):
-    """
-    Root GET
-    """
-    return TEMPLATES.TemplateResponse(
-        "index.html",
-        {"request": request},
-    )
+app.mount("/static", StaticFiles(directory=f"{BASE_PATH}/static", html=True), name="static")
 
 
 def custom_openapi():
     if app.openapi_schema:
         return app.openapi_schema
     openapi_schema = get_openapi(
-        title="Custom title",
-        version="2.5.0",
-        description="This is a very custom OpenAPI schema",
+        title="fastapi-react-crm-backend",
+        version="1.0.0",
+        description="OpenAPI schema",
         routes=app.routes,
     )
     openapi_schema["info"]["x-logo"] = {
@@ -62,7 +52,7 @@ def custom_openapi():
 app.openapi = custom_openapi
 
 
-def use_route_names_as_operation_ids(app: FastAPI) -> None: # noqa
+def use_route_names_as_operation_ids(app: FastAPI) -> None:  # noqa
     """
     Simplify operation IDs so that generated API clients have simpler function
     names.
@@ -80,8 +70,15 @@ def use_route_names_as_operation_ids(app: FastAPI) -> None: # noqa
 
 use_route_names_as_operation_ids(app)
 
+
+@app.get("/")
+def root():
+    return FileResponse(f'{BASE_PATH}/static/index.html')
+
+
 if __name__ == '__main__':
     log_config = uvicorn.config.LOGGING_CONFIG
     log_config["formatters"]["access"]["fmt"] = "%(asctime)s - %(levelname)s - %(message)s"
     log_config["formatters"]["default"]["fmt"] = "%(asctime)s - %(levelname)s - %(message)s"
+
     uvicorn.run(app, port=8000, log_config=log_config)

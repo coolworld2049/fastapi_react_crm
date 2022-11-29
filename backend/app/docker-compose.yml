@@ -1,0 +1,41 @@
+version: '3.9'
+
+services:
+
+  postgres:
+    image: postgres:${PG_VERSION}
+    container_name: ${PROJECT_NAME}_postgres
+    restart: always
+    env_file:
+      - .env
+    environment:
+      # env vars specific to postgres image used on first boot
+      - POSTGRES_USER=${PG_SUPERUSER}
+      - POSTGRES_PASSWORD=${PG_SUPERUSER_PASSWORD}
+      - POSTGRES_DB=${PG_NAME}
+      - PGPORT=${PG_PORT}
+      - PGTZ=Europe/Moscow
+      # env vars useful for our sql scripts
+      - DB_NAME=${PG_NAME}
+      - DB_USER=${PG_USER}
+      - DB_PASS=${PG_PASS}
+    ports:
+      - ${PG_PORT}:${PG_PORT}
+    volumes:
+      - ./backend/app/sql/:/docker-entrypoint-initdb.d
+
+  mongo:
+    image: mongo:${MONGO_VERSION}
+    container_name: ${PROJECT_NAME}_mongo
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
+      - TZ=Europe/Moscow
+    ports:
+      - ${MONGO_PORT}:${MONGO_PORT}
+    command: mongod --port ${MONGO_PORT}
+

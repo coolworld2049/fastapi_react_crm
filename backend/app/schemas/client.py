@@ -8,17 +8,14 @@ from backend.app.schemas import column_type
 class ClientBase(BaseModel):
     company_id: int = None
     type: Optional[str] = Field(
-        None,
+        ...,
         description=f"required: {column_type.clientType.schema().get('required')}"
     )
-
-    class Config:
-        use_enum_values = True
 
 
 # Properties to receive via API on creation
 class ClientCreate(ClientBase):
-    pass
+    id: Optional[int] = None
 
 
 # Properties to receive via API on update
@@ -40,4 +37,5 @@ class ClientInDB(ClientInDBBase):
 
 # Additional properties to return via API
 class Client(ClientInDBBase):
-    pass
+    meta = [column_type.clientTypeEnum.to_list()]
+

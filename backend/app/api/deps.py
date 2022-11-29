@@ -1,13 +1,13 @@
+import asyncio
 import json
-from typing import Optional
+from typing import Optional, Callable
 
 from fastapi import Depends, status
 from fastapi import HTTPException, Query
 from jose import jwt, JWTError
 from sqlalchemy import asc, desc
-from sqlalchemy.ext.asyncio.session import AsyncSession, async_session  # noqa
+from sqlalchemy.ext.asyncio.session import AsyncSession
 from sqlalchemy.orm import DeclarativeMeta
-from sqlalchemy.orm.session import Session
 
 from backend.app import crud, models, schemas
 from backend.app.core.config import settings
@@ -15,6 +15,9 @@ from backend.app.core.security import oauth2Scheme
 from backend.app.db.session import AsyncSessionLocal
 from backend.app.models.user import User
 from backend.app.schemas.request_params import RequestParams
+
+loop = asyncio.new_event_loop()
+asyncio.set_event_loop(loop)
 
 
 async def get_async_session():
@@ -27,7 +30,8 @@ async def get_async_session():
 
 
 async def get_current_user_async(
-        db: Session = Depends(get_async_session), token: str = Depends(oauth2Scheme)
+        db: AsyncSession = Depends(get_async_session),
+        token: str = Depends(oauth2Scheme)
 ) -> User:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -56,7 +60,7 @@ async def get_current_user_async(
     return user
 
 
-def get_current_active_user(
+async def get_current_active_user(
         current_user: models.User = Depends(get_current_user_async),
 ) -> models.User:
     if not crud.user.is_active(current_user):
@@ -64,7 +68,7 @@ def get_current_active_user(
     return current_user
 
 
-def get_current_active_superuser(
+async def get_current_active_superuser(
         current_user: User = Depends(get_current_user_async),
 ) -> User:
     if not crud.user.is_superuser(current_user):
@@ -74,7 +78,7 @@ def get_current_active_superuser(
     return current_user
 
 
-def parse_react_admin_params(model: DeclarativeMeta) -> RequestParams:
+def parse_react_admin_params(model: DeclarativeMeta) -> Callable[[str | None, str | None], RequestParams]:
     """Parses sort and range parameters coming from a react-admin request"""
 
     def inner(
@@ -109,4 +113,4 @@ def parse_react_admin_params(model: DeclarativeMeta) -> RequestParams:
 
         return RequestParams(skip=skip, limit=limit, order_by=order_by)
 
-    return inner # noqa
+    return inner
