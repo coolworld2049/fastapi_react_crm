@@ -64,8 +64,8 @@ async def read_users_employees(
     Retrieve users.
     """
     total: Result = await db.execute(select(func.count(models.User.id))
-                                     .filter(or_(models.User.role == schemas.userRole.manager,
-                                                 models.User.role == schemas.userRole.ranker)))
+                                     .filter(or_(models.User.role == schemas.userRole.manager_base,
+                                                 models.User.role == schemas.userRole.ranker_base)))
     users = await crud.user.get_multi_by_filter(db, request_params, employees=True)
     response.headers["Content-Range"] = \
         f"{request_params.skip}-{request_params.skip + len(users)}/{len(total.scalars().all())}"

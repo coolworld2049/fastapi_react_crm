@@ -16,3 +16,15 @@ AsyncSessionLocal = sessionmaker(
     autocommit=False,
     autoflush=False,
 )
+
+AsyncSessionRootLocal = sessionmaker(
+    engine.create_async_engine(
+        settings.ASYNC_DATABASE_URL,
+        pool_pre_ping=True,
+        pool_size=30
+    ),
+    class_=AsyncSession,
+    expire_on_commit=False,
+    autocommit=False,
+    autoflush=False,
+)

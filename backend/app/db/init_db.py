@@ -43,7 +43,7 @@ async def init_db() -> None:
                 is_superuser=True,
                 full_name='I Am',
                 phone='+79998880001',
-                role=column_type.userRole.admin,
+                role=column_type.userRole.admin_base,
                 create_date=datetime.strptime(datetime.now(tz=None).__str__(), '%Y-%m-%d %H:%M:%S.%f')
             )
             user_in_manager = schemas.UserCreate(
@@ -51,7 +51,7 @@ async def init_db() -> None:
                 password='alex',
                 full_name='alex',
                 phone='+79998880002',
-                role=column_type.userRole.manager,
+                role=column_type.userRole.manager_base,
                 create_date=datetime.strptime(datetime.now(tz=None).__str__(), '%Y-%m-%d %H:%M:%S.%f')
             )
             user_in_ranker = schemas.UserCreate(
@@ -59,7 +59,7 @@ async def init_db() -> None:
                 password='mia',
                 full_name='mia',
                 phone='+79998880003',
-                role=column_type.userRole.ranker,
+                role=column_type.userRole.ranker_base,
                 create_date=datetime.strptime(datetime.now(tz=None).__str__(), '%Y-%m-%d %H:%M:%S.%f')
             )
             user_in_client_1 = schemas.UserCreate(
@@ -67,7 +67,7 @@ async def init_db() -> None:
                 password='sam',
                 full_name='sam',
                 phone='+79998880005',
-                role=column_type.userRole.client,
+                role=column_type.userRole.client_base,
                 create_date=datetime.strptime(datetime.now(tz=None).__str__(), '%Y-%m-%d %H:%M:%S.%f')
             )
             user_in_client_2 = schemas.UserCreate(
@@ -75,7 +75,7 @@ async def init_db() -> None:
                 password='karen',
                 full_name='karen',
                 phone='+79998880006',
-                role=column_type.userRole.client,
+                role=column_type.userRole.client_base,
                 create_date=datetime.strptime(datetime.now(tz=None).__str__(), '%Y-%m-%d %H:%M:%S.%f')
             )
 
