@@ -1,30 +1,19 @@
-import logging
 from datetime import datetime
 
+from asyncpg import DuplicateTableError
+from asyncpg_utils.databases import Database
 from sqlalchemy.ext.asyncio import AsyncConnection
-from sqlalchemy.orm import Session  # noqa
 
 from backend.app import crud, schemas
-from backend.app.core.config import settings
+from backend.app.core.config import settings, ROOT
 from backend.app.db import base  # noqa: F401
 from backend.app.db.base_class import Base
 from backend.app.db.session import async_engine, AsyncSessionLocal  # noqa
+from backend.app.main import logger
 from backend.app.schemas import column_type
 
-logger = logging.getLogger(__name__)
 
-
-# make sure all SQL Alchemy models are imported (app.db.base) before initializing DB
-# otherwise, SQL Alchemy might fail to initialize relationships properly
-# for more details: https://github.com/tiangolo/full-stack-fastapi-postgresql/issues/28
-
-
-# noinspection PyBroadException
 async def init_db() -> None:
-    # Tables should be created with Alembic migrations
-    # But if you don't want to use migrations, create
-    # the tables un-commenting the next line
-    db = AsyncSessionLocal()
     async with async_engine.begin() as conn:
         try:
             conn: AsyncConnection
@@ -34,6 +23,18 @@ async def init_db() -> None:
             logger.error(f'init_db: Base.metadata.create_all(): {e}')
 
     try:
+        database = Database(settings.DATABASE_URL)
+        conn_2 = await database.get_connection()
+        with open(f"{ROOT}/db/sql/automation.sql", encoding='utf-8') as file_1:
+            await conn_2.execute(file_1.read())
+        with open(f"{ROOT}/db/sql/polices.sql", encoding='utf-8') as file_2:
+            await conn_2.execute(file_2.read())
+        await conn_2.close()
+    except DuplicateTableError:
+        pass
+
+    try:
+        db = AsyncSessionLocal()
         user = await crud.user.get_by_email(db, email=settings.FIRST_SUPERUSER_USERNAME)
         if not user:
             user_in_admin = schemas.UserCreate(
@@ -42,7 +43,7 @@ async def init_db() -> None:
                 is_superuser=True,
                 full_name='I Am',
                 phone='+79998880001',
-                role=column_type.userRole.admin,
+                role=column_type.userRole.admin_base,
                 create_date=datetime.strptime(datetime.now(tz=None).__str__(), '%Y-%m-%d %H:%M:%S.%f')
             )
             user_in_manager = schemas.UserCreate(
@@ -50,7 +51,7 @@ async def init_db() -> None:
                 password='alex',
                 full_name='alex',
                 phone='+79998880002',
-                role=column_type.userRole.manager,
+                role=column_type.userRole.manager_base,
                 create_date=datetime.strptime(datetime.now(tz=None).__str__(), '%Y-%m-%d %H:%M:%S.%f')
             )
             user_in_ranker = schemas.UserCreate(
@@ -58,7 +59,7 @@ async def init_db() -> None:
                 password='mia',
                 full_name='mia',
                 phone='+79998880003',
-                role=column_type.userRole.ranker,
+                role=column_type.userRole.ranker_base,
                 create_date=datetime.strptime(datetime.now(tz=None).__str__(), '%Y-%m-%d %H:%M:%S.%f')
             )
             user_in_client_1 = schemas.UserCreate(
@@ -66,7 +67,7 @@ async def init_db() -> None:
                 password='sam',
                 full_name='sam',
                 phone='+79998880005',
-                role=column_type.userRole.client,
+                role=column_type.userRole.client_base,
                 create_date=datetime.strptime(datetime.now(tz=None).__str__(), '%Y-%m-%d %H:%M:%S.%f')
             )
             user_in_client_2 = schemas.UserCreate(
@@ -74,11 +75,11 @@ async def init_db() -> None:
                 password='karen',
                 full_name='karen',
                 phone='+79998880006',
-                role=column_type.userRole.client,
+                role=column_type.userRole.client_base,
                 create_date=datetime.strptime(datetime.now(tz=None).__str__(), '%Y-%m-%d %H:%M:%S.%f')
             )
 
-            user_obj_admin = await crud.user.create(db, obj_in=user_in_admin)
+            user_obj_admin = await crud.user.create(db, obj_in=user_in_admin) # noqa
             user_obj_manager = await crud.user.create(db, obj_in=user_in_manager)
             user_obj_ranker = await crud.user.create(db, obj_in=user_in_ranker)
             user_obj_client_1 = await crud.user.create(db, obj_in=user_in_client_1)

@@ -16,10 +16,10 @@ class ExtendedEnum(Enum):
 
 class UserRole(BaseModel):
     user: str
-    admin: str
-    manager: str
-    ranker: str
-    client: str
+    admin_base: str
+    manager_base: str
+    ranker_base: str
+    client_base: str
 
 
 class ClientType(BaseModel):
@@ -59,10 +59,10 @@ class ContractStage(BaseModel):
 # ----------------------------------------------------------------------------------------------------------------------
 
 userRole = UserRole(user='user',
-                    admin='admin',
-                    manager='manager',
-                    ranker='ranker',
-                    client='client')
+                    admin_base='admin_base',
+                    manager_base='manager_base',
+                    ranker_base='ranker_base',
+                    client_base='client_base')
 
 clientType = ClientType(current='current',
                         potential='potential')

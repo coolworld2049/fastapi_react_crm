@@ -1,10 +1,7 @@
 import asyncio
-import logging
 
 from backend.app.db.init_db import init_db
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+from backend.app.main import logger
 
 
 def main() -> None:

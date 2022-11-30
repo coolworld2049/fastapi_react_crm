@@ -1,5 +1,5 @@
 SQLAlchemy~=1.4.44
-fastapi~=0.87.0
+fastapi==0.88.0
 pydantic~=1.10.2
 passlib~=1.7.4
 tenacity~=8.1.0
@@ -13,4 +13,5 @@ pytest~=7.2.0
 bcrypt~=4.0.1
 httpx~=0.23.0
 envparse~=0.2.0
-fastapi-filter~=0.4.0
+fastapi-filter==0.4.1
+loguru==0.4.1

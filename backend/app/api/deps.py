@@ -1,19 +1,22 @@
 import asyncio
 import json
+import logging
 from typing import Optional, Callable
 
 from fastapi import Depends, status
 from fastapi import HTTPException, Query
 from jose import jwt, JWTError
-from sqlalchemy import asc, desc
+from sqlalchemy import asc, desc, text
+from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio.session import AsyncSession
 from sqlalchemy.orm import DeclarativeMeta
 
 from backend.app import crud, models, schemas
 from backend.app.core.config import settings
 from backend.app.core.security import oauth2Scheme
-from backend.app.db.session import AsyncSessionLocal
+from backend.app.db.session import AsyncSessionLocal, AsyncSessionRootLocal
 from backend.app.models.user import User
+from backend.app.schemas import column_type
 from backend.app.schemas.request_params import RequestParams
 
 loop = asyncio.new_event_loop()
@@ -27,6 +30,12 @@ async def get_async_session():
         yield session
     finally:
         await session.close()
+
+
+async def get_async_session_root():
+    session: AsyncSession = AsyncSessionRootLocal()
+    session.current_user_id = None
+    return session
 
 
 async def get_current_user_async(
@@ -57,7 +66,46 @@ async def get_current_user_async(
     user = await crud.user.get_by_id(db=db, id=int(token_data.sub))
     if user is None:
         raise credentials_exception
+
+    db_user = "user_" + user.email.split('@')[0]
+    check_result = await check_rolname(db, db_user)
+    if not check_result or check_result != db_user:
+        session_root = await get_async_session_root()
+        await set_session_role(session_root, column_type.userRole.admin_base)
+        await create_user_in_role(db, user, db_user)
+        await session_root.close()
+    else:
+        session_root = await get_async_session_root()
+        await set_session_role(session_root, column_type.userRole.admin_base)
+        await set_session_role(db, db_user)
+        await session_root.close()
     return user
+
+
+async def check_rolname(db: AsyncSession, db_user: str):
+    check_q = """select rolname from pg_roles where rolname = :db_user"""
+    check_q_result: Result = await db.execute(text(check_q), {'db_user': db_user})
+    check_result = check_q_result.scalar()
+    logging.info(f'check_rolname: {check_result}')
+    return check_result
+
+
+async def create_user_in_role(db: AsyncSession, current_user: models.User, db_user: str):
+    create_db_user_q = """create user """ + db_user + """ login password '""" + current_user.hashed_password \
+                       + """' valid until 'infinity' in role """ + current_user.role
+    await db.execute(text(create_db_user_q))
+    await db.commit()
+    logging.info(f'create_user_in_role: {db_user}')
+
+
+async def set_session_role(db: AsyncSession, db_user: str):
+    set_db_user_q = """set session authorization """ + db_user
+    await db.execute(text(set_db_user_q))
+    await db.commit()
+
+    check_session_role_q = """select session_user, current_user"""
+    check_session_role_q_result: Result = await db.execute(text(check_session_role_q))
+    logging.info(f'set_session_role: {check_session_role_q_result.scalar()}')
 
 
 async def get_current_active_user(
@@ -100,7 +148,7 @@ def parse_react_admin_params(model: DeclarativeMeta) -> Callable[[str | None, st
             start, end = json.loads(range_)
             skip, limit = start, (end - start + 1)
 
-        order_by = desc(model.id) # noqa
+        order_by = desc(model.id)  # noqa
         if sort_:
             sort_column, sort_order = json.loads(sort_)
             if sort_order.lower() == "asc":
@@ -109,7 +157,7 @@ def parse_react_admin_params(model: DeclarativeMeta) -> Callable[[str | None, st
                 direction = desc
             else:
                 raise HTTPException(400, f"Invalid sort direction {sort_order}")
-            order_by = direction(model.__table__.c[sort_column]) # noqa
+            order_by = direction(model.__table__.c[sort_column])  # noqa
 
         return RequestParams(skip=skip, limit=limit, order_by=order_by)
 

@@ -58,7 +58,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         if role:
             query = query.where(User.role == role)
         if employees:
-            query = query.filter(or_(User.role == schemas.userRole.manager, User.role == schemas.userRole.ranker))
+            query = query.filter(or_(User.role == schemas.userRole.manager_base, User.role == schemas.userRole.ranker_base))
         result: Result = await db.execute(query)
         return result.scalars().all()
 
