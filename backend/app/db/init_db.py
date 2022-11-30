@@ -1,14 +1,13 @@
 from datetime import datetime
 
-from asyncpg import DuplicateTableError
-from asyncpg_utils.databases import Database
+from asyncpg import DuplicateTableError, DuplicateObjectError
 from sqlalchemy.ext.asyncio import AsyncConnection
 
 from backend.app import crud, schemas
 from backend.app.core.config import settings, ROOT
 from backend.app.db import base  # noqa: F401
 from backend.app.db.base_class import Base
-from backend.app.db.session import async_engine, AsyncSessionLocal  # noqa
+from backend.app.db.session import async_engine, AsyncSessionLocal, database  # noqa
 from backend.app.main import logger
 from backend.app.schemas import column_type
 
@@ -22,16 +21,18 @@ async def init_db() -> None:
         except Exception as e:
             logger.error(f'init_db: Base.metadata.create_all(): {e}')
 
+    conn_2 = await database.get_connection()
     try:
-        database = Database(settings.DATABASE_URL)
-        conn_2 = await database.get_connection()
+        with open(f"{ROOT}/db/sql/privileges.sql", encoding='utf-8') as file_2:
+            await conn_2.execute(file_2.read())
+    except DuplicateObjectError:
+        pass
+    try:
         with open(f"{ROOT}/db/sql/automation.sql", encoding='utf-8') as file_1:
             await conn_2.execute(file_1.read())
-        with open(f"{ROOT}/db/sql/polices.sql", encoding='utf-8') as file_2:
-            await conn_2.execute(file_2.read())
-        await conn_2.close()
     except DuplicateTableError:
         pass
+    await conn_2.close()
 
     try:
         db = AsyncSessionLocal()
@@ -42,6 +43,7 @@ async def init_db() -> None:
                 password=settings.FIRST_SUPERUSER_PASSWORD,
                 is_superuser=True,
                 full_name='I Am',
+                username='Iam965',
                 phone='+79998880001',
                 role=column_type.userRole.admin_base,
                 create_date=datetime.strptime(datetime.now(tz=None).__str__(), '%Y-%m-%d %H:%M:%S.%f')
@@ -50,6 +52,7 @@ async def init_db() -> None:
                 email='alex@gmail.com',
                 password='alex',
                 full_name='alex',
+                username='alex745',
                 phone='+79998880002',
                 role=column_type.userRole.manager_base,
                 create_date=datetime.strptime(datetime.now(tz=None).__str__(), '%Y-%m-%d %H:%M:%S.%f')
@@ -58,6 +61,7 @@ async def init_db() -> None:
                 email='mia@gmail.com',
                 password='mia',
                 full_name='mia',
+                username='mia789',
                 phone='+79998880003',
                 role=column_type.userRole.ranker_base,
                 create_date=datetime.strptime(datetime.now(tz=None).__str__(), '%Y-%m-%d %H:%M:%S.%f')
@@ -66,6 +70,7 @@ async def init_db() -> None:
                 email='sam@gmail.com',
                 password='sam',
                 full_name='sam',
+                username='sam456',
                 phone='+79998880005',
                 role=column_type.userRole.client_base,
                 create_date=datetime.strptime(datetime.now(tz=None).__str__(), '%Y-%m-%d %H:%M:%S.%f')
@@ -74,6 +79,7 @@ async def init_db() -> None:
                 email='karen@gmail.com',
                 password='karen',
                 full_name='karen',
+                username='karen123',
                 phone='+79998880006',
                 role=column_type.userRole.client_base,
                 create_date=datetime.strptime(datetime.now(tz=None).__str__(), '%Y-%m-%d %H:%M:%S.%f')

@@ -1,8 +1,9 @@
 
-------------------------------------------------------polices-----------------------------------------------------------
-create role admin_base inherit superuser;
-create role manager_base inherit;
-create role ranker_base inherit;
+------------------------------------------------------privileges--------------------------------------------------------
+create role admin_base nologin noinherit superuser;
+create role manager_base nologin noinherit;
+create role ranker_base nologin noinherit;
+create role client_base nologin noinherit;
 
 
 --админ может изменить автора задания или внести изменения в завершенное задание.
@@ -10,18 +11,20 @@ grant all privileges on schema public to admin_base;
 grant select, update, delete on all tables in schema public to admin_base;
 
 --менеджеры назначают задания себе или кому-либо из рядовых сотрудников
-grant all privileges on schema public to manager_base;
 grant select, insert, update, delete on table public.task to manager_base;
 grant select, insert, update on table contract to manager_base;
 grant select on public."user" to manager_base;
 
 --рядовые сотрудники не могут назначать задания
-grant all privileges on schema public to ranker_base;
 grant select, update, delete on table public.task to ranker_base;
 grant select on public."user" to ranker_base;
 
-alter table public.task enable row level security;
+grant select on table public.task to client_base;
+grant select on public."user" to client_base;
 
+------------------------------------------------------task-policies-----------------------------------------------------
+
+alter table public.task enable row level security;
 
 --polices functions
 create or replace function is_admin_base(_id integer) returns integer language plpgsql as
@@ -57,6 +60,27 @@ begin
 end;
 $body$;
 
+create or replace function is_client_base(_id integer) returns integer language plpgsql as
+$body$
+begin
+    if (select 1 from "user" where id = _id and "role" = 'client_base'::"UserRole") = 1 then
+        return 1;
+    else
+        return 0;
+    end if;
+end;
+$body$;
+
+create or replace function is_session_user() returns integer language plpgsql as
+$body$
+begin
+    if (select 1 from "user" where username = session_user limit 1) = 1 then
+        return 1;
+    else
+        return 0;
+    end if;
+end
+$body$;
 
 --менеджеры назначают задания себе или кому-либо из рядовых сотрудников. исполнитель - сотрудник, не являющийся автором.
 create policy manager_base_insert_task_assign_self on task as permissive for insert to manager_base
@@ -88,8 +112,10 @@ create policy ranker_base_select_tasks on task as permissive for select to ranke
     (is_ranker_base(executor_id) = 1);
 
 create policy admin_base_select_tasks on task as permissive for select to admin_base using
-    (session_user = (select concat('user_', split_part(email, '@', 1))
-                     from "user" where concat('user_', split_part(email, '@', 1)) = session_user));
+    (is_session_user() = 1);
+
+create policy client_base_delete_tasks on task as permissive for select to client_base using
+    (is_client_base(client_id) = 1);
 
 ----по прошествии 12 месяцев после даты завершения задания сведения о нем удаляются из системы.
 create policy manager_base_delete_task on task as permissive for delete to manager_base using
@@ -99,4 +125,22 @@ create policy manager_base_delete_task on task as permissive for delete to manag
 create policy ranker_base_delete_tasks on task as permissive for delete to ranker_base using
     (is_ranker_base(executor_id) = 1 and completion_date is not null);
 
-------------------------------------------------------check-role--------------------------------------------------------
+
+------------------------------------------------------user-policies-----------------------------------------------------
+alter table public."user" enable row level security;
+
+
+create policy admin_base_select_users on "user" as permissive for select to admin_base using
+    (role = 'manager_base'::"UserRole" or role = 'client_base'::"UserRole" or role = 'ranker_base'::"UserRole"
+         or role = 'admin_base'::"UserRole" and username = session_user);
+
+create policy manager_base_select_users on "user" as permissive for select  to manager_base using
+    (role = 'manager_base'::"UserRole" or role = 'client_base'::"UserRole" or role = 'ranker_base'::"UserRole"
+                                                                                  and username = session_user);
+
+create policy ranker_base_select_users on "user" as permissive for select to ranker_base using
+    (role = 'manager_base'::"UserRole" or role = 'client_base'::"UserRole"
+                                              or username = session_user);
+
+create policy client_base_select_users on "user" as permissive for select to client_base using
+    (role = 'manager_base'::"UserRole" or role = 'ranker_base'::"UserRole" or username = session_user);

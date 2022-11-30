@@ -1,5 +1,8 @@
+import re
+
 import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql as ps
+from sqlalchemy.orm import validates
 
 from backend.app.db.base_class import Base
 from backend.app.schemas import column_type
@@ -8,9 +11,22 @@ from backend.app.schemas import column_type
 class User(Base):
     id = sa.Column(ps.INTEGER, primary_key=True)
     email = sa.Column(ps.TEXT, nullable=False)
+
+    @validates("email")
+    def validate_email(self, key, value):
+        if "@" not in value:
+            raise ValueError("failed simple email validation")
+        return value
+
     hashed_password = sa.Column(ps.TEXT, nullable=False)
     role = sa.Column(column_type.userRolePostgresEnum, nullable=False)
     full_name = sa.Column(ps.TEXT)
+    username = sa.Column(ps.TEXT)
+
+    @validates("username")
+    def validate_username(self, key, value):
+        return value.lower().replace(' ', '_').replace('@', '').replace('$', '')
+
     avatar = sa.Column(ps.TEXT, default=None)
     phone = sa.Column(ps.VARCHAR(20))
     is_active = sa.Column(ps.BOOLEAN, default=True)

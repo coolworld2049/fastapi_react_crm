@@ -26,6 +26,12 @@ class UserBase(BaseModel):
     is_active: Optional[bool] = True
     is_superuser: bool = False
     full_name: str = None
+    username: str
+
+    @validator("username", pre=True, allow_reuse=True)
+    def role_validate(cls, value: str):  # noqa
+        return value.lower().replace(' ', '_').replace('@', '').replace('$', '')
+
     create_date: datetime
 
 
