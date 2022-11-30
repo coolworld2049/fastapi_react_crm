@@ -21,8 +21,6 @@ services:
       - DB_PASS=${PG_PASS}
     ports:
       - ${PG_PORT}:${PG_PORT}
-    volumes:
-      - ./backend/app/sql/:/docker-entrypoint-initdb.d
 
   mongo:
     image: mongo:${MONGO_VERSION}

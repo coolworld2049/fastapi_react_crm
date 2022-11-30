@@ -1,7 +1,9 @@
+import logging
+import pathlib
 from pathlib import Path
 
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.utils import get_openapi
 from fastapi.routing import APIRoute
@@ -9,11 +11,26 @@ from starlette.responses import FileResponse
 from starlette.staticfiles import StaticFiles
 
 from backend.app.api.api_v1.api import api_router
-from backend.app.core.config import settings
+from backend.app.core.config import settings, ROOT
+from backend.app.utils.custom_logger import CustomizeLogger
 
-app = FastAPI(title="fast-api-react-crm",
-              openapi_url=f"{settings.API_V1_STR}/openapi.json",
-              debug=True, )
+logger = logging.getLogger(__name__)
+
+
+def create_app() -> FastAPI:
+    config_path = pathlib.Path(f"{ROOT}/utils/logging_config.json")
+
+    _app = FastAPI(title="fast-api-react-crm",
+                   openapi_url=f"{settings.API_V1_STR}/openapi.json",
+                   debug=True, )
+
+    _logger = CustomizeLogger.make_logger(config_path)
+    _app.logger = _logger
+
+    return _app
+
+
+app = create_app()
 
 if settings.BACKEND_CORS_ORIGINS:
     app.add_middleware(
@@ -76,9 +93,13 @@ def root():
     return FileResponse(f'{BASE_PATH}/static/index.html')
 
 
-if __name__ == '__main__':
-    log_config = uvicorn.config.LOGGING_CONFIG
-    log_config["formatters"]["access"]["fmt"] = "%(asctime)s - %(levelname)s - %(message)s"
-    log_config["formatters"]["default"]["fmt"] = "%(asctime)s - %(levelname)s - %(message)s"
+@app.get('/custom-logger')
+def customize_logger(request: Request):
+    request.app.logger.info("Here Is Your Info Log")
+    a = 1 / 0
+    request.app.logger.error("Here Is Your Error Log")
+    return {'data': "Successfully Implemented Custom Log"}
 
-    uvicorn.run(app, port=8000, log_config=log_config)
+
+if __name__ == '__main__':
+    uvicorn.run(app, port=8000)

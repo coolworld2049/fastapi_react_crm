@@ -23,10 +23,7 @@ async def read_tasks(
     Retrieve Tasks.
     """
     total: Result = await db.execute(select(func.count(models.Task.id)).where(models.Task.author_id == current_user.id))
-    if crud.user.is_superuser(current_user):
-        items = await crud.task.get_multi(db, request_params=request_params)
-    else:
-        items = await crud.task.get_multi_by_author(db=db, author_id=current_user.id, request_params=request_params)
+    items = await crud.task.get_multi(db, request_params=request_params)
     response.headers["Content-Range"] = f"{request_params.skip}-{request_params.skip + len(items)}/{len(total.scalars().all())}"
     return items
 
@@ -52,7 +49,7 @@ async def update_task(
         db: AsyncSession = Depends(deps.get_async_session),
         id: int,
         item_in: schemas.TaskUpdate,
-        current_user: models.User = Depends(deps.get_current_active_user),
+        current_user: models.User = Depends(deps.get_current_active_user), # noqa
 ) -> Any:
     """
     Update an task.
@@ -60,8 +57,6 @@ async def update_task(
     item = await crud.task.get(db=db, id=id)
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
-    if not crud.user.is_superuser(current_user) and (item.owner_id != current_user.id):
-        raise HTTPException(status_code=400, detail="Not enough permissions")
     item = await crud.task.update(db=db, db_obj=item, obj_in=item_in)
     return item
 

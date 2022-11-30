@@ -8,7 +8,11 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 
 
 class Settings(BaseSettings):
-    env.read_envfile(f'{ROOT}/.env')
+    APP_NAME = 'fastapi-react-crm-backend'
+    APP_VERSION = '0.0.1'
+    ENVIRONMENT = f'{ROOT}/.env'
+
+    env.read_envfile(ENVIRONMENT)
 
     API_V1_STR: str = "/api/v1"
     ALGORITHM: str = "HS256"
@@ -29,6 +33,12 @@ class Settings(BaseSettings):
         elif isinstance(v, (list, str)):
             return v
         raise ValueError(v)
+
+    DATABASE_URL: Optional[PostgresDsn] = \
+        f"postgresql://" \
+        f"{env.str('PG_SUPERUSER')}:{env.str('PG_SUPERUSER_PASSWORD')}" \
+        f"@localhost:{env.str('PG_PORT')}" \
+        f"/{env.str('PG_NAME')}"
 
     ASYNC_DATABASE_URL: Optional[PostgresDsn] = \
         f"postgresql+asyncpg://" \
