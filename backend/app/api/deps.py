@@ -3,6 +3,7 @@ import json
 import logging
 from typing import Optional, Callable
 
+from asyncpg import Connection
 from fastapi import Depends, status
 from fastapi import HTTPException, Query
 from jose import jwt, JWTError
@@ -14,9 +15,8 @@ from sqlalchemy.orm import DeclarativeMeta
 from backend.app import crud, models, schemas
 from backend.app.core.config import settings
 from backend.app.core.security import oauth2Scheme
-from backend.app.db.session import AsyncSessionLocal, AsyncSessionRootLocal
+from backend.app.db.session import AsyncSessionLocal, database
 from backend.app.models.user import User
-from backend.app.schemas import column_type
 from backend.app.schemas.request_params import RequestParams
 
 loop = asyncio.new_event_loop()
@@ -30,12 +30,6 @@ async def get_async_session():
         yield session
     finally:
         await session.close()
-
-
-async def get_async_session_root():
-    session: AsyncSession = AsyncSessionRootLocal()
-    session.current_user_id = None
-    return session
 
 
 async def get_current_user_async(
@@ -66,19 +60,18 @@ async def get_current_user_async(
     user = await crud.user.get_by_id(db=db, id=int(token_data.sub))
     if user is None:
         raise credentials_exception
-
-    db_user = "user_" + user.email.split('@')[0]
+    logging.info('START')
+    db_user = user.username
+    await reset_session_user(db)
+    await get_session_user(db)
     check_result = await check_rolname(db, db_user)
-    if not check_result or check_result != db_user:
-        session_root = await get_async_session_root()
-        await set_session_role(session_root, column_type.userRole.admin_base)
-        await create_user_in_role(db, user, db_user)
-        await session_root.close()
-    else:
-        session_root = await get_async_session_root()
-        await set_session_role(session_root, column_type.userRole.admin_base)
-        await set_session_role(db, db_user)
-        await session_root.close()
+    if not check_result:
+        conn = await database.get_connection()
+        await create_user_in_role(conn, user, db_user)
+    await reset_session_user(db)
+    await set_session_user(db, user, db_user)
+    await get_session_user(db)
+    logging.info('END')
     return user
 
 
@@ -86,26 +79,33 @@ async def check_rolname(db: AsyncSession, db_user: str):
     check_q = """select rolname from pg_roles where rolname = :db_user"""
     check_q_result: Result = await db.execute(text(check_q), {'db_user': db_user})
     check_result = check_q_result.scalar()
-    logging.info(f'check_rolname: {check_result}')
+    logging.info(f"check_rolname: {f'{db_user} role exist' if check_result else f'{db_user} role not exist'}")
     return check_result
 
 
-async def create_user_in_role(db: AsyncSession, current_user: models.User, db_user: str):
+async def create_user_in_role(conn, current_user: models.User, db_user: str):
     create_db_user_q = """create user """ + db_user + """ login password '""" + current_user.hashed_password \
                        + """' valid until 'infinity' in role """ + current_user.role
-    await db.execute(text(create_db_user_q))
-    await db.commit()
-    logging.info(f'create_user_in_role: {db_user}')
+    await conn.execute(create_db_user_q)
+    logging.info(f'CREATE_user_in_role: {db_user}')
 
 
-async def set_session_role(db: AsyncSession, db_user: str):
-    set_db_user_q = """set session authorization """ + db_user
-    await db.execute(text(set_db_user_q))
-    await db.commit()
-
+async def get_session_user(db: AsyncSession):
     check_session_role_q = """select session_user, current_user"""
     check_session_role_q_result: Result = await db.execute(text(check_session_role_q))
-    logging.info(f'set_session_role: {check_session_role_q_result.scalar()}')
+    logging.info(f'get_session_user: {check_session_role_q_result.scalar()}')
+
+
+async def reset_session_user(db: AsyncSession):
+    reset_q = '''reset session authorization'''
+    logging.info(f'RESET_session_user')
+    await db.execute(text(reset_q))
+
+
+async def set_session_user(db: AsyncSession, current_user: models.User, db_user: str):
+    set_db_user_q = """set session authorization """ + db_user
+    logging.info(f'SET_session_user: {db_user}')
+    await db.execute(text(set_db_user_q))
 
 
 async def get_current_active_user(

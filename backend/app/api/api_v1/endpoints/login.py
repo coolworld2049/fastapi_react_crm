@@ -6,7 +6,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette import status
 
-from backend.app import schemas, crud
+from backend.app import schemas, crud, models
 from backend.app.api import deps
 from backend.app.core import security
 from backend.app.core.config import settings
@@ -28,7 +28,6 @@ async def login_access_token(
         )
     except HTTPException as e:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=e.detail)
-
     if not user:
         raise HTTPException(status_code=status.HTTP_402_PAYMENT_REQUIRED, detail="Incorrect email or password or role")
     elif not crud.user.is_active(user):
@@ -36,3 +35,12 @@ async def login_access_token(
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     data = security.create_access_token(sub=user.id, expires_delta=access_token_expires, scopes=form_data.scopes)
     return data
+
+
+@router.get("/logout")
+async def logout(
+        db: AsyncSession = Depends(deps.get_async_session),
+        current_user: models.User = Depends(deps.get_current_active_user)
+) -> Any:
+    await deps.set_session_user(db, 'admin_base', )
+    return {'logout': True}

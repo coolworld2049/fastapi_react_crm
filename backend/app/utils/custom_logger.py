@@ -65,7 +65,7 @@ class CustomizeLogger:
             enqueue=True,
             backtrace=True,
             level=level.upper(),
-            format=format
+            format=format,
         )
         logger.add(
             str(filepath),
@@ -74,7 +74,7 @@ class CustomizeLogger:
             enqueue=True,
             backtrace=True,
             level=level.upper(),
-            format=format
+            format=format,
         )
         logging.basicConfig(handlers=[InterceptHandler()], level=0)
         logging.getLogger("uvicorn.access").handlers = [InterceptHandler()]
