@@ -1,1 +1,1 @@
-alter database app owner to current_user
+alter database app owner to current_user;

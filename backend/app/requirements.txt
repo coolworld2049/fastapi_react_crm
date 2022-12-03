@@ -14,4 +14,7 @@ bcrypt~=4.0.1
 httpx~=0.23.0
 envparse~=0.2.0
 fastapi-filter==0.4.1
-loguru==0.4.1
+loguru==0.6.0
+pytz
+pydantic[email]
+asyncpg_utils

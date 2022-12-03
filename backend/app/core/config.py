@@ -1,18 +1,24 @@
 import pathlib
 from typing import List, Optional, Union
+
+import pytz
 from pydantic import AnyHttpUrl, BaseSettings, EmailStr, validator, PostgresDsn
 from envparse import env
 
 # Project Directories
-ROOT = pathlib.Path(__file__).resolve().parent.parent
+ROOT_PATH = pathlib.Path(__file__).resolve().parent.parent
 
 
 class Settings(BaseSettings):
     APP_NAME = 'fastapi-react-crm-backend'
     APP_VERSION = '0.0.1'
-    ENVIRONMENT = f'{ROOT}/.env'
+    ENVIRONMENT = f'{pathlib.Path(__file__).resolve().parent.parent}/.env'
+
+    RUN_ON_DOCKER = False
 
     env.read_envfile(ENVIRONMENT)
+
+    SERVER_TZ = pytz.timezone(env.str('PGTZ', default='Europe/Moscow'))
 
     API_V1_STR: str = "/api/v1"
     ALGORITHM: str = "HS256"
@@ -34,16 +40,19 @@ class Settings(BaseSettings):
             return v
         raise ValueError(v)
 
+    pg_host = f'postgres' if RUN_ON_DOCKER else 'localhost'
+    mongo_host = f'mongo' if RUN_ON_DOCKER else 'localhost'
+
     DATABASE_URL: Optional[PostgresDsn] = \
         f"postgresql://" \
         f"{env.str('PG_SUPERUSER')}:{env.str('PG_SUPERUSER_PASSWORD')}" \
-        f"@localhost:{env.str('PG_PORT')}" \
+        f"@{pg_host}:{env.str('PG_PORT')}" \
         f"/{env.str('PG_NAME')}"
 
     ASYNC_DATABASE_URL: Optional[PostgresDsn] = \
         f"postgresql+asyncpg://" \
         f"{env.str('PG_SUPERUSER')}:{env.str('PG_SUPERUSER_PASSWORD')}" \
-        f"@localhost:{env.str('PG_PORT')}" \
+        f"@{mongo_host}:{env.str('PG_PORT')}" \
         f"/{env.str('PG_NAME')}"
 
     FIRST_SUPERUSER_USERNAME: EmailStr = env.str('FIRST_SUPERUSER_USERNAME')

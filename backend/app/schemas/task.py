@@ -3,6 +3,7 @@ from typing import Optional
 
 from pydantic import BaseModel, Field
 
+from backend.app.core.config import settings
 from backend.app.schemas import column_type
 
 
@@ -12,12 +13,12 @@ class TaskBase(BaseModel):
     executor_id: Optional[int] = None
     name: Optional[str] = None
     description: Optional[str] = None
-    type: Optional[str] = None
+    status: Optional[str] = None
     priority: Optional[str] = Field(
         ...,
         description=f"required: {column_type.taskPriority.schema().get('required')}"
     )
-    create_date: datetime
+    create_date: datetime = datetime.now(tz=settings.SERVER_TZ).isoformat()
     deadline_date: Optional[datetime]
     completion_date: Optional[datetime]
 

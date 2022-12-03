@@ -40,7 +40,7 @@ async def login_access_token(
 @router.get("/logout")
 async def logout(
         db: AsyncSession = Depends(deps.get_async_session),
-        current_user: models.User = Depends(deps.get_current_active_user)
+        current_user: models.User = Depends(deps.get_current_active_user) # noqa
 ) -> Any:
-    await deps.set_session_user(db, 'admin_base', )
+    await deps.reset_session_user(db)
     return {'logout': True}

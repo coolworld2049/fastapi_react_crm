@@ -1,5 +1,3 @@
-import re
-
 import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql as ps
 from sqlalchemy.orm import validates
@@ -12,6 +10,7 @@ class User(Base):
     id = sa.Column(ps.INTEGER, primary_key=True)
     email = sa.Column(ps.TEXT, nullable=False)
 
+    # noinspection PyUnusedLocal
     @validates("email")
     def validate_email(self, key, value):
         if "@" not in value:
@@ -23,6 +22,7 @@ class User(Base):
     full_name = sa.Column(ps.TEXT)
     username = sa.Column(ps.TEXT)
 
+    # noinspection PyUnusedLocal
     @validates("username")
     def validate_username(self, key, value):
         return value.lower().replace(' ', '_').replace('@', '').replace('$', '')

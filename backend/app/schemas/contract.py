@@ -3,6 +3,7 @@ from typing import Optional
 
 from pydantic import BaseModel, Field
 
+from backend.app.core.config import settings
 from backend.app.schemas import column_type
 
 
@@ -15,7 +16,7 @@ class ContractBase(BaseModel):
     )
     name: Optional[str] = None
     description: Optional[str] = None
-    create_date: datetime = datetime.now(tz=None)
+    create_date: datetime = datetime.now(tz=settings.SERVER_TZ).isoformat()
     completion_date: datetime = datetime.utcnow()
 
     class Config:

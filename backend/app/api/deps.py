@@ -60,8 +60,10 @@ async def get_current_user_async(
     user = await crud.user.get_by_id(db=db, id=int(token_data.sub))
     if user is None:
         raise credentials_exception
+
     logging.info('START')
     db_user = user.username
+    await get_session_user(db)
     await reset_session_user(db)
     await get_session_user(db)
     check_result = await check_rolname(db, db_user)
@@ -69,9 +71,11 @@ async def get_current_user_async(
         conn = await database.get_connection()
         await create_user_in_role(conn, user, db_user)
     await reset_session_user(db)
-    await set_session_user(db, user, db_user)
+    await get_session_user(db)
+    await set_session_user(db, db_user)
     await get_session_user(db)
     logging.info('END')
+
     return user
 
 
@@ -83,10 +87,13 @@ async def check_rolname(db: AsyncSession, db_user: str):
     return check_result
 
 
-async def create_user_in_role(conn, current_user: models.User, db_user: str):
-    create_db_user_q = """create user """ + db_user + """ login password '""" + current_user.hashed_password \
+async def create_user_in_role(db: AsyncSession | Connection, current_user: models.User, db_user: str):
+    create_db_user_q = """create user """ + db_user + """ inherit login password '""" + current_user.hashed_password \
                        + """' valid until 'infinity' in role """ + current_user.role
-    await conn.execute(create_db_user_q)
+    if isinstance(db, Connection):
+        await db.execute(create_db_user_q)
+    elif isinstance(db, AsyncSession):
+        await db.execute(text(create_db_user_q))
     logging.info(f'CREATE_user_in_role: {db_user}')
 
 
@@ -102,7 +109,7 @@ async def reset_session_user(db: AsyncSession):
     await db.execute(text(reset_q))
 
 
-async def set_session_user(db: AsyncSession, current_user: models.User, db_user: str):
+async def set_session_user(db: AsyncSession, db_user: str):
     set_db_user_q = """set session authorization """ + db_user
     logging.info(f'SET_session_user: {db_user}')
     await db.execute(text(set_db_user_q))

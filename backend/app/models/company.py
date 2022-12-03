@@ -10,6 +10,7 @@ class Company(Base):
     name = sa.Column(ps.TEXT, nullable=False)
     sector = sa.Column(ps.TEXT)
     size = sa.Column(column_type.companySizePostgreseEnum)
+    city = sa.Column(sa.TEXT)
     address = sa.Column(sa.TEXT)
     website = sa.Column(ps.TEXT)
-    create_date = sa.Column(sa.TIMESTAMP(timezone=False))
+    create_date = sa.Column(sa.DateTime(timezone=True))

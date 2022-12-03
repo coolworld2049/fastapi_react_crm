@@ -42,6 +42,7 @@ class CustomizeLogger:
         config = cls.load_logging_config(config_path)
         logging_config = config.get('logger')
 
+        # noinspection PyShadowingNames
         logger = cls.customize_logging(
             logging_config.get('path'),
             level=logging_config.get('level'),
@@ -89,7 +90,6 @@ class CustomizeLogger:
 
     @classmethod
     def load_logging_config(cls, config_path):
-        config = None
         with open(config_path) as config_file:
             config = json.load(config_file)
         return config
