@@ -21,11 +21,16 @@ services:
       - DB_PASS=${PG_PASS}
     ports:
       - ${PG_PORT}:${PG_PORT}
+    volumes:
+      - ./volumes/postgres/tmp:/tmp
+    networks:
+      - api_server
 
   mongo:
     image: mongo:${MONGO_VERSION}
     container_name: ${PROJECT_NAME}_mongo
     restart: always
+    command: mongod --port ${MONGO_PORT}
     env_file:
       - .env
     environment:
@@ -35,5 +40,23 @@ services:
       - TZ=Europe/Moscow
     ports:
       - ${MONGO_PORT}:${MONGO_PORT}
-    command: mongod --port ${MONGO_PORT}
+    volumes:
+      - ./volumes/mongo:/data/db
 
+  web:
+    build: .
+    restart: on-failure
+    depends_on:
+     - postgres
+     - mongo
+    env_file:
+      - .env
+    environment:
+      - TZ="Europe/Moscow"
+    ports:
+      - "8000:8000"
+    networks:
+      - api_server
+
+networks:
+  api_server:

@@ -1,16 +1,21 @@
-from typing import Any, List, Optional
+from datetime import datetime
+from typing import Any, List
 
 from fastapi import APIRouter, Body, Depends, HTTPException, Response
 from fastapi.encoders import jsonable_encoder
+from fastapi.params import Query
+from fastapi.responses import FileResponse
 from pydantic.networks import EmailStr
+from pydantic.schema import Literal
 from sqlalchemy import select, func, or_
 from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.app import crud, models, schemas
 from backend.app.api import deps
+from backend.app.core.config import settings
+from backend.app.schemas import column_type
 from backend.app.schemas.request_params import RequestParams
-
 
 router = APIRouter()
 
@@ -21,7 +26,7 @@ async def read_users(
         response: Response,
         db: AsyncSession = Depends(deps.get_async_session),
         current_user: models.User = Depends(deps.get_current_active_user),
-        request_params: RequestParams = Depends(deps.parse_react_admin_params(models.User))   # noqa
+        request_params: RequestParams = Depends(deps.parse_react_admin_params(models.User))  # noqa
 ) -> Any:
     """
     Retrieve users.
@@ -34,19 +39,23 @@ async def read_users(
 
 
 # noinspection PyUnusedLocal
-@router.get("/role/{role}", response_model=List[schemas.User])
+@router.get(
+    "/{rolname}",
+    response_model=List[schemas.User],
+    description=f"roles: {column_type.userRoleEnum.to_list().__str__()}",
+)
 async def read_users_by_role(
         response: Response,
         db: AsyncSession = Depends(deps.get_async_session),
         current_user: models.User = Depends(deps.get_current_active_user),
-        request_params: RequestParams = Depends(deps.parse_react_admin_params(models.User)),  # noqa
-        role: Optional[str] = None
+        request_params: schemas.RequestParams = Depends(deps.parse_react_admin_params(models.User)),  # noqa
+        rolname: str = Query(None, example=f"{column_type.userRoleEnum.to_list()}"),
 ) -> Any:
     """
     Retrieve users.
     """
-    total: Result = await db.execute(select(func.count(models.User.id)).where(models.User.role == role))
-    users = await crud.user.get_multi_by_filter(db, request_params, role=role)
+    total: Result = await db.execute(select(func.count(models.User.id)).where(models.User.role == rolname))
+    users = await crud.user.get_multi_by_filter(db, request_params, role=rolname)
     response.headers["Content-Range"] = \
         f"{request_params.skip}-{request_params.skip + len(users)}/{len(total.scalars().all())}"
     return users
@@ -58,7 +67,7 @@ async def read_users_employees(
         response: Response,
         db: AsyncSession = Depends(deps.get_async_session),
         current_user: models.User = Depends(deps.get_current_active_user),
-        request_params: RequestParams = Depends(deps.parse_react_admin_params(models.User))   # noqa
+        request_params: RequestParams = Depends(deps.parse_react_admin_params(models.User))  # noqa
 ) -> Any:
     """
     Retrieve users.
@@ -146,6 +155,36 @@ async def read_user_by_id(
             status_code=400, detail="The user doesn't have enough privileges"
         )
     return user
+
+
+@router.get("/{id}/report", response_class=FileResponse)
+async def read_user_report(
+        id: int,
+        ext: Literal['csv', 'json'],
+        start_timestamp: datetime = Query(datetime
+                                          .now(tz=settings.SERVER_TZ)
+                                          .replace(year=datetime.now().year - 1)
+                                          .isoformat()),
+        end_timestamp: datetime = Query(datetime
+                                        .now(tz=settings.SERVER_TZ)
+                                        .replace(year=datetime.now().year + 1)
+                                        .isoformat()),
+        current_user: models.User = Depends(deps.get_current_active_user),  # noqa
+) -> Any:
+    """
+    Generate report by user id.\n
+    """
+    user_report_path = await crud.user.generate_report(
+        id,
+        start_timestamp,
+        end_timestamp,
+        ext
+    )
+    return FileResponse(
+        user_report_path.get('path_out'),
+        media_type=f'text/{ext}',
+        filename=user_report_path.get('filename'),
+    )
 
 
 # noinspection PyUnusedLocal

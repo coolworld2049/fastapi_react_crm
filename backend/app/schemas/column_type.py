@@ -33,6 +33,14 @@ class TaskPriority(BaseModel):
     low: str
 
 
+class TaskStatus(BaseModel):
+    unassigned: str
+    pending: str
+    accepted: str
+    started: str
+    completed: str
+
+
 class EquipmentStatus(BaseModel):
     accepted: str
     progress: str
@@ -67,10 +75,15 @@ userRole = UserRole(user='user',
 clientType = ClientType(current='current',
                         potential='potential')
 
-
 taskPriority = TaskPriority(high='high',
                             medium='medium',
                             low='low')
+
+taskStatus = TaskStatus(unassigned='unassigned',
+                        pending='pending',
+                        accepted='accepted',
+                        started='started',
+                        completed='completed', )
 
 equipmentStatus = EquipmentStatus(accepted='accepted',
                                   progress='progress',
@@ -97,6 +110,8 @@ clientTypeEnum = ExtendedEnum(value=ClientType.__name__, names=clientType.dict()
 
 taskPriorityEnum = ExtendedEnum(value=TaskPriority.__name__, names=taskPriority.dict())
 
+taskStatusEnum = ExtendedEnum(value=TaskStatus.__name__, names=taskStatus.dict())
+
 equipmentStatusEnum = ExtendedEnum(value=EquipmentStatus.__name__, names=equipmentStatus.dict())
 
 companySizeEnum = ExtendedEnum(value=CompanySize.__name__, names=companySize.dict())
@@ -110,6 +125,8 @@ userRolePostgresEnum = ps.ENUM(*userRole.schema().get('required'), name=UserRole
 clientTypePostgresEnum = ps.ENUM(*clientType.schema().get('required'), name=ClientType.__name__)
 
 taskPriorityPostgresEnum = ps.ENUM(*taskPriority.schema().get('required'), name=TaskPriority.__name__)
+
+taskStatusPostgresEnum = ps.ENUM(*taskStatus.schema().get('required'), name=TaskStatus.__name__)
 
 equipmentStatusPostgresEnum = ps.ENUM(*equipmentStatus.schema().get('required'), name=EquipmentStatus.__name__)
 

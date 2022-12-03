@@ -6,6 +6,7 @@ from pydantic import BaseModel, EmailStr, validator, Field
 from pydantic.types import constr
 
 from backend.app import models
+from backend.app.core.config import settings
 from backend.app.schemas import column_type
 
 
@@ -32,7 +33,7 @@ class UserBase(BaseModel):
     def role_validate(cls, value: str):  # noqa
         return value.lower().replace(' ', '_').replace('@', '').replace('$', '')
 
-    create_date: datetime
+    create_date: datetime = datetime.now(tz=settings.SERVER_TZ).isoformat()
 
 
 # Properties to receive via API on creation

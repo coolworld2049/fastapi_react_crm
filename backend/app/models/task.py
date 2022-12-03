@@ -1,3 +1,5 @@
+import datetime
+
 import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql as ps
 
@@ -12,8 +14,8 @@ class Task(Base):
     executor_id = sa.Column(ps.INTEGER, sa.ForeignKey('user.id'))
     name = sa.Column(ps.TEXT, nullable=False)
     description = sa.Column(ps.TEXT)
-    type = sa.Column(ps.TEXT)
-    priority = sa.Column(column_type.taskPriorityPostgresEnum, nullable=False)
-    create_date = sa.Column(sa.DateTime(timezone=True), nullable=False)
+    status = sa.Column(column_type.taskStatusPostgresEnum, nullable=False, default=column_type.taskStatus.pending)
+    priority = sa.Column(column_type.taskPriorityPostgresEnum, nullable=False, default=column_type.taskPriority.medium)
+    create_date = sa.Column(sa.DateTime(timezone=True), nullable=False, default=datetime.datetime.now())
     deadline_date = sa.Column(sa.DateTime(timezone=True))
     completion_date = sa.Column(sa.DateTime(timezone=True))
