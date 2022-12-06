@@ -11,7 +11,7 @@ create index user_email_index on "user" using btree (email);
 create or replace function delete_old_rows() returns trigger language plpgsql as
 $body$
 begin
-    delete from task where completion_date::timestamp with time zone < localtimestamp - '1 year'::interval;
+    delete from task where completion_date::timestamp < clock_timestamp() at time zone 'MSK' - '1 year'::interval;
     return null;
 end;
 $body$;
@@ -23,9 +23,9 @@ create or replace trigger task_mgmt before insert or update on task
 --------------------------------------------------------report----------------------------------------------------------
 
 -- общее количество заданий для данного сотрудника в указанный период
-drop function if exists total_number_employee_tasks_in_period(timestamp with time zone, timestamp with time zone, integer);
+drop function if exists total_number_employee_tasks_in_period(timestamp, timestamp, integer);
 create or replace function total_number_employee_tasks_in_period
-    (start_timestamp timestamp with time zone , end_timestamp timestamp with time zone , employee_id integer)
+    (start_timestamp timestamp , end_timestamp timestamp , employee_id integer)
     returns integer language plpgsql as
 $body$
 begin
@@ -36,43 +36,46 @@ end;
 $body$;
 
 -- сколько заданий завершено вовремя
-drop function if exists number_employee_tasks_completed_on_time(timestamp with time zone, timestamp with time zone, integer);
+drop function if exists number_employee_tasks_completed_on_time(timestamp, timestamp, integer);
 create or replace function number_employee_tasks_completed_on_time
-    (start_timestamp timestamp with time zone , end_timestamp timestamp with time zone , employee_id integer)
+    (start_timestamp timestamp , end_timestamp timestamp , employee_id integer)
     returns integer language plpgsql as
 $body$
 begin
     return (select count(*) from task where executor_id = employee_id
                                                      or author_id = employee_id
-                                                            and deadline_date::timestamp with time zone >= completion_date::timestamp with time zone
+                                                            and completion_date is not null
+                                                            and deadline_date::timestamp >= completion_date::timestamp
                                                             and create_date between start_timestamp and end_timestamp);
 end;
 $body$;
 
 -- сколько заданий завершено с нарушением срока исполнения
-drop function if exists number_employee_tasks_not_completed_on_time(timestamp with time zone, timestamp with time zone, integer);
+drop function if exists number_employee_tasks_not_completed_on_time(timestamp, timestamp, integer);
 create or replace function number_employee_tasks_not_completed_on_time
-    (start_timestamp timestamp with time zone , end_timestamp timestamp with time zone , employee_id integer)
+    (start_timestamp timestamp , end_timestamp timestamp , employee_id integer)
     returns integer language plpgsql as
 $body$
 begin
     return (select count(*) from task where executor_id = employee_id
                                                      or author_id = employee_id
-                                                            and deadline_date::timestamp with time zone < completion_date::timestamp with time zone
+                                                            and completion_date is not null  and deadline_date is not null
+                                                            and deadline_date::timestamp < completion_date::timestamp
                                                             and create_date between start_timestamp and end_timestamp);
 end;
 $body$;
 
 -- сколько заданий с истекшим сроком исполнения не завершено
-drop function if exists number_employee_tasks_unfinished(timestamp with time zone, timestamp with time zone, integer);
+drop function if exists number_employee_tasks_unfinished(timestamp, timestamp, integer);
 create or replace function number_employee_tasks_unfinished
-    (start_timestamp timestamp with time zone , end_timestamp timestamp with time zone , employee_id integer)
+    (start_timestamp timestamp , end_timestamp timestamp , employee_id integer)
     returns integer language plpgsql as
 $body$
 begin
     return (select count(*) from task where executor_id = employee_id
                                                      or author_id = employee_id
-                                                            and current_timestamp > deadline_date::timestamp with time zone
+                                                            and deadline_date is not null
+                                                            and clock_timestamp() at time zone 'MSK' > deadline_date::timestamp
                                                             and completion_date is null
                                                             and create_date between start_timestamp and end_timestamp);
 end;
@@ -80,15 +83,16 @@ $body$;
 
 
 -- сколько не завершенных заданий, срок исполнения которых не истек
-drop function if exists number_employee_tasks_unfinished_that_not_expired(timestamp with time zone, timestamp with time zone, integer);
+drop function if exists number_employee_tasks_unfinished_that_not_expired(timestamp, timestamp, integer);
 create or replace function number_employee_tasks_unfinished_that_not_expired
-    (start_timestamp timestamp with time zone , end_timestamp timestamp with time zone , employee_id integer)
+    (start_timestamp timestamp , end_timestamp timestamp , employee_id integer)
     returns integer language plpgsql as
 $body$
 begin
     return (select count(*) from task where executor_id = employee_id
                                                      or author_id = employee_id
-                                                            and current_timestamp < deadline_date::timestamp
+                                                            and deadline_date is not null
+                                                            and clock_timestamp() at time zone 'MSK' < deadline_date::timestamp
                                                             and completion_date is null
                                                             and create_date between start_timestamp and end_timestamp);
 end;
@@ -96,8 +100,8 @@ $body$;
 
 -- система генерирует отчет по исполнению заданий каким-либо сотрудником
 -- в течение периода времени, указываемого в параметре отчета.
-drop function if exists generate_report_by_period_and_employee(timestamp with time zone, timestamp with time zone, integer);
-create or replace function generate_report_by_period_and_employee(start_timestamp timestamp with time zone , end_timestamp timestamp with time zone, _employee_id integer)
+drop function if exists generate_report_by_period_and_employee(timestamp, timestamp, integer);
+create or replace function generate_report_by_period_and_employee(start_timestamp timestamp , end_timestamp timestamp, _employee_id integer)
     returns table (report_id uuid,
                     employee_id integer,
                     total_number_employee_tasks_in_period integer,
@@ -105,9 +109,9 @@ create or replace function generate_report_by_period_and_employee(start_timestam
                     number_employee_tasks_not_completed_on_time integer,
                     number_employee_tasks_unfinished integer,
                     number_employee_tasks_unfinished_that_not_expired integer,
-                    start_period timestamp with time zone,
-                    end_period timestamp with time zone,
-                    create_date timestamp with time zone) language plpgsql
+                    start_period timestamp,
+                    end_period timestamp,
+                    create_date timestamp) language plpgsql
 as $body$
 begin
     return query
@@ -118,14 +122,14 @@ begin
                 number_employee_tasks_not_completed_on_time(start_timestamp, end_timestamp, _employee_id),
                 number_employee_tasks_unfinished(start_timestamp, end_timestamp, _employee_id),
                 number_employee_tasks_unfinished_that_not_expired(start_timestamp, end_timestamp, _employee_id),
-                start_timestamp,
-                end_timestamp,
-                (SELECT localtimestamp AT TIME ZONE 'Europe/Moscow');
+                start_timestamp AT TIME ZONE 'Europe/Moscow',
+                end_timestamp AT TIME ZONE 'Europe/Moscow',
+                (SELECT clock_timestamp() AT TIME ZONE 'Europe/Moscow');
 end;
 $body$;
 
-drop function if exists generate_report_for_all_employees(timestamp with time zone, timestamp with time zone);
-create or replace function generate_report_for_all_employees(start_timestamp timestamp with time zone , end_timestamp timestamp with time zone)
+drop function if exists generate_report_for_all_employees(timestamp, timestamp);
+create or replace function generate_report_for_all_employees(start_timestamp timestamp , end_timestamp timestamp)
     returns table (report_id uuid,
                     employee_id integer,
                     total_number_employee_tasks_in_period integer,
@@ -133,9 +137,9 @@ create or replace function generate_report_for_all_employees(start_timestamp tim
                     number_employee_tasks_not_completed_on_time integer,
                     number_employee_tasks_unfinished integer,
                     number_employee_tasks_unfinished_that_not_expired integer,
-                    start_period timestamp with time zone,
-                    end_period timestamp with time zone,
-                    create_date timestamp with time zone) language plpgsql
+                    start_period timestamp,
+                    end_period timestamp,
+                    create_date timestamp) language plpgsql
     as $body$
 begin
     return query
@@ -146,52 +150,52 @@ begin
                 number_employee_tasks_not_completed_on_time(start_timestamp, end_timestamp, id),
                 number_employee_tasks_unfinished(start_timestamp, end_timestamp, id),
                 number_employee_tasks_unfinished_that_not_expired(start_timestamp, end_timestamp, id),
-                start_timestamp,
-                end_timestamp,
-                (SELECT localtimestamp AT TIME ZONE 'Europe/Moscow') from "user");
+                start_timestamp AT TIME ZONE 'Europe/Moscow',
+                end_timestamp AT TIME ZONE 'Europe/Moscow',
+                (SELECT clock_timestamp() AT TIME ZONE 'Europe/Moscow') from "user");
 end;
 $body$;
 
 ------------------------------------------------------------------------------------------------------------------------
 
-drop function if exists generate_report_for_all_employees_to_csv(timestamp with time zone, timestamp with time zone);
+drop function if exists generate_report_for_all_employees_to_csv(timestamp, timestamp);
 create or replace function generate_report_for_all_employees_to_csv(
-    start_timestamp timestamp with time zone,
-    end_timestamp timestamp with time zone
+    start_timestamp timestamp,
+    end_timestamp timestamp
 ) returns void
 language plpgsql
 as $body$
 begin
 
     copy (select * from generate_report_for_all_employees(
-    start_timestamp::timestamp with time zone,
-    end_timestamp::timestamp with time zone))
+    start_timestamp::timestamp,
+    end_timestamp::timestamp))
     to '/tmp/report.csv' delimiter ',' csv header;
 end;
 $body$;
 
 
-drop function if exists generate_report_for_all_employees_to_json(timestamp with time zone, timestamp with time zone);
+drop function if exists generate_report_for_all_employees_to_json(timestamp, timestamp);
 create or replace function generate_report_for_all_employees_to_json(
-    start_timestamp timestamp with time zone,
-    end_timestamp timestamp with time zone
+    start_timestamp timestamp,
+    end_timestamp timestamp
 ) returns void
 language plpgsql
 as $body$
 begin
     copy (select array_to_json(array_agg(row_to_json(results))) from (select * from generate_report_for_all_employees(
-    start_timestamp::timestamp with time zone,
-    end_timestamp::timestamp with time zone)) as results) to '/tmp/report.json'
+    start_timestamp::timestamp,
+    end_timestamp::timestamp)) as results) to '/tmp/report.json'
     with (format text, header false);
 end;
 $body$;
 
 ------------------------------------------------------------------------------------------------------------------------
 /*
-drop procedure if exists generate_report_for_employee_to_csv(timestamp with time zone, timestamp with time zone, integer);
+drop procedure if exists generate_report_for_employee_to_csv(timestamp, timestamp, integer);
 create or replace procedure generate_report_for_employee_to_csv(
-    start_timestamp timestamp with time zone,
-    end_timestamp timestamp with time zone,
+    start_timestamp timestamp,
+    end_timestamp timestamp,
     employee_id integer)
 language plpgsql
 as $body$
@@ -202,22 +206,22 @@ as $body$
                         number_employee_tasks_not_completed_on_time integer,
                         number_employee_tasks_unfinished integer,
                         number_employee_tasks_unfinished_that_not_expired integer,
-                        start_period timestamp with time zone,
-                        end_period timestamp with time zone,
-                        create_date timestamp with time zone);
+                        start_period timestamp,
+                        end_period timestamp,
+                        create_date timestamp);
 begin
     select results into rec from (select * from generate_report_by_period_and_employee(
-        start_timestamp::timestamp with time zone,
-        end_timestamp::timestamp with time zone,
+        start_timestamp::timestamp,
+        end_timestamp::timestamp,
         employee_id)) as results;
     copy rec to '/tmp/report.csv' delimiter ',' csv header;
 end;
 $body$;
 
-drop procedure if exists generate_report_for_employee_to_json(timestamp with time zone, timestamp with time zone, integer);
+drop procedure if exists generate_report_for_employee_to_json(timestamp, timestamp, integer);
 create or replace procedure generate_report_for_employee_to_json(
-    start_timestamp timestamp with time zone,
-    end_timestamp timestamp with time zone,
+    start_timestamp timestamp,
+    end_timestamp timestamp,
     employee_id integer)
 language plpgsql
 as $body$
@@ -228,13 +232,13 @@ as $body$
                         number_employee_tasks_not_completed_on_time integer,
                         number_employee_tasks_unfinished integer,
                         number_employee_tasks_unfinished_that_not_expired integer,
-                        start_period timestamp with time zone,
-                        end_period timestamp with time zone,
-                        create_date timestamp with time zone);
+                        start_period timestamp,
+                        end_period timestamp,
+                        create_date timestamp);
 begin
     select results into rec from (select * from generate_report_by_period_and_employee(
-        start_timestamp::timestamp with time zone,
-        end_timestamp::timestamp with time zone,
+        start_timestamp::timestamp,
+        end_timestamp::timestamp,
         employee_id)) as results;
     copy (select array_to_json(array_agg(row_to_json(rec)))) to '/tmp/report.json'
     with (format text, header false);
@@ -244,12 +248,12 @@ $body$;
 
 /*
 COPY (select * from generate_report_for_all_employees(
-    '2021-12-01 14:51:00 +00:00'::timestamp with time zone,
-    '2023-12-01 14:51:00 +00:00'::timestamp with time zone
+    '2021-12-01 14:51:00 +00:00'::timestamp,
+    '2023-12-01 14:51:00 +00:00'::timestamp
     )) to '/tmp/report.csv' delimiter ',' csv header;
 
 COPY (select array_to_json(array_agg(row_to_json(results))) from generate_report_for_all_employees(
-    '2021-12-01 14:51:00 +00:00'::timestamp with time zone,
-    '2023-12-01 14:51:00 +00:00'::timestamp with time zone
+    '2021-12-01 14:51:00 +00:00'::timestamp,
+    '2023-12-01 14:51:00 +00:00'::timestamp
     ) as results) to '/tmp/report.json' with (format text, header false );
 */

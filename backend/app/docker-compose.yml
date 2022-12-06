@@ -22,6 +22,7 @@ services:
     ports:
       - ${PG_PORT}:${PG_PORT}
     volumes:
+      - ./db/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./volumes/postgres/tmp:/tmp
     networks:
       - api_server

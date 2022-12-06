@@ -1,4 +1,4 @@
-from datetime import datetime
+import logging
 from typing import Any, List
 
 from fastapi import APIRouter, Body, Depends, HTTPException, Response
@@ -6,14 +6,13 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.params import Query
 from fastapi.responses import FileResponse
 from pydantic.networks import EmailStr
-from pydantic.schema import Literal
 from sqlalchemy import select, func, or_
 from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.app import crud, models, schemas
 from backend.app.api import deps
-from backend.app.core.config import settings
+from backend.app.core.config import ROOT_PATH
 from backend.app.schemas import column_type
 from backend.app.schemas.request_params import RequestParams
 
@@ -40,7 +39,7 @@ async def read_users(
 
 # noinspection PyUnusedLocal
 @router.get(
-    "/{rolname}",
+    "/role/{rolname}",
     response_model=List[schemas.User],
     description=f"roles: {column_type.userRoleEnum.to_list().__str__()}",
 )
@@ -59,6 +58,28 @@ async def read_users_by_role(
     response.headers["Content-Range"] = \
         f"{request_params.skip}-{request_params.skip + len(users)}/{len(total.scalars().all())}"
     return users
+
+
+# noinspection PyUnusedLocal
+@router.put("/role/{rolname}", response_model=schemas.User)
+async def update_user_by_role(
+        *,
+        db: AsyncSession = Depends(deps.get_async_session),
+        rolname: str = Query(None, example=f"{column_type.userRoleEnum.to_list()}"),
+        user_in: schemas.UserUpdate,
+        current_user: models.User = Depends(deps.get_current_active_superuser),
+) -> Any:
+    """
+    Update a user.
+    """
+    user = await crud.user.get(db, id=id)
+    if not user:
+        raise HTTPException(
+            status_code=404,
+            detail="The user with this username does not exist in the system",
+        )
+    user = await crud.user.update(db, db_obj=user, obj_in=user_in)
+    return user
 
 
 # noinspection PyUnusedLocal
@@ -108,7 +129,6 @@ async def update_user_me(
         db: AsyncSession = Depends(deps.get_async_session),
         password: str = Body(None),
         email: EmailStr = Body(None),
-        role: schemas.column_type.userRoleEnum = Body(None),
         current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
@@ -120,8 +140,6 @@ async def update_user_me(
         user_in.password = password
     if email:
         user_in.email = email
-    if role:
-        user_in.role = role
     user = await crud.user.update(db, db_obj=current_user, obj_in=user_in)
     return user
 
@@ -135,7 +153,8 @@ async def read_user_me(
     """
     Get current user.
     """
-    return current_user
+    user = await crud.user.get(db, id=current_user.id)
+    return user
 
 
 @router.get("/{id}", response_model=schemas.User)
@@ -157,33 +176,43 @@ async def read_user_by_id(
     return user
 
 
-@router.get("/{id}/report", response_class=FileResponse)
-async def read_user_report(
-        id: int,
-        ext: Literal['csv', 'json'],
-        start_timestamp: datetime = Query(datetime
-                                          .now(tz=settings.SERVER_TZ)
-                                          .replace(year=datetime.now().year - 1)
-                                          .isoformat()),
-        end_timestamp: datetime = Query(datetime
-                                        .now(tz=settings.SERVER_TZ)
-                                        .replace(year=datetime.now().year + 1)
-                                        .isoformat()),
-        current_user: models.User = Depends(deps.get_current_active_user),  # noqa
+@router.post("/report", response_class=FileResponse)
+async def create_user_report(
+        report_in: schemas.ReportCreate,
+        current_user: models.User = Depends(deps.get_current_active_superuser),  # noqa
 ) -> Any:
     """
     Generate report by user id.\n
     """
-    user_report_path = await crud.user.generate_report(
-        id,
-        start_timestamp,
-        end_timestamp,
-        ext
-    )
-    return FileResponse(
+    try:
+        user_report_path = await crud.user.generate_report(
+            report_in.id,
+            report_in.start_timestamp,
+            report_in.end_timestamp,
+            report_in.ext
+        )
+    except Exception as e:
+        raise HTTPException(404, e.args)
+    resp = FileResponse(
         user_report_path.get('path_out'),
-        media_type=f'text/{ext}',
+        media_type=f'text/{report_in.ext}',
         filename=user_report_path.get('filename'),
+    )
+    logging.info(resp.headers)
+    return resp
+
+
+@router.get("/report/{filename}", response_class=FileResponse)
+async def read_user_report(
+        filename: str,
+        current_user: models.User = Depends(deps.get_current_active_superuser),  # noqa
+) -> Any:
+    """
+    Generate report by user id.\n
+    """
+    return FileResponse(
+        f"{ROOT_PATH}/volumes/postgres/tmp/{filename}",
+        filename=filename,
     )
 
 
@@ -194,7 +223,7 @@ async def update_user(
         db: AsyncSession = Depends(deps.get_async_session),
         id: int,
         user_in: schemas.UserUpdate,
-        current_user: models.User = Depends(deps.get_current_active_user),
+        current_user: models.User = Depends(deps.get_current_active_superuser),
 ) -> Any:
     """
     Update a user.
@@ -207,3 +236,25 @@ async def update_user(
         )
     user = await crud.user.update(db, db_obj=user, obj_in=user_in)
     return user
+
+
+@router.delete("/{id}", response_model=schemas.User)
+async def delete_user(
+        *,
+        db: AsyncSession = Depends(deps.get_async_session),
+        id: int,
+        current_user: models.User = Depends(deps.get_current_active_user),  # noqa
+) -> Any:
+    """
+    Delete an task.
+    """
+    item = await crud.user.get(db=db, id=id)
+    if not item:
+        raise HTTPException(status_code=404, detail="Item not found")
+    if item.is_active:
+        raise HTTPException(status_code=404, detail="Acive user cannot be removed")
+    if item.is_superuser:
+        raise HTTPException(status_code=404, detail="Superuser cannot be removed")
+
+    item = await crud.user.remove(db=db, id=id)
+    return item

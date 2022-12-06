@@ -1,3 +1,4 @@
+set timezone to "Europe/Moscow";
 
 ------------------------------------------------------privileges--------------------------------------------------------
 create role admin_base noinherit superuser bypassrls;
@@ -7,7 +8,8 @@ create role client_base noinherit;
 
 --админ может изменить автора задания или внести изменения в завершенное задание.
 grant all privileges on database app to admin_base;
-grant select, update, delete on all tables in schema public to admin_base;
+grant all privileges on schema public to admin_base;
+grant select, insert, update, delete on all tables in schema public to admin_base;
 grant select, insert, update, delete on table task to admin_base;
 grant select, insert, update, delete on table "user" to admin_base;
 grant usage, select, update on all sequences in schema public to admin_base;
@@ -179,20 +181,21 @@ create policy admin_base_update_users on "user" as permissive for update to admi
 
 create policy admin_base_delete_users on "user" as permissive for delete to admin_base using
     (role = 'manager_base'::"UserRole" or role = 'client_base'::"UserRole" or role = 'ranker_base'::"UserRole"
-        or role = 'admin_base'::"UserRole" and username = session_user);
+        or role = 'admin_base'::"UserRole"
+               and username = session_user);
 
 
 
 
 create policy manager_base_select_users on "user" as permissive for select  to manager_base using
-    (role = 'manager_base'::"UserRole" or role = 'client_base'::"UserRole" or role = 'ranker_base'::"UserRole"
+    (role = 'manager_base'::"UserRole" or  role = 'ranker_base'::"UserRole"
         and username = session_user);
 
 
 
 
 create policy ranker_base_select_users on "user" as permissive for select to ranker_base using
-    (role = 'manager_base'::"UserRole" or role = 'client_base'::"UserRole"
+    (role = 'manager_base'::"UserRole"
         or username = session_user);
 
 

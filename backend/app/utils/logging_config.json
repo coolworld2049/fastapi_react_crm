@@ -1,6 +1,6 @@
 {
   "logger": {
-    "path": "./logs/access.log",
+    "path": "backend/logs/app/access.log",
     "level": "info",
     "rotation": "20 days",
     "retention": "1 months",

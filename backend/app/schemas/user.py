@@ -30,10 +30,15 @@ class UserBase(BaseModel):
     username: str
 
     @validator("username", pre=True, allow_reuse=True)
-    def role_validate(cls, value: str):  # noqa
+    def username_validate(cls, value: str):  # noqa
         return value.lower().replace(' ', '_').replace('@', '').replace('$', '')
 
-    create_date: datetime = datetime.now(tz=settings.SERVER_TZ).isoformat()
+    company_id: Optional[int]
+    type: Optional[str] = Field(
+        None,
+        description=f"required: {column_type.clientType.schema().get('required')}"
+    )
+    create_date: datetime
 
 
 # Properties to receive via API on creation
@@ -44,7 +49,7 @@ class UserCreate(UserBase):
 
 # Properties to receive via API on update
 class UserUpdate(UserBase):
-    password: Optional[str] = None
+    password: str
     full_name: str = True
 
 
@@ -62,7 +67,7 @@ class UserInDB(UserInDBBase):
 
 # Additional properties to return via API
 class User(UserInDBBase):
-    user_role = column_type.userRoleEnum.to_list()
+    pass
 
 
 class UserFilter(Filter):

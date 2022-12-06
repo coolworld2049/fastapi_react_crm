@@ -5,7 +5,7 @@ from sqlalchemy.orm import sessionmaker
 from backend.app.core.config import settings
 
 async_engine: AsyncEngine = engine.create_async_engine(
-    settings.ASYNC_DATABASE_URL
+    settings.ASYNC_POSTGRES_URL
 )
 
 AsyncSessionLocal = sessionmaker(
@@ -16,4 +16,5 @@ AsyncSessionLocal = sessionmaker(
     autoflush=False,
 )
 
-database = Database(settings.DATABASE_URL)
+database = Database(settings.POSTGRES_URL)
+

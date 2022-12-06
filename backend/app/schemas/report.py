@@ -1,19 +1,18 @@
 from datetime import datetime
-from typing import Optional
 
 from pydantic import BaseModel
 from pydantic.schema import Literal
 
-from backend.app.core.config import settings
-
 
 class ReportBase(BaseModel):
-    start_timestamp: datetime = datetime.now(tz=settings.SERVER_TZ).replace(year=datetime.now().year - 1).isoformat(),
-    end_timestamp: datetime = datetime.now(tz=settings.SERVER_TZ).replace(year=datetime.now().year + 1).isoformat(),
+    #  = datetime.now().replace(year=datetime.now().year - 1).isoformat()
+    start_timestamp: datetime
+    end_timestamp: datetime
 
 
 # Properties to receive via API on creation
 class ReportCreate(ReportBase):
+    id: int
     ext: Literal['csv', 'json'] = 'json'
 
 
@@ -23,10 +22,7 @@ class ReportUpdate(ReportBase):
 
 
 class ReportInDBBase(ReportBase):
-    report_id: Optional[int] = None
-
-    class Config:
-        orm_mode = True
+    pass
 
 
 # Additional properties stored in DB but not returned by API

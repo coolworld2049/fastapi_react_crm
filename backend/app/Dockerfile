@@ -2,7 +2,7 @@ FROM tiangolo/uvicorn-gunicorn-fastapi:python3.10
 WORKDIR /fastapi-react-crm-backend/backend/app
 
 ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONUNBUFFERED 0
 ENV PYTHONPATH=/fastapi-react-crm-backend/backend/app
 
 COPY / .

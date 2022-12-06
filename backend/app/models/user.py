@@ -1,4 +1,5 @@
 import sqlalchemy as sa
+from sqlalchemy import func
 from sqlalchemy.dialects import postgresql as ps
 from sqlalchemy.orm import validates
 
@@ -29,9 +30,13 @@ class User(Base):
 
     avatar = sa.Column(ps.TEXT, default=None)
     phone = sa.Column(ps.VARCHAR(20))
+
+    company_id = sa.Column(ps.INTEGER, sa.ForeignKey('company.id'), default=None)
+    type = sa.Column(column_type.clientTypePostgresEnum, default=None, nullable=True)
+
     is_active = sa.Column(ps.BOOLEAN, default=True)
     is_superuser = sa.Column(ps.BOOLEAN, default=False)
-    create_date = sa.Column(sa.DateTime(timezone=True))
+    create_date = sa.Column(ps.TIMESTAMP(timezone=True), default=func.now(), server_default=func.now())
 
     def __repr__(self):
         return f"User(id={self.id!r}, email={self.email!r}, role={self.role!r})"

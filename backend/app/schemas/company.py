@@ -11,13 +11,13 @@ class CompanyBase(BaseModel):
     name: str = None
     sector: Optional[str] = None
     size: Optional[str] = Field(
-        ...,
+        column_type.companySize.medium,
         description=f"required: {column_type.companySize.schema().get('required')}"
     )
     address: Optional[str] = None
     city: Optional[str] = None
     website: Optional[str] = None
-    create_date: datetime = datetime.now(tz=settings.SERVER_TZ).isoformat()
+    create_date: datetime
 
 
 # Properties to receive via API on creation

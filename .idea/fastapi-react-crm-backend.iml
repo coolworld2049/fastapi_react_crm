@@ -6,6 +6,8 @@
       <excludeFolder url="file://$MODULE_DIR$/fastapi-react-master" />
       <excludeFolder url="file://$MODULE_DIR$/fastapi-starter-main" />
       <excludeFolder url="file://$MODULE_DIR$/backend/app/volumes" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/app/logs" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/logs" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.10 (fastapi-react-crm-backend)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

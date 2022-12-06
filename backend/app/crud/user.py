@@ -50,13 +50,13 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         result: Result = await db.execute(sqlalchemy.select(User).where(User.email == email))
         return result.scalar()
 
-    async def get_multi_by_filter(self, db: AsyncSession, request_params: RequestParams,  # noqa
+    async def get_multi_by_filter(self, db: AsyncSession,  # noqa
+                                  request_params: RequestParams,
                                   user_filter: schemas.UserFilter = None,
                                   role: Optional[str] = None,
                                   employees: Optional[bool] = None,
                                   ) -> List[User]:
         query = select(User)
-        query = query.offset(request_params.skip).limit(request_params.limit).order_by(request_params.order_by)
         if user_filter:
             query = user_filter.filter(query)
             query = user_filter.sort(query)
@@ -65,6 +65,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         if employees:
             query = query.filter(
                 or_(User.role == schemas.userRole.manager_base, User.role == schemas.userRole.ranker_base))
+        query = query.offset(request_params.skip).limit(request_params.limit).order_by(request_params.order_by)
         result: Result = await db.execute(query)
         return result.scalars().all()
 
@@ -96,21 +97,21 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             end_timestamp: datetime,
             ext: Literal['csv', 'json']
     ) -> Dict[str, str]:
-        filename = f'user_{id}_report-delta_{start_timestamp.date()}_{end_timestamp.date()}'
-        path_in = f'/tmp/{filename}.{ext}'
-        path_out = f'{ROOT_PATH}/volumes/postgres/tmp/{filename}.{ext}'
+        filename = f'user_{id}_report-delta_{start_timestamp.date()}_{end_timestamp.date()}.{ext}'
+        path_in = f'/tmp/{filename}'
+        path_out = f'{ROOT_PATH}/volumes/postgres/tmp/{filename}'
 
         q_csv = f'''
          COPY (select * from generate_report_by_period_and_employee(
-            '{start_timestamp}'::timestamp with time zone,
-            '{end_timestamp}'::timestamp with time zone,
+            '{start_timestamp}'::timestamp,
+            '{end_timestamp}'::timestamp,
             {id}
             )) to '{path_in}' delimiter ',' csv header;
         '''
         q_json = f'''
         COPY (select array_to_json(array_agg(row_to_json(results))) from generate_report_by_period_and_employee(
-            '{start_timestamp}'::timestamp with time zone,
-            '{end_timestamp}'::timestamp with time zone,
+            '{start_timestamp}'::timestamp,
+            '{end_timestamp}'::timestamp,
             {id}
             ) as results) to '{path_in}' with (format text, header false );
         '''

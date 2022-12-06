@@ -18,7 +18,7 @@ class TaskBase(BaseModel):
         ...,
         description=f"required: {column_type.taskPriority.schema().get('required')}"
     )
-    create_date: datetime = datetime.now(tz=settings.SERVER_TZ).isoformat()
+    create_date: datetime
     deadline_date: Optional[datetime]
     completion_date: Optional[datetime]
 

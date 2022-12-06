@@ -7,6 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.app import crud, models, schemas
 from backend.app.api import deps
+from backend.app.schemas import column_type
 from backend.app.schemas.request_params import RequestParams
 
 router = APIRouter()
@@ -90,5 +91,7 @@ async def delete_task(
     item = await crud.task.get(db=db, id=id)
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
+    if item.status != column_type.taskStatus.completed:
+        raise HTTPException(status_code=404, detail="Uncompleted task cannot be removed")
     item = await crud.task.remove(db=db, id=id)
     return item
