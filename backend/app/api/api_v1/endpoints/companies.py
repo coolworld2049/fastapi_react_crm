@@ -1,9 +1,6 @@
 from typing import Any, List
 
 from fastapi import APIRouter, Depends, HTTPException, Response
-from sqlalchemy import select, func
-from sqlalchemy.engine import Result
-from sqlalchemy.exc import ProgrammingError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.app import crud, models, schemas
@@ -23,12 +20,8 @@ async def read_companies(
     """
     Retrieve Tasks.
     """
-    try:
-        total: Result = await db.execute(select(func.count(models.Company.id)))
-    except ProgrammingError:
-        raise HTTPException(status_code=404, detail="InsufficientPrivilegeError")
-    items = await crud.company.get_multi(db, request_params=request_params)
-    response.headers["Content-Range"] = f"{request_params.skip}-{request_params.skip + len(items)}/{len(total.scalars().all())}"
+    items, total = await crud.company.get_multi(db, request_params=request_params)
+    response.headers["Content-Range"] = f"{request_params.skip}-{request_params.skip + len(items)}/{total}"
     return items
 
 

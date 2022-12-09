@@ -18,7 +18,7 @@ class TaskBase(BaseModel):
         ...,
         description=f"required: {column_type.taskPriority.schema().get('required')}"
     )
-    create_date: datetime
+    create_date: Optional[datetime]
     deadline_date: Optional[datetime]
     completion_date: Optional[datetime]
 

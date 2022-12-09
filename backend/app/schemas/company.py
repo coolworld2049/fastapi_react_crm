@@ -17,7 +17,7 @@ class CompanyBase(BaseModel):
     address: Optional[str] = None
     city: Optional[str] = None
     website: Optional[str] = None
-    create_date: datetime
+    create_date: Optional[datetime]
 
 
 # Properties to receive via API on creation

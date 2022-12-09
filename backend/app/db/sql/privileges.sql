@@ -1,4 +1,3 @@
-set timezone to "Europe/Moscow";
 
 ------------------------------------------------------privileges--------------------------------------------------------
 create role admin_base noinherit superuser bypassrls;
@@ -7,27 +6,29 @@ create role ranker_base noinherit;
 create role client_base noinherit;
 
 --админ может изменить автора задания или внести изменения в завершенное задание.
-grant all privileges on database app to admin_base;
 grant all privileges on schema public to admin_base;
 grant select, insert, update, delete on all tables in schema public to admin_base;
+grant usage, select, update on all sequences in schema public to admin_base;
 grant select, insert, update, delete on table task to admin_base;
 grant select, insert, update, delete on table "user" to admin_base;
-grant usage, select, update on all sequences in schema public to admin_base;
 
 --менеджеры назначают задания себе или кому-либо из рядовых сотрудников
 grant select, insert, update, delete on table public.task to manager_base;
-grant select, insert, update on table contract to manager_base;
-grant select on public."user" to manager_base;
 grant usage, select, update on all sequences in schema public to manager_base;
+grant select, update on table "user" to manager_base;
+grant select on table company to manager_base;
 
 --рядовые сотрудники не могут назначать задания
 grant select, update, delete on table public.task to ranker_base;
-grant select on public."user" to ranker_base;
 grant usage, select, update on all sequences in schema public to ranker_base;
+grant select on "user" to ranker_base;
+grant select on table company to ranker_base;
 
+--клиенты могут просматривать задания
 grant select on table public.task to client_base;
-grant select on public."user" to client_base;
 grant usage, select, update on all sequences in schema public to client_base;
+grant select on "user" to client_base;
+grant select on table company to client_base;
 
 ------------------------------------------------------task-policies-----------------------------------------------------
 
@@ -115,6 +116,7 @@ create policy admin_base_update_tasks on task as permissive for update to admin_
     (is_session_user() = 1);
 
 
+
 create policy manager_base_insert_task_assign_self on task as permissive for insert to manager_base
     with check (is_manager_base(executor_id) = 1);
 
@@ -142,15 +144,14 @@ create policy manager_base_delete_task on task as permissive for delete to manag
                and completion_date is not null);
 
 
-create policy ranker_base_delete_tasks on task as permissive for delete to ranker_base using
-    (is_ranker_base(executor_id) = 1
-         and completion_date is not null);
 
 create policy ranker_base_update_tasks on task as permissive for update to ranker_base using
     (is_ranker_base(executor_id) = 1);
 
 create policy ranker_base_select_tasks on task as permissive for select to ranker_base using
     (is_ranker_base(executor_id) = 1);
+
+
 
 create policy client_base_delete_tasks on task as permissive for select to client_base using
     (is_client_base(client_id) = 1);
@@ -166,44 +167,44 @@ alter table public."user" enable row level security;
 
 create policy admin_base_insert_users on "user" as permissive for insert to admin_base with check
     (role = 'manager_base'::"UserRole" or role = 'client_base'::"UserRole" or role = 'ranker_base'::"UserRole"
-         or role = 'admin_base'::"UserRole"
-                and username = session_user);
+         or role = 'admin_base'::"UserRole");
 
 create policy admin_base_select_users on "user" as permissive for select to admin_base using
     (role = 'manager_base'::"UserRole" or role = 'client_base'::"UserRole" or role = 'ranker_base'::"UserRole"
-         or role = 'admin_base'::"UserRole"
-                and username = session_user);
+         or role = 'admin_base'::"UserRole");
 
 create policy admin_base_update_users on "user" as permissive for update to admin_base using
     (role = 'manager_base'::"UserRole" or role = 'client_base'::"UserRole" or role = 'ranker_base'::"UserRole"
-         or role = 'admin_base'::"UserRole"
-                and username = session_user);
+         or role = 'admin_base'::"UserRole");
 
 create policy admin_base_delete_users on "user" as permissive for delete to admin_base using
     (role = 'manager_base'::"UserRole" or role = 'client_base'::"UserRole" or role = 'ranker_base'::"UserRole"
-        or role = 'admin_base'::"UserRole"
-               and username = session_user);
+         or role = 'admin_base'::"UserRole");
 
 
 
+create policy manager_base_select_users on "user" as permissive for select to manager_base using
+    (role = 'manager_base'::"UserRole" or role = 'client_base'::"UserRole" or role = 'ranker_base'::"UserRole"
+         or role = 'admin_base'::"UserRole");
 
-create policy manager_base_select_users on "user" as permissive for select  to manager_base using
-    (role = 'manager_base'::"UserRole" or  role = 'ranker_base'::"UserRole"
-        and username = session_user);
-
+create policy manager_base_update_users on "user" as permissive for update to manager_base using
+    (is_manager_base(id) = 1);
 
 
 
 create policy ranker_base_select_users on "user" as permissive for select to ranker_base using
-    (role = 'manager_base'::"UserRole"
-        or username = session_user);
+    (role = 'manager_base'::"UserRole" or role = 'client_base'::"UserRole" or role = 'ranker_base'::"UserRole"
+         or role = 'admin_base'::"UserRole");
 
+create policy ranker_base_update_users on "user" as permissive for update to ranker_base using
+    (is_ranker_base(id) = 1);
 
 
 
 create policy client_base_select_users on "user" as permissive for select to client_base using
-    (role = 'manager_base'::"UserRole" or role = 'ranker_base'::"UserRole"
-         or username = session_user);
+    (role = 'manager_base'::"UserRole" or role = 'client_base'::"UserRole" or role = 'ranker_base'::"UserRole"
+         or role = 'admin_base'::"UserRole");
+
 
 
 

@@ -133,3 +133,7 @@ equipmentStatusPostgresEnum = ps.ENUM(*equipmentStatus.schema().get('required'),
 companySizePostgreseEnum = ps.ENUM(*companySize.schema().get('required'), name=CompanySize.__name__)
 
 contractStagePostgreseEnum = ps.ENUM(*contractStage.schema().get('required'), name=ContractStage.__name__)
+
+# ----------------------------------------------------------------------------------------------------------------------
+
+SCHEMA_CUSTOM_TYPES = ('role', 'type', 'priority', 'status', 'size', 'stage')

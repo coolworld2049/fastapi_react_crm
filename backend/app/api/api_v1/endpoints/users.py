@@ -1,4 +1,3 @@
-import logging
 from typing import Any, List
 
 from fastapi import APIRouter, Body, Depends, HTTPException, Response
@@ -6,13 +5,11 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.params import Query
 from fastapi.responses import FileResponse
 from pydantic.networks import EmailStr
-from sqlalchemy import select, func, or_
-from sqlalchemy.engine import Result
+from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.app import crud, models, schemas
 from backend.app.api import deps
-from backend.app.core.config import ROOT_PATH
 from backend.app.schemas import column_type
 from backend.app.schemas.request_params import RequestParams
 
@@ -30,34 +27,52 @@ async def read_users(
     """
     Retrieve users.
     """
-    total: Result = await db.execute(select(func.count(models.User.id)))
-    users = await crud.user.get_multi_by_filter(db, request_params)
-    response.headers["Content-Range"] = \
-        f"{request_params.skip}-{request_params.skip + len(users)}/{len(total.scalars().all())}"
+    users, total = await crud.user.get_multi(db, request_params)
+    response.headers["Content-Range"] = f"{request_params.skip}-{request_params.skip + len(users)}/{total}"
     return users
 
 
 # noinspection PyUnusedLocal
-@router.get(
-    "/role/{rolname}",
-    response_model=List[schemas.User],
-    description=f"roles: {column_type.userRoleEnum.to_list().__str__()}",
-)
+@router.get("/role/{rolname}", response_model=List[schemas.User])
 async def read_users_by_role(
         response: Response,
         db: AsyncSession = Depends(deps.get_async_session),
         current_user: models.User = Depends(deps.get_current_active_user),
         request_params: schemas.RequestParams = Depends(deps.parse_react_admin_params(models.User)),  # noqa
-        rolname: str = Query(None, example=f"{column_type.userRoleEnum.to_list()}"),
+        rolname: str = Query(None, description=f"{column_type.userRoleEnum.to_list()}"),
 ) -> Any:
     """
     Retrieve users.
     """
-    total: Result = await db.execute(select(func.count(models.User.id)).where(models.User.role == rolname))
-    users = await crud.user.get_multi_by_filter(db, request_params, role=rolname)
-    response.headers["Content-Range"] = \
-        f"{request_params.skip}-{request_params.skip + len(users)}/{len(total.scalars().all())}"
+    users = []
+    total = None
+    query_total = select(func.count(models.User.id))
+    if rolname in column_type.userRole.schema().get('required'):
+        users, total = await crud.user.get_multi(db, request_params)
+    elif rolname == 'employees':
+        roles = ('manager_base', 'ranker_base')
+        users, total = await crud.user.get_multi(db, request_params, roles=roles)
+    response.headers["Content-Range"] = f"{request_params.skip}-{request_params.skip + len(users)}/{total}"
     return users
+
+
+# -----------------------------------------------------------------------------------------------------------------------
+
+# noinspection PyUnusedLocal
+@router.get("/role/{rolname}/{id}", response_model=schemas.User)
+async def read_users_by_role_id(
+        response: Response,
+        db: AsyncSession = Depends(deps.get_async_session),
+        current_user: models.User = Depends(deps.get_current_active_user),
+        request_params: schemas.RequestParams = Depends(deps.parse_react_admin_params(models.User)),  # noqa
+        rolname: str = Query(None, description=f"{column_type.userRoleEnum.to_list()}"),
+        id: int = Query(None)
+) -> Any:
+    """
+    Retrieve users.
+    """
+    user = await crud.user.get_by_id_role(db, id=id, role=rolname)
+    return user
 
 
 # noinspection PyUnusedLocal
@@ -65,14 +80,14 @@ async def read_users_by_role(
 async def update_user_by_role(
         *,
         db: AsyncSession = Depends(deps.get_async_session),
-        rolname: str = Query(None, example=f"{column_type.userRoleEnum.to_list()}"),
         user_in: schemas.UserUpdate,
         current_user: models.User = Depends(deps.get_current_active_superuser),
+        rolname: str = Query(None, description=f"{column_type.userRoleEnum.to_list()}"),
 ) -> Any:
     """
-    Update a user.
+    Update a user by role.
     """
-    user = await crud.user.get(db, id=id)
+    user = await crud.user.get_by_email(db, email=user_in.email)
     if not user:
         raise HTTPException(
             status_code=404,
@@ -80,26 +95,6 @@ async def update_user_by_role(
         )
     user = await crud.user.update(db, db_obj=user, obj_in=user_in)
     return user
-
-
-# noinspection PyUnusedLocal
-@router.get("/employees", response_model=List[schemas.User])
-async def read_users_employees(
-        response: Response,
-        db: AsyncSession = Depends(deps.get_async_session),
-        current_user: models.User = Depends(deps.get_current_active_user),
-        request_params: RequestParams = Depends(deps.parse_react_admin_params(models.User))  # noqa
-) -> Any:
-    """
-    Retrieve users.
-    """
-    total: Result = await db.execute(select(func.count(models.User.id))
-                                     .filter(or_(models.User.role == schemas.userRole.manager_base,
-                                                 models.User.role == schemas.userRole.ranker_base)))
-    users = await crud.user.get_multi_by_filter(db, request_params, employees=True)
-    response.headers["Content-Range"] = \
-        f"{request_params.skip}-{request_params.skip + len(users)}/{len(total.scalars().all())}"
-    return users
 
 
 # noinspection PyUnusedLocal
@@ -160,37 +155,26 @@ async def read_user_me(
 @router.get("/{id}", response_model=schemas.User)
 async def read_user_by_id(
         id: int,
-        current_user: models.User = Depends(deps.get_current_active_user),
+        current_user: models.User = Depends(deps.get_current_active_user),  # noqa
         db: AsyncSession = Depends(deps.get_async_session),
 ) -> Any:
     """
     Get a specific user by id.
     """
     user = await crud.user.get(db, id=id)
-    if user == current_user:
-        return user
-    if not crud.user.is_superuser(current_user):
-        raise HTTPException(
-            status_code=400, detail="The user doesn't have enough privileges"
-        )
     return user
 
 
 @router.post("/report", response_class=FileResponse)
 async def create_user_report(
-        report_in: schemas.ReportCreate,
+        report_in: schemas.ReportUserCreate,
         current_user: models.User = Depends(deps.get_current_active_superuser),  # noqa
 ) -> Any:
     """
     Generate report by user id.\n
     """
     try:
-        user_report_path = await crud.user.generate_report(
-            report_in.id,
-            report_in.start_timestamp,
-            report_in.end_timestamp,
-            report_in.ext
-        )
+        user_report_path = await crud.user.generate_report_user(report_in)
     except Exception as e:
         raise HTTPException(404, e.args)
     resp = FileResponse(
@@ -198,22 +182,7 @@ async def create_user_report(
         media_type=f'text/{report_in.ext}',
         filename=user_report_path.get('filename'),
     )
-    logging.info(resp.headers)
     return resp
-
-
-@router.get("/report/{filename}", response_class=FileResponse)
-async def read_user_report(
-        filename: str,
-        current_user: models.User = Depends(deps.get_current_active_superuser),  # noqa
-) -> Any:
-    """
-    Generate report by user id.\n
-    """
-    return FileResponse(
-        f"{ROOT_PATH}/volumes/postgres/tmp/{filename}",
-        filename=filename,
-    )
 
 
 # noinspection PyUnusedLocal

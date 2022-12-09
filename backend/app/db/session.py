@@ -13,8 +13,7 @@ AsyncSessionLocal = sessionmaker(
     class_=AsyncSession,
     expire_on_commit=False,
     autocommit=False,
-    autoflush=False,
+    autoflush=False
 )
 
-database = Database(settings.POSTGRES_URL)
-
+asyncpg_database = Database(settings.POSTGRES_URL)

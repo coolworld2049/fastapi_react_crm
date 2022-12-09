@@ -8,12 +8,15 @@ from backend.app import crud, schemas
 from backend.app.core.config import settings, ROOT_PATH
 from backend.app.db import base  # noqa: F401
 from backend.app.db.base_class import Base
-from backend.app.db.session import async_engine, AsyncSessionLocal, database  # noqa
+from backend.app.db.session import async_engine, AsyncSessionLocal, asyncpg_database  # noqa
 from backend.app.main import logger
 from backend.app.schemas import column_type
 
 
 async def init_db() -> None:
+    db = AsyncSessionLocal()
+    # await db.execute(f'''SELECT truncate_tables('postgres');''')
+    # logger.info(f'''SELECT truncate_tables('postgres');''')
     async with async_engine.begin() as conn:
         try:
             conn: AsyncConnection
@@ -23,7 +26,7 @@ async def init_db() -> None:
         except Exception as e:
             logger.error(f'init_db: Base.metadata.create_all(): {e}')
 
-    conn_2 = await database.get_connection()
+    conn_2 = await asyncpg_database.get_connection()
     try:
         with open(f"{ROOT_PATH}/db/sql/privileges.sql", encoding='utf-8') as file_2:
             await conn_2.execute(file_2.read())
@@ -37,7 +40,7 @@ async def init_db() -> None:
     await conn_2.close()
 
     try:
-        db = AsyncSessionLocal()
+
         user = await crud.user.get_by_email(db, email=settings.FIRST_SUPERUSER_USERNAME)
         if not user:
             company_in_0 = schemas.CompanyCreate(
@@ -80,7 +83,7 @@ async def init_db() -> None:
                 company_id=company_obj_0.id,
                 create_date=datetime.now(timezone.utc)
             )
-            user_in_manager = schemas.UserCreate(
+            user_in_manager_1 = schemas.UserCreate(
                 email='alex@gmail.com',
                 password='alex',
                 full_name='alex',
@@ -90,12 +93,32 @@ async def init_db() -> None:
                 company_id=company_obj_0.id,
                 create_date=datetime.now(timezone.utc)
             )
-            user_in_ranker = schemas.UserCreate(
+            user_in_manager_2 = schemas.UserCreate(
+                email='carter@gmail.com',
+                password='carter',
+                full_name='carter',
+                username='carter777',
+                phone='+79998884562',
+                role=column_type.userRole.manager_base,
+                company_id=company_obj_0.id,
+                create_date=datetime.now(timezone.utc)
+            )
+            user_in_ranker_1 = schemas.UserCreate(
                 email='mia@gmail.com',
                 password='mia',
                 full_name='mia',
                 username='mia789',
                 phone='+79998880003',
+                role=column_type.userRole.ranker_base,
+                company_id=company_obj_0.id,
+                create_date=datetime.now(timezone.utc)
+            )
+            user_in_ranker_2 = schemas.UserCreate(
+                email='luke@gmail.com',
+                password='luke',
+                full_name='luke',
+                username='luke142',
+                phone='+79998881423',
                 role=column_type.userRole.ranker_base,
                 company_id=company_obj_0.id,
                 create_date=datetime.now(timezone.utc)
@@ -124,50 +147,68 @@ async def init_db() -> None:
             )
 
             user_obj_admin = await crud.user.create(db, obj_in=user_in_admin)  # noqa
-            user_obj_manager = await crud.user.create(db, obj_in=user_in_manager)
-            user_obj_ranker = await crud.user.create(db, obj_in=user_in_ranker)
+
+            user_obj_manager_1 = await crud.user.create(db, obj_in=user_in_manager_1)
+            user_obj_manager_2 = await crud.user.create(db, obj_in=user_in_manager_2)
+
+            user_obj_ranker_1 = await crud.user.create(db, obj_in=user_in_ranker_1)
+            user_obj_ranker_2 = await crud.user.create(db, obj_in=user_in_ranker_2)
+
             user_obj_client_1 = await crud.user.create(db, obj_in=user_in_client_1)
             user_obj_client_2 = await crud.user.create(db, obj_in=user_in_client_2)
 
             task_in_1 = schemas.TaskCreate(
                 client_id=user_obj_client_1.id,
-                author_id=user_obj_manager.id,
-                executor_id=user_obj_ranker.id,
+                author_id=user_obj_manager_1.id,
+                executor_id=user_obj_ranker_1.id,
                 name='test task',
                 description='do',
-                priority=column_type.taskPriority.medium,
+                priority=column_type.taskPriority.high,
                 status=column_type.taskStatus.accepted,
                 create_date=datetime.now(timezone.utc),
-                deadline_date=None,
+                deadline_date=datetime.now(timezone.utc).replace(day=datetime.now(timezone.utc).day + 14),
                 completion_date=None
             )
             task_in_2 = schemas.TaskCreate(
-                client_id=user_obj_client_2.id,
-                author_id=user_obj_manager.id,
-                executor_id=user_obj_manager.id,
+                client_id=user_obj_client_1.id,
+                author_id=user_obj_manager_1.id,
+                executor_id=user_obj_ranker_2.id,
                 name='test task 2',
                 description='do 2',
-                priority=column_type.taskPriority.high,
+                priority=column_type.taskPriority.low,
                 status=column_type.taskStatus.accepted,
                 create_date=datetime.now(timezone.utc),
-                deadline_date=None,
+                deadline_date=datetime.now(timezone.utc).replace(day=datetime.now(timezone.utc).day + 14),
                 completion_date=None
             )
             task_in_3 = schemas.TaskCreate(
-                client_id=user_obj_client_2.id,
-                author_id=user_obj_manager.id,
-                executor_id=user_obj_ranker.id,
+                client_id=user_obj_client_1.id,
+                author_id=user_obj_manager_1.id,
+                executor_id=user_obj_manager_1.id,
                 name='test task 3',
                 description='do 3',
+                priority=column_type.taskPriority.medium,
+                status=column_type.taskStatus.accepted,
+                create_date=datetime.now(timezone.utc),
+                deadline_date=datetime.now(timezone.utc).replace(day=datetime.now(timezone.utc).day + 14),
+                completion_date=None
+            )
+            task_in_4 = schemas.TaskCreate(
+                client_id=user_obj_client_2.id,
+                author_id=user_obj_manager_2.id,
+                executor_id=user_obj_manager_2.id,
+                name='test task 4',
+                description='do 4',
                 priority=column_type.taskPriority.high,
                 status=column_type.taskStatus.accepted,
                 create_date=datetime.now(timezone.utc),
-                deadline_date=None,
+                deadline_date=datetime.now(timezone.utc).replace(day=datetime.now(timezone.utc).day + 14),
                 completion_date=None
             )
             await crud.task.create(db, obj_in=task_in_1)
             await crud.task.create(db, obj_in=task_in_2)
             await crud.task.create(db, obj_in=task_in_3)
+            await crud.task.create(db, obj_in=task_in_4)
 
     except Exception as e:
         logger.exception(f'init_db: user is None: Exception: {e.args}')

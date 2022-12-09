@@ -1,2 +1,9 @@
-alter database app owner to current_user;
-set timezone to "Europe/Moscow";
+/*
+\connect app
+set timezone to'Europe/Moscow';
+show timezone
+
+\connect postgres
+set timezone to'Europe/Moscow';
+show timezone
+*/

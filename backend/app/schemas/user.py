@@ -38,7 +38,7 @@ class UserBase(BaseModel):
         None,
         description=f"required: {column_type.clientType.schema().get('required')}"
     )
-    create_date: datetime
+    create_date: Optional[datetime]
 
 
 # Properties to receive via API on creation
@@ -49,8 +49,8 @@ class UserCreate(UserBase):
 
 # Properties to receive via API on update
 class UserUpdate(UserBase):
-    password: str
-    full_name: str = True
+    password: Optional[str]
+    full_name: Optional[str]
 
 
 class UserInDBBase(UserBase):

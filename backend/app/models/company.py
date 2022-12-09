@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import sqlalchemy as sa
 from sqlalchemy import func
 from sqlalchemy.dialects import postgresql as ps
@@ -14,4 +16,4 @@ class Company(Base):
     city = sa.Column(sa.TEXT)
     address = sa.Column(sa.TEXT)
     website = sa.Column(ps.TEXT)
-    create_date = sa.Column(ps.TIMESTAMP(timezone=True), default=func.now(), server_default=func.now())
+    create_date = sa.Column(sa.DateTime(timezone=True), server_default=func.now())

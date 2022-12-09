@@ -52,7 +52,7 @@ class Settings(BaseSettings):
     ASYNC_POSTGRES_URL: Optional[PostgresDsn] = \
         f"postgresql+asyncpg://" \
         f"{env.str('PG_SUPERUSER')}:{env.str('PG_SUPERUSER_PASSWORD')}" \
-        f"@{mongo_host}:{env.str('PG_PORT')}" \
+        f"@{pg_host}:{env.str('PG_PORT')}" \
         f"/{env.str('PG_NAME')}"
 
     FIRST_SUPERUSER_USERNAME: EmailStr = env.str('FIRST_SUPERUSER_USERNAME')

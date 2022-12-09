@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import sqlalchemy as sa
 from sqlalchemy import func
 from sqlalchemy.dialects import postgresql as ps
@@ -13,5 +15,5 @@ class Contract(Base):
     stage = sa.Column(column_type.contractStagePostgreseEnum)
     name = sa.Column(ps.TEXT)
     description = sa.Column(ps.TEXT)
-    create_date = sa.Column(ps.TIMESTAMP(timezone=True), nullable=False, default=func.now(), server_default=func.now())
-    completion_date = sa.Column(ps.TIMESTAMP(timezone=True), nullable=False)
+    create_date = sa.Column(sa.DateTime(timezone=True), server_default=func.now())
+    completion_date = sa.Column(sa.DateTime(timezone=True), nullable=False)

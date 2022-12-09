@@ -16,11 +16,8 @@ class ContractBase(BaseModel):
     )
     name: Optional[str] = None
     description: Optional[str] = None
-    create_date: datetime
-    completion_date: datetime
-
-    class Config:
-        use_enum_values = True
+    create_date: Optional[datetime]
+    completion_date: datetime = None
 
 
 # Properties to receive via API on creation

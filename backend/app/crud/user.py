@@ -4,7 +4,7 @@ from typing import Any, Dict, Optional, Union, List
 import sqlalchemy
 from asyncpg import Connection
 from pydantic.schema import Literal
-from sqlalchemy import select, or_
+from sqlalchemy import select, or_, and_
 from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -12,7 +12,7 @@ from backend.app import schemas
 from backend.app.core.config import ROOT_PATH
 from backend.app.core.security import get_password_hash, verify_password
 from backend.app.crud.base import CRUDBase
-from backend.app.db.session import database
+from backend.app.db.session import asyncpg_database
 from backend.app.models.user import User
 from backend.app.schemas.request_params import RequestParams
 from backend.app.schemas.user import UserCreate, UserUpdate
@@ -46,28 +46,13 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         result: Result = await db.execute(sqlalchemy.select(User).where(User.id == id))
         return result.scalar()
 
+    async def get_by_id_role(self, db: AsyncSession, *, id: int, role: str) -> Optional[User]:  # noqa
+        result: Result = await db.execute(sqlalchemy.select(User).where(and_(User.id == id, User.role == role)))
+        return result.scalar()
+
     async def get_by_email(self, db: AsyncSession, *, email: str) -> Optional[User]:  # noqa
         result: Result = await db.execute(sqlalchemy.select(User).where(User.email == email))
         return result.scalar()
-
-    async def get_multi_by_filter(self, db: AsyncSession,  # noqa
-                                  request_params: RequestParams,
-                                  user_filter: schemas.UserFilter = None,
-                                  role: Optional[str] = None,
-                                  employees: Optional[bool] = None,
-                                  ) -> List[User]:
-        query = select(User)
-        if user_filter:
-            query = user_filter.filter(query)
-            query = user_filter.sort(query)
-        if role:
-            query = query.where(User.role == role)
-        if employees:
-            query = query.filter(
-                or_(User.role == schemas.userRole.manager_base, User.role == schemas.userRole.ranker_base))
-        query = query.offset(request_params.skip).limit(request_params.limit).order_by(request_params.order_by)
-        result: Result = await db.execute(query)
-        return result.scalars().all()
 
     async def authenticate(
             self,
@@ -90,37 +75,33 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         return user.is_superuser
 
     # noinspection PyMethodMayBeStatic,PyUnusedLocal
-    async def generate_report(
+    async def generate_report_user(
             self,
-            id: int,
-            start_timestamp: datetime,
-            end_timestamp: datetime,
-            ext: Literal['csv', 'json']
+            report_in: schemas.ReportUserCreate
     ) -> Dict[str, str]:
-        filename = f'user_{id}_report-delta_{start_timestamp.date()}_{end_timestamp.date()}.{ext}'
+        filename = f'user_{report_in.id}_report-delta_{report_in.start_timestamp.date()}_{report_in.end_timestamp.date()}.{report_in.ext}'
         path_in = f'/tmp/{filename}'
         path_out = f'{ROOT_PATH}/volumes/postgres/tmp/{filename}'
 
         q_csv = f'''
          COPY (select * from generate_report_by_period_and_employee(
-            '{start_timestamp}'::timestamp,
-            '{end_timestamp}'::timestamp,
-            {id}
+            '{report_in.start_timestamp}',
+            '{report_in.end_timestamp},
+            {report_in.id}
             )) to '{path_in}' delimiter ',' csv header;
         '''
         q_json = f'''
         COPY (select array_to_json(array_agg(row_to_json(results))) from generate_report_by_period_and_employee(
-            '{start_timestamp}'::timestamp,
-            '{end_timestamp}'::timestamp,
-            {id}
+            '{report_in.start_timestamp}',
+            '{report_in.end_timestamp}',
+            {report_in.id}
             ) as results) to '{path_in}' with (format text, header false );
         '''
-        conn: Connection = await database.get_connection()
-        if ext == 'csv':
+        conn: Connection = await asyncpg_database.get_connection()
+        if report_in.ext == 'csv':
             await conn.execute(q_csv)
-        elif ext == 'json':
+        elif report_in.ext == 'json':
             await conn.execute(q_json)
-
         return {'path_in': path_in, 'path_out': path_out, 'filename': filename}
 
 

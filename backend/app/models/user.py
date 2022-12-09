@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import sqlalchemy as sa
 from sqlalchemy import func
 from sqlalchemy.dialects import postgresql as ps
@@ -9,7 +11,7 @@ from backend.app.schemas import column_type
 
 class User(Base):
     id = sa.Column(ps.INTEGER, primary_key=True)
-    email = sa.Column(ps.TEXT, nullable=False)
+    email = sa.Column(ps.TEXT, nullable=False, unique=True)
 
     # noinspection PyUnusedLocal
     @validates("email")
@@ -21,7 +23,7 @@ class User(Base):
     hashed_password = sa.Column(ps.TEXT, nullable=False)
     role = sa.Column(column_type.userRolePostgresEnum, nullable=False)
     full_name = sa.Column(ps.TEXT)
-    username = sa.Column(ps.TEXT)
+    username = sa.Column(ps.TEXT, nullable=False, unique=True)
 
     # noinspection PyUnusedLocal
     @validates("username")
@@ -36,7 +38,7 @@ class User(Base):
 
     is_active = sa.Column(ps.BOOLEAN, default=True)
     is_superuser = sa.Column(ps.BOOLEAN, default=False)
-    create_date = sa.Column(ps.TIMESTAMP(timezone=True), default=func.now(), server_default=func.now())
+    create_date = sa.Column(sa.DateTime(timezone=True), server_default=func.now())
 
     def __repr__(self):
         return f"User(id={self.id!r}, email={self.email!r}, role={self.role!r})"
