@@ -8,7 +8,7 @@ from backend.app.schemas import column_type
 class ClientBase(BaseModel):
     company_id: int = None
     type: Optional[str] = Field(
-        ...,
+        column_type.clientType.current,
         description=f"required: {column_type.clientType.schema().get('required')}"
     )
 

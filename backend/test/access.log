@@ -1,0 +1,2352 @@
+INFO     2022-12-09 02:49:21.082 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+ERROR    2022-12-09 02:49:21.083 request id: app - __main__:init_db_test - init_db_test: user is None: Exception: ([ErrorWrapper(exc=MissingError(), loc=('create_date',))], <class 'backend.app.schemas.company.CompanyCreate'>)
+Traceback (most recent call last):
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\backend\test\gen_test_data.py", line 168, in <module>
+    asyncio.run(init_db_test())
+    │       │   └ <function init_db_test at 0x000002401264CAF0>
+    │       └ <function run at 0x0000024014234CA0>
+    └ <module 'asyncio' from 'C:\\Users\\R\\AppData\\Local\\Programs\\Python\\Python310\\lib\\asyncio\\__init__.py'>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py", line 44, in run
+    return loop.run_until_complete(main)
+           │    │                  └ <coroutine object init_db_test at 0x0000024016A360A0>
+           │    └ <function BaseEventLoop.run_until_complete at 0x0000024014236680>
+           └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 633, in run_until_complete
+    self.run_forever()
+    │    └ <function ProactorEventLoop.run_forever at 0x00000240142EEF80>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 600, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x000002401423C160>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 1896, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x00000240141BF9A0>
+    └ <Handle Task.task_wakeup(<Future finis...ECT 1', True)>)>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finis...ECT 1', True)>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finis...ECT 1', True)>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finis...ECT 1', True)>)>
+
+> File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\backend\test\gen_test_data.py", line 48, in init_db_test
+    company_in = schemas.CompanyCreate(
+                 │       └ <class 'backend.app.schemas.company.CompanyCreate'>
+                 └ <module 'backend.app.schemas' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\backend\\app\\schemas\\__init__...
+
+  File "pydantic\main.py", line 342, in pydantic.main.BaseModel.__init__
+    raise validation_error
+
+pydantic.error_wrappers.ValidationError: 1 validation error for CompanyCreate
+create_date
+  field required (type=value_error.missing)
+INFO     2022-12-09 02:50:51.625 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 02:50:51.740 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 02:50:53.279 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 02:50:55.924 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 02:50:57.838 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 02:50:59.778 request id: app - __main__:init_db_test - gen: 3/100
+INFO     2022-12-09 02:51:01.822 request id: app - __main__:init_db_test - gen: 4/100
+INFO     2022-12-09 02:51:03.784 request id: app - __main__:init_db_test - gen: 5/100
+INFO     2022-12-09 02:51:06.239 request id: app - __main__:init_db_test - gen: 6/100
+INFO     2022-12-09 02:51:08.228 request id: app - __main__:init_db_test - gen: 7/100
+INFO     2022-12-09 02:51:10.818 request id: app - __main__:init_db_test - gen: 8/100
+INFO     2022-12-09 02:51:12.837 request id: app - __main__:init_db_test - gen: 9/100
+INFO     2022-12-09 02:51:15.354 request id: app - __main__:init_db_test - gen: 10/100
+INFO     2022-12-09 02:51:17.385 request id: app - __main__:init_db_test - gen: 11/100
+INFO     2022-12-09 02:51:19.310 request id: app - __main__:init_db_test - gen: 12/100
+INFO     2022-12-09 02:51:21.204 request id: app - __main__:init_db_test - gen: 13/100
+INFO     2022-12-09 02:51:23.110 request id: app - __main__:init_db_test - gen: 14/100
+INFO     2022-12-09 02:51:25.000 request id: app - __main__:init_db_test - gen: 15/100
+INFO     2022-12-09 02:51:26.881 request id: app - __main__:init_db_test - gen: 16/100
+INFO     2022-12-09 02:51:28.777 request id: app - __main__:init_db_test - gen: 17/100
+INFO     2022-12-09 02:51:30.672 request id: app - __main__:init_db_test - gen: 18/100
+INFO     2022-12-09 02:51:32.582 request id: app - __main__:init_db_test - gen: 19/100
+INFO     2022-12-09 02:51:34.806 request id: app - __main__:init_db_test - gen: 20/100
+INFO     2022-12-09 02:51:37.101 request id: app - __main__:init_db_test - gen: 21/100
+INFO     2022-12-09 02:51:39.032 request id: app - __main__:init_db_test - gen: 22/100
+INFO     2022-12-09 02:51:41.014 request id: app - __main__:init_db_test - gen: 23/100
+INFO     2022-12-09 02:51:43.021 request id: app - __main__:init_db_test - gen: 24/100
+INFO     2022-12-09 02:51:45.133 request id: app - __main__:init_db_test - gen: 25/100
+INFO     2022-12-09 02:51:47.197 request id: app - __main__:init_db_test - gen: 26/100
+INFO     2022-12-09 02:51:49.273 request id: app - __main__:init_db_test - gen: 27/100
+INFO     2022-12-09 02:51:51.341 request id: app - __main__:init_db_test - gen: 28/100
+INFO     2022-12-09 02:51:53.404 request id: app - __main__:init_db_test - gen: 29/100
+INFO     2022-12-09 02:51:55.475 request id: app - __main__:init_db_test - gen: 30/100
+INFO     2022-12-09 02:51:57.422 request id: app - __main__:init_db_test - gen: 31/100
+INFO     2022-12-09 02:51:59.431 request id: app - __main__:init_db_test - gen: 32/100
+INFO     2022-12-09 02:52:01.431 request id: app - __main__:init_db_test - gen: 33/100
+INFO     2022-12-09 02:52:03.403 request id: app - __main__:init_db_test - gen: 34/100
+INFO     2022-12-09 02:52:05.375 request id: app - __main__:init_db_test - gen: 35/100
+INFO     2022-12-09 02:52:07.281 request id: app - __main__:init_db_test - gen: 36/100
+INFO     2022-12-09 02:52:09.181 request id: app - __main__:init_db_test - gen: 37/100
+INFO     2022-12-09 02:52:11.119 request id: app - __main__:init_db_test - gen: 38/100
+INFO     2022-12-09 02:52:13.095 request id: app - __main__:init_db_test - gen: 39/100
+INFO     2022-12-09 02:52:15.069 request id: app - __main__:init_db_test - gen: 40/100
+INFO     2022-12-09 02:52:17.061 request id: app - __main__:init_db_test - gen: 41/100
+INFO     2022-12-09 02:52:19.015 request id: app - __main__:init_db_test - gen: 42/100
+INFO     2022-12-09 02:52:21.049 request id: app - __main__:init_db_test - gen: 43/100
+INFO     2022-12-09 02:52:23.026 request id: app - __main__:init_db_test - gen: 44/100
+INFO     2022-12-09 02:52:24.952 request id: app - __main__:init_db_test - gen: 45/100
+INFO     2022-12-09 02:52:26.877 request id: app - __main__:init_db_test - gen: 46/100
+INFO     2022-12-09 02:52:28.800 request id: app - __main__:init_db_test - gen: 47/100
+INFO     2022-12-09 02:52:30.716 request id: app - __main__:init_db_test - gen: 48/100
+INFO     2022-12-09 02:52:32.622 request id: app - __main__:init_db_test - gen: 49/100
+INFO     2022-12-09 02:52:34.546 request id: app - __main__:init_db_test - gen: 50/100
+INFO     2022-12-09 02:52:36.463 request id: app - __main__:init_db_test - gen: 51/100
+INFO     2022-12-09 02:52:38.367 request id: app - __main__:init_db_test - gen: 52/100
+INFO     2022-12-09 02:52:40.287 request id: app - __main__:init_db_test - gen: 53/100
+INFO     2022-12-09 02:52:42.193 request id: app - __main__:init_db_test - gen: 54/100
+INFO     2022-12-09 02:52:44.073 request id: app - __main__:init_db_test - gen: 55/100
+INFO     2022-12-09 02:52:45.977 request id: app - __main__:init_db_test - gen: 56/100
+INFO     2022-12-09 02:52:47.867 request id: app - __main__:init_db_test - gen: 57/100
+INFO     2022-12-09 02:52:49.759 request id: app - __main__:init_db_test - gen: 58/100
+INFO     2022-12-09 02:52:51.667 request id: app - __main__:init_db_test - gen: 59/100
+INFO     2022-12-09 02:52:53.561 request id: app - __main__:init_db_test - gen: 60/100
+INFO     2022-12-09 02:52:55.457 request id: app - __main__:init_db_test - gen: 61/100
+INFO     2022-12-09 02:52:57.359 request id: app - __main__:init_db_test - gen: 62/100
+INFO     2022-12-09 02:52:59.279 request id: app - __main__:init_db_test - gen: 63/100
+INFO     2022-12-09 02:53:01.223 request id: app - __main__:init_db_test - gen: 64/100
+INFO     2022-12-09 02:53:03.190 request id: app - __main__:init_db_test - gen: 65/100
+INFO     2022-12-09 02:53:05.080 request id: app - __main__:init_db_test - gen: 66/100
+INFO     2022-12-09 02:53:06.970 request id: app - __main__:init_db_test - gen: 67/100
+INFO     2022-12-09 02:53:08.881 request id: app - __main__:init_db_test - gen: 68/100
+INFO     2022-12-09 02:53:10.794 request id: app - __main__:init_db_test - gen: 69/100
+INFO     2022-12-09 02:53:12.701 request id: app - __main__:init_db_test - gen: 70/100
+INFO     2022-12-09 02:53:14.618 request id: app - __main__:init_db_test - gen: 71/100
+INFO     2022-12-09 02:53:16.538 request id: app - __main__:init_db_test - gen: 72/100
+INFO     2022-12-09 02:53:18.470 request id: app - __main__:init_db_test - gen: 73/100
+INFO     2022-12-09 02:53:20.520 request id: app - __main__:init_db_test - gen: 74/100
+INFO     2022-12-09 02:53:22.651 request id: app - __main__:init_db_test - gen: 75/100
+INFO     2022-12-09 02:53:24.543 request id: app - __main__:init_db_test - gen: 76/100
+INFO     2022-12-09 02:53:26.443 request id: app - __main__:init_db_test - gen: 77/100
+INFO     2022-12-09 02:53:28.467 request id: app - __main__:init_db_test - gen: 78/100
+INFO     2022-12-09 02:53:30.440 request id: app - __main__:init_db_test - gen: 79/100
+INFO     2022-12-09 02:53:32.353 request id: app - __main__:init_db_test - gen: 80/100
+INFO     2022-12-09 02:53:34.449 request id: app - __main__:init_db_test - gen: 81/100
+INFO     2022-12-09 02:53:36.363 request id: app - __main__:init_db_test - gen: 82/100
+INFO     2022-12-09 02:53:38.280 request id: app - __main__:init_db_test - gen: 83/100
+INFO     2022-12-09 02:53:40.192 request id: app - __main__:init_db_test - gen: 84/100
+INFO     2022-12-09 02:53:42.192 request id: app - __main__:init_db_test - gen: 85/100
+INFO     2022-12-09 02:53:44.169 request id: app - __main__:init_db_test - gen: 86/100
+INFO     2022-12-09 02:53:46.087 request id: app - __main__:init_db_test - gen: 87/100
+INFO     2022-12-09 02:53:47.965 request id: app - __main__:init_db_test - gen: 88/100
+INFO     2022-12-09 02:53:49.898 request id: app - __main__:init_db_test - gen: 89/100
+INFO     2022-12-09 02:53:51.881 request id: app - __main__:init_db_test - gen: 90/100
+INFO     2022-12-09 02:53:53.880 request id: app - __main__:init_db_test - gen: 91/100
+INFO     2022-12-09 02:53:55.796 request id: app - __main__:init_db_test - gen: 92/100
+INFO     2022-12-09 02:53:57.718 request id: app - __main__:init_db_test - gen: 93/100
+INFO     2022-12-09 02:53:59.641 request id: app - __main__:init_db_test - gen: 94/100
+INFO     2022-12-09 02:54:01.559 request id: app - __main__:init_db_test - gen: 95/100
+INFO     2022-12-09 02:54:03.463 request id: app - __main__:init_db_test - gen: 96/100
+INFO     2022-12-09 02:54:05.399 request id: app - __main__:init_db_test - gen: 97/100
+INFO     2022-12-09 02:54:07.334 request id: app - __main__:init_db_test - gen: 98/100
+INFO     2022-12-09 02:54:09.243 request id: app - __main__:init_db_test - gen: 99/100
+INFO     2022-12-09 02:54:11.161 request id: app - __main__:init_db_test - gen process_time: 94.609375
+INFO     2022-12-09 02:56:54.425 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 02:56:55.932 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 02:56:58.592 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 02:57:00.536 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 02:57:02.428 request id: app - __main__:init_db_test - gen: 3/100
+INFO     2022-12-09 02:57:04.342 request id: app - __main__:init_db_test - gen: 4/100
+INFO     2022-12-09 02:57:06.290 request id: app - __main__:init_db_test - gen: 5/100
+INFO     2022-12-09 02:57:08.194 request id: app - __main__:init_db_test - gen: 6/100
+INFO     2022-12-09 02:57:10.082 request id: app - __main__:init_db_test - gen: 7/100
+INFO     2022-12-09 02:57:11.976 request id: app - __main__:init_db_test - gen: 8/100
+INFO     2022-12-09 02:57:13.862 request id: app - __main__:init_db_test - gen: 9/100
+INFO     2022-12-09 02:57:15.758 request id: app - __main__:init_db_test - gen: 10/100
+INFO     2022-12-09 02:57:17.649 request id: app - __main__:init_db_test - gen: 11/100
+INFO     2022-12-09 02:57:19.571 request id: app - __main__:init_db_test - gen: 12/100
+INFO     2022-12-09 02:57:21.467 request id: app - __main__:init_db_test - gen: 13/100
+INFO     2022-12-09 02:57:23.362 request id: app - __main__:init_db_test - gen: 14/100
+INFO     2022-12-09 02:57:25.277 request id: app - __main__:init_db_test - gen: 15/100
+INFO     2022-12-09 02:58:34.198 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 02:58:34.314 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 02:58:35.841 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 02:59:33.779 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 02:59:33.895 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 02:59:35.412 request id: app - __main__:init_db_test - gen: 0/100
+ERROR    2022-12-09 03:00:02.182 request id: app - __main__:init_db_test - init_db: Base.metadata.create_all(): Not an executable object: 'set timezone to "Europe/Moscow";'
+INFO     2022-12-09 03:00:02.185 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:00:02.317 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:00:03.810 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:00:06.553 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 03:00:41.788 request id: app - __main__:init_db_test - DuplicateObjectError
+ERROR    2022-12-09 03:00:41.794 request id: app - __main__:init_db_test - init_db_test: user is None: Exception: ("(sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedFunctionError'>: function truncate_tables(unknown) does not exist\nHINT:  No function matches the given name and argument types. You might need to add explicit type casts.",)
+Traceback (most recent call last):
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 418, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                      │                └ <function AsyncAdapt_asyncpg_connection._prepare at 0x000001B001D83D00>
+                                      └ <AdaptedConnection <asyncpg.connection.Connection object at 0x000001B0025E5D20>>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 660, in _prepare
+    prepared_stmt = await self._connection.prepare(operation)
+                          │    │                   └ "SELECT truncate_tables('postgres');"
+                          │    └ <member '_connection' of 'AsyncAdapt_asyncpg_connection' objects>
+                          └ <AdaptedConnection <asyncpg.connection.Connection object at 0x000001B0025E5D20>>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\asyncpg\connection.py", line 565, in prepare
+    return await self._prepare(
+                 │    └ <function Connection._prepare at 0x000001B07FD043A0>
+                 └ <asyncpg.connection.Connection object at 0x000001B0025E5D20>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\asyncpg\connection.py", line 583, in _prepare
+    stmt = await self._get_statement(
+                 │    └ <function Connection._get_statement at 0x000001B07FD040D0>
+                 └ <asyncpg.connection.Connection object at 0x000001B0025E5D20>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\asyncpg\connection.py", line 397, in _get_statement
+    statement = await self._protocol.prepare(
+                      │    └ <member '_protocol' of 'Connection' objects>
+                      └ <asyncpg.connection.Connection object at 0x000001B0025E5D20>
+
+  File "asyncpg\protocol\protocol.pyx", line 168, in prepare
+    return await waiter
+
+asyncpg.exceptions.UndefinedFunctionError: function truncate_tables(unknown) does not exist
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1900, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x000001B00078DB40>
+    │    └ <sqlalchemy.dialects.postgresql.asyncpg.PGDialect_asyncpg object at 0x000001B00224CD30>
+    └ <sqlalchemy.future.engine.Connection object at 0x000001B002659810>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ ()
+    │      │       └ "SELECT truncate_tables('postgres');"
+    │      └ <function AsyncAdapt_asyncpg_cursor.execute at 0x000001B001D83250>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000001B00257DD90>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 479, in execute
+    self._adapt_connection.await_(
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000001B00257DD90>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 68, in await_only
+    return current.driver.switch(awaitable)
+           │                     └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x000001B00257DE00>
+           └ <_AsyncIoGreenlet object at 0x000001B0023FF180 (otid=0x000001B07FEC8C90) dead>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 121, in greenlet_spawn
+    value = await result
+                  └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x000001B00257DE00>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 454, in _prepare_and_execute
+    self._handle_exception(error)
+    │    └ <function AsyncAdapt_asyncpg_cursor._handle_exception at 0x000001B001D83010>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000001B00257DD90>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 389, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    │    │                                   └ UndefinedFunctionError('function truncate_tables(unknown) does not exist')
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000001B00257DD90>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 682, in _handle_exception
+    raise translated_error from error
+          │                     └ UndefinedFunctionError('function truncate_tables(unknown) does not exist')
+          └ ProgrammingError("<class 'asyncpg.exceptions.UndefinedFunctionError'>: function truncate_tables(unknown) does not exist\nHINT...
+
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedFunctionError'>: function truncate_tables(unknown) does not exist
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\backend\test\gen_test_data.py", line 168, in <module>
+    asyncio.run(init_db_test())
+    │       │   └ <function init_db_test at 0x000001B07DEA8AF0>
+    │       └ <function run at 0x000001B07FA84CA0>
+    └ <module 'asyncio' from 'C:\\Users\\R\\AppData\\Local\\Programs\\Python\\Python310\\lib\\asyncio\\__init__.py'>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py", line 44, in run
+    return loop.run_until_complete(main)
+           │    │                  └ <coroutine object init_db_test at 0x000001B00221E0A0>
+           │    └ <function BaseEventLoop.run_until_complete at 0x000001B07FA86680>
+           └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 633, in run_until_complete
+    self.run_forever()
+    │    └ <function ProactorEventLoop.run_forever at 0x000001B07FB3EF80>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 600, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x000001B07FA8C160>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 1896, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x000001B07FA1F9A0>
+    └ <Handle Task.task_wakeup(<Future finis...s not exist')>)>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finis...s not exist')>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finis...s not exist')>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finis...s not exist')>)>
+
+> File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\backend\test\gen_test_data.py", line 44, in init_db_test
+    await db.execute(f'''SELECT truncate_tables('postgres');''')
+          │  └ <function AsyncSession.execute at 0x000001B00125CCA0>
+          └ <sqlalchemy.orm.session.AsyncSession object at 0x000001B0025F97E0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 214, in execute
+    result = await greenlet_spawn(
+                   └ <function greenlet_spawn at 0x000001B07FF136D0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 126, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             │       │      │   └ <built-in function exc_info>
+             │       │      └ <module 'sys' (built-in)>
+             │       └ <method 'throw' of 'greenlet.greenlet' objects>
+             └ <_AsyncIoGreenlet object at 0x000001B0023FF180 (otid=0x000001B07FEC8C90) dead>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\orm\session.py", line 1714, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+             │    │           │          │             └ immutabledict({'prebuffer_rows': True, 'future_result': True})
+             │    │           │          └ None
+             │    │           └ <sqlalchemy.sql.elements.TextClause object at 0x000001B0026595D0>
+             │    └ <function Connection._execute_20 at 0x000001B0006CC790>
+             └ <sqlalchemy.future.engine.Connection object at 0x000001B002659810>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1705, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           │    │     │             │               └ immutabledict({'prebuffer_rows': True, 'future_result': True})
+           │    │     │             └ immutabledict({})
+           │    │     └ ({},)
+           │    └ <sqlalchemy.future.engine.Connection object at 0x000001B002659810>
+           └ <bound method ClauseElement._execute_on_connection of <sqlalchemy.sql.elements.TextClause object at 0x000001B0026595D0>>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\sql\elements.py", line 334, in _execute_on_connection
+    return connection._execute_clauseelement(
+           │          └ <function Connection._execute_clauseelement at 0x000001B0006CC5E0>
+           └ <sqlalchemy.future.engine.Connection object at 0x000001B002659810>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1572, in _execute_clauseelement
+    ret = self._execute_context(
+          │    └ <function Connection._execute_context at 0x000001B0006CC8B0>
+          └ <sqlalchemy.future.engine.Connection object at 0x000001B002659810>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1943, in _execute_context
+    self._handle_dbapi_exception(
+    │    └ <function Connection._handle_dbapi_exception at 0x000001B0006CCA60>
+    └ <sqlalchemy.future.engine.Connection object at 0x000001B002659810>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 2124, in _handle_dbapi_exception
+    util.raise_(
+    │    └ <function raise_ at 0x000001B07FEBE560>
+    └ <module 'sqlalchemy.util' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\venv\\lib\\site-packages\\sqlalchem...
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\compat.py", line 210, in raise_
+    raise exception
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1900, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x000001B00078DB40>
+    │    └ <sqlalchemy.dialects.postgresql.asyncpg.PGDialect_asyncpg object at 0x000001B00224CD30>
+    └ <sqlalchemy.future.engine.Connection object at 0x000001B002659810>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ ()
+    │      │       └ "SELECT truncate_tables('postgres');"
+    │      └ <function AsyncAdapt_asyncpg_cursor.execute at 0x000001B001D83250>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000001B00257DD90>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 479, in execute
+    self._adapt_connection.await_(
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000001B00257DD90>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 68, in await_only
+    return current.driver.switch(awaitable)
+           │                     └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x000001B00257DE00>
+           └ <_AsyncIoGreenlet object at 0x000001B0023FF180 (otid=0x000001B07FEC8C90) dead>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 121, in greenlet_spawn
+    value = await result
+                  └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x000001B00257DE00>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 454, in _prepare_and_execute
+    self._handle_exception(error)
+    │    └ <function AsyncAdapt_asyncpg_cursor._handle_exception at 0x000001B001D83010>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000001B00257DD90>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 389, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    │    │                                   └ UndefinedFunctionError('function truncate_tables(unknown) does not exist')
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000001B00257DD90>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 682, in _handle_exception
+    raise translated_error from error
+          │                     └ UndefinedFunctionError('function truncate_tables(unknown) does not exist')
+          └ ProgrammingError("<class 'asyncpg.exceptions.UndefinedFunctionError'>: function truncate_tables(unknown) does not exist\nHINT...
+
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedFunctionError'>: function truncate_tables(unknown) does not exist
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+[SQL: SELECT truncate_tables('postgres');]
+(Background on this error at: https://sqlalche.me/e/14/f405)
+INFO     2022-12-09 03:00:55.198 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:00:55.310 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:00:56.929 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:00:59.751 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 03:01:01.680 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 03:01:42.612 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:01:42.726 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:01:44.232 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:01:55.696 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:01:55.810 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:01:57.382 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:02:00.143 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 03:02:02.075 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 03:02:03.986 request id: app - __main__:init_db_test - gen: 3/100
+INFO     2022-12-09 03:02:05.910 request id: app - __main__:init_db_test - gen: 4/100
+INFO     2022-12-09 03:02:07.815 request id: app - __main__:init_db_test - gen: 5/100
+INFO     2022-12-09 03:03:25.578 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:03:25.700 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:03:27.174 request id: app - __main__:init_db_test - gen: 0/100
+ERROR    2022-12-09 03:03:27.798 request id: app - __main__:init_db_test - init_db_test: user is None: Exception: ([ErrorWrapper(exc=MissingError(), loc=('completion_date',))], <class 'backend.app.schemas.task.TaskCreate'>)
+Traceback (most recent call last):
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\backend\test\gen_test_data.py", line 167, in <module>
+    asyncio.run(init_db_test())
+    │       │   └ <function init_db_test at 0x000001FE7DCFCAF0>
+    │       └ <function run at 0x000001FE7F934CA0>
+    └ <module 'asyncio' from 'C:\\Users\\R\\AppData\\Local\\Programs\\Python\\Python310\\lib\\asyncio\\__init__.py'>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py", line 44, in run
+    return loop.run_until_complete(main)
+           │    │                  └ <coroutine object init_db_test at 0x000001FE0212E0A0>
+           │    └ <function BaseEventLoop.run_until_complete at 0x000001FE7F936680>
+           └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 633, in run_until_complete
+    self.run_forever()
+    │    └ <function ProactorEventLoop.run_forever at 0x000001FE7F9EEF80>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 600, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x000001FE7F93C160>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 1896, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x000001FE7F8BF9A0>
+    └ <Handle Task.task_wakeup(<Future finis...sult='COMMIT'>)>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finis...sult='COMMIT'>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finis...sult='COMMIT'>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finis...sult='COMMIT'>)>
+
+> File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\backend\test\gen_test_data.py", line 149, in init_db_test
+    task_in = schemas.TaskCreate(
+              │       └ <class 'backend.app.schemas.task.TaskCreate'>
+              └ <module 'backend.app.schemas' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\backend\\app\\schemas\\__init__...
+
+  File "pydantic\main.py", line 342, in pydantic.main.BaseModel.__init__
+    raise validation_error
+
+pydantic.error_wrappers.ValidationError: 1 validation error for TaskCreate
+completion_date
+  field required (type=value_error.missing)
+INFO     2022-12-09 03:04:36.203 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:04:37.722 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:04:40.402 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 03:04:42.342 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 03:04:44.262 request id: app - __main__:init_db_test - gen: 3/100
+INFO     2022-12-09 03:04:46.182 request id: app - __main__:init_db_test - gen: 4/100
+INFO     2022-12-09 03:04:48.097 request id: app - __main__:init_db_test - gen: 5/100
+INFO     2022-12-09 03:04:50.022 request id: app - __main__:init_db_test - gen: 6/100
+INFO     2022-12-09 03:04:51.936 request id: app - __main__:init_db_test - gen: 7/100
+INFO     2022-12-09 03:04:53.850 request id: app - __main__:init_db_test - gen: 8/100
+INFO     2022-12-09 03:04:55.765 request id: app - __main__:init_db_test - gen: 9/100
+INFO     2022-12-09 03:04:57.648 request id: app - __main__:init_db_test - gen: 10/100
+INFO     2022-12-09 03:04:59.564 request id: app - __main__:init_db_test - gen: 11/100
+INFO     2022-12-09 03:05:01.498 request id: app - __main__:init_db_test - gen: 12/100
+INFO     2022-12-09 03:05:03.388 request id: app - __main__:init_db_test - gen: 13/100
+INFO     2022-12-09 03:05:05.277 request id: app - __main__:init_db_test - gen: 14/100
+INFO     2022-12-09 03:05:07.163 request id: app - __main__:init_db_test - gen: 15/100
+INFO     2022-12-09 03:05:47.828 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:05:47.943 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:05:49.439 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:06:10.470 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:06:11.963 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:06:14.602 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 03:06:16.563 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 03:06:18.466 request id: app - __main__:init_db_test - gen: 3/100
+INFO     2022-12-09 03:06:20.401 request id: app - __main__:init_db_test - gen: 4/100
+INFO     2022-12-09 03:06:22.296 request id: app - __main__:init_db_test - gen: 5/100
+INFO     2022-12-09 03:06:45.018 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:06:45.128 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:06:46.615 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:06:49.309 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 03:06:51.209 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 03:06:53.128 request id: app - __main__:init_db_test - gen: 3/100
+INFO     2022-12-09 03:06:55.075 request id: app - __main__:init_db_test - gen: 4/100
+INFO     2022-12-09 03:06:56.979 request id: app - __main__:init_db_test - gen: 5/100
+INFO     2022-12-09 03:06:58.911 request id: app - __main__:init_db_test - gen: 6/100
+INFO     2022-12-09 03:14:56.306 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:14:57.818 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:15:00.526 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 03:15:02.455 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 03:15:04.353 request id: app - __main__:init_db_test - gen: 3/100
+INFO     2022-12-09 03:15:06.286 request id: app - __main__:init_db_test - gen: 4/100
+INFO     2022-12-09 03:15:08.211 request id: app - __main__:init_db_test - gen: 5/100
+INFO     2022-12-09 03:15:10.152 request id: app - __main__:init_db_test - gen: 6/100
+INFO     2022-12-09 03:15:48.604 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:15:50.122 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:15:52.821 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 03:15:54.728 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 03:15:56.660 request id: app - __main__:init_db_test - gen: 3/100
+INFO     2022-12-09 03:15:58.576 request id: app - __main__:init_db_test - gen: 4/100
+INFO     2022-12-09 03:17:09.910 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:17:10.031 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:17:11.542 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:17:14.258 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 03:17:16.173 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 03:17:47.287 request id: app - __main__:init_db_test - SHOW
+INFO     2022-12-09 03:17:47.302 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:17:47.416 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:17:48.925 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:17:51.617 request id: app - __main__:init_db_test - gen: 1/100
+ERROR    2022-12-09 03:19:08.827 request id: app - __main__:init_db_test - init_db: Base.metadata.create_all(): Not an executable object: 'show timezone;'
+INFO     2022-12-09 03:19:08.829 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:19:08.956 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:19:10.483 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:28:23.410 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:28:25.022 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:28:28.293 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 03:28:30.211 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 03:28:32.131 request id: app - __main__:init_db_test - gen: 3/100
+INFO     2022-12-09 03:28:34.097 request id: app - __main__:init_db_test - gen: 4/100
+INFO     2022-12-09 03:28:36.018 request id: app - __main__:init_db_test - gen: 5/100
+INFO     2022-12-09 03:28:37.932 request id: app - __main__:init_db_test - gen: 6/100
+INFO     2022-12-09 03:29:24.178 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:29:24.297 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:29:25.823 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:29:28.545 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 03:29:30.476 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 03:29:32.396 request id: app - __main__:init_db_test - gen: 3/100
+INFO     2022-12-09 03:29:34.333 request id: app - __main__:init_db_test - gen: 4/100
+INFO     2022-12-09 03:30:05.481 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:30:05.598 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:30:07.122 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:30:09.861 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 03:30:11.786 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 03:30:13.725 request id: app - __main__:init_db_test - gen: 3/100
+INFO     2022-12-09 03:35:30.368 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:35:31.897 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:35:34.596 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 03:35:36.499 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 03:35:38.420 request id: app - __main__:init_db_test - gen: 3/100
+INFO     2022-12-09 03:35:40.347 request id: app - __main__:init_db_test - gen: 4/100
+INFO     2022-12-09 03:35:42.273 request id: app - __main__:init_db_test - gen: 5/100
+INFO     2022-12-09 03:35:44.199 request id: app - __main__:init_db_test - gen: 6/100
+INFO     2022-12-09 03:35:46.107 request id: app - __main__:init_db_test - gen: 7/100
+INFO     2022-12-09 03:36:04.111 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:36:04.222 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:36:05.775 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:36:08.542 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 03:37:20.404 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 03:37:20.462 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:37:20.575 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:37:22.093 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:37:24.774 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 03:37:26.675 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 03:37:28.586 request id: app - __main__:init_db_test - gen: 3/100
+INFO     2022-12-09 03:37:30.494 request id: app - __main__:init_db_test - gen: 4/100
+INFO     2022-12-09 03:38:30.391 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+ERROR    2022-12-09 03:38:30.433 request id: app - __main__:init_db_test - init_db: Base.metadata.create_all(): Not an executable object: 'show timezone;'
+INFO     2022-12-09 03:38:30.435 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:38:30.557 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:38:32.061 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:38:34.755 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 03:39:18.336 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 03:39:18.383 request id: app - __main__:init_db_test - 2022-12-09 00:39:18.382756+00:00
+INFO     2022-12-09 03:39:18.398 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:39:18.514 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:39:20.031 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:39:31.329 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 03:39:31.377 request id: app - __main__:init_db_test - 2022-12-09 00:39:31.376345+00:00
+INFO     2022-12-09 03:39:31.391 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:39:31.506 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:39:33.005 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:41:37.890 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 03:42:21.378 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 03:42:21.427 request id: app - __main__:init_db_test - 2022-12-09 00:42:21.426565+00:00
+INFO     2022-12-09 03:42:21.442 request id: app - __main__:init_db_test - DuplicateObjectError
+ERROR    2022-12-09 03:42:21.445 request id: app - __main__:init_db_test - init_db_test: user is None: Exception: ("Session.__init__() got an unexpected keyword argument 'connect_args'",)
+Traceback (most recent call last):
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\backend\test\gen_test_data.py", line 173, in <module>
+    asyncio.run(init_db_test())
+    │       │   └ <function init_db_test at 0x00000207C74ACAF0>
+    │       └ <function run at 0x00000207C9084CA0>
+    └ <module 'asyncio' from 'C:\\Users\\R\\AppData\\Local\\Programs\\Python\\Python310\\lib\\asyncio\\__init__.py'>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py", line 44, in run
+    return loop.run_until_complete(main)
+           │    │                  └ <coroutine object init_db_test at 0x00000207CB83E0A0>
+           │    └ <function BaseEventLoop.run_until_complete at 0x00000207C9086680>
+           └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 633, in run_until_complete
+    self.run_forever()
+    │    └ <function ProactorEventLoop.run_forever at 0x00000207C913EF80>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 600, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x00000207C908C160>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 1896, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x00000207C901F9A0>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+
+> File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\backend\test\gen_test_data.py", line 49, in init_db_test
+    db = AsyncSessionLocal()
+         └ sessionmaker(class_='AsyncSession', connect_args={'options': '-c timezone=Europe/Moscow'}, bind=<sqlalchemy.ext.asyncio.engin...
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\orm\session.py", line 4274, in __call__
+    return self.class_(**local_kw)
+           │    │        └ {'connect_args': {'options': '-c timezone=Europe/Moscow'}, 'bind': <sqlalchemy.ext.asyncio.engine.AsyncEngine object at 0x000...
+           │    └ <class 'sqlalchemy.orm.session.AsyncSession'>
+           └ sessionmaker(class_='AsyncSession', connect_args={'options': '-c timezone=Europe/Moscow'}, bind=<sqlalchemy.ext.asyncio.engin...
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 107, in __init__
+    self.sync_session_class(bind=bind, binds=binds, **kw)
+    │    │                       │           │        └ {'connect_args': {'options': '-c timezone=Europe/Moscow'}, 'autoflush': False, 'autocommit': False, 'expire_on_commit': False...
+    │    │                       │           └ None
+    │    │                       └ Engine(postgresql+asyncpg://postgres:***@localhost:5435/app)
+    │    └ <class 'sqlalchemy.orm.session.Session'>
+    └ <sqlalchemy.orm.session.AsyncSession object at 0x00000207CBC168C0>
+
+TypeError: Session.__init__() got an unexpected keyword argument 'connect_args'
+INFO     2022-12-09 03:42:28.870 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 03:42:28.919 request id: app - __main__:init_db_test - 2022-12-09 00:42:28.917862+00:00
+INFO     2022-12-09 03:42:28.933 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:42:29.045 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:42:30.570 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:43:32.007 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 03:43:32.054 request id: app - __main__:init_db_test - 2022-12-09 00:43:32.053344+00:00
+INFO     2022-12-09 03:43:32.068 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:43:32.182 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:43:33.712 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:43:36.373 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 03:43:38.308 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 03:44:21.460 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 03:44:21.507 request id: app - __main__:init_db_test - 2022-12-09 00:44:21.506529+00:00
+INFO     2022-12-09 03:44:21.522 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:44:21.635 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:44:23.150 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:44:25.818 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 03:44:55.876 request id: app - __main__:init_db_test - [<Record TimeZone='Etc/UTC'>]
+INFO     2022-12-09 03:44:55.924 request id: app - __main__:init_db_test - 2022-12-09 00:44:55.923509+00:00
+INFO     2022-12-09 03:44:55.938 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:44:56.051 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:44:57.559 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:45:00.226 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 03:45:08.111 request id: app - __main__:init_db_test - [<Record TimeZone='Etc/UTC'>]
+INFO     2022-12-09 03:45:08.159 request id: app - __main__:init_db_test - 2022-12-09 00:45:08.158227+00:00
+INFO     2022-12-09 03:45:08.173 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:45:08.286 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:45:09.793 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:45:20.581 request id: app - __main__:init_db_test - [<Record TimeZone='Etc/UTC'>]
+INFO     2022-12-09 03:45:20.629 request id: app - __main__:init_db_test - 2022-12-09 00:45:20.628311+00:00
+INFO     2022-12-09 03:45:20.643 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:45:20.755 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:45:22.262 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:45:32.381 request id: app - __main__:init_db_test - [<Record TimeZone='Etc/UTC'>]
+INFO     2022-12-09 03:45:32.428 request id: app - __main__:init_db_test - 2022-12-09 00:45:32.427791+00:00
+INFO     2022-12-09 03:45:32.443 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:45:32.557 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:45:34.063 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:45:47.396 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 03:45:47.443 request id: app - __main__:init_db_test - 2022-12-09 00:45:47.442425+00:00
+INFO     2022-12-09 03:45:47.457 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:45:47.574 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:45:49.076 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:45:55.613 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 03:45:55.662 request id: app - __main__:init_db_test - 2022-12-09 00:45:55.660989+00:00
+INFO     2022-12-09 03:45:55.677 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:45:55.802 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:45:57.330 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:45:59.970 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 03:46:20.672 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 03:46:20.719 request id: app - __main__:init_db_test - 2022-12-09 00:46:20.718597+00:00
+INFO     2022-12-09 03:46:20.850 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:46:22.378 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:46:57.749 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 03:46:57.807 request id: app - __main__:init_db_test - 2022-12-09 00:46:57.805405+00:00
+ERROR    2022-12-09 03:46:57.901 request id: app - __main__:init_db_test - init_db_test: user is None: Exception: ("(sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedFunctionError'>: function truncate_tables(unknown) does not exist\nHINT:  No function matches the given name and argument types. You might need to add explicit type casts.",)
+Traceback (most recent call last):
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 418, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                      │                └ <function AsyncAdapt_asyncpg_connection._prepare at 0x000001E2501DFD00>
+                                      └ <AdaptedConnection <asyncpg.connection.Connection object at 0x000001E250A45D20>>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 660, in _prepare
+    prepared_stmt = await self._connection.prepare(operation)
+                          │    │                   └ "SELECT truncate_tables('postgres');"
+                          │    └ <member '_connection' of 'AsyncAdapt_asyncpg_connection' objects>
+                          └ <AdaptedConnection <asyncpg.connection.Connection object at 0x000001E250A45D20>>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\asyncpg\connection.py", line 565, in prepare
+    return await self._prepare(
+                 │    └ <function Connection._prepare at 0x000001E24E5443A0>
+                 └ <asyncpg.connection.Connection object at 0x000001E250A45D20>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\asyncpg\connection.py", line 583, in _prepare
+    stmt = await self._get_statement(
+                 │    └ <function Connection._get_statement at 0x000001E24E5440D0>
+                 └ <asyncpg.connection.Connection object at 0x000001E250A45D20>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\asyncpg\connection.py", line 397, in _get_statement
+    statement = await self._protocol.prepare(
+                      │    └ <member '_protocol' of 'Connection' objects>
+                      └ <asyncpg.connection.Connection object at 0x000001E250A45D20>
+
+  File "asyncpg\protocol\protocol.pyx", line 168, in prepare
+    return await waiter
+
+asyncpg.exceptions.UndefinedFunctionError: function truncate_tables(unknown) does not exist
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1900, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x000001E24EBDDA20>
+    │    └ <sqlalchemy.dialects.postgresql.asyncpg.PGDialect_asyncpg object at 0x000001E2506ACBB0>
+    └ <sqlalchemy.future.engine.Connection object at 0x000001E250ACDAE0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ ()
+    │      │       └ "SELECT truncate_tables('postgres');"
+    │      └ <function AsyncAdapt_asyncpg_cursor.execute at 0x000001E2501DF250>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000001E2509DD770>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 479, in execute
+    self._adapt_connection.await_(
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000001E2509DD770>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 68, in await_only
+    return current.driver.switch(awaitable)
+           │                     └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x000001E2509DDE00>
+           └ <_AsyncIoGreenlet object at 0x000001E250A675C0 (otid=0x000001E24E724930) dead>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 121, in greenlet_spawn
+    value = await result
+                  └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x000001E2509DDE00>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 454, in _prepare_and_execute
+    self._handle_exception(error)
+    │    └ <function AsyncAdapt_asyncpg_cursor._handle_exception at 0x000001E2501DF010>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000001E2509DD770>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 389, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    │    │                                   └ UndefinedFunctionError('function truncate_tables(unknown) does not exist')
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000001E2509DD770>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 682, in _handle_exception
+    raise translated_error from error
+          │                     └ UndefinedFunctionError('function truncate_tables(unknown) does not exist')
+          └ ProgrammingError("<class 'asyncpg.exceptions.UndefinedFunctionError'>: function truncate_tables(unknown) does not exist\nHINT...
+
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedFunctionError'>: function truncate_tables(unknown) does not exist
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\backend\test\gen_test_data.py", line 173, in <module>
+    asyncio.run(init_db_test())
+    │       │   └ <function init_db_test at 0x000001E24C258AF0>
+    │       └ <function run at 0x000001E24DE84CA0>
+    └ <module 'asyncio' from 'C:\\Users\\R\\AppData\\Local\\Programs\\Python\\Python310\\lib\\asyncio\\__init__.py'>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py", line 44, in run
+    return loop.run_until_complete(main)
+           │    │                  └ <coroutine object init_db_test at 0x000001E25067E030>
+           │    └ <function BaseEventLoop.run_until_complete at 0x000001E24DE86680>
+           └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 633, in run_until_complete
+    self.run_forever()
+    │    └ <function ProactorEventLoop.run_forever at 0x000001E24DF3EF80>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 600, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x000001E24DE8C160>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 1896, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x000001E24DE0F9A0>
+    └ <Handle Task.task_wakeup(<Future finis...s not exist')>)>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finis...s not exist')>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finis...s not exist')>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finis...s not exist')>)>
+
+> File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\backend\test\gen_test_data.py", line 50, in init_db_test
+    await db.execute(f'''SELECT truncate_tables('postgres');''')
+          │  └ <function AsyncSession.execute at 0x000001E24F6B8CA0>
+          └ <sqlalchemy.orm.session.AsyncSession object at 0x000001E250A5AE60>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 214, in execute
+    result = await greenlet_spawn(
+                   └ <function greenlet_spawn at 0x000001E24E76B5B0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 126, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             │       │      │   └ <built-in function exc_info>
+             │       │      └ <module 'sys' (built-in)>
+             │       └ <method 'throw' of 'greenlet.greenlet' objects>
+             └ <_AsyncIoGreenlet object at 0x000001E250A675C0 (otid=0x000001E24E724930) dead>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\orm\session.py", line 1714, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+             │    │           │          │             └ immutabledict({'prebuffer_rows': True, 'future_result': True})
+             │    │           │          └ None
+             │    │           └ <sqlalchemy.sql.elements.TextClause object at 0x000001E250A59720>
+             │    └ <function Connection._execute_20 at 0x000001E24EB18670>
+             └ <sqlalchemy.future.engine.Connection object at 0x000001E250ACDAE0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1705, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           │    │     │             │               └ immutabledict({'prebuffer_rows': True, 'future_result': True})
+           │    │     │             └ immutabledict({})
+           │    │     └ ({},)
+           │    └ <sqlalchemy.future.engine.Connection object at 0x000001E250ACDAE0>
+           └ <bound method ClauseElement._execute_on_connection of <sqlalchemy.sql.elements.TextClause object at 0x000001E250A59720>>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\sql\elements.py", line 334, in _execute_on_connection
+    return connection._execute_clauseelement(
+           │          └ <function Connection._execute_clauseelement at 0x000001E24EB184C0>
+           └ <sqlalchemy.future.engine.Connection object at 0x000001E250ACDAE0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1572, in _execute_clauseelement
+    ret = self._execute_context(
+          │    └ <function Connection._execute_context at 0x000001E24EB18790>
+          └ <sqlalchemy.future.engine.Connection object at 0x000001E250ACDAE0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1943, in _execute_context
+    self._handle_dbapi_exception(
+    │    └ <function Connection._handle_dbapi_exception at 0x000001E24EB18940>
+    └ <sqlalchemy.future.engine.Connection object at 0x000001E250ACDAE0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 2124, in _handle_dbapi_exception
+    util.raise_(
+    │    └ <function raise_ at 0x000001E24E716440>
+    └ <module 'sqlalchemy.util' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\venv\\lib\\site-packages\\sqlalchem...
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\compat.py", line 210, in raise_
+    raise exception
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1900, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x000001E24EBDDA20>
+    │    └ <sqlalchemy.dialects.postgresql.asyncpg.PGDialect_asyncpg object at 0x000001E2506ACBB0>
+    └ <sqlalchemy.future.engine.Connection object at 0x000001E250ACDAE0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ ()
+    │      │       └ "SELECT truncate_tables('postgres');"
+    │      └ <function AsyncAdapt_asyncpg_cursor.execute at 0x000001E2501DF250>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000001E2509DD770>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 479, in execute
+    self._adapt_connection.await_(
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000001E2509DD770>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 68, in await_only
+    return current.driver.switch(awaitable)
+           │                     └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x000001E2509DDE00>
+           └ <_AsyncIoGreenlet object at 0x000001E250A675C0 (otid=0x000001E24E724930) dead>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 121, in greenlet_spawn
+    value = await result
+                  └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x000001E2509DDE00>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 454, in _prepare_and_execute
+    self._handle_exception(error)
+    │    └ <function AsyncAdapt_asyncpg_cursor._handle_exception at 0x000001E2501DF010>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000001E2509DD770>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 389, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    │    │                                   └ UndefinedFunctionError('function truncate_tables(unknown) does not exist')
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000001E2509DD770>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 682, in _handle_exception
+    raise translated_error from error
+          │                     └ UndefinedFunctionError('function truncate_tables(unknown) does not exist')
+          └ ProgrammingError("<class 'asyncpg.exceptions.UndefinedFunctionError'>: function truncate_tables(unknown) does not exist\nHINT...
+
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedFunctionError'>: function truncate_tables(unknown) does not exist
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+[SQL: SELECT truncate_tables('postgres');]
+(Background on this error at: https://sqlalche.me/e/14/f405)
+INFO     2022-12-09 03:47:28.361 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 03:47:28.408 request id: app - __main__:init_db_test - 2022-12-09 00:47:28.407393+00:00
+INFO     2022-12-09 03:47:28.423 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+ERROR    2022-12-09 03:47:28.429 request id: app - __main__:init_db_test - init_db_test: user is None: Exception: ("(sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.InFailedSQLTransactionError'>: current transaction is aborted, commands ignored until end of transaction block",)
+Traceback (most recent call last):
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 418, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                      │                └ <function AsyncAdapt_asyncpg_connection._prepare at 0x000002441CA43D00>
+                                      └ <AdaptedConnection <asyncpg.connection.Connection object at 0x000002441D2A5D20>>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 660, in _prepare
+    prepared_stmt = await self._connection.prepare(operation)
+                          │    │                   └ 'INSERT INTO company (name, sector, size, city, address, website, create_date) VALUES ($1::varchar, $2::varchar, $3, $4::varc...
+                          │    └ <member '_connection' of 'AsyncAdapt_asyncpg_connection' objects>
+                          └ <AdaptedConnection <asyncpg.connection.Connection object at 0x000002441D2A5D20>>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\asyncpg\connection.py", line 565, in prepare
+    return await self._prepare(
+                 │    └ <function Connection._prepare at 0x000002441ADA43A0>
+                 └ <asyncpg.connection.Connection object at 0x000002441D2A5D20>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\asyncpg\connection.py", line 583, in _prepare
+    stmt = await self._get_statement(
+                 │    └ <function Connection._get_statement at 0x000002441ADA40D0>
+                 └ <asyncpg.connection.Connection object at 0x000002441D2A5D20>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\asyncpg\connection.py", line 397, in _get_statement
+    statement = await self._protocol.prepare(
+                      │    └ <member '_protocol' of 'Connection' objects>
+                      └ <asyncpg.connection.Connection object at 0x000002441D2A5D20>
+
+  File "asyncpg\protocol\protocol.pyx", line 168, in prepare
+    return await waiter
+
+asyncpg.exceptions.InFailedSQLTransactionError: current transaction is aborted, commands ignored until end of transaction block
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1900, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x000002441B43DA20>
+    │    └ <sqlalchemy.dialects.postgresql.asyncpg.PGDialect_asyncpg object at 0x000002441CF0CC70>
+    └ <sqlalchemy.future.engine.Connection object at 0x000002441D2BB400>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ ('CRM', None, 'huge', 'Москва', 'Москва, чистые пруды 1', 'https://localhost:8080')
+    │      │       └ 'INSERT INTO company (name, sector, size, city, address, website, create_date) VALUES (%s, %s, %s, %s, %s, %s, now()) RETURNI...
+    │      └ <function AsyncAdapt_asyncpg_cursor.execute at 0x000002441CA43250>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000002441D23E500>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 479, in execute
+    self._adapt_connection.await_(
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000002441D23E500>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 68, in await_only
+    return current.driver.switch(awaitable)
+           │                     └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x000002441D23E5E0>
+           └ <_AsyncIoGreenlet object at 0x000002441CB4B340 (otid=0x000002441AF849F0) dead>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 121, in greenlet_spawn
+    value = await result
+                  └ <coroutine object Transaction.rollback at 0x000002441D23DE70>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 454, in _prepare_and_execute
+    self._handle_exception(error)
+    │    └ <function AsyncAdapt_asyncpg_cursor._handle_exception at 0x000002441CA43010>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000002441D23E500>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 389, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    │    │                                   └ InFailedSQLTransactionError('current transaction is aborted, commands ignored until end of transaction block')
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000002441D23E500>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 682, in _handle_exception
+    raise translated_error from error
+          │                     └ InFailedSQLTransactionError('current transaction is aborted, commands ignored until end of transaction block')
+          └ Error("<class 'asyncpg.exceptions.InFailedSQLTransactionError'>: current transaction is aborted, commands ignored until end o...
+
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.Error: <class 'asyncpg.exceptions.InFailedSQLTransactionError'>: current transaction is aborted, commands ignored until end of transaction block
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\backend\test\gen_test_data.py", line 175, in <module>
+    asyncio.run(init_db_test())
+    │       │   └ <function init_db_test at 0x0000024418A9CAF0>
+    │       └ <function run at 0x000002441A6E4CA0>
+    └ <module 'asyncio' from 'C:\\Users\\R\\AppData\\Local\\Programs\\Python\\Python310\\lib\\asyncio\\__init__.py'>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py", line 44, in run
+    return loop.run_until_complete(main)
+           │    │                  └ <coroutine object init_db_test at 0x000002441CEDE030>
+           │    └ <function BaseEventLoop.run_until_complete at 0x000002441A6E6680>
+           └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 633, in run_until_complete
+    self.run_forever()
+    │    └ <function ProactorEventLoop.run_forever at 0x000002441A79EF80>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 600, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x000002441A6EC160>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 1896, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x000002441A66F9A0>
+    └ <Handle Task.task_wakeup(<Future finis...lt='ROLLBACK'>)>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finis...lt='ROLLBACK'>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finis...lt='ROLLBACK'>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finis...lt='ROLLBACK'>)>
+
+> File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\backend\test\gen_test_data.py", line 63, in init_db_test
+    company_obj_main = await crud.company.create(db, obj_in=company_in)
+                             │    │       │      │          └ CompanyCreate(name='CRM', sector=None, size='huge', address='Москва, чистые пруды 1', city='Москва', website='https://localho...
+                             │    │       │      └ <sqlalchemy.orm.session.AsyncSession object at 0x000002441D2BB550>
+                             │    │       └ <function CRUDCompany.create at 0x000002441CF12560>
+                             │    └ <backend.app.crud.company.CRUDCompany object at 0x000002441CF0D330>
+                             └ <module 'backend.app.crud' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\backend\\app\\crud\\__init__.py'>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\backend\app\crud\company.py", line 16, in create
+    await db.commit()
+          │  └ <function AsyncSession.commit at 0x000002441BF1D5A0>
+          └ <sqlalchemy.orm.session.AsyncSession object at 0x000002441D2BB550>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 582, in commit
+    return await greenlet_spawn(self.sync_session.commit)
+                 │              │    │            └ <function Session.commit at 0x000002441B699000>
+                 │              │    └ <sqlalchemy.orm.session.Session object at 0x000002441D2BAF50>
+                 │              └ <sqlalchemy.orm.session.AsyncSession object at 0x000002441D2BB550>
+                 └ <function greenlet_spawn at 0x000002441AFCF5B0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 128, in greenlet_spawn
+    result = context.switch(value)
+             │       │      └ None
+             │       └ <method 'switch' of 'greenlet.greenlet' objects>
+             └ <_AsyncIoGreenlet object at 0x000002441CB4B340 (otid=0x000002441AF849F0) dead>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\orm\session.py", line 1451, in commit
+    self._transaction.commit(_to_root=self.future)
+    │    │            │               │    └ True
+    │    │            │               └ <sqlalchemy.orm.session.Session object at 0x000002441D2BAF50>
+    │    │            └ <function SessionTransaction.commit at 0x000002441B683F40>
+    │    └ <sqlalchemy.orm.session.SessionTransaction object at 0x000002441D2BB5E0>
+    └ <sqlalchemy.orm.session.Session object at 0x000002441D2BAF50>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\orm\session.py", line 829, in commit
+    self._prepare_impl()
+    │    └ <function SessionTransaction._prepare_impl at 0x000002441B683EB0>
+    └ <sqlalchemy.orm.session.SessionTransaction object at 0x000002441D2BB5E0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\orm\session.py", line 808, in _prepare_impl
+    self.session.flush()
+    │    │       └ <function Session.flush at 0x000002441B69AC20>
+    │    └ <sqlalchemy.orm.session.Session object at 0x000002441D2BAF50>
+    └ <sqlalchemy.orm.session.SessionTransaction object at 0x000002441D2BB5E0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\orm\session.py", line 3444, in flush
+    self._flush(objects)
+    │    │      └ None
+    │    └ <function Session._flush at 0x000002441B69ADD0>
+    └ <sqlalchemy.orm.session.Session object at 0x000002441D2BAF50>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\orm\session.py", line 3583, in _flush
+    with util.safe_reraise():
+         │    └ <class 'sqlalchemy.util.langhelpers.safe_reraise'>
+         └ <module 'sqlalchemy.util' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\venv\\lib\\site-packages\\sqlalchem...
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\langhelpers.py", line 70, in __exit__
+    compat.raise_(
+    │      └ <function raise_ at 0x000002441AF76440>
+    └ <module 'sqlalchemy.util.compat' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\venv\\lib\\site-packages\\sq...
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\compat.py", line 210, in raise_
+    raise exception
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\orm\session.py", line 3544, in _flush
+    flush_context.execute()
+    │             └ <function UOWTransaction.execute at 0x000002441B6816C0>
+    └ <sqlalchemy.orm.unitofwork.UOWTransaction object at 0x000002441D2BBAC0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 456, in execute
+    rec.execute(self)
+    │   │       └ <sqlalchemy.orm.unitofwork.UOWTransaction object at 0x000002441D2BBAC0>
+    │   └ <function SaveUpdateAll.execute at 0x000002441B681FC0>
+    └ SaveUpdateAll(mapped class Company->company)
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 630, in execute
+    util.preloaded.orm_persistence.save_obj(
+    │    │         │               └ <function save_obj at 0x000002441B647130>
+    │    │         └ <module 'sqlalchemy.orm.persistence' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\venv\\lib\\site-packages...
+    │    └ <sqlalchemy.util._preloaded._ModuleRegistry object at 0x000002441ADC57E0>
+    └ <module 'sqlalchemy.util' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\venv\\lib\\site-packages\\sqlalchem...
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\orm\persistence.py", line 245, in save_obj
+    _emit_insert_statements(
+    └ <function _emit_insert_statements at 0x000002441B647760>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\orm\persistence.py", line 1238, in _emit_insert_statements
+    result = connection._execute_20(
+             │          └ <function Connection._execute_20 at 0x000002441B378670>
+             └ <sqlalchemy.future.engine.Connection object at 0x000002441D2BB400>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1705, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           │    │     │             │               └ {'compiled_cache': {(<sqlalchemy.dialects.postgresql.asyncpg.PGDialect_asyncpg object at 0x000002441CF0CC70>, ('0', <class 's...
+           │    │     │             └ immutabledict({})
+           │    │     └ ({'address': 'Москва, чистые пруды 1', 'website': 'https://localhost:8080', 'city': 'Москва', 'size': 'huge', 'name': 'CRM', ...
+           │    └ <sqlalchemy.future.engine.Connection object at 0x000002441D2BB400>
+           └ <bound method ClauseElement._execute_on_connection of <sqlalchemy.sql.dml.Insert object at 0x000002441D2BBDF0>>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\sql\elements.py", line 334, in _execute_on_connection
+    return connection._execute_clauseelement(
+           │          └ <function Connection._execute_clauseelement at 0x000002441B3784C0>
+           └ <sqlalchemy.future.engine.Connection object at 0x000002441D2BB400>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1572, in _execute_clauseelement
+    ret = self._execute_context(
+          │    └ <function Connection._execute_context at 0x000002441B378790>
+          └ <sqlalchemy.future.engine.Connection object at 0x000002441D2BB400>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1943, in _execute_context
+    self._handle_dbapi_exception(
+    │    └ <function Connection._handle_dbapi_exception at 0x000002441B378940>
+    └ <sqlalchemy.future.engine.Connection object at 0x000002441D2BB400>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 2124, in _handle_dbapi_exception
+    util.raise_(
+    │    └ <function raise_ at 0x000002441AF76440>
+    └ <module 'sqlalchemy.util' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\venv\\lib\\site-packages\\sqlalchem...
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\compat.py", line 210, in raise_
+    raise exception
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1900, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x000002441B43DA20>
+    │    └ <sqlalchemy.dialects.postgresql.asyncpg.PGDialect_asyncpg object at 0x000002441CF0CC70>
+    └ <sqlalchemy.future.engine.Connection object at 0x000002441D2BB400>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ ('CRM', None, 'huge', 'Москва', 'Москва, чистые пруды 1', 'https://localhost:8080')
+    │      │       └ 'INSERT INTO company (name, sector, size, city, address, website, create_date) VALUES (%s, %s, %s, %s, %s, %s, now()) RETURNI...
+    │      └ <function AsyncAdapt_asyncpg_cursor.execute at 0x000002441CA43250>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000002441D23E500>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 479, in execute
+    self._adapt_connection.await_(
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000002441D23E500>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 68, in await_only
+    return current.driver.switch(awaitable)
+           │                     └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x000002441D23E5E0>
+           └ <_AsyncIoGreenlet object at 0x000002441CB4B340 (otid=0x000002441AF849F0) dead>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 121, in greenlet_spawn
+    value = await result
+                  └ <coroutine object Transaction.rollback at 0x000002441D23DE70>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 454, in _prepare_and_execute
+    self._handle_exception(error)
+    │    └ <function AsyncAdapt_asyncpg_cursor._handle_exception at 0x000002441CA43010>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000002441D23E500>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 389, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    │    │                                   └ InFailedSQLTransactionError('current transaction is aborted, commands ignored until end of transaction block')
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000002441D23E500>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 682, in _handle_exception
+    raise translated_error from error
+          │                     └ InFailedSQLTransactionError('current transaction is aborted, commands ignored until end of transaction block')
+          └ Error("<class 'asyncpg.exceptions.InFailedSQLTransactionError'>: current transaction is aborted, commands ignored until end o...
+
+sqlalchemy.exc.DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.InFailedSQLTransactionError'>: current transaction is aborted, commands ignored until end of transaction block
+[SQL: INSERT INTO company (name, sector, size, city, address, website, create_date) VALUES (%s, %s, %s, %s, %s, %s, now()) RETURNING company.id]
+[parameters: ('CRM', None, 'huge', 'Москва', 'Москва, чистые пруды 1', 'https://localhost:8080')]
+(Background on this error at: https://sqlalche.me/e/14/dbapi)
+INFO     2022-12-09 03:47:36.633 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 03:47:36.681 request id: app - __main__:init_db_test - 2022-12-09 00:47:36.680483+00:00
+INFO     2022-12-09 03:47:36.697 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+ERROR    2022-12-09 03:47:36.702 request id: app - __main__:init_db_test - init_db_test: user is None: Exception: ("(sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.InFailedSQLTransactionError'>: current transaction is aborted, commands ignored until end of transaction block",)
+Traceback (most recent call last):
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 418, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                      │                └ <function AsyncAdapt_asyncpg_connection._prepare at 0x00000193ABC83D00>
+                                      └ <AdaptedConnection <asyncpg.connection.Connection object at 0x00000193AC4E5D20>>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 660, in _prepare
+    prepared_stmt = await self._connection.prepare(operation)
+                          │    │                   └ 'INSERT INTO company (name, sector, size, city, address, website, create_date) VALUES ($1::varchar, $2::varchar, $3, $4::varc...
+                          │    └ <member '_connection' of 'AsyncAdapt_asyncpg_connection' objects>
+                          └ <AdaptedConnection <asyncpg.connection.Connection object at 0x00000193AC4E5D20>>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\asyncpg\connection.py", line 565, in prepare
+    return await self._prepare(
+                 │    └ <function Connection._prepare at 0x00000193A9FE43A0>
+                 └ <asyncpg.connection.Connection object at 0x00000193AC4E5D20>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\asyncpg\connection.py", line 583, in _prepare
+    stmt = await self._get_statement(
+                 │    └ <function Connection._get_statement at 0x00000193A9FE40D0>
+                 └ <asyncpg.connection.Connection object at 0x00000193AC4E5D20>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\asyncpg\connection.py", line 397, in _get_statement
+    statement = await self._protocol.prepare(
+                      │    └ <member '_protocol' of 'Connection' objects>
+                      └ <asyncpg.connection.Connection object at 0x00000193AC4E5D20>
+
+  File "asyncpg\protocol\protocol.pyx", line 168, in prepare
+    return await waiter
+
+asyncpg.exceptions.InFailedSQLTransactionError: current transaction is aborted, commands ignored until end of transaction block
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1900, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x00000193AA67DA20>
+    │    └ <sqlalchemy.dialects.postgresql.asyncpg.PGDialect_asyncpg object at 0x00000193AC14CD30>
+    └ <sqlalchemy.future.engine.Connection object at 0x00000193AC4FB3D0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ ('CRM', None, 'huge', 'Москва', 'Москва, чистые пруды 1', 'https://localhost:8080')
+    │      │       └ 'INSERT INTO company (name, sector, size, city, address, website, create_date) VALUES (%s, %s, %s, %s, %s, %s, now()) RETURNI...
+    │      └ <function AsyncAdapt_asyncpg_cursor.execute at 0x00000193ABC83250>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x00000193AC47E500>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 479, in execute
+    self._adapt_connection.await_(
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x00000193AC47E500>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 68, in await_only
+    return current.driver.switch(awaitable)
+           │                     └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x00000193AC47E5E0>
+           └ <_AsyncIoGreenlet object at 0x00000193AC4543C0 (otid=0x00000193AA1C4B10) dead>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 121, in greenlet_spawn
+    value = await result
+                  └ <coroutine object Transaction.rollback at 0x00000193AC47DE70>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 454, in _prepare_and_execute
+    self._handle_exception(error)
+    │    └ <function AsyncAdapt_asyncpg_cursor._handle_exception at 0x00000193ABC83010>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x00000193AC47E500>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 389, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    │    │                                   └ InFailedSQLTransactionError('current transaction is aborted, commands ignored until end of transaction block')
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x00000193AC47E500>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 682, in _handle_exception
+    raise translated_error from error
+          │                     └ InFailedSQLTransactionError('current transaction is aborted, commands ignored until end of transaction block')
+          └ Error("<class 'asyncpg.exceptions.InFailedSQLTransactionError'>: current transaction is aborted, commands ignored until end o...
+
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.Error: <class 'asyncpg.exceptions.InFailedSQLTransactionError'>: current transaction is aborted, commands ignored until end of transaction block
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\backend\test\gen_test_data.py", line 176, in <module>
+    asyncio.run(init_db_test())
+    │       │   └ <function init_db_test at 0x00000193A7CDCAF0>
+    │       └ <function run at 0x00000193A9924CA0>
+    └ <module 'asyncio' from 'C:\\Users\\R\\AppData\\Local\\Programs\\Python\\Python310\\lib\\asyncio\\__init__.py'>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py", line 44, in run
+    return loop.run_until_complete(main)
+           │    │                  └ <coroutine object init_db_test at 0x00000193AC11E030>
+           │    └ <function BaseEventLoop.run_until_complete at 0x00000193A9926680>
+           └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 633, in run_until_complete
+    self.run_forever()
+    │    └ <function ProactorEventLoop.run_forever at 0x00000193A99DEF80>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 600, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x00000193A992C160>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 1896, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x00000193A98AF9A0>
+    └ <Handle Task.task_wakeup(<Future finis...lt='ROLLBACK'>)>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finis...lt='ROLLBACK'>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finis...lt='ROLLBACK'>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finis...lt='ROLLBACK'>)>
+
+> File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\backend\test\gen_test_data.py", line 64, in init_db_test
+    company_obj_main = await crud.company.create(db, obj_in=company_in)
+                             │    │       │      │          └ CompanyCreate(name='CRM', sector=None, size='huge', address='Москва, чистые пруды 1', city='Москва', website='https://localho...
+                             │    │       │      └ <sqlalchemy.orm.session.AsyncSession object at 0x00000193AC4FB460>
+                             │    │       └ <function CRUDCompany.create at 0x00000193AC152560>
+                             │    └ <backend.app.crud.company.CRUDCompany object at 0x00000193AC14D3F0>
+                             └ <module 'backend.app.crud' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\backend\\app\\crud\\__init__.py'>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\backend\app\crud\company.py", line 16, in create
+    await db.commit()
+          │  └ <function AsyncSession.commit at 0x00000193AB1595A0>
+          └ <sqlalchemy.orm.session.AsyncSession object at 0x00000193AC4FB460>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 582, in commit
+    return await greenlet_spawn(self.sync_session.commit)
+                 │              │    │            └ <function Session.commit at 0x00000193AB0D9000>
+                 │              │    └ <sqlalchemy.orm.session.Session object at 0x00000193AC4FB010>
+                 │              └ <sqlalchemy.orm.session.AsyncSession object at 0x00000193AC4FB460>
+                 └ <function greenlet_spawn at 0x00000193AA20F5B0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 128, in greenlet_spawn
+    result = context.switch(value)
+             │       │      └ None
+             │       └ <method 'switch' of 'greenlet.greenlet' objects>
+             └ <_AsyncIoGreenlet object at 0x00000193AC4543C0 (otid=0x00000193AA1C4B10) dead>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\orm\session.py", line 1451, in commit
+    self._transaction.commit(_to_root=self.future)
+    │    │            │               │    └ True
+    │    │            │               └ <sqlalchemy.orm.session.Session object at 0x00000193AC4FB010>
+    │    │            └ <function SessionTransaction.commit at 0x00000193AB0C3F40>
+    │    └ <sqlalchemy.orm.session.SessionTransaction object at 0x00000193AC4FB880>
+    └ <sqlalchemy.orm.session.Session object at 0x00000193AC4FB010>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\orm\session.py", line 829, in commit
+    self._prepare_impl()
+    │    └ <function SessionTransaction._prepare_impl at 0x00000193AB0C3EB0>
+    └ <sqlalchemy.orm.session.SessionTransaction object at 0x00000193AC4FB880>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\orm\session.py", line 808, in _prepare_impl
+    self.session.flush()
+    │    │       └ <function Session.flush at 0x00000193AB0DAC20>
+    │    └ <sqlalchemy.orm.session.Session object at 0x00000193AC4FB010>
+    └ <sqlalchemy.orm.session.SessionTransaction object at 0x00000193AC4FB880>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\orm\session.py", line 3444, in flush
+    self._flush(objects)
+    │    │      └ None
+    │    └ <function Session._flush at 0x00000193AB0DADD0>
+    └ <sqlalchemy.orm.session.Session object at 0x00000193AC4FB010>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\orm\session.py", line 3583, in _flush
+    with util.safe_reraise():
+         │    └ <class 'sqlalchemy.util.langhelpers.safe_reraise'>
+         └ <module 'sqlalchemy.util' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\venv\\lib\\site-packages\\sqlalchem...
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\langhelpers.py", line 70, in __exit__
+    compat.raise_(
+    │      └ <function raise_ at 0x00000193AA1B6440>
+    └ <module 'sqlalchemy.util.compat' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\venv\\lib\\site-packages\\sq...
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\compat.py", line 210, in raise_
+    raise exception
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\orm\session.py", line 3544, in _flush
+    flush_context.execute()
+    │             └ <function UOWTransaction.execute at 0x00000193AB0C16C0>
+    └ <sqlalchemy.orm.unitofwork.UOWTransaction object at 0x00000193AC4FBDC0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 456, in execute
+    rec.execute(self)
+    │   │       └ <sqlalchemy.orm.unitofwork.UOWTransaction object at 0x00000193AC4FBDC0>
+    │   └ <function SaveUpdateAll.execute at 0x00000193AB0C1FC0>
+    └ SaveUpdateAll(mapped class Company->company)
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 630, in execute
+    util.preloaded.orm_persistence.save_obj(
+    │    │         │               └ <function save_obj at 0x00000193AB083130>
+    │    │         └ <module 'sqlalchemy.orm.persistence' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\venv\\lib\\site-packages...
+    │    └ <sqlalchemy.util._preloaded._ModuleRegistry object at 0x00000193AA005900>
+    └ <module 'sqlalchemy.util' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\venv\\lib\\site-packages\\sqlalchem...
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\orm\persistence.py", line 245, in save_obj
+    _emit_insert_statements(
+    └ <function _emit_insert_statements at 0x00000193AB083760>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\orm\persistence.py", line 1238, in _emit_insert_statements
+    result = connection._execute_20(
+             │          └ <function Connection._execute_20 at 0x00000193AA5B8670>
+             └ <sqlalchemy.future.engine.Connection object at 0x00000193AC4FB3D0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1705, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           │    │     │             │               └ {'compiled_cache': {(<sqlalchemy.dialects.postgresql.asyncpg.PGDialect_asyncpg object at 0x00000193AC14CD30>, ('0', <class 's...
+           │    │     │             └ immutabledict({})
+           │    │     └ ({'website': 'https://localhost:8080', 'size': 'huge', 'name': 'CRM', 'city': 'Москва', 'address': 'Москва, чистые пруды 1', ...
+           │    └ <sqlalchemy.future.engine.Connection object at 0x00000193AC4FB3D0>
+           └ <bound method ClauseElement._execute_on_connection of <sqlalchemy.sql.dml.Insert object at 0x00000193AC4FBD00>>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\sql\elements.py", line 334, in _execute_on_connection
+    return connection._execute_clauseelement(
+           │          └ <function Connection._execute_clauseelement at 0x00000193AA5B84C0>
+           └ <sqlalchemy.future.engine.Connection object at 0x00000193AC4FB3D0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1572, in _execute_clauseelement
+    ret = self._execute_context(
+          │    └ <function Connection._execute_context at 0x00000193AA5B8790>
+          └ <sqlalchemy.future.engine.Connection object at 0x00000193AC4FB3D0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1943, in _execute_context
+    self._handle_dbapi_exception(
+    │    └ <function Connection._handle_dbapi_exception at 0x00000193AA5B8940>
+    └ <sqlalchemy.future.engine.Connection object at 0x00000193AC4FB3D0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 2124, in _handle_dbapi_exception
+    util.raise_(
+    │    └ <function raise_ at 0x00000193AA1B6440>
+    └ <module 'sqlalchemy.util' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\venv\\lib\\site-packages\\sqlalchem...
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\compat.py", line 210, in raise_
+    raise exception
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1900, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x00000193AA67DA20>
+    │    └ <sqlalchemy.dialects.postgresql.asyncpg.PGDialect_asyncpg object at 0x00000193AC14CD30>
+    └ <sqlalchemy.future.engine.Connection object at 0x00000193AC4FB3D0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ ('CRM', None, 'huge', 'Москва', 'Москва, чистые пруды 1', 'https://localhost:8080')
+    │      │       └ 'INSERT INTO company (name, sector, size, city, address, website, create_date) VALUES (%s, %s, %s, %s, %s, %s, now()) RETURNI...
+    │      └ <function AsyncAdapt_asyncpg_cursor.execute at 0x00000193ABC83250>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x00000193AC47E500>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 479, in execute
+    self._adapt_connection.await_(
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x00000193AC47E500>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 68, in await_only
+    return current.driver.switch(awaitable)
+           │                     └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x00000193AC47E5E0>
+           └ <_AsyncIoGreenlet object at 0x00000193AC4543C0 (otid=0x00000193AA1C4B10) dead>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 121, in greenlet_spawn
+    value = await result
+                  └ <coroutine object Transaction.rollback at 0x00000193AC47DE70>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 454, in _prepare_and_execute
+    self._handle_exception(error)
+    │    └ <function AsyncAdapt_asyncpg_cursor._handle_exception at 0x00000193ABC83010>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x00000193AC47E500>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 389, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    │    │                                   └ InFailedSQLTransactionError('current transaction is aborted, commands ignored until end of transaction block')
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x00000193AC47E500>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 682, in _handle_exception
+    raise translated_error from error
+          │                     └ InFailedSQLTransactionError('current transaction is aborted, commands ignored until end of transaction block')
+          └ Error("<class 'asyncpg.exceptions.InFailedSQLTransactionError'>: current transaction is aborted, commands ignored until end o...
+
+sqlalchemy.exc.DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.InFailedSQLTransactionError'>: current transaction is aborted, commands ignored until end of transaction block
+[SQL: INSERT INTO company (name, sector, size, city, address, website, create_date) VALUES (%s, %s, %s, %s, %s, %s, now()) RETURNING company.id]
+[parameters: ('CRM', None, 'huge', 'Москва', 'Москва, чистые пруды 1', 'https://localhost:8080')]
+(Background on this error at: https://sqlalche.me/e/14/dbapi)
+INFO     2022-12-09 03:48:03.205 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 03:48:03.253 request id: app - __main__:init_db_test - 2022-12-09 00:48:03.251830+00:00
+INFO     2022-12-09 03:48:11.315 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 03:48:11.361 request id: app - __main__:init_db_test - 2022-12-09 00:48:11.360770+00:00
+INFO     2022-12-09 03:48:48.097 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 03:48:48.146 request id: app - __main__:init_db_test - 2022-12-09 00:48:48.146055+00:00
+INFO     2022-12-09 03:51:02.664 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 03:51:02.711 request id: app - __main__:init_db_test - 2022-12-09 00:51:02.709814+00:00
+INFO     2022-12-09 03:51:02.727 request id: app - __main__:init_db_test - DuplicateObjectError
+ERROR    2022-12-09 03:51:02.734 request id: app - __main__:init_db_test - init_db_test: user is None: Exception: ("(sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedFunctionError'>: function truncate_tables(unknown) does not exist\nHINT:  No function matches the given name and argument types. You might need to add explicit type casts.",)
+Traceback (most recent call last):
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 418, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                      │                └ <function AsyncAdapt_asyncpg_connection._prepare at 0x0000024F2FA33D00>
+                                      └ <AdaptedConnection <asyncpg.connection.Connection object at 0x0000024F30295D20>>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 660, in _prepare
+    prepared_stmt = await self._connection.prepare(operation)
+                          │    │                   └ "SELECT truncate_tables('postgres');"
+                          │    └ <member '_connection' of 'AsyncAdapt_asyncpg_connection' objects>
+                          └ <AdaptedConnection <asyncpg.connection.Connection object at 0x0000024F30295D20>>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\asyncpg\connection.py", line 565, in prepare
+    return await self._prepare(
+                 │    └ <function Connection._prepare at 0x0000024F2DD943A0>
+                 └ <asyncpg.connection.Connection object at 0x0000024F30295D20>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\asyncpg\connection.py", line 583, in _prepare
+    stmt = await self._get_statement(
+                 │    └ <function Connection._get_statement at 0x0000024F2DD940D0>
+                 └ <asyncpg.connection.Connection object at 0x0000024F30295D20>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\asyncpg\connection.py", line 397, in _get_statement
+    statement = await self._protocol.prepare(
+                      │    └ <member '_protocol' of 'Connection' objects>
+                      └ <asyncpg.connection.Connection object at 0x0000024F30295D20>
+
+  File "asyncpg\protocol\protocol.pyx", line 168, in prepare
+    return await waiter
+
+asyncpg.exceptions.UndefinedFunctionError: function truncate_tables(unknown) does not exist
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1900, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x0000024F2E42DA20>
+    │    └ <sqlalchemy.dialects.postgresql.asyncpg.PGDialect_asyncpg object at 0x0000024F2FEF9330>
+    └ <sqlalchemy.future.engine.Connection object at 0x0000024F3030C100>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ ()
+    │      │       └ "SELECT truncate_tables('postgres');"
+    │      └ <function AsyncAdapt_asyncpg_cursor.execute at 0x0000024F2FA33250>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x0000024F3022E2D0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 479, in execute
+    self._adapt_connection.await_(
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x0000024F3022E2D0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 68, in await_only
+    return current.driver.switch(awaitable)
+           │                     └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x0000024F3022DEE0>
+           └ <_AsyncIoGreenlet object at 0x0000024F3021DE00 (otid=0x0000024F2DF710E0) dead>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 121, in greenlet_spawn
+    value = await result
+                  └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x0000024F3022DEE0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 454, in _prepare_and_execute
+    self._handle_exception(error)
+    │    └ <function AsyncAdapt_asyncpg_cursor._handle_exception at 0x0000024F2FA33010>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x0000024F3022E2D0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 389, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    │    │                                   └ UndefinedFunctionError('function truncate_tables(unknown) does not exist')
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x0000024F3022E2D0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 682, in _handle_exception
+    raise translated_error from error
+          │                     └ UndefinedFunctionError('function truncate_tables(unknown) does not exist')
+          └ ProgrammingError("<class 'asyncpg.exceptions.UndefinedFunctionError'>: function truncate_tables(unknown) does not exist\nHINT...
+
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedFunctionError'>: function truncate_tables(unknown) does not exist
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\backend\test\gen_test_data.py", line 174, in <module>
+    asyncio.run(init_db_test())
+    │       │   └ <function init_db_test at 0x0000024F2BAFCAF0>
+    │       └ <function run at 0x0000024F2D6D4CA0>
+    └ <module 'asyncio' from 'C:\\Users\\R\\AppData\\Local\\Programs\\Python\\Python310\\lib\\asyncio\\__init__.py'>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py", line 44, in run
+    return loop.run_until_complete(main)
+           │    │                  └ <coroutine object init_db_test at 0x0000024F2FECE0A0>
+           │    └ <function BaseEventLoop.run_until_complete at 0x0000024F2D6D6680>
+           └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 633, in run_until_complete
+    self.run_forever()
+    │    └ <function ProactorEventLoop.run_forever at 0x0000024F2D78EF80>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 600, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x0000024F2D6DC160>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 1896, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x0000024F2D66F9A0>
+    └ <Handle Task.task_wakeup(<Future finis...s not exist')>)>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finis...s not exist')>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finis...s not exist')>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finis...s not exist')>)>
+
+> File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\backend\test\gen_test_data.py", line 51, in init_db_test
+    await db.execute(f'''SELECT truncate_tables('postgres');''')
+          │  └ <function AsyncSession.execute at 0x0000024F2EF0CCA0>
+          └ <sqlalchemy.orm.session.AsyncSession object at 0x0000024F302A6230>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 214, in execute
+    result = await greenlet_spawn(
+                   └ <function greenlet_spawn at 0x0000024F2DFBF5B0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 126, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             │       │      │   └ <built-in function exc_info>
+             │       │      └ <module 'sys' (built-in)>
+             │       └ <method 'throw' of 'greenlet.greenlet' objects>
+             └ <_AsyncIoGreenlet object at 0x0000024F3021DE00 (otid=0x0000024F2DF710E0) dead>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\orm\session.py", line 1714, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+             │    │           │          │             └ immutabledict({'prebuffer_rows': True, 'future_result': True})
+             │    │           │          └ None
+             │    │           └ <sqlalchemy.sql.elements.TextClause object at 0x0000024F302A7F40>
+             │    └ <function Connection._execute_20 at 0x0000024F2E368670>
+             └ <sqlalchemy.future.engine.Connection object at 0x0000024F3030C100>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1705, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           │    │     │             │               └ immutabledict({'prebuffer_rows': True, 'future_result': True})
+           │    │     │             └ immutabledict({})
+           │    │     └ ({},)
+           │    └ <sqlalchemy.future.engine.Connection object at 0x0000024F3030C100>
+           └ <bound method ClauseElement._execute_on_connection of <sqlalchemy.sql.elements.TextClause object at 0x0000024F302A7F40>>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\sql\elements.py", line 334, in _execute_on_connection
+    return connection._execute_clauseelement(
+           │          └ <function Connection._execute_clauseelement at 0x0000024F2E3684C0>
+           └ <sqlalchemy.future.engine.Connection object at 0x0000024F3030C100>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1572, in _execute_clauseelement
+    ret = self._execute_context(
+          │    └ <function Connection._execute_context at 0x0000024F2E368790>
+          └ <sqlalchemy.future.engine.Connection object at 0x0000024F3030C100>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1943, in _execute_context
+    self._handle_dbapi_exception(
+    │    └ <function Connection._handle_dbapi_exception at 0x0000024F2E368940>
+    └ <sqlalchemy.future.engine.Connection object at 0x0000024F3030C100>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 2124, in _handle_dbapi_exception
+    util.raise_(
+    │    └ <function raise_ at 0x0000024F2DF6A440>
+    └ <module 'sqlalchemy.util' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\venv\\lib\\site-packages\\sqlalchem...
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\compat.py", line 210, in raise_
+    raise exception
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1900, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x0000024F2E42DA20>
+    │    └ <sqlalchemy.dialects.postgresql.asyncpg.PGDialect_asyncpg object at 0x0000024F2FEF9330>
+    └ <sqlalchemy.future.engine.Connection object at 0x0000024F3030C100>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ ()
+    │      │       └ "SELECT truncate_tables('postgres');"
+    │      └ <function AsyncAdapt_asyncpg_cursor.execute at 0x0000024F2FA33250>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x0000024F3022E2D0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 479, in execute
+    self._adapt_connection.await_(
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x0000024F3022E2D0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 68, in await_only
+    return current.driver.switch(awaitable)
+           │                     └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x0000024F3022DEE0>
+           └ <_AsyncIoGreenlet object at 0x0000024F3021DE00 (otid=0x0000024F2DF710E0) dead>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 121, in greenlet_spawn
+    value = await result
+                  └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x0000024F3022DEE0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 454, in _prepare_and_execute
+    self._handle_exception(error)
+    │    └ <function AsyncAdapt_asyncpg_cursor._handle_exception at 0x0000024F2FA33010>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x0000024F3022E2D0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 389, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    │    │                                   └ UndefinedFunctionError('function truncate_tables(unknown) does not exist')
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x0000024F3022E2D0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 682, in _handle_exception
+    raise translated_error from error
+          │                     └ UndefinedFunctionError('function truncate_tables(unknown) does not exist')
+          └ ProgrammingError("<class 'asyncpg.exceptions.UndefinedFunctionError'>: function truncate_tables(unknown) does not exist\nHINT...
+
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedFunctionError'>: function truncate_tables(unknown) does not exist
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+[SQL: SELECT truncate_tables('postgres');]
+(Background on this error at: https://sqlalche.me/e/14/f405)
+INFO     2022-12-09 03:51:58.764 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 03:51:58.812 request id: app - __main__:init_db_test - 2022-12-09 00:51:58.810888+00:00
+INFO     2022-12-09 03:51:58.827 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:51:59.034 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:52:00.665 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:52:03.326 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 03:52:05.239 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 03:52:07.166 request id: app - __main__:init_db_test - gen: 3/100
+INFO     2022-12-09 03:53:58.967 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 03:53:59.014 request id: app - __main__:init_db_test - 2022-12-09 00:53:59.013430+00:00
+INFO     2022-12-09 03:53:59.028 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:53:59.140 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:54:00.689 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:54:34.907 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 03:54:34.954 request id: app - __main__:init_db_test - 2022-12-09 00:54:34.952782+00:00
+INFO     2022-12-09 03:54:34.967 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:54:35.083 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:54:36.582 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:55:44.603 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 03:55:44.649 request id: app - __main__:init_db_test - [<Record current_timestamp=datetime.datetime(2022, 12, 9, 0, 55, 44, 648559, tzinfo=datetime.timezone.utc)>]
+INFO     2022-12-09 03:55:44.652 request id: app - __main__:init_db_test - 2022-12-09 00:55:44.651333+00:00
+INFO     2022-12-09 03:55:44.666 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:55:44.780 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:55:46.292 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:57:25.170 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 03:57:25.215 request id: app - __main__:init_db_test - [<Record current_timestamp=datetime.datetime(2022, 12, 9, 0, 57, 25, 214221, tzinfo=datetime.timezone.utc)>]
+INFO     2022-12-09 03:57:25.218 request id: app - __main__:init_db_test - 2022-12-09 03:57:25.217034
+INFO     2022-12-09 03:57:25.231 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:57:25.342 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:57:26.835 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:58:11.869 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 03:58:11.913 request id: app - __main__:init_db_test - [<Record current_timestamp=datetime.datetime(2022, 12, 9, 0, 58, 11, 913582, tzinfo=datetime.timezone.utc)>]
+INFO     2022-12-09 03:58:11.917 request id: app - __main__:init_db_test - 2022-12-09 03:58:11.916183
+INFO     2022-12-09 03:58:11.931 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 03:58:12.040 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:58:13.556 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:58:16.243 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 03:58:18.155 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 03:58:20.081 request id: app - __main__:init_db_test - gen: 3/100
+INFO     2022-12-09 03:58:22.004 request id: app - __main__:init_db_test - gen: 4/100
+INFO     2022-12-09 03:59:02.536 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 03:59:02.581 request id: app - __main__:init_db_test - [<Record localtimestamp=datetime.datetime(2022, 12, 9, 3, 59, 2, 581607)>]
+INFO     2022-12-09 03:59:02.584 request id: app - __main__:init_db_test - 2022-12-09 03:59:02.584266
+INFO     2022-12-09 03:59:02.813 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 03:59:04.332 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 03:59:07.009 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 03:59:08.937 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 03:59:10.952 request id: app - __main__:init_db_test - gen: 3/100
+INFO     2022-12-09 03:59:12.997 request id: app - __main__:init_db_test - gen: 4/100
+INFO     2022-12-09 03:59:14.889 request id: app - __main__:init_db_test - gen: 5/100
+INFO     2022-12-09 03:59:16.820 request id: app - __main__:init_db_test - gen: 6/100
+INFO     2022-12-09 03:59:18.714 request id: app - __main__:init_db_test - gen: 7/100
+INFO     2022-12-09 03:59:20.606 request id: app - __main__:init_db_test - gen: 8/100
+INFO     2022-12-09 03:59:22.534 request id: app - __main__:init_db_test - gen: 9/100
+INFO     2022-12-09 03:59:24.541 request id: app - __main__:init_db_test - gen: 10/100
+INFO     2022-12-09 03:59:26.538 request id: app - __main__:init_db_test - gen: 11/100
+INFO     2022-12-09 03:59:28.522 request id: app - __main__:init_db_test - gen: 12/100
+INFO     2022-12-09 03:59:30.576 request id: app - __main__:init_db_test - gen: 13/100
+INFO     2022-12-09 03:59:32.572 request id: app - __main__:init_db_test - gen: 14/100
+INFO     2022-12-09 03:59:34.649 request id: app - __main__:init_db_test - gen: 15/100
+INFO     2022-12-09 03:59:36.579 request id: app - __main__:init_db_test - gen: 16/100
+INFO     2022-12-09 03:59:38.464 request id: app - __main__:init_db_test - gen: 17/100
+INFO     2022-12-09 03:59:40.420 request id: app - __main__:init_db_test - gen: 18/100
+INFO     2022-12-09 03:59:42.368 request id: app - __main__:init_db_test - gen: 19/100
+INFO     2022-12-09 03:59:44.284 request id: app - __main__:init_db_test - gen: 20/100
+INFO     2022-12-09 03:59:46.295 request id: app - __main__:init_db_test - gen: 21/100
+INFO     2022-12-09 03:59:48.198 request id: app - __main__:init_db_test - gen: 22/100
+INFO     2022-12-09 03:59:50.073 request id: app - __main__:init_db_test - gen: 23/100
+INFO     2022-12-09 03:59:51.966 request id: app - __main__:init_db_test - gen: 24/100
+INFO     2022-12-09 03:59:53.860 request id: app - __main__:init_db_test - gen: 25/100
+INFO     2022-12-09 03:59:55.760 request id: app - __main__:init_db_test - gen: 26/100
+INFO     2022-12-09 03:59:57.684 request id: app - __main__:init_db_test - gen: 27/100
+INFO     2022-12-09 03:59:59.584 request id: app - __main__:init_db_test - gen: 28/100
+INFO     2022-12-09 04:00:01.528 request id: app - __main__:init_db_test - gen: 29/100
+INFO     2022-12-09 04:00:03.438 request id: app - __main__:init_db_test - gen: 30/100
+INFO     2022-12-09 04:00:05.331 request id: app - __main__:init_db_test - gen: 31/100
+INFO     2022-12-09 04:00:07.206 request id: app - __main__:init_db_test - gen: 32/100
+INFO     2022-12-09 04:00:09.108 request id: app - __main__:init_db_test - gen: 33/100
+INFO     2022-12-09 04:00:11.078 request id: app - __main__:init_db_test - gen: 34/100
+INFO     2022-12-09 04:00:12.987 request id: app - __main__:init_db_test - gen: 35/100
+INFO     2022-12-09 04:00:14.894 request id: app - __main__:init_db_test - gen: 36/100
+INFO     2022-12-09 04:07:17.334 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 04:07:17.378 request id: app - __main__:init_db_test - [<Record localtimestamp=datetime.datetime(2022, 12, 9, 4, 7, 17, 377375)>]
+ERROR    2022-12-09 04:07:17.378 request id: app - __main__:init_db_test - init_db: Base.metadata.create_all(): Column expression or FROM clause expected, got <built-in method now of type object at 0x00007FF8A3A79CD0>.
+INFO     2022-12-09 04:07:31.763 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 04:07:31.812 request id: app - __main__:init_db_test - [<Record localtimestamp=datetime.datetime(2022, 12, 9, 4, 7, 31, 812249)>]
+ERROR    2022-12-09 04:07:31.812 request id: app - __main__:init_db_test - init_db: Base.metadata.create_all(): Column expression or FROM clause expected, got <built-in method now of type object at 0x00007FF8A3A79CD0>.
+INFO     2022-12-09 04:08:50.513 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 04:08:50.772 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 04:08:52.263 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 04:08:54.874 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 04:08:56.768 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 04:08:58.721 request id: app - __main__:init_db_test - gen: 3/100
+INFO     2022-12-09 04:09:00.743 request id: app - __main__:init_db_test - gen: 4/100
+INFO     2022-12-09 04:09:02.691 request id: app - __main__:init_db_test - gen: 5/100
+INFO     2022-12-09 04:09:04.666 request id: app - __main__:init_db_test - gen: 6/100
+INFO     2022-12-09 04:09:06.557 request id: app - __main__:init_db_test - gen: 7/100
+INFO     2022-12-09 04:09:08.478 request id: app - __main__:init_db_test - gen: 8/100
+INFO     2022-12-09 04:09:10.418 request id: app - __main__:init_db_test - gen: 9/100
+INFO     2022-12-09 04:09:12.334 request id: app - __main__:init_db_test - gen: 10/100
+INFO     2022-12-09 04:21:17.108 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 04:21:17.368 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 04:21:18.877 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 04:21:21.525 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 04:21:23.451 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 04:21:25.345 request id: app - __main__:init_db_test - gen: 3/100
+INFO     2022-12-09 04:22:12.241 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 04:22:12.300 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 04:22:12.412 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 04:22:13.915 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 04:22:16.628 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 04:22:18.531 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 04:22:20.443 request id: app - __main__:init_db_test - gen: 3/100
+INFO     2022-12-09 04:23:27.890 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 04:23:28.154 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 04:23:29.628 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 04:23:32.328 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 04:23:34.244 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 04:23:36.158 request id: app - __main__:init_db_test - gen: 3/100
+INFO     2022-12-09 04:23:38.092 request id: app - __main__:init_db_test - gen: 4/100
+INFO     2022-12-09 04:23:40.036 request id: app - __main__:init_db_test - gen: 5/100
+INFO     2022-12-09 04:23:41.951 request id: app - __main__:init_db_test - gen: 6/100
+INFO     2022-12-09 04:24:15.473 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 04:24:15.533 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 04:24:15.647 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 04:24:17.166 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 04:24:19.826 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 04:25:11.016 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+ERROR    2022-12-09 04:25:11.061 request id: app - __main__:init_db_test - init_db: Base.metadata.create_all(): Not an executable object: "set timezone to 'Europe/Moscow';"
+INFO     2022-12-09 04:25:11.063 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 04:25:11.179 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 04:25:12.703 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 04:25:15.386 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 04:25:17.291 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 04:26:10.056 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 04:26:10.114 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 04:26:10.236 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 04:26:11.719 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 04:26:14.388 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 04:26:16.306 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 04:26:18.221 request id: app - __main__:init_db_test - gen: 3/100
+INFO     2022-12-09 04:31:17.569 request id: app - __main__:init_db_test - [<Record TimeZone='Etc/UTC'>]
+INFO     2022-12-09 04:31:17.630 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 04:31:17.748 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 04:31:19.310 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 04:31:22.054 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 04:31:50.471 request id: app - __main__:init_db_test - [<Record TimeZone='Etc/UTC'>]
+INFO     2022-12-09 04:31:50.531 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 04:31:50.658 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 04:31:52.217 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 04:31:55.000 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 04:31:56.961 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 04:33:07.865 request id: app - __main__:init_db_test - [<Record TimeZone='Etc/UTC'>]
+INFO     2022-12-09 04:33:07.925 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 04:33:08.048 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 04:33:09.594 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 04:33:12.359 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 04:33:14.380 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 04:37:25.210 request id: app - __main__:init_db_test - [<Record TimeZone='Etc/UTC'>]
+INFO     2022-12-09 04:38:01.436 request id: app - __main__:init_db_test - [<Record TimeZone='Etc/UTC'>]
+INFO     2022-12-09 04:38:01.714 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 04:38:03.302 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 04:38:06.067 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 04:38:08.050 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 04:38:10.011 request id: app - __main__:init_db_test - gen: 3/100
+INFO     2022-12-09 04:40:23.445 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 04:40:23.706 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 04:40:25.209 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 04:40:27.852 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 04:40:29.776 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 04:40:31.692 request id: app - __main__:init_db_test - gen: 3/100
+INFO     2022-12-09 04:40:33.593 request id: app - __main__:init_db_test - gen: 4/100
+INFO     2022-12-09 04:40:35.516 request id: app - __main__:init_db_test - gen: 5/100
+INFO     2022-12-09 04:40:37.450 request id: app - __main__:init_db_test - gen: 6/100
+INFO     2022-12-09 04:40:39.379 request id: app - __main__:init_db_test - gen: 7/100
+INFO     2022-12-09 04:40:41.299 request id: app - __main__:init_db_test - gen: 8/100
+INFO     2022-12-09 04:42:24.721 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 04:42:24.778 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 04:42:24.902 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 04:42:26.387 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 04:42:29.031 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 04:42:30.949 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 04:42:32.883 request id: app - __main__:init_db_test - gen: 3/100
+INFO     2022-12-09 04:42:34.776 request id: app - __main__:init_db_test - gen: 4/100
+INFO     2022-12-09 04:42:36.706 request id: app - __main__:init_db_test - gen: 5/100
+INFO     2022-12-09 04:43:01.854 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 04:43:01.918 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 04:43:02.040 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 04:43:03.582 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 04:43:06.251 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 04:43:08.187 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 04:43:10.102 request id: app - __main__:init_db_test - gen: 3/100
+INFO     2022-12-09 04:43:12.032 request id: app - __main__:init_db_test - gen: 4/100
+INFO     2022-12-09 04:44:59.836 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 04:44:59.894 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 04:45:00.011 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 04:45:01.525 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 04:45:04.239 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 04:45:06.161 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 04:47:15.736 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 04:49:14.100 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 04:49:14.159 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 04:49:14.271 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+ERROR    2022-12-09 04:49:14.273 request id: app - __main__:init_db_test - init_db_test: user is None: Exception: ("'Connection' object has no attribute 'add'",)
+Traceback (most recent call last):
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\backend\test\gen_test_data.py", line 170, in <module>
+    asyncio.run(init_db_test())
+    │       │   └ <function init_db_test at 0x000001D36401CAF0>
+    │       └ <function run at 0x000001D365BF4CA0>
+    └ <module 'asyncio' from 'C:\\Users\\R\\AppData\\Local\\Programs\\Python\\Python310\\lib\\asyncio\\__init__.py'>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py", line 44, in run
+    return loop.run_until_complete(main)
+           │    │                  └ <coroutine object init_db_test at 0x000001D3683EE0A0>
+           │    └ <function BaseEventLoop.run_until_complete at 0x000001D365BF6680>
+           └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 633, in run_until_complete
+    self.run_forever()
+    │    └ <function ProactorEventLoop.run_forever at 0x000001D365CAEF80>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 600, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x000001D365BFC160>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 1896, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x000001D365B8F9A0>
+    └ <Handle Task.task_wakeup(<Future finis...lt='SELECT 1'>)>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finis...lt='SELECT 1'>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finis...lt='SELECT 1'>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finis...lt='SELECT 1'>)>
+
+> File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\backend\test\gen_test_data.py", line 58, in init_db_test
+    company_obj_main = await crud.company.create(db, obj_in=company_in)
+                             │    │       │      │          └ CompanyCreate(name='CRM', sector=None, size='small', address='Москва, чистые пруды 1', city='Москва', website='https://localh...
+                             │    │       │      └ <asyncpg.connection.Connection object at 0x000001D3687B58C0>
+                             │    │       └ <function CRUDCompany.create at 0x000001D368422560>
+                             │    └ <backend.app.crud.company.CRUDCompany object at 0x000001D36841E200>
+                             └ <module 'backend.app.crud' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\backend\\app\\crud\\__init__.py'>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\backend\app\crud\company.py", line 15, in create
+    db.add(db_obj)
+    │      └ <backend.app.models.company.Company object at 0x000001D3687C69B0>
+    └ <asyncpg.connection.Connection object at 0x000001D3687B58C0>
+
+AttributeError: 'Connection' object has no attribute 'add'
+INFO     2022-12-09 04:49:58.364 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 04:49:58.421 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 04:49:58.535 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 04:50:00.059 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 04:50:02.745 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 04:50:04.654 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 04:50:06.571 request id: app - __main__:init_db_test - gen: 3/100
+INFO     2022-12-09 04:50:08.490 request id: app - __main__:init_db_test - gen: 4/100
+INFO     2022-12-09 04:53:07.998 request id: app - __main__:init_db_test - [<Record TimeZone='Etc/UTC'>]
+INFO     2022-12-09 04:53:08.256 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 04:53:09.755 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 04:53:12.553 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 05:04:52.942 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 05:04:53.202 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 05:04:54.702 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 05:04:57.327 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 05:04:59.234 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 05:05:01.151 request id: app - __main__:init_db_test - gen: 3/100
+INFO     2022-12-09 05:05:03.099 request id: app - __main__:init_db_test - gen: 4/100
+INFO     2022-12-09 05:05:05.135 request id: app - __main__:init_db_test - gen: 5/100
+INFO     2022-12-09 05:05:07.035 request id: app - __main__:init_db_test - gen: 6/100
+INFO     2022-12-09 05:05:09.002 request id: app - __main__:init_db_test - gen: 7/100
+INFO     2022-12-09 05:05:10.925 request id: app - __main__:init_db_test - gen: 8/100
+INFO     2022-12-09 05:10:31.649 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 05:10:31.710 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 05:10:31.833 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+ERROR    2022-12-09 05:10:31.833 request id: app - __main__:init_db_test - init_db_test: user is None: Exception: ([ErrorWrapper(exc=MissingError(), loc=('create_date',))], <class 'backend.app.schemas.company.CompanyCreate'>)
+Traceback (most recent call last):
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\backend\test\gen_test_data.py", line 171, in <module>
+    asyncio.run(init_db_test())
+    │       │   └ <function init_db_test at 0x000001E50305CAF0>
+    │       └ <function run at 0x000001E504C94CA0>
+    └ <module 'asyncio' from 'C:\\Users\\R\\AppData\\Local\\Programs\\Python\\Python310\\lib\\asyncio\\__init__.py'>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py", line 44, in run
+    return loop.run_until_complete(main)
+           │    │                  └ <coroutine object init_db_test at 0x000001E5074960A0>
+           │    └ <function BaseEventLoop.run_until_complete at 0x000001E504C96680>
+           └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 633, in run_until_complete
+    self.run_forever()
+    │    └ <function ProactorEventLoop.run_forever at 0x000001E504D4EF80>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 600, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x000001E504C9C160>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 1896, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x000001E504C1F9A0>
+    └ <Handle Task.task_wakeup(<Future finis...sult='COMMIT'>)>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finis...sult='COMMIT'>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finis...sult='COMMIT'>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finis...sult='COMMIT'>)>
+
+> File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\backend\test\gen_test_data.py", line 52, in init_db_test
+    company_in = schemas.CompanyCreate(
+                 │       └ <class 'backend.app.schemas.company.CompanyCreate'>
+                 └ <module 'backend.app.schemas' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\backend\\app\\schemas\\__init__...
+
+  File "pydantic\main.py", line 342, in pydantic.main.BaseModel.__init__
+    raise validation_error
+
+pydantic.error_wrappers.ValidationError: 1 validation error for CompanyCreate
+create_date
+  field required (type=value_error.missing)
+INFO     2022-12-09 05:11:38.718 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 05:11:38.776 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 05:11:38.897 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 05:11:40.414 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 05:11:43.070 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 05:11:45.016 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 05:11:46.961 request id: app - __main__:init_db_test - gen: 3/100
+INFO     2022-12-09 05:11:48.871 request id: app - __main__:init_db_test - gen: 4/100
+INFO     2022-12-09 05:11:50.765 request id: app - __main__:init_db_test - gen: 5/100
+INFO     2022-12-09 05:11:52.676 request id: app - __main__:init_db_test - gen: 6/100
+INFO     2022-12-09 05:11:54.615 request id: app - __main__:init_db_test - gen: 7/100
+INFO     2022-12-09 05:13:34.723 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 05:13:34.780 request id: app - __main__:init_db_test - DuplicateObjectError
+ERROR    2022-12-09 05:13:34.895 request id: app - __main__:init_db_test - init_db_test: user is None: Exception: ('A transaction is already begun on this Session.',)
+Traceback (most recent call last):
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\backend\test\gen_test_data.py", line 172, in <module>
+    asyncio.run(init_db_test())
+    │       │   └ <function init_db_test at 0x000002C2F7DCCAF0>
+    │       └ <function run at 0x000002C2F99A4CA0>
+    └ <module 'asyncio' from 'C:\\Users\\R\\AppData\\Local\\Programs\\Python\\Python310\\lib\\asyncio\\__init__.py'>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py", line 44, in run
+    return loop.run_until_complete(main)
+           │    │                  └ <coroutine object init_db_test at 0x000002C2FC175FC0>
+           │    └ <function BaseEventLoop.run_until_complete at 0x000002C2F99A6680>
+           └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 633, in run_until_complete
+    self.run_forever()
+    │    └ <function ProactorEventLoop.run_forever at 0x000002C2F9A5EF80>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 600, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x000002C2F99AC160>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 1896, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x000002C2F993F9A0>
+    └ <Handle Task.task_wakeup(<Future finis...ECT 1', True)>)>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finis...ECT 1', True)>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finis...ECT 1', True)>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finis...ECT 1', True)>)>
+
+> File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\backend\test\gen_test_data.py", line 47, in init_db_test
+    async with db.begin() as c:
+               │  └ <function AsyncSession.begin at 0x000002C2FB1AD3F0>
+               └ <sqlalchemy.orm.session.AsyncSession object at 0x000002C2FC547FD0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\ext\asyncio\base.py", line 66, in __aenter__
+    return await self.start(is_ctxmanager=True)
+                 │    └ <function AsyncSessionTransaction.start at 0x000002C2FB1AEDD0>
+                 └ <sqlalchemy.ext.asyncio.session.AsyncSessionTransaction object at 0x000002C2FC35BD80>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 702, in start
+    await greenlet_spawn(
+          └ <function greenlet_spawn at 0x000002C2FA2636D0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 115, in greenlet_spawn
+    result = context.switch(*args, **kwargs)
+             │       │       │       └ {}
+             │       │       └ ()
+             │       └ <method 'switch' of 'greenlet.greenlet' objects>
+             └ <_AsyncIoGreenlet object at 0x000002C2FC360C40 (otid=0x000002C2FA214F60) dead>
+
+  File "<string>", line 2, in begin
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\deprecations.py", line 309, in warned
+    return fn(*args, **kwargs)
+           │   │       └ {'subtransactions': False, 'nested': False, '_subtrans': False}
+           │   └ (<sqlalchemy.orm.session.Session object at 0x000002C2FC547BE0>,)
+           └ <function Session.begin at 0x000002C2FA928E50>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\orm\session.py", line 1331, in begin
+    raise sa_exc.InvalidRequestError(
+          │      └ <class 'sqlalchemy.exc.InvalidRequestError'>
+          └ <module 'sqlalchemy.exc' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\venv\\lib\\site-packages\\sqlalchemy...
+
+sqlalchemy.exc.InvalidRequestError: A transaction is already begun on this Session.
+INFO     2022-12-09 05:15:38.934 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 05:15:38.992 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 05:15:39.124 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 05:15:40.626 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 05:16:33.343 request id: app - __main__:init_db_test - [<Record TimeZone='Europe/Moscow'>]
+INFO     2022-12-09 05:16:33.400 request id: app - __main__:init_db_test - DuplicateObjectError
+INFO     2022-12-09 05:16:33.527 request id: app - __main__:init_db_test - SELECT truncate_tables('postgres');
+INFO     2022-12-09 05:16:35.035 request id: app - __main__:init_db_test - gen: 0/100
+INFO     2022-12-09 05:16:37.712 request id: app - __main__:init_db_test - gen: 1/100
+INFO     2022-12-09 05:16:39.752 request id: app - __main__:init_db_test - gen: 2/100
+INFO     2022-12-09 05:16:41.761 request id: app - __main__:init_db_test - gen: 3/100
+INFO     2022-12-09 05:16:43.767 request id: app - __main__:init_db_test - gen: 4/100
+INFO     2022-12-09 05:16:45.759 request id: app - __main__:init_db_test - gen: 5/100
+INFO     2022-12-09 05:16:47.742 request id: app - __main__:init_db_test - gen: 6/100
+INFO     2022-12-09 05:16:49.757 request id: app - __main__:init_db_test - gen: 7/100
+INFO     2022-12-09 05:16:51.768 request id: app - __main__:init_db_test - gen: 8/100
+INFO     2022-12-09 05:16:53.745 request id: app - __main__:init_db_test - gen: 9/100
+INFO     2022-12-09 05:16:55.629 request id: app - __main__:init_db_test - gen: 10/100
+INFO     2022-12-09 05:16:57.514 request id: app - __main__:init_db_test - gen: 11/100
+INFO     2022-12-09 05:16:59.482 request id: app - __main__:init_db_test - gen: 12/100
+INFO     2022-12-09 05:17:01.410 request id: app - __main__:init_db_test - gen: 13/100
+INFO     2022-12-09 05:17:03.298 request id: app - __main__:init_db_test - gen: 14/100
+INFO     2022-12-09 05:17:05.169 request id: app - __main__:init_db_test - gen: 15/100
+INFO     2022-12-09 05:17:07.066 request id: app - __main__:init_db_test - gen: 16/100
+INFO     2022-12-09 05:17:09.003 request id: app - __main__:init_db_test - gen: 17/100
+INFO     2022-12-09 05:17:10.885 request id: app - __main__:init_db_test - gen: 18/100
+INFO     2022-12-09 05:17:12.799 request id: app - __main__:init_db_test - gen: 19/100
+INFO     2022-12-09 05:17:14.717 request id: app - __main__:init_db_test - gen: 20/100
+INFO     2022-12-09 05:17:16.646 request id: app - __main__:init_db_test - gen: 21/100
+INFO     2022-12-09 05:17:18.586 request id: app - __main__:init_db_test - gen: 22/100
+INFO     2022-12-09 05:17:20.523 request id: app - __main__:init_db_test - gen: 23/100
+INFO     2022-12-09 05:17:22.470 request id: app - __main__:init_db_test - gen: 24/100
+INFO     2022-12-09 05:17:24.409 request id: app - __main__:init_db_test - gen: 25/100
+INFO     2022-12-09 05:17:26.388 request id: app - __main__:init_db_test - gen: 26/100
+INFO     2022-12-09 05:17:28.313 request id: app - __main__:init_db_test - gen: 27/100
+INFO     2022-12-09 05:17:30.227 request id: app - __main__:init_db_test - gen: 28/100
+INFO     2022-12-09 05:17:32.114 request id: app - __main__:init_db_test - gen: 29/100
+INFO     2022-12-09 05:17:34.024 request id: app - __main__:init_db_test - gen: 30/100
+INFO     2022-12-09 05:17:35.961 request id: app - __main__:init_db_test - gen: 31/100
+INFO     2022-12-09 05:17:37.904 request id: app - __main__:init_db_test - gen: 32/100
+INFO     2022-12-09 05:17:39.832 request id: app - __main__:init_db_test - gen: 33/100
+INFO     2022-12-09 05:17:41.847 request id: app - __main__:init_db_test - gen: 34/100
+INFO     2022-12-09 05:17:43.811 request id: app - __main__:init_db_test - gen: 35/100
+INFO     2022-12-09 05:17:45.759 request id: app - __main__:init_db_test - gen: 36/100
+INFO     2022-12-09 05:17:47.947 request id: app - __main__:init_db_test - gen: 37/100
+INFO     2022-12-09 05:17:49.887 request id: app - __main__:init_db_test - gen: 38/100
+INFO     2022-12-09 05:17:51.789 request id: app - __main__:init_db_test - gen: 39/100
+INFO     2022-12-09 05:17:53.694 request id: app - __main__:init_db_test - gen: 40/100
+INFO     2022-12-09 05:17:55.593 request id: app - __main__:init_db_test - gen: 41/100
+INFO     2022-12-09 05:17:57.495 request id: app - __main__:init_db_test - gen: 42/100
+INFO     2022-12-09 05:17:59.383 request id: app - __main__:init_db_test - gen: 43/100
+INFO     2022-12-09 05:18:01.284 request id: app - __main__:init_db_test - gen: 44/100
+INFO     2022-12-09 05:18:03.180 request id: app - __main__:init_db_test - gen: 45/100
+INFO     2022-12-09 05:18:05.063 request id: app - __main__:init_db_test - gen: 46/100
+INFO     2022-12-09 05:18:06.940 request id: app - __main__:init_db_test - gen: 47/100
+INFO     2022-12-09 05:18:08.828 request id: app - __main__:init_db_test - gen: 48/100
+INFO     2022-12-09 05:18:10.722 request id: app - __main__:init_db_test - gen: 49/100
+INFO     2022-12-09 05:18:12.607 request id: app - __main__:init_db_test - gen: 50/100
+INFO     2022-12-09 05:18:14.487 request id: app - __main__:init_db_test - gen: 51/100
+INFO     2022-12-09 05:18:16.371 request id: app - __main__:init_db_test - gen: 52/100
+INFO     2022-12-09 05:18:18.262 request id: app - __main__:init_db_test - gen: 53/100
+INFO     2022-12-09 05:18:20.175 request id: app - __main__:init_db_test - gen: 54/100
+INFO     2022-12-09 05:18:22.097 request id: app - __main__:init_db_test - gen: 55/100
+INFO     2022-12-09 05:18:24.012 request id: app - __main__:init_db_test - gen: 56/100
+INFO     2022-12-09 05:18:25.928 request id: app - __main__:init_db_test - gen: 57/100
+INFO     2022-12-09 05:18:27.832 request id: app - __main__:init_db_test - gen: 58/100
+INFO     2022-12-09 05:18:29.746 request id: app - __main__:init_db_test - gen: 59/100
+INFO     2022-12-09 05:18:31.665 request id: app - __main__:init_db_test - gen: 60/100
+INFO     2022-12-09 05:18:33.588 request id: app - __main__:init_db_test - gen: 61/100
+INFO     2022-12-09 05:18:35.484 request id: app - __main__:init_db_test - gen: 62/100
+INFO     2022-12-09 05:18:37.360 request id: app - __main__:init_db_test - gen: 63/100
+INFO     2022-12-09 05:18:39.243 request id: app - __main__:init_db_test - gen: 64/100
+INFO     2022-12-09 05:18:41.123 request id: app - __main__:init_db_test - gen: 65/100
+INFO     2022-12-09 05:18:43.012 request id: app - __main__:init_db_test - gen: 66/100
+INFO     2022-12-09 05:18:44.895 request id: app - __main__:init_db_test - gen: 67/100
+INFO     2022-12-09 05:18:46.779 request id: app - __main__:init_db_test - gen: 68/100
+INFO     2022-12-09 05:18:48.705 request id: app - __main__:init_db_test - gen: 69/100
+INFO     2022-12-09 05:18:50.616 request id: app - __main__:init_db_test - gen: 70/100
+INFO     2022-12-09 05:18:52.541 request id: app - __main__:init_db_test - gen: 71/100
+INFO     2022-12-09 05:18:55.254 request id: app - __main__:init_db_test - gen: 72/100
+INFO     2022-12-09 05:18:57.177 request id: app - __main__:init_db_test - gen: 73/100
+INFO     2022-12-09 05:18:59.298 request id: app - __main__:init_db_test - gen: 74/100
+INFO     2022-12-09 05:19:01.276 request id: app - __main__:init_db_test - gen: 75/100
+INFO     2022-12-09 05:19:03.249 request id: app - __main__:init_db_test - gen: 76/100
+INFO     2022-12-09 05:19:05.483 request id: app - __main__:init_db_test - gen: 77/100
+INFO     2022-12-09 05:19:07.437 request id: app - __main__:init_db_test - gen: 78/100
+INFO     2022-12-09 05:19:09.358 request id: app - __main__:init_db_test - gen: 79/100
+INFO     2022-12-09 05:19:11.245 request id: app - __main__:init_db_test - gen: 80/100
+INFO     2022-12-09 05:19:13.133 request id: app - __main__:init_db_test - gen: 81/100
+INFO     2022-12-09 05:19:15.428 request id: app - __main__:init_db_test - gen: 82/100
+INFO     2022-12-09 05:19:17.340 request id: app - __main__:init_db_test - gen: 83/100
+INFO     2022-12-09 05:19:19.253 request id: app - __main__:init_db_test - gen: 84/100
+INFO     2022-12-09 05:19:21.153 request id: app - __main__:init_db_test - gen: 85/100
+INFO     2022-12-09 05:19:23.090 request id: app - __main__:init_db_test - gen: 86/100
+INFO     2022-12-09 05:19:25.450 request id: app - __main__:init_db_test - gen: 87/100
+INFO     2022-12-09 05:19:27.849 request id: app - __main__:init_db_test - gen: 88/100
+INFO     2022-12-09 05:19:30.193 request id: app - __main__:init_db_test - gen: 89/100
+INFO     2022-12-09 05:19:32.396 request id: app - __main__:init_db_test - gen: 90/100
+INFO     2022-12-09 05:19:34.337 request id: app - __main__:init_db_test - gen: 91/100
+INFO     2022-12-09 05:19:36.300 request id: app - __main__:init_db_test - gen: 92/100
+INFO     2022-12-09 05:19:38.516 request id: app - __main__:init_db_test - gen: 93/100
+INFO     2022-12-09 05:19:40.523 request id: app - __main__:init_db_test - gen: 94/100
+INFO     2022-12-09 05:19:42.486 request id: app - __main__:init_db_test - gen: 95/100
+INFO     2022-12-09 05:19:44.426 request id: app - __main__:init_db_test - gen: 96/100
+INFO     2022-12-09 05:19:46.419 request id: app - __main__:init_db_test - gen: 97/100
+INFO     2022-12-09 05:19:48.373 request id: app - __main__:init_db_test - gen: 98/100
+INFO     2022-12-09 05:19:50.315 request id: app - __main__:init_db_test - gen: 99/100
+INFO     2022-12-09 05:19:52.230 request id: app - __main__:init_db_test - gen process_time: 110.15625

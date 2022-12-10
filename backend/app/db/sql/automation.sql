@@ -11,7 +11,7 @@ create index user_email_index on "user" using btree (email);
 create or replace function delete_old_rows() returns trigger language plpgsql as
 $body$
 begin
-    delete from task where completion_date::timestamp with time zone < localtimestamp - '1 year'::interval;
+    delete from task where completion_date::timestamp with time zone < clock_timestamp() - '1 year'::interval;
     return null;
 end;
 $body$;
@@ -44,6 +44,7 @@ $body$
 begin
     return (select count(*) from task where executor_id = employee_id
                                                      or author_id = employee_id
+                                                            and completion_date is not null
                                                             and deadline_date::timestamp with time zone >= completion_date::timestamp with time zone
                                                             and create_date between start_timestamp and end_timestamp);
 end;
@@ -58,6 +59,7 @@ $body$
 begin
     return (select count(*) from task where executor_id = employee_id
                                                      or author_id = employee_id
+                                                            and completion_date is not null  and deadline_date is not null
                                                             and deadline_date::timestamp with time zone < completion_date::timestamp with time zone
                                                             and create_date between start_timestamp and end_timestamp);
 end;
@@ -72,7 +74,8 @@ $body$
 begin
     return (select count(*) from task where executor_id = employee_id
                                                      or author_id = employee_id
-                                                            and current_timestamp > deadline_date::timestamp with time zone
+                                                            and deadline_date is not null
+                                                            and clock_timestamp() > deadline_date::timestamp with time zone
                                                             and completion_date is null
                                                             and create_date between start_timestamp and end_timestamp);
 end;
@@ -88,7 +91,8 @@ $body$
 begin
     return (select count(*) from task where executor_id = employee_id
                                                      or author_id = employee_id
-                                                            and current_timestamp < deadline_date::timestamp
+                                                            and deadline_date is not null
+                                                            and clock_timestamp() < deadline_date::timestamp with time zone
                                                             and completion_date is null
                                                             and create_date between start_timestamp and end_timestamp);
 end;
@@ -118,9 +122,9 @@ begin
                 number_employee_tasks_not_completed_on_time(start_timestamp, end_timestamp, _employee_id),
                 number_employee_tasks_unfinished(start_timestamp, end_timestamp, _employee_id),
                 number_employee_tasks_unfinished_that_not_expired(start_timestamp, end_timestamp, _employee_id),
-                start_timestamp,
+                start_timestamp ,
                 end_timestamp,
-                (SELECT localtimestamp AT TIME ZONE 'Europe/Moscow');
+                clock_timestamp();
 end;
 $body$;
 
@@ -146,110 +150,22 @@ begin
                 number_employee_tasks_not_completed_on_time(start_timestamp, end_timestamp, id),
                 number_employee_tasks_unfinished(start_timestamp, end_timestamp, id),
                 number_employee_tasks_unfinished_that_not_expired(start_timestamp, end_timestamp, id),
-                start_timestamp,
-                end_timestamp,
-                (SELECT localtimestamp AT TIME ZONE 'Europe/Moscow') from "user");
+                start_timestamp ,
+                end_timestamp ,
+                clock_timestamp() from "user");
 end;
 $body$;
 
 ------------------------------------------------------------------------------------------------------------------------
 
-drop function if exists generate_report_for_all_employees_to_csv(timestamp with time zone, timestamp with time zone);
-create or replace function generate_report_for_all_employees_to_csv(
-    start_timestamp timestamp with time zone,
-    end_timestamp timestamp with time zone
-) returns void
-language plpgsql
-as $body$
-begin
-
-    copy (select * from generate_report_for_all_employees(
-    start_timestamp::timestamp with time zone,
-    end_timestamp::timestamp with time zone))
-    to '/tmp/report.csv' delimiter ',' csv header;
-end;
-$body$;
-
-
-drop function if exists generate_report_for_all_employees_to_json(timestamp with time zone, timestamp with time zone);
-create or replace function generate_report_for_all_employees_to_json(
-    start_timestamp timestamp with time zone,
-    end_timestamp timestamp with time zone
-) returns void
-language plpgsql
-as $body$
-begin
-    copy (select array_to_json(array_agg(row_to_json(results))) from (select * from generate_report_for_all_employees(
-    start_timestamp::timestamp with time zone,
-    end_timestamp::timestamp with time zone)) as results) to '/tmp/report.json'
-    with (format text, header false);
-end;
-$body$;
-
-------------------------------------------------------------------------------------------------------------------------
-/*
-drop procedure if exists generate_report_for_employee_to_csv(timestamp with time zone, timestamp with time zone, integer);
-create or replace procedure generate_report_for_employee_to_csv(
-    start_timestamp timestamp with time zone,
-    end_timestamp timestamp with time zone,
-    employee_id integer)
-language plpgsql
-as $body$
-    declare rec table (report_id uuid,
-                        employee_id integer,
-                        total_number_employee_tasks_in_period integer,
-                        number_employee_tasks_completed_on_time integer,
-                        number_employee_tasks_not_completed_on_time integer,
-                        number_employee_tasks_unfinished integer,
-                        number_employee_tasks_unfinished_that_not_expired integer,
-                        start_period timestamp with time zone,
-                        end_period timestamp with time zone,
-                        create_date timestamp with time zone);
-begin
-    select results into rec from (select * from generate_report_by_period_and_employee(
-        start_timestamp::timestamp with time zone,
-        end_timestamp::timestamp with time zone,
-        employee_id)) as results;
-    copy rec to '/tmp/report.csv' delimiter ',' csv header;
-end;
-$body$;
-
-drop procedure if exists generate_report_for_employee_to_json(timestamp with time zone, timestamp with time zone, integer);
-create or replace procedure generate_report_for_employee_to_json(
-    start_timestamp timestamp with time zone,
-    end_timestamp timestamp with time zone,
-    employee_id integer)
-language plpgsql
-as $body$
-    declare rec table (report_id uuid,
-                        employee_id integer,
-                        total_number_employee_tasks_in_period integer,
-                        number_employee_tasks_completed_on_time integer,
-                        number_employee_tasks_not_completed_on_time integer,
-                        number_employee_tasks_unfinished integer,
-                        number_employee_tasks_unfinished_that_not_expired integer,
-                        start_period timestamp with time zone,
-                        end_period timestamp with time zone,
-                        create_date timestamp with time zone);
-begin
-    select results into rec from (select * from generate_report_by_period_and_employee(
-        start_timestamp::timestamp with time zone,
-        end_timestamp::timestamp with time zone,
-        employee_id)) as results;
-    copy (select array_to_json(array_agg(row_to_json(rec)))) to '/tmp/report.json'
-    with (format text, header false);
-end;
-$body$;
-*/
-
-/*
-COPY (select * from generate_report_for_all_employees(
-    '2021-12-01 14:51:00 +00:00'::timestamp with time zone,
-    '2023-12-01 14:51:00 +00:00'::timestamp with time zone
-    )) to '/tmp/report.csv' delimiter ',' csv header;
-
-COPY (select array_to_json(array_agg(row_to_json(results))) from generate_report_for_all_employees(
-    '2021-12-01 14:51:00 +00:00'::timestamp with time zone,
-    '2023-12-01 14:51:00 +00:00'::timestamp with time zone
-    ) as results) to '/tmp/report.json' with (format text, header false );
-*/
+CREATE OR REPLACE FUNCTION truncate_tables(username IN VARCHAR) RETURNS void AS $$
+DECLARE
+    statements CURSOR FOR
+        SELECT tablename FROM pg_tables
+        WHERE tableowner = username AND schemaname = 'public';
+BEGIN
+    FOR stmt IN statements LOOP
+        EXECUTE 'TRUNCATE TABLE ' || quote_ident(stmt.tablename) || ' CASCADE;';
+    END LOOP;
+END;
+$$ LANGUAGE plpgsql;

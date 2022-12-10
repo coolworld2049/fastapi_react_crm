@@ -1,12 +1,9 @@
 from datetime import datetime
 from typing import Optional
 
-from fastapi_filter.contrib.sqlalchemy import Filter
 from pydantic import BaseModel, EmailStr, validator, Field
 from pydantic.types import constr
 
-from backend.app import models
-from backend.app.core.config import settings
 from backend.app.schemas import column_type
 
 
@@ -29,11 +26,16 @@ class UserBase(BaseModel):
     full_name: str = None
     username: str
 
-    @validator("username", pre=True, allow_reuse=True)
-    def role_validate(cls, value: str):  # noqa
+    @validator("username", pre=True)
+    def username_validate(cls, value: str):  # noqa
         return value.lower().replace(' ', '_').replace('@', '').replace('$', '')
 
-    create_date: datetime = datetime.now(tz=settings.SERVER_TZ).isoformat()
+    company_id: Optional[int]
+    type: Optional[str] = Field(
+        None,
+        description=f"required: {column_type.clientType.schema().get('required')}"
+    )
+    create_date: Optional[datetime]
 
 
 # Properties to receive via API on creation
@@ -44,8 +46,7 @@ class UserCreate(UserBase):
 
 # Properties to receive via API on update
 class UserUpdate(UserBase):
-    password: Optional[str] = None
-    full_name: str = True
+    password: Optional[str]
 
 
 class UserInDBBase(UserBase):
@@ -62,11 +63,6 @@ class UserInDB(UserInDBBase):
 
 # Additional properties to return via API
 class User(UserInDBBase):
-    user_role = column_type.userRoleEnum.to_list()
+    pass
 
 
-class UserFilter(Filter):
-    role: Optional[str]
-
-    class Constants(Filter.Constants):
-        model = models.User

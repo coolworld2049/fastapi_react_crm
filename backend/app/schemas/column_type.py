@@ -83,7 +83,7 @@ taskStatus = TaskStatus(unassigned='unassigned',
                         pending='pending',
                         accepted='accepted',
                         started='started',
-                        completed='completed', )
+                        completed='completed')
 
 equipmentStatus = EquipmentStatus(accepted='accepted',
                                   progress='progress',
@@ -122,7 +122,7 @@ contractStageEnum = ExtendedEnum(value=ContractStage.__name__, names=contractSta
 
 userRolePostgresEnum = ps.ENUM(*userRole.schema().get('required'), name=UserRole.__name__)
 
-clientTypePostgresEnum = ps.ENUM(*clientType.schema().get('required'), name=ClientType.__name__)
+clientTypePostgresEnum = ps.ENUM(*[*clientType.schema().get('required'), ""], name=ClientType.__name__)
 
 taskPriorityPostgresEnum = ps.ENUM(*taskPriority.schema().get('required'), name=TaskPriority.__name__)
 
@@ -133,3 +133,7 @@ equipmentStatusPostgresEnum = ps.ENUM(*equipmentStatus.schema().get('required'),
 companySizePostgreseEnum = ps.ENUM(*companySize.schema().get('required'), name=CompanySize.__name__)
 
 contractStagePostgreseEnum = ps.ENUM(*contractStage.schema().get('required'), name=ContractStage.__name__)
+
+# ----------------------------------------------------------------------------------------------------------------------
+
+SCHEMA_CUSTOM_TYPES = ('role', 'type', 'priority', 'status', 'size', 'stage')

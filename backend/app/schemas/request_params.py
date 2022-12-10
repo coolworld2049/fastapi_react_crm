@@ -7,3 +7,4 @@ class RequestParams(BaseModel):
     skip: int
     limit: int
     order_by: Any
+    filter_by: Any

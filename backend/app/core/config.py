@@ -43,19 +43,19 @@ class Settings(BaseSettings):
     pg_host = f'postgres' if RUN_ON_DOCKER else 'localhost'
     mongo_host = f'mongo' if RUN_ON_DOCKER else 'localhost'
 
-    DATABASE_URL: Optional[PostgresDsn] = \
+    POSTGRES_URL: Optional[PostgresDsn] = \
         f"postgresql://" \
         f"{env.str('PG_SUPERUSER')}:{env.str('PG_SUPERUSER_PASSWORD')}" \
         f"@{pg_host}:{env.str('PG_PORT')}" \
         f"/{env.str('PG_NAME')}"
 
-    ASYNC_DATABASE_URL: Optional[PostgresDsn] = \
+    ASYNC_POSTGRES_URL: Optional[PostgresDsn] = \
         f"postgresql+asyncpg://" \
         f"{env.str('PG_SUPERUSER')}:{env.str('PG_SUPERUSER_PASSWORD')}" \
-        f"@{mongo_host}:{env.str('PG_PORT')}" \
+        f"@{pg_host}:{env.str('PG_PORT')}" \
         f"/{env.str('PG_NAME')}"
 
-    FIRST_SUPERUSER_USERNAME: EmailStr = env.str('FIRST_SUPERUSER_USERNAME')
+    FIRST_SUPERUSER_USERNAME: str = env.str('FIRST_SUPERUSER_USERNAME')
     FIRST_SUPERUSER_PASSWORD: str = env.str('FIRST_SUPERUSER_PASSWORD')
 
     class Config:

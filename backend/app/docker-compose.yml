@@ -15,6 +15,7 @@ services:
       - POSTGRES_DB=${PG_NAME}
       - PGPORT=${PG_PORT}
       - PGTZ=Europe/Moscow
+      - TZ=Europe/Moscow
       # env vars useful for our sql scripts
       - DB_NAME=${PG_NAME}
       - DB_USER=${PG_USER}
@@ -22,6 +23,7 @@ services:
     ports:
       - ${PG_PORT}:${PG_PORT}
     volumes:
+      - ./db/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./volumes/postgres/tmp:/tmp
     networks:
       - api_server

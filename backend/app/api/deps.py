@@ -1,13 +1,14 @@
 import asyncio
 import json
 import logging
-from typing import Optional, Callable
+from datetime import datetime
+from typing import Optional, Callable, Any
 
 from asyncpg import Connection
 from fastapi import Depends, status
 from fastapi import HTTPException, Query
 from jose import jwt, JWTError
-from sqlalchemy import asc, desc, text
+from sqlalchemy import asc, desc, text, and_
 from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio.session import AsyncSession
 from sqlalchemy.orm import DeclarativeMeta
@@ -15,8 +16,9 @@ from sqlalchemy.orm import DeclarativeMeta
 from backend.app import crud, models, schemas
 from backend.app.core.config import settings
 from backend.app.core.security import oauth2Scheme
-from backend.app.db.session import AsyncSessionLocal, database
+from backend.app.db.session import AsyncSessionLocal, asyncpg_database
 from backend.app.models.user import User
+from backend.app.schemas import SCHEMA_CUSTOM_TYPES
 from backend.app.schemas.request_params import RequestParams
 
 loop = asyncio.new_event_loop()
@@ -68,7 +70,7 @@ async def get_current_user_async(
     await get_session_user(db)
     check_result = await check_rolname(db, db_user)
     if not check_result:
-        conn = await database.get_connection()
+        conn = await asyncpg_database.get_connection()
         await create_user_in_role(conn, user, db_user)
     await reset_session_user(db)
     await get_session_user(db)
@@ -133,7 +135,17 @@ async def get_current_active_superuser(
     return current_user
 
 
-def parse_react_admin_params(model: DeclarativeMeta) -> Callable[[str | None, str | None], RequestParams]:
+async def get_current_active_manager(
+        current_user: User = Depends(get_current_user_async),
+) -> User:
+    if not crud.user.is_manager(current_user):
+        raise HTTPException(
+            status_code=400, detail="The user doesn't have enough privileges"
+        )
+    return current_user
+
+
+def parse_react_admin_params(model: DeclarativeMeta | Any) -> Callable[[str | None, str | None], RequestParams]:
     """Parses sort and range parameters coming from a react-admin request"""
 
     def inner(
@@ -149,6 +161,12 @@ def parse_react_admin_params(model: DeclarativeMeta) -> Callable[[str | None, st
                 description="Format: `[start, end]`",
                 example="[0, 10]",
             ),
+            filter_: Optional[str] = Query(
+                None,
+                alias="filter",
+                description='Format: `{"k": "v"}`',
+            ),
+
     ):
         skip, limit = 0, 10
         if range_:
@@ -165,7 +183,30 @@ def parse_react_admin_params(model: DeclarativeMeta) -> Callable[[str | None, st
             else:
                 raise HTTPException(400, f"Invalid sort direction {sort_order}")
             order_by = direction(model.__table__.c[sort_column])  # noqa
+        filter_by = None
+        if filter_:
+            ft: dict = json.loads(filter_)
+            if len(ft) > 0:
+                fb = []
+                filter_dict: dict = dict(filter(lambda it: str(it[0]).isdigit() is False, ft.items()))
+                for k, v in filter_dict.items():
+                    if isinstance(v, str):
+                        if k in SCHEMA_CUSTOM_TYPES:
+                            if v != "null":
+                                fb.append(model.__table__.c[k] == v)
+                            else:
+                                fb.append(model.__table__.c[k] == None)  # noqa
+                        else:
+                            if str(k).split('_')[-1] == 'date':
+                                fb.append(model.__table__.c[k] >= datetime.fromisoformat(v))
+                            else:
+                                fb.append(model.__table__.c[k].ilike(f'{v}%'))
+                    elif isinstance(v, int):
+                        fb.append(model.__table__.c[k] == v)
+                    elif isinstance(v, list):
+                        fb.append(model.__table__.c[k].in_(tuple(v)))
+                filter_by = and_(*fb)
 
-        return RequestParams(skip=skip, limit=limit, order_by=order_by)
+        return RequestParams(skip=skip, limit=limit, order_by=order_by, filter_by=filter_by)
 
     return inner

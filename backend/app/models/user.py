@@ -1,4 +1,5 @@
 import sqlalchemy as sa
+from sqlalchemy import func
 from sqlalchemy.dialects import postgresql as ps
 from sqlalchemy.orm import validates
 
@@ -8,7 +9,7 @@ from backend.app.schemas import column_type
 
 class User(Base):
     id = sa.Column(ps.INTEGER, primary_key=True)
-    email = sa.Column(ps.TEXT, nullable=False)
+    email = sa.Column(ps.TEXT, nullable=False, unique=True)
 
     # noinspection PyUnusedLocal
     @validates("email")
@@ -20,7 +21,7 @@ class User(Base):
     hashed_password = sa.Column(ps.TEXT, nullable=False)
     role = sa.Column(column_type.userRolePostgresEnum, nullable=False)
     full_name = sa.Column(ps.TEXT)
-    username = sa.Column(ps.TEXT)
+    username = sa.Column(ps.TEXT, nullable=False, unique=True)
 
     # noinspection PyUnusedLocal
     @validates("username")
@@ -29,9 +30,13 @@ class User(Base):
 
     avatar = sa.Column(ps.TEXT, default=None)
     phone = sa.Column(ps.VARCHAR(20))
+
+    company_id = sa.Column(ps.INTEGER, sa.ForeignKey('company.id'), default=None)
+    type = sa.Column(column_type.clientTypePostgresEnum, default=None, nullable=True)
+
     is_active = sa.Column(ps.BOOLEAN, default=True)
     is_superuser = sa.Column(ps.BOOLEAN, default=False)
-    create_date = sa.Column(sa.DateTime(timezone=True))
+    create_date = sa.Column(sa.DateTime(timezone=True), server_default=func.now())
 
     def __repr__(self):
         return f"User(id={self.id!r}, email={self.email!r}, role={self.role!r})"

@@ -42,5 +42,5 @@ async def logout(
         db: AsyncSession = Depends(deps.get_async_session),
         current_user: models.User = Depends(deps.get_current_active_user) # noqa
 ) -> Any:
-    await deps.reset_session_user(db)
+    await db.close()
     return {'logout': True}
