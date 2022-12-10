@@ -36,7 +36,7 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         if request_params.filter_by is not None:
             query = query.filter(request_params.filter_by)
             query_count = query_count.filter(request_params.filter_by)
-        if role:
+        if role and not roles:
             query = query.filter(self.model.role == role)
             query_count = query_count.filter(self.model.role == role)
         elif roles:

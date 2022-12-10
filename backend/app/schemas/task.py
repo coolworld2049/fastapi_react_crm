@@ -3,7 +3,6 @@ from typing import Optional
 
 from pydantic import BaseModel, Field
 
-from backend.app.core.config import settings
 from backend.app.schemas import column_type
 
 

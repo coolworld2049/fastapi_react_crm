@@ -102,7 +102,7 @@ async def create_user_in_role(db: AsyncSession | Connection, current_user: model
 async def get_session_user(db: AsyncSession):
     check_session_role_q = """select session_user, current_user"""
     check_session_role_q_result: Result = await db.execute(text(check_session_role_q))
-    # logging.info(f'get_session_user: {check_session_role_q_result.scalar()}')
+    logging.info(f'get_session_user: {check_session_role_q_result.scalar()}')
 
 
 async def reset_session_user(db: AsyncSession):
@@ -129,6 +129,16 @@ async def get_current_active_superuser(
         current_user: User = Depends(get_current_user_async),
 ) -> User:
     if not crud.user.is_superuser(current_user):
+        raise HTTPException(
+            status_code=400, detail="The user doesn't have enough privileges"
+        )
+    return current_user
+
+
+async def get_current_active_manager(
+        current_user: User = Depends(get_current_user_async),
+) -> User:
+    if not crud.user.is_manager(current_user):
         raise HTTPException(
             status_code=400, detail="The user doesn't have enough privileges"
         )
@@ -185,17 +195,18 @@ def parse_react_admin_params(model: DeclarativeMeta | Any) -> Callable[[str | No
                             if v != "null":
                                 fb.append(model.__table__.c[k] == v)
                             else:
-                                fb.append(model.__table__.c[k] == None) # noqa
+                                fb.append(model.__table__.c[k] == None)  # noqa
                         else:
                             if str(k).split('_')[-1] == 'date':
                                 fb.append(model.__table__.c[k] >= datetime.fromisoformat(v))
                             else:
-                                fb.append(model.__table__.c[k].like(f'{v}%'))
+                                fb.append(model.__table__.c[k].ilike(f'{v}%'))
                     elif isinstance(v, int):
                         fb.append(model.__table__.c[k] == v)
                     elif isinstance(v, list):
                         fb.append(model.__table__.c[k].in_(tuple(v)))
                 filter_by = and_(*fb)
+
         return RequestParams(skip=skip, limit=limit, order_by=order_by, filter_by=filter_by)
 
     return inner

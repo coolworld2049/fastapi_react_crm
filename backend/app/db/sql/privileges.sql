@@ -1,6 +1,6 @@
 
 ------------------------------------------------------privileges--------------------------------------------------------
-create role admin_base noinherit superuser bypassrls;
+create role admin_base noinherit superuser;
 create role manager_base noinherit;
 create role ranker_base noinherit;
 create role client_base noinherit;
@@ -115,6 +115,9 @@ create policy admin_base_select_tasks on task as permissive for select to admin_
 create policy admin_base_update_tasks on task as permissive for update to admin_base using
     (is_session_user() = 1);
 
+create policy admin_base_insert_tasks on task as permissive for insert to admin_base
+    with check (is_session_user() = 1);
+
 
 
 create policy manager_base_insert_task_assign_self on task as permissive for insert to manager_base
@@ -184,8 +187,7 @@ create policy admin_base_delete_users on "user" as permissive for delete to admi
 
 
 create policy manager_base_select_users on "user" as permissive for select to manager_base using
-    (role = 'manager_base'::"UserRole" or role = 'client_base'::"UserRole" or role = 'ranker_base'::"UserRole"
-         or role = 'admin_base'::"UserRole");
+    (role = 'manager_base'::"UserRole" or role = 'ranker_base'::"UserRole");
 
 create policy manager_base_update_users on "user" as permissive for update to manager_base using
     (is_manager_base(id) = 1);
@@ -193,8 +195,7 @@ create policy manager_base_update_users on "user" as permissive for update to ma
 
 
 create policy ranker_base_select_users on "user" as permissive for select to ranker_base using
-    (role = 'manager_base'::"UserRole" or role = 'client_base'::"UserRole" or role = 'ranker_base'::"UserRole"
-         or role = 'admin_base'::"UserRole");
+    (role = 'manager_base'::"UserRole" or role = 'ranker_base'::"UserRole");
 
 create policy ranker_base_update_users on "user" as permissive for update to ranker_base using
     (is_ranker_base(id) = 1);

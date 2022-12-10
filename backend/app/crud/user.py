@@ -1,10 +1,8 @@
-from datetime import datetime
-from typing import Any, Dict, Optional, Union, List
+import logging
+from typing import Any, Dict, Optional, Union
 
 import sqlalchemy
 from asyncpg import Connection
-from pydantic.schema import Literal
-from sqlalchemy import select, or_, and_
 from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -14,7 +12,7 @@ from backend.app.core.security import get_password_hash, verify_password
 from backend.app.crud.base import CRUDBase
 from backend.app.db.session import asyncpg_database
 from backend.app.models.user import User
-from backend.app.schemas.request_params import RequestParams
+from backend.app.schemas import column_type
 from backend.app.schemas.user import UserCreate, UserUpdate
 
 
@@ -47,7 +45,8 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         return result.scalar()
 
     async def get_by_id_role(self, db: AsyncSession, *, id: int, role: str) -> Optional[User]:  # noqa
-        result: Result = await db.execute(sqlalchemy.select(User).where(and_(User.id == id, User.role == role)))
+        query = sqlalchemy.select(User).filter(User.role == role).filter(User.id == id)
+        result: Result = await db.execute(query)
         return result.scalar()
 
     async def get_by_email(self, db: AsyncSession, *, email: str) -> Optional[User]:  # noqa
@@ -74,6 +73,9 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
     def is_superuser(self, user: User) -> bool:  # noqa
         return user.is_superuser
 
+    def is_manager(self, user: User) -> bool:  # noqa
+        return True if user.role == column_type.userRole.manager_base else False
+
     # noinspection PyMethodMayBeStatic,PyUnusedLocal
     async def generate_report_user(
             self,
@@ -99,9 +101,9 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         '''
         conn: Connection = await asyncpg_database.get_connection()
         if report_in.ext == 'csv':
-            await conn.execute(q_csv)
+            res = await conn.fetch(q_csv)
         elif report_in.ext == 'json':
-            await conn.execute(q_json)
+            res = await conn.fetch(q_json)
         return {'path_in': path_in, 'path_out': path_out, 'filename': filename}
 
 

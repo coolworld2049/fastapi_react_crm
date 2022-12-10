@@ -48,7 +48,7 @@ async def read_users_by_role(
     total = None
     query_total = select(func.count(models.User.id))
     if rolname in column_type.userRole.schema().get('required'):
-        users, total = await crud.user.get_multi(db, request_params)
+        users, total = await crud.user.get_multi(db, request_params, role=rolname)
     elif rolname == 'employees':
         roles = ('manager_base', 'ranker_base')
         users, total = await crud.user.get_multi(db, request_params, roles=roles)
@@ -76,13 +76,12 @@ async def read_users_by_role_id(
 
 
 # noinspection PyUnusedLocal
-@router.put("/role/{rolname}", response_model=schemas.User)
+@router.put("/role/{rolname}/{id}", response_model=schemas.User)
 async def update_user_by_role(
         *,
         db: AsyncSession = Depends(deps.get_async_session),
         user_in: schemas.UserUpdate,
         current_user: models.User = Depends(deps.get_current_active_superuser),
-        rolname: str = Query(None, description=f"{column_type.userRoleEnum.to_list()}"),
 ) -> Any:
     """
     Update a user by role.
@@ -103,19 +102,25 @@ async def create_user(
         *,
         db: AsyncSession = Depends(deps.get_async_session),
         user_in: schemas.UserCreate,
-        current_user: models.User = Depends(deps.get_current_active_superuser),
+        current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
     Create new user.
     """
+
     user = await crud.user.get_by_email(db, email=user_in.email)
     if user:
         raise HTTPException(
             status_code=400,
             detail="The user with this username already exists in the system.",
         )
-    user = await crud.user.create(db, obj_in=user_in)
-    return user
+    if not current_user.is_superuser:
+        raise HTTPException(
+            status_code=403,
+            detail="privelegies error",
+        )
+    new_user = await crud.user.create(db, obj_in=user_in)
+    return new_user
 
 
 @router.put("/me", response_model=schemas.User)

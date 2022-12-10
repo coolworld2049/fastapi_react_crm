@@ -123,8 +123,8 @@ begin
                 number_employee_tasks_unfinished(start_timestamp, end_timestamp, _employee_id),
                 number_employee_tasks_unfinished_that_not_expired(start_timestamp, end_timestamp, _employee_id),
                 start_timestamp ,
-                end_timestamp ,
-                (SELECT clock_timestamp() );
+                end_timestamp,
+                clock_timestamp();
 end;
 $body$;
 
@@ -137,9 +137,9 @@ create or replace function generate_report_for_all_employees(start_timestamp tim
                     number_employee_tasks_not_completed_on_time integer,
                     number_employee_tasks_unfinished integer,
                     number_employee_tasks_unfinished_that_not_expired integer,
-                    start_period timestamp,
-                    end_period timestamp,
-                    create_date timestamp) language plpgsql
+                    start_period timestamp with time zone,
+                    end_period timestamp with time zone,
+                    create_date timestamp with time zone) language plpgsql
     as $body$
 begin
     return query
@@ -152,111 +152,11 @@ begin
                 number_employee_tasks_unfinished_that_not_expired(start_timestamp, end_timestamp, id),
                 start_timestamp ,
                 end_timestamp ,
-                (SELECT clock_timestamp() ) from "user");
+                clock_timestamp() from "user");
 end;
 $body$;
 
 ------------------------------------------------------------------------------------------------------------------------
-
-drop function if exists generate_report_for_all_employees_to_csv(timestamp with time zone, timestamp with time zone);
-create or replace function generate_report_for_all_employees_to_csv(
-    start_timestamp timestamp with time zone,
-    end_timestamp timestamp with time zone
-) returns void
-language plpgsql
-as $body$
-begin
-
-    copy (select * from generate_report_for_all_employees(
-    start_timestamp::timestamp with time zone,
-    end_timestamp::timestamp with time zone))
-    to '/tmp/report.csv' delimiter ',' csv header;
-end;
-$body$;
-
-
-drop function if exists generate_report_for_all_employees_to_json(timestamp with time zone, timestamp with time zone);
-create or replace function generate_report_for_all_employees_to_json(
-    start_timestamp timestamp with time zone,
-    end_timestamp timestamp with time zone
-) returns void
-language plpgsql
-as $body$
-begin
-    copy (select array_to_json(array_agg(row_to_json(results))) from (select * from generate_report_for_all_employees(
-    start_timestamp::timestamp with time zone,
-    end_timestamp::timestamp with time zone)) as results) to '/tmp/report.json'
-    with (format text, header false);
-end;
-$body$;
-
-------------------------------------------------------------------------------------------------------------------------
-/*
-drop procedure if exists generate_report_for_employee_to_csv(timestamp, timestamp, integer);
-create or replace procedure generate_report_for_employee_to_csv(
-    start_timestamp timestamp,
-    end_timestamp timestamp,
-    employee_id integer)
-language plpgsql
-as $body$
-    declare rec table (report_id uuid,
-                        employee_id integer,
-                        total_number_employee_tasks_in_period integer,
-                        number_employee_tasks_completed_on_time integer,
-                        number_employee_tasks_not_completed_on_time integer,
-                        number_employee_tasks_unfinished integer,
-                        number_employee_tasks_unfinished_that_not_expired integer,
-                        start_period timestamp,
-                        end_period timestamp,
-                        create_date timestamp);
-begin
-    select results into rec from (select * from generate_report_by_period_and_employee(
-        start_timestamp::timestamp,
-        end_timestamp::timestamp,
-        employee_id)) as results;
-    copy rec to '/tmp/report.csv' delimiter ',' csv header;
-end;
-$body$;
-
-drop procedure if exists generate_report_for_employee_to_json(timestamp, timestamp, integer);
-create or replace procedure generate_report_for_employee_to_json(
-    start_timestamp timestamp,
-    end_timestamp timestamp,
-    employee_id integer)
-language plpgsql
-as $body$
-    declare rec table (report_id uuid,
-                        employee_id integer,
-                        total_number_employee_tasks_in_period integer,
-                        number_employee_tasks_completed_on_time integer,
-                        number_employee_tasks_not_completed_on_time integer,
-                        number_employee_tasks_unfinished integer,
-                        number_employee_tasks_unfinished_that_not_expired integer,
-                        start_period timestamp,
-                        end_period timestamp,
-                        create_date timestamp);
-begin
-    select results into rec from (select * from generate_report_by_period_and_employee(
-        start_timestamp::timestamp,
-        end_timestamp::timestamp,
-        employee_id)) as results;
-    copy (select array_to_json(array_agg(row_to_json(rec)))) to '/tmp/report.json'
-    with (format text, header false);
-end;
-$body$;
-*/
-
-/*
-COPY (select * from generate_report_for_all_employees(
-    '2021-12-01 14:51:00 +00:00'::timestamp,
-    '2023-12-01 14:51:00 +00:00'::timestamp
-    )) to '/tmp/report.csv' delimiter ',' csv header;
-
-COPY (select array_to_json(array_agg(row_to_json(results))) from generate_report_for_all_employees(
-    '2021-12-01 14:51:00 +00:00'::timestamp,
-    '2023-12-01 14:51:00 +00:00'::timestamp
-    ) as results) to '/tmp/report.json' with (format text, header false );
-*/
 
 CREATE OR REPLACE FUNCTION truncate_tables(username IN VARCHAR) RETURNS void AS $$
 DECLARE
