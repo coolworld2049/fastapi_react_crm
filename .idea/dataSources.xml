@@ -7,6 +7,14 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://0.0.0.0:5435/app</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
+      <time-zone>Europe/Moscow</time-zone>
+    </data-source>
+    <data-source source="LOCAL" name="postgres@localhost" uuid="dfe5abbc-c7ad-4db6-9330-2b98d7da1cc3">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/postgres</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
 </project>
