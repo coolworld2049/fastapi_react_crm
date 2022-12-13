@@ -1,14 +1,44 @@
-INFO     2022-12-13 06:07:56.280 request id: app - uvicorn.server:serve - Started server process [11404]
-INFO     2022-12-13 06:07:56.280 request id: app - uvicorn.server:serve - Started server process [11404]
-INFO     2022-12-13 06:07:56.281 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
-INFO     2022-12-13 06:07:56.281 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
-INFO     2022-12-13 06:07:56.282 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
-INFO     2022-12-13 06:07:56.282 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
-INFO     2022-12-13 06:07:59.483 request id: app - uvicorn.server:shutdown - Shutting down
-INFO     2022-12-13 06:07:59.483 request id: app - uvicorn.server:shutdown - Shutting down
-INFO     2022-12-13 06:07:59.591 request id: app - uvicorn.lifespan.on:shutdown - Waiting for application shutdown.
-INFO     2022-12-13 06:07:59.591 request id: app - uvicorn.lifespan.on:shutdown - Waiting for application shutdown.
-INFO     2022-12-13 06:07:59.591 request id: app - uvicorn.lifespan.on:shutdown - Application shutdown complete.
-INFO     2022-12-13 06:07:59.592 request id: app - uvicorn.lifespan.on:shutdown - Application shutdown complete.
-INFO     2022-12-13 06:07:59.592 request id: app - uvicorn.server:serve - Finished server process [11404]
-INFO     2022-12-13 06:07:59.592 request id: app - uvicorn.server:serve - Finished server process [11404]
+INFO     2022-12-13 06:19:27.131 request id: app - __main__:main - Creating initial data
+INFO     2022-12-13 06:19:28.041 request id: app - __main__:main - Initial data created
+INFO     2022-12-13 06:21:16.774 request id: app - __main__:main - Initializing service
+INFO     2022-12-13 06:21:16.785 request id: app - tenacity.before:log_it - Starting call to '__main__.init', this is the 1st time calling it.
+INFO     2022-12-13 06:21:16.837 request id: app - __main__:init - backend_pre_start: [1] SUCCESS
+INFO     2022-12-13 06:21:16.839 request id: app - __main__:main - Service finished initializing
+INFO     2022-12-13 06:22:10.167 request id: app - __main__:main - Initializing service
+INFO     2022-12-13 06:22:10.168 request id: app - tenacity.before:log_it - Starting call to '__main__.init', this is the 1st time calling it.
+INFO     2022-12-13 06:22:10.220 request id: app - __main__:init - backend_pre_start: ['PostgreSQL 15.1 (Debian 15.1-1.pgdg110+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 10.2.1-6) 10.2.1 20210110, 64-bit'] SUCCESS
+INFO     2022-12-13 06:22:10.222 request id: app - __main__:main - Service finished initializing
+INFO     2022-12-13 06:22:22.077 request id: app - __main__:main - Initializing service
+INFO     2022-12-13 06:22:22.079 request id: app - tenacity.before:log_it - Starting call to '__main__.init', this is the 1st time calling it.
+INFO     2022-12-13 06:22:22.131 request id: app - __main__:init - backend_pre_start: PostgreSQL 15.1 (Debian 15.1-1.pgdg110+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 10.2.1-6) 10.2.1 20210110, 64-bit SUCCESS
+INFO     2022-12-13 06:22:22.133 request id: app - __main__:main - Service finished initializing
+INFO     2022-12-13 06:22:41.722 request id: app - __main__:main - Initializing service
+INFO     2022-12-13 06:22:41.723 request id: app - tenacity.before:log_it - Starting call to '__main__.init', this is the 1st time calling it.
+INFO     2022-12-13 06:22:41.775 request id: app - __main__:init - version: PostgreSQL 15.1 (Debian 15.1-1.pgdg110+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 10.2.1-6) 10.2.1 20210110, 64-bit
+INFO     2022-12-13 06:22:41.775 request id: app - __main__:init - backend_pre_start: SUCCESS
+INFO     2022-12-13 06:22:41.777 request id: app - __main__:main - Service finished initializing
+INFO     2022-12-13 06:23:00.087 request id: app - __main__:main - Initializing service
+INFO     2022-12-13 06:23:00.099 request id: app - tenacity.before:log_it - Starting call to '__main__.init', this is the 1st time calling it.
+INFO     2022-12-13 06:23:00.151 request id: app - __main__:init - PostgreSQL version: PostgreSQL 15.1 (Debian 15.1-1.pgdg110+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 10.2.1-6) 10.2.1 20210110, 64-bit
+INFO     2022-12-13 06:23:00.151 request id: app - __main__:init - backend_pre_start: SUCCESS
+INFO     2022-12-13 06:23:00.153 request id: app - __main__:main - Service finished initializing
+INFO     2022-12-13 06:23:06.073 request id: app - __main__:main - Initializing service
+INFO     2022-12-13 06:23:06.075 request id: app - tenacity.before:log_it - Starting call to '__main__.init', this is the 1st time calling it.
+INFO     2022-12-13 06:23:06.128 request id: app - __main__:init - db version: PostgreSQL 15.1 (Debian 15.1-1.pgdg110+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 10.2.1-6) 10.2.1 20210110, 64-bit
+INFO     2022-12-13 06:23:06.129 request id: app - __main__:init - backend_pre_start: SUCCESS
+INFO     2022-12-13 06:23:06.130 request id: app - __main__:main - Service finished initializing
+INFO     2022-12-13 06:23:17.348 request id: app - __main__:main - Initializing service
+INFO     2022-12-13 06:23:17.349 request id: app - tenacity.before:log_it - Starting call to '__main__.init', this is the 1st time calling it.
+INFO     2022-12-13 06:23:17.403 request id: app - __main__:init - db version: PostgreSQL 15.1 (Debian 15.1-1.pgdg110+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 10.2.1-6) 10.2.1 20210110, 64-bit
+INFO     2022-12-13 06:23:17.405 request id: app - __main__:main - Service finished initializing
+INFO     2022-12-13 06:26:54.160 request id: app - __main__:main - Creating initial data
+INFO     2022-12-13 06:26:55.383 request id: app - __main__:main - Initial data created
+INFO     2022-12-13 06:27:16.718 request id: app - __main__:main - Initializing service
+INFO     2022-12-13 06:27:16.736 request id: app - tenacity.before:log_it - Starting call to '__main__.init', this is the 1st time calling it.
+INFO     2022-12-13 06:27:16.788 request id: app - __main__:init - db version: PostgreSQL 15.1 (Debian 15.1-1.pgdg110+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 10.2.1-6) 10.2.1 20210110, 64-bit
+INFO     2022-12-13 06:27:16.790 request id: app - __main__:main - Service finished initializing
+INFO     2022-12-13 06:29:43.581 request id: app - __main__:main - Creating initial data
+INFO     2022-12-13 06:29:44.140 request id: app - __main__:main - Initial data created
+INFO     2022-12-13 06:35:39.184 request id: app - __main__:main - Creating initial data
+INFO     2022-12-13 06:35:53.713 request id: app - __main__:main - Creating initial data
+INFO     2022-12-13 06:35:54.166 request id: app - __main__:main - Initial data created

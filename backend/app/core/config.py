@@ -55,8 +55,8 @@ class Settings(BaseSettings):
         f"@{pg_host}:{env.str('PG_PORT')}" \
         f"/{env.str('PG_NAME')}"
 
-    FIRST_SUPERUSER_USERNAME: str = 'ka52helicopter'
-    FIRST_SUPERUSER_EMAIL: str = env.str('FIRST_SUPERUSER_USERNAME') + "@gmail.com"
+    FIRST_SUPERUSER_USERNAME: str = env.str('FIRST_SUPERUSER_USERNAME')
+    FIRST_SUPERUSER_EMAIL: str = env.str('FIRST_SUPERUSER_EMAIL')
     FIRST_SUPERUSER_PASSWORD: str = env.str('FIRST_SUPERUSER_PASSWORD')
 
     class Config:

@@ -21,15 +21,25 @@ async def init_db() -> None:
             logging.error(f'init_db: Base.metadata.create_all(): {e}')
 
     conn_2 = await asyncpg_database.get_connection()
+
     try:
         with open(f"{ROOT_PATH}/db/sql/automation.sql", encoding='utf-8') as file_1:
             await conn_2.execute(file_1.read())
+    except DuplicateObjectError:
+        pass
+
+    try:
+        with open(f"{ROOT_PATH}/db/sql/roles.sql", encoding='utf-8') as file_2:
+            await conn_2.execute(file_2.read())
+    except DuplicateObjectError:
+        pass
+
+    try:
         with open(f"{ROOT_PATH}/db/sql/privileges.sql", encoding='utf-8') as file_2:
             await conn_2.execute(file_2.read())
-    except DuplicateObjectError or DuplicateTableError:
-        pass
     except DuplicateTableError:
         pass
+
     await conn_2.close()
 
     try:

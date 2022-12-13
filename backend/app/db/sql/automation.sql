@@ -1,7 +1,7 @@
 
 --------------------------------------------------------index-----------------------------------------------------------
-create index user_email_index on "user" using btree (email);
-create index user_full_name_index on "user" using btree (full_name);
+create index if not exists user_email_index on "user" using btree (email);
+create index if not exists user_full_name_index on "user" using btree (full_name);
 
 
 --------------------------------------------------------trigger---------------------------------------------------------
