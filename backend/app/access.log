@@ -1,4 +1,14 @@
-INFO     2022-12-09 04:28:36.185 request id: app - __main__:main - Creating initial data
-INFO     2022-12-09 04:28:52.625 request id: app - __main__:main - Creating initial data
-INFO     2022-12-09 04:30:07.489 request id: app - __main__:main - Creating initial data
-INFO     2022-12-09 04:30:10.913 request id: app - __main__:main - Initial data created
+INFO     2022-12-13 06:07:56.280 request id: app - uvicorn.server:serve - Started server process [11404]
+INFO     2022-12-13 06:07:56.280 request id: app - uvicorn.server:serve - Started server process [11404]
+INFO     2022-12-13 06:07:56.281 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-13 06:07:56.281 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-13 06:07:56.282 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-13 06:07:56.282 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-13 06:07:59.483 request id: app - uvicorn.server:shutdown - Shutting down
+INFO     2022-12-13 06:07:59.483 request id: app - uvicorn.server:shutdown - Shutting down
+INFO     2022-12-13 06:07:59.591 request id: app - uvicorn.lifespan.on:shutdown - Waiting for application shutdown.
+INFO     2022-12-13 06:07:59.591 request id: app - uvicorn.lifespan.on:shutdown - Waiting for application shutdown.
+INFO     2022-12-13 06:07:59.591 request id: app - uvicorn.lifespan.on:shutdown - Application shutdown complete.
+INFO     2022-12-13 06:07:59.592 request id: app - uvicorn.lifespan.on:shutdown - Application shutdown complete.
+INFO     2022-12-13 06:07:59.592 request id: app - uvicorn.server:serve - Finished server process [11404]
+INFO     2022-12-13 06:07:59.592 request id: app - uvicorn.server:serve - Finished server process [11404]

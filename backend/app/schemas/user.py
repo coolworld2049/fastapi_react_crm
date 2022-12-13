@@ -1,40 +1,20 @@
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel, EmailStr, validator, Field
-from pydantic.types import constr
+from pydantic import BaseModel, EmailStr, Field
 
-from backend.app.schemas import column_type
+from backend.app.db import models
 
 
 class UserBase(BaseModel):
-    email: Optional[EmailStr] = None
-    phone: Optional[constr(strip_whitespace=True, regex=r"^(\+)[1-9][0-9\-\(\)\.]{9,15}$", )] = None
-    role: str = Field(
-        default=column_type.userRole.user,
-        description=f"required: {column_type.userRole.schema().get('required')}"
-    )
-
-    @validator("role")
-    def role_validate(cls, value):  # noqa
-        if value not in column_type.userRole.schema().get('required'):
-            raise ValueError("Not valid user role")
-        return value
-
-    is_active: Optional[bool] = True
-    is_superuser: bool = False
-    full_name: str = None
+    email: EmailStr
+    role: str = Field(models.user_role.enums[1], description=models.user_role.enums.__str__())
+    full_name: Optional[str]
     username: str
-
-    @validator("username", pre=True)
-    def username_validate(cls, value: str):  # noqa
-        return value.lower().replace(' ', '_').replace('@', '').replace('$', '')
-
-    company_id: Optional[int]
-    type: Optional[str] = Field(
-        None,
-        description=f"required: {column_type.clientType.schema().get('required')}"
-    )
+    age: Optional[int] = None
+    avatar: Optional[str] = None
+    is_active: bool = True
+    is_superuser: bool = False
     create_date: Optional[datetime]
 
 

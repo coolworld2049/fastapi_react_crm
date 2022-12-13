@@ -1,4 +1,3 @@
-import logging
 import pathlib
 from pathlib import Path
 
@@ -13,8 +12,6 @@ from starlette.staticfiles import StaticFiles
 from backend.app.api.api_v1.api import api_router
 from backend.app.core.config import settings, ROOT_PATH
 from backend.app.utils.custom_logger import CustomizeLogger
-
-logger = logging.getLogger(__name__)
 
 
 def create_app() -> FastAPI:
@@ -70,7 +67,8 @@ def custom_openapi():
 app.openapi = custom_openapi
 
 
-def use_route_names_as_operation_ids(app: FastAPI) -> None:  # noqa
+# noinspection PyShadowingNames
+def use_route_names_as_operation_ids(app: FastAPI) -> None:
     """
     Simplify operation IDs so that generated API clients have simpler function
     names.

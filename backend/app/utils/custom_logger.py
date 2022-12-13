@@ -52,6 +52,7 @@ class CustomizeLogger:
         )
         return logger
 
+    # noinspection PyShadowingBuiltins
     @classmethod
     def customize_logging(cls,
                           filepath: Path,

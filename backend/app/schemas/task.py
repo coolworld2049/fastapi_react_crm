@@ -3,23 +3,19 @@ from typing import Optional
 
 from pydantic import BaseModel, Field
 
-from backend.app.schemas import column_type
+from backend.app.db import models
 
 
 class TaskBase(BaseModel):
-    client_id: int = None
-    author_id: int = None
-    executor_id: Optional[int] = None
-    name: Optional[str] = None
-    description: Optional[str] = None
-    status: Optional[str] = None
-    priority: Optional[str] = Field(
-        ...,
-        description=f"required: {column_type.taskPriority.schema().get('required')}"
-    )
+    teacher_id: int
+    study_group_base_id: Optional[int]
+    student_id: Optional[int]
+    title: str
+    description: Optional[str]
+    status: Optional[str] = Field(models.task_status.enums[0], description=models.task_status.enums.__str__())
+    priority: Optional[str] = Field(models.task_priority.enums[0], description=models.task_priority.enums.__str__())
+    expiration_date: Optional[datetime]
     create_date: Optional[datetime]
-    deadline_date: Optional[datetime]
-    completion_date: Optional[datetime]
 
 
 # Properties to receive via API on creation
@@ -29,9 +25,8 @@ class TaskCreate(TaskBase):
 
 # Properties to receive via API on update
 class TaskUpdate(TaskBase):
-    executor_id: int
     description: Optional[str]
-    completion_date: Optional[datetime]
+    expiration_date: Optional[datetime]
 
 
 class TaskInDBBase(TaskBase):
@@ -48,4 +43,4 @@ class TaskInDB(TaskInDBBase):
 
 # Additional properties to return via API
 class Task(TaskInDBBase):
-    task_priority = column_type.taskPriorityEnum.to_list()
+    pass

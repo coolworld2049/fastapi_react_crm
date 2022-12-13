@@ -6,10 +6,11 @@ from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette import status
 
-from backend.app import schemas, crud, models
+from backend.app import schemas, crud
 from backend.app.api import deps
 from backend.app.core import security
 from backend.app.core.config import settings
+from backend.app.db import models
 
 router = APIRouter()
 
@@ -37,10 +38,11 @@ async def login_access_token(
     return data
 
 
+# noinspection PyUnusedLocal
 @router.get("/logout")
 async def logout(
         db: AsyncSession = Depends(deps.get_async_session),
-        current_user: models.User = Depends(deps.get_current_active_user) # noqa
+        current_user: models.User = Depends(deps.get_current_active_user)
 ) -> Any:
     await db.close()
     return {'logout': True}

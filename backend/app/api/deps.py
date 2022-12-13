@@ -13,12 +13,11 @@ from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio.session import AsyncSession
 from sqlalchemy.orm import DeclarativeMeta
 
-from backend.app import crud, models, schemas
+from backend.app import crud, schemas
 from backend.app.core.config import settings
 from backend.app.core.security import oauth2Scheme
+from backend.app.db import User
 from backend.app.db.session import AsyncSessionLocal, asyncpg_database
-from backend.app.models.user import User
-from backend.app.schemas import SCHEMA_CUSTOM_TYPES
 from backend.app.schemas.request_params import RequestParams
 
 loop = asyncio.new_event_loop()
@@ -89,7 +88,7 @@ async def check_rolname(db: AsyncSession, db_user: str):
     return check_result
 
 
-async def create_user_in_role(db: AsyncSession | Connection, current_user: models.User, db_user: str):
+async def create_user_in_role(db: AsyncSession | Connection, current_user: User, db_user: str):
     create_db_user_q = """create user """ + db_user + """ inherit login password '""" + current_user.hashed_password \
                        + """' valid until 'infinity' in role """ + current_user.role
     if isinstance(db, Connection):
@@ -118,8 +117,8 @@ async def set_session_user(db: AsyncSession, db_user: str):
 
 
 async def get_current_active_user(
-        current_user: models.User = Depends(get_current_user_async),
-) -> models.User:
+        current_user: User = Depends(get_current_user_async),
+) -> User:
     if not crud.user.is_active(current_user):
         raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
@@ -173,7 +172,7 @@ def parse_react_admin_params(model: DeclarativeMeta | Any) -> Callable[[str | No
             start, end = json.loads(range_)
             skip, limit = start, (end - start + 1)
 
-        order_by = desc(model.id)  # noqa
+        order_by = desc(model.id)  
         if sort_:
             sort_column, sort_order = json.loads(sort_)
             if sort_order.lower() == "asc":
@@ -182,7 +181,7 @@ def parse_react_admin_params(model: DeclarativeMeta | Any) -> Callable[[str | No
                 direction = desc
             else:
                 raise HTTPException(400, f"Invalid sort direction {sort_order}")
-            order_by = direction(model.__table__.c[sort_column])  # noqa
+            order_by = direction(model.__table__.c[sort_column])  
         filter_by = None
         if filter_:
             ft: dict = json.loads(filter_)
@@ -191,7 +190,7 @@ def parse_react_admin_params(model: DeclarativeMeta | Any) -> Callable[[str | No
                 filter_dict: dict = dict(filter(lambda it: str(it[0]).isdigit() is False, ft.items()))
                 for k, v in filter_dict.items():
                     if isinstance(v, str):
-                        if k in SCHEMA_CUSTOM_TYPES:
+                        if k in ['role']:
                             if v != "null":
                                 fb.append(model.__table__.c[k] == v)
                             else:

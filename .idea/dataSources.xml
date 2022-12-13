@@ -7,6 +7,7 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://0.0.0.0:5435/app</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
+      <time-zone>Europe/Moscow</time-zone>
     </data-source>
   </component>
 </project>

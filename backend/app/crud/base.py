@@ -6,7 +6,7 @@ from sqlalchemy import select, or_, func
 from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from backend.app.db.base_class import Base
+from backend.app.db import Base
 from backend.app.schemas.request_params import RequestParams
 
 ModelType = TypeVar("ModelType", bound=Base)

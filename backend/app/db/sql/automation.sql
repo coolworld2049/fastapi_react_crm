@@ -1,163 +1,80 @@
 
 --------------------------------------------------------index-----------------------------------------------------------
-create index company_name_index on company using btree ("name");
-create index company_address_index on company using btree (address);
-create index user_full_name_index on "user" using btree (full_name);
-create index user_phone_index on "user" using btree (phone);
 create index user_email_index on "user" using btree (email);
+create index user_full_name_index on "user" using btree (full_name);
 
 
 --------------------------------------------------------trigger---------------------------------------------------------
-create or replace function delete_old_rows() returns trigger language plpgsql as
-$body$
+
+create or replace function check_student_role() returns trigger as $insert_user_check_role$
 begin
-    delete from task where completion_date::timestamp with time zone < clock_timestamp() - '1 year'::interval;
+    if (select role from "user" where id = new.id) in ('student','student_leader','student_leader_assistant') = true then
+        insert into student(id, study_group_base_id) values (new.id, new.study_group_base_id);
+    end if;
     return null;
 end;
-$body$;
+$insert_user_check_role$ language plpgsql;
 
---по прошествии 12 месяцев после даты завершения задания сведения о нем удаляются из системы.
-create or replace trigger task_mgmt before insert or update on task
-    for each statement execute procedure delete_old_rows();
+create or replace trigger insert_student_check_role before insert or update on student
+    for statement execute function check_student_role();
 
---------------------------------------------------------report----------------------------------------------------------
 
--- общее количество заданий для данного сотрудника в указанный период
-drop function if exists total_number_employee_tasks_in_period(timestamp with time zone, timestamp with time zone, integer);
-create or replace function total_number_employee_tasks_in_period
-    (start_timestamp timestamp with time zone , end_timestamp timestamp with time zone , employee_id integer)
-    returns integer language plpgsql as
-$body$
+
+create or replace function check_teacher_role() returns trigger as $insert_teacher_check_role$
 begin
-    return (select count(*) from task where executor_id = employee_id
-                                                     or author_id = employee_id
-                                                  and create_date between start_timestamp and end_timestamp);
+    if (select role from "user" where id = new.user_id) = 'teacher'::user_role then
+        insert into teacher values (new.id, new.discipline_id, new.user_id);
+    end if;
+    return null;
 end;
-$body$;
+$insert_teacher_check_role$ language plpgsql;
 
--- сколько заданий завершено вовремя
-drop function if exists number_employee_tasks_completed_on_time(timestamp with time zone, timestamp with time zone, integer);
-create or replace function number_employee_tasks_completed_on_time
-    (start_timestamp timestamp with time zone , end_timestamp timestamp with time zone , employee_id integer)
-    returns integer language plpgsql as
-$body$
+create or replace trigger set_teacher_check_role before insert or update on teacher
+    for statement execute function check_teacher_role();
+
+
+
+create or replace function check_task_expiration_date()
+    returns trigger as $set_task_expiration_date$
 begin
-    return (select count(*) from task where executor_id = employee_id
-                                                     or author_id = employee_id
-                                                            and completion_date is not null
-                                                            and deadline_date::timestamp with time zone >= completion_date::timestamp with time zone
-                                                            and create_date between start_timestamp and end_timestamp);
+    if old.expiration_date >= clock_timestamp()
+           or new.expiration_date >= clock_timestamp() then
+        update task set status = 'overdue'::task_status where id = new.id;
+    end if;
+    return null;
 end;
-$body$;
+$set_task_expiration_date$ language plpgsql;
 
--- сколько заданий завершено с нарушением срока исполнения
-drop function if exists number_employee_tasks_not_completed_on_time(timestamp with time zone, timestamp with time zone, integer);
-create or replace function number_employee_tasks_not_completed_on_time
-    (start_timestamp timestamp with time zone , end_timestamp timestamp with time zone , employee_id integer)
-    returns integer language plpgsql as
-$body$
+create or replace trigger set_task_expiration_date before update on task
+    for statement execute function check_task_expiration_date();
+
+
+
+create or replace function check_student_task_completion_date()
+    returns trigger as $set_student_task_start_date$
+    declare t_id bigint;
 begin
-    return (select count(*) from task where executor_id = employee_id
-                                                     or author_id = employee_id
-                                                            and completion_date is not null  and deadline_date is not null
-                                                            and deadline_date::timestamp with time zone < completion_date::timestamp with time zone
-                                                            and create_date between start_timestamp and end_timestamp);
+    if (select status from task where id = new.id) = 'completed'::task_status then
+        update student_task set completion_date = clock_timestamp()
+                            where id = new.id
+                            returning student_task.id into t_id;
+    end if;
+    if (select expiration_date from task where id = new.id) >= new.deadline_date then
+            update task set status = 'overdue'::task_status
+                        where id = new.id
+                        returning task.id into t_id;
+            return t_id;
+    end if;
+    return t_id;
 end;
-$body$;
+$set_student_task_start_date$ language plpgsql;
 
--- сколько заданий с истекшим сроком исполнения не завершено
-drop function if exists number_employee_tasks_unfinished(timestamp with time zone, timestamp with time zone, integer);
-create or replace function number_employee_tasks_unfinished
-    (start_timestamp timestamp with time zone , end_timestamp timestamp with time zone , employee_id integer)
-    returns integer language plpgsql as
-$body$
-begin
-    return (select count(*) from task where executor_id = employee_id
-                                                     or author_id = employee_id
-                                                            and deadline_date is not null
-                                                            and clock_timestamp() > deadline_date::timestamp with time zone
-                                                            and completion_date is null
-                                                            and create_date between start_timestamp and end_timestamp);
-end;
-$body$;
+create or replace trigger set_student_task_completion_date before update on student_task
+    for statement execute function check_student_task_completion_date();
 
 
--- сколько не завершенных заданий, срок исполнения которых не истек
-drop function if exists number_employee_tasks_unfinished_that_not_expired(timestamp with time zone, timestamp with time zone, integer);
-create or replace function number_employee_tasks_unfinished_that_not_expired
-    (start_timestamp timestamp with time zone , end_timestamp timestamp with time zone , employee_id integer)
-    returns integer language plpgsql as
-$body$
-begin
-    return (select count(*) from task where executor_id = employee_id
-                                                     or author_id = employee_id
-                                                            and deadline_date is not null
-                                                            and clock_timestamp() < deadline_date::timestamp with time zone
-                                                            and completion_date is null
-                                                            and create_date between start_timestamp and end_timestamp);
-end;
-$body$;
 
--- система генерирует отчет по исполнению заданий каким-либо сотрудником
--- в течение периода времени, указываемого в параметре отчета.
-drop function if exists generate_report_by_period_and_employee(timestamp with time zone, timestamp with time zone, integer);
-create or replace function generate_report_by_period_and_employee(start_timestamp timestamp with time zone , end_timestamp timestamp with time zone, _employee_id integer)
-    returns table (report_id uuid,
-                    employee_id integer,
-                    total_number_employee_tasks_in_period integer,
-                    number_employee_tasks_completed_on_time integer,
-                    number_employee_tasks_not_completed_on_time integer,
-                    number_employee_tasks_unfinished integer,
-                    number_employee_tasks_unfinished_that_not_expired integer,
-                    start_period timestamp with time zone,
-                    end_period timestamp with time zone,
-                    create_date timestamp with time zone) language plpgsql
-as $body$
-begin
-    return query
-        select gen_random_uuid(),
-                _employee_id,
-                total_number_employee_tasks_in_period(start_timestamp, end_timestamp, _employee_id),
-                number_employee_tasks_completed_on_time(start_timestamp, end_timestamp, _employee_id),
-                number_employee_tasks_not_completed_on_time(start_timestamp, end_timestamp, _employee_id),
-                number_employee_tasks_unfinished(start_timestamp, end_timestamp, _employee_id),
-                number_employee_tasks_unfinished_that_not_expired(start_timestamp, end_timestamp, _employee_id),
-                start_timestamp ,
-                end_timestamp,
-                clock_timestamp();
-end;
-$body$;
-
-drop function if exists generate_report_for_all_employees(timestamp with time zone, timestamp with time zone);
-create or replace function generate_report_for_all_employees(start_timestamp timestamp with time zone , end_timestamp timestamp with time zone)
-    returns table (report_id uuid,
-                    employee_id integer,
-                    total_number_employee_tasks_in_period integer,
-                    number_employee_tasks_completed_on_time integer,
-                    number_employee_tasks_not_completed_on_time integer,
-                    number_employee_tasks_unfinished integer,
-                    number_employee_tasks_unfinished_that_not_expired integer,
-                    start_period timestamp with time zone,
-                    end_period timestamp with time zone,
-                    create_date timestamp with time zone) language plpgsql
-    as $body$
-begin
-    return query
-        (select gen_random_uuid(),
-                id,
-                total_number_employee_tasks_in_period(start_timestamp, end_timestamp, id),
-                number_employee_tasks_completed_on_time(start_timestamp, end_timestamp, id),
-                number_employee_tasks_not_completed_on_time(start_timestamp, end_timestamp, id),
-                number_employee_tasks_unfinished(start_timestamp, end_timestamp, id),
-                number_employee_tasks_unfinished_that_not_expired(start_timestamp, end_timestamp, id),
-                start_timestamp ,
-                end_timestamp ,
-                clock_timestamp() from "user");
-end;
-$body$;
-
-------------------------------------------------------------------------------------------------------------------------
-
+--------------------------------------------------------functions-------------------------------------------------------
 CREATE OR REPLACE FUNCTION truncate_tables(username IN VARCHAR) RETURNS void AS $$
 DECLARE
     statements CURSOR FOR
