@@ -8,9 +8,9 @@ from pydantic.networks import EmailStr
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from backend.app import crud, models, schemas
+from backend.app import crud, schemas
 from backend.app.api import deps
-from backend.app.schemas import column_type
+from backend.app.db import models
 from backend.app.schemas.request_params import RequestParams
 
 router = APIRouter()
@@ -22,7 +22,7 @@ async def read_users(
         response: Response,
         db: AsyncSession = Depends(deps.get_async_session),
         current_user: models.User = Depends(deps.get_current_active_user),
-        request_params: RequestParams = Depends(deps.parse_react_admin_params(models.User))  # noqa
+        request_params: RequestParams = Depends(deps.parse_react_admin_params(models.User))
 ) -> Any:
     """
     Retrieve users.
@@ -38,8 +38,8 @@ async def read_users_by_role(
         response: Response,
         db: AsyncSession = Depends(deps.get_async_session),
         current_user: models.User = Depends(deps.get_current_active_user),
-        request_params: schemas.RequestParams = Depends(deps.parse_react_admin_params(models.User)),  # noqa
-        rolname: str = Query(None, description=f"{column_type.userRoleEnum.to_list()}"),
+        request_params: schemas.RequestParams = Depends(deps.parse_react_admin_params(models.User)),
+        rolname: str = Query(None),
 ) -> Any:
     """
     Retrieve users.
@@ -47,7 +47,7 @@ async def read_users_by_role(
     users = []
     total = None
     query_total = select(func.count(models.User.id))
-    if rolname in column_type.userRole.schema().get('required'):
+    if rolname in ['service_admin', 'student', 'student_leader', 'student_leader_assistant', 'teacher']:
         users, total = await crud.user.get_multi(db, request_params, role=rolname)
     elif rolname == 'employees':
         roles = ('manager_base', 'ranker_base')
@@ -64,8 +64,8 @@ async def read_users_by_role_id(
         response: Response,
         db: AsyncSession = Depends(deps.get_async_session),
         current_user: models.User = Depends(deps.get_current_active_user),
-        request_params: schemas.RequestParams = Depends(deps.parse_react_admin_params(models.User)),  # noqa
-        rolname: str = Query(None, description=f"{column_type.userRoleEnum.to_list()}"),
+        request_params: schemas.RequestParams = Depends(deps.parse_react_admin_params(models.User)),
+        rolname: str = Query(None),
         id: int = Query(None)
 ) -> Any:
     """
@@ -157,10 +157,11 @@ async def read_user_me(
     return user
 
 
+# noinspection PyUnusedLocal
 @router.get("/{id}", response_model=schemas.User)
 async def read_user_by_id(
         id: int,
-        current_user: models.User = Depends(deps.get_current_active_user),  # noqa
+        current_user: models.User = Depends(deps.get_current_active_user),
         db: AsyncSession = Depends(deps.get_async_session),
 ) -> Any:
     """
@@ -170,10 +171,11 @@ async def read_user_by_id(
     return user
 
 
+# noinspection PyUnusedLocal
 @router.post("/report", response_class=FileResponse)
 async def create_user_report(
         report_in: schemas.ReportUserCreate,
-        current_user: models.User = Depends(deps.get_current_active_superuser),  # noqa
+        current_user: models.User = Depends(deps.get_current_active_superuser),
 ) -> Any:
     """
     Generate report by user id.\n
@@ -212,12 +214,13 @@ async def update_user(
     return user
 
 
+# noinspection PyUnusedLocal
 @router.delete("/{id}", response_model=schemas.User)
 async def delete_user(
         *,
         db: AsyncSession = Depends(deps.get_async_session),
         id: int,
-        current_user: models.User = Depends(deps.get_current_active_user),  # noqa
+        current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
     Delete an task.
