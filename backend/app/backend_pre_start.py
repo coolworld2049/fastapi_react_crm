@@ -4,7 +4,7 @@ from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncConnection
 from tenacity import after_log, before_log, retry, stop_after_attempt, wait_fixed
 
-from backend.app.db.session import async_engine
+from backend.app.db.session import engine
 from backend.app.main import logger
 
 max_tries = 60 * 5  # 5 minutes
@@ -19,7 +19,7 @@ wait_seconds = 1
 )
 async def init() -> None:
     try:
-        async with async_engine.connect() as conn:
+        async with engine.connect() as conn:
             conn: AsyncConnection
             try:
                 result = await conn.execute(text("SELECT * from version()"))

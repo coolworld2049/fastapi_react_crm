@@ -9,7 +9,7 @@ create index if not exists user_full_name_index on "user" using btree (full_name
 create or replace function check_student_role() returns trigger as $insert_user_check_role$
 begin
     if (select role from "user" where id = new.id) in ('student','student_leader','student_leader_assistant') = true then
-        insert into student(id, study_group_base_id) values (new.id, new.study_group_base_id);
+        insert into student(id, study_group_cipher_id) values (new.id, new.study_group_cipher_id);
     end if;
     return null;
 end;
@@ -71,7 +71,6 @@ $set_student_task_start_date$ language plpgsql;
 
 create or replace trigger set_student_task_completion_date before update on student_task
     for statement execute function check_student_task_completion_date();
-
 
 
 --------------------------------------------------------functions-------------------------------------------------------

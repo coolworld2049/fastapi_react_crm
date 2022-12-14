@@ -27,7 +27,7 @@ values (100, 10, 'practice'::discipline_type, '105-2', 'В-78'),
        (200, 10, 'lecture'::discipline_type, 'A-10', 'В-78');
 
 
-insert into study_group_base
+insert into study_group_cipher
 values (1000, 'БСБО-07-20'),
        (2000, 'БСБО-06-20'),
        (3000, 'БСБО-04-20');

@@ -42,3 +42,332 @@ INFO     2022-12-13 06:29:44.140 request id: app - __main__:main - Initial data 
 INFO     2022-12-13 06:35:39.184 request id: app - __main__:main - Creating initial data
 INFO     2022-12-13 06:35:53.713 request id: app - __main__:main - Creating initial data
 INFO     2022-12-13 06:35:54.166 request id: app - __main__:main - Initial data created
+INFO     2022-12-14 12:25:25.377 request id: app - __main__:main - Creating initial data
+INFO     2022-12-14 12:26:31.211 request id: app - __main__:main - Creating initial data
+INFO     2022-12-14 12:26:54.349 request id: app - __main__:main - Creating initial data
+INFO     2022-12-14 12:30:53.137 request id: app - __main__:main - Creating initial data
+INFO     2022-12-14 12:31:10.615 request id: app - __main__:main - Creating initial data
+INFO     2022-12-14 12:31:33.449 request id: app - __main__:main - Creating initial data
+INFO     2022-12-14 12:31:54.264 request id: app - __main__:main - Creating initial data
+INFO     2022-12-14 12:40:02.471 request id: app - __main__:main - Creating initial data
+INFO     2022-12-14 12:40:57.621 request id: app - __main__:main - Creating initial data
+INFO     2022-12-14 12:41:28.330 request id: app - __main__:main - Creating initial data
+ERROR    2022-12-14 12:41:28.475 request id: app - sqlalchemy.pool.base:_finalize_fairy - Exception during reset or similar
+Traceback (most recent call last):
+
+  File "C:\Users\R\AppData\Local\JetBrains\Toolbox\apps\PyCharm-P\ch-0\223.7571.203\plugins\python\helpers\pydev\pydevd.py", line 2195, in <module>
+    main()
+    └ <function main at 0x00000226DA2E2560>
+
+  File "C:\Users\R\AppData\Local\JetBrains\Toolbox\apps\PyCharm-P\ch-0\223.7571.203\plugins\python\helpers\pydev\pydevd.py", line 2177, in main
+    globals = debugger.run(setup['file'], None, None, is_module)
+              │        │   │                          └ False
+              │        │   └ {'port': 55158, 'vm_type': None, 'client': '127.0.0.1', 'server': False, 'DEBUG_RECORD_SOCKET_READS': False, 'multiproc': Fal...
+              │        └ <function PyDB.run at 0x00000226DA2E15A0>
+              └ <__main__.PyDB object at 0x00000226DA1564D0>
+
+  File "C:\Users\R\AppData\Local\JetBrains\Toolbox\apps\PyCharm-P\ch-0\223.7571.203\plugins\python\helpers\pydev\pydevd.py", line 1489, in run
+    return self._exec(is_module, entry_point_fn, module_name, file, globals, locals)
+           │    │     │          │               │            │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': '', '__loader__': <_frozen_importlib_external.SourceFileLoader objec...
+           │    │     │          │               │            │     └ {'__name__': '__main__', '__doc__': None, '__package__': '', '__loader__': <_frozen_importlib_external.SourceFileLoader objec...
+           │    │     │          │               │            └ 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\backend\\app\\initial_data.py'
+           │    │     │          │               └ None
+           │    │     │          └ ''
+           │    │     └ False
+           │    └ <function PyDB._exec at 0x00000226DA2E1630>
+           └ <__main__.PyDB object at 0x00000226DA1564D0>
+
+  File "C:\Users\R\AppData\Local\JetBrains\Toolbox\apps\PyCharm-P\ch-0\223.7571.203\plugins\python\helpers\pydev\pydevd.py", line 1496, in _exec
+    pydev_imports.execfile(file, globals, locals)  # execute the script
+    │             │        │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': '', '__loader__': <_frozen_importlib_external.SourceFileLoader objec...
+    │             │        │     └ {'__name__': '__main__', '__doc__': None, '__package__': '', '__loader__': <_frozen_importlib_external.SourceFileLoader objec...
+    │             │        └ 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\backend\\app\\initial_data.py'
+    │             └ <function execfile at 0x00000226D9423F40>
+    └ <module '_pydev_bundle.pydev_imports' from 'C:\\Users\\R\\AppData\\Local\\JetBrains\\Toolbox\\apps\\PyCharm-P\\ch-0\\223.7571...
+
+  File "C:\Users\R\AppData\Local\JetBrains\Toolbox\apps\PyCharm-P\ch-0\223.7571.203\plugins\python\helpers\pydev\_pydev_imps\_pydev_execfile.py", line 18, in execfile
+    exec(compile(contents+"\n", file, 'exec'), glob, loc)
+                 │              │              │     └ {'__name__': '__main__', '__doc__': None, '__package__': '', '__loader__': <_frozen_importlib_external.SourceFileLoader objec...
+                 │              │              └ {'__name__': '__main__', '__doc__': None, '__package__': '', '__loader__': <_frozen_importlib_external.SourceFileLoader objec...
+                 │              └ 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\backend\\app\\initial_data.py'
+                 └ 'import asyncio\n\nfrom backend.app.db.init_db import init_db\nfrom backend.app.main import logger\n\n\ndef main() -> None:\n...
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\backend\app\initial_data.py", line 14, in <module>
+    main()
+    └ <function main at 0x00000226DA2F2F80>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\backend\app\initial_data.py", line 9, in main
+    asyncio.run(init_db())
+    │       │   └ <function init_db at 0x00000226DA2F32E0>
+    │       └ <function run at 0x00000226DA206200>
+    └ <module 'asyncio' from 'C:\\Users\\R\\AppData\\Local\\Programs\\Python\\Python310\\lib\\asyncio\\__init__.py'>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py", line 44, in run
+    return loop.run_until_complete(main)
+           │    │                  └ <coroutine object init_db at 0x00000226DD083060>
+           │    └ <function BaseEventLoop.run_until_complete at 0x00000226DA207BE0>
+           └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 633, in run_until_complete
+    self.run_forever()
+    │    └ <function ProactorEventLoop.run_forever at 0x00000226DA27E290>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\windows_events.py", line 321, in run_forever
+    super().run_forever()
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 600, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x00000226DA2096C0>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 1896, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x00000226DA1B8F70>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\backend\app\db\init_db.py", line 23, in init_db
+    asyncpg_conn = await asyncpg_pool.connect()
+                         │            └ <function Pool.connect at 0x00000226DAC625F0>
+                         └ <sqlalchemy.pool.impl.QueuePool object at 0x00000226DCD9EBC0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\pool\base.py", line 503, in <lambda>
+    and _finalize_fairy(
+        └ <function _finalize_fairy at 0x00000226DAC61C60>
+
+> File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\pool\base.py", line 757, in _finalize_fairy
+    fairy._reset(pool, transaction_was_reset)
+    │     │      │     └ False
+    │     │      └ <sqlalchemy.pool.impl.QueuePool object at 0x00000226DCD9EBC0>
+    │     └ <function _ConnectionFairy._reset at 0x00000226DAC636D0>
+    └ <sqlalchemy.pool.base._ConnectionFairy object at 0x00000226DD15BB80>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\pool\base.py", line 1016, in _reset
+    pool._dialect.do_rollback(self)
+    │    │        │           └ <sqlalchemy.pool.base._ConnectionFairy object at 0x00000226DD15BB80>
+    │    │        └ <function _ConnDialect.do_rollback at 0x00000226DAC61CF0>
+    │    └ <sqlalchemy.pool.base._ConnDialect object at 0x00000226DAC74880>
+    └ <sqlalchemy.pool.impl.QueuePool object at 0x00000226DCD9EBC0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\pool\base.py", line 42, in do_rollback
+    dbapi_connection.rollback()
+    └ <sqlalchemy.pool.base._ConnectionFairy object at 0x00000226DD15BB80>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\pool\base.py", line 1114, in __getattr__
+    return getattr(self.dbapi_connection, key)
+                   │    │                 └ 'rollback'
+                   │    └ <coroutine object getconn at 0x00000226DD0837D0>
+                   └ <sqlalchemy.pool.base._ConnectionFairy object at 0x00000226DD15BB80>
+
+AttributeError: 'coroutine' object has no attribute 'rollback'
+INFO     2022-12-14 12:41:39.424 request id: app - __main__:main - Creating initial data
+INFO     2022-12-14 12:44:01.946 request id: app - __main__:main - Creating initial data
+INFO     2022-12-14 12:46:30.439 request id: app - __main__:main - Creating initial data
+INFO     2022-12-14 12:46:54.790 request id: app - __main__:main - Creating initial data
+INFO     2022-12-14 12:47:44.371 request id: app - __main__:main - Creating initial data
+INFO     2022-12-14 12:47:56.400 request id: app - __main__:main - Creating initial data
+INFO     2022-12-14 12:48:23.657 request id: app - __main__:main - Creating initial data
+INFO     2022-12-14 12:49:52.111 request id: app - __main__:main - Creating initial data
+INFO     2022-12-14 12:49:52.156 request id: app - sqlalchemy.log:log - select pg_catalog.version()
+INFO     2022-12-14 12:49:52.156 request id: app - sqlalchemy.log:log - [raw sql] ()
+INFO     2022-12-14 12:49:52.160 request id: app - sqlalchemy.log:log - select current_schema()
+INFO     2022-12-14 12:49:52.162 request id: app - sqlalchemy.log:log - [raw sql] ()
+INFO     2022-12-14 12:49:52.164 request id: app - sqlalchemy.log:log - show standard_conforming_strings
+INFO     2022-12-14 12:49:52.164 request id: app - sqlalchemy.log:log - [raw sql] ()
+INFO     2022-12-14 12:49:52.167 request id: app - sqlalchemy.log:log - BEGIN (implicit)
+INFO     2022-12-14 12:49:52.167 request id: app - sqlalchemy.log:log - set timezone to "Europe/Moscow";
+INFO     2022-12-14 12:49:52.168 request id: app - sqlalchemy.log:log - [generated in 0.00044s] ()
+INFO     2022-12-14 12:49:52.170 request id: app - sqlalchemy.log:log - select relname from pg_class c join pg_namespace n on n.oid=c.relnamespace where pg_catalog.pg_table_is_visible(c.oid) and relname=%s
+INFO     2022-12-14 12:49:52.172 request id: app - sqlalchemy.log:log - [generated in 0.00037s] ('campus',)
+INFO     2022-12-14 12:49:52.174 request id: app - sqlalchemy.log:log - select relname from pg_class c join pg_namespace n on n.oid=c.relnamespace where pg_catalog.pg_table_is_visible(c.oid) and relname=%s
+INFO     2022-12-14 12:49:52.174 request id: app - sqlalchemy.log:log - [cached since 0.0033s ago] ('discipline',)
+INFO     2022-12-14 12:49:52.175 request id: app - sqlalchemy.log:log - select relname from pg_class c join pg_namespace n on n.oid=c.relnamespace where pg_catalog.pg_table_is_visible(c.oid) and relname=%s
+INFO     2022-12-14 12:49:52.175 request id: app - sqlalchemy.log:log - [cached since 0.005062s ago] ('study_group_cipher',)
+INFO     2022-12-14 12:49:52.177 request id: app - sqlalchemy.log:log - select relname from pg_class c join pg_namespace n on n.oid=c.relnamespace where pg_catalog.pg_table_is_visible(c.oid) and relname=%s
+INFO     2022-12-14 12:49:52.177 request id: app - sqlalchemy.log:log - [cached since 0.006861s ago] ('user',)
+INFO     2022-12-14 12:49:52.179 request id: app - sqlalchemy.log:log - select relname from pg_class c join pg_namespace n on n.oid=c.relnamespace where pg_catalog.pg_table_is_visible(c.oid) and relname=%s
+INFO     2022-12-14 12:49:52.180 request id: app - sqlalchemy.log:log - [cached since 0.008319s ago] ('user_contact',)
+INFO     2022-12-14 12:49:52.180 request id: app - sqlalchemy.log:log - select relname from pg_class c join pg_namespace n on n.oid=c.relnamespace where pg_catalog.pg_table_is_visible(c.oid) and relname=%s
+INFO     2022-12-14 12:49:52.180 request id: app - sqlalchemy.log:log - [cached since 0.01001s ago] ('discipline_typed',)
+INFO     2022-12-14 12:49:52.182 request id: app - sqlalchemy.log:log - select relname from pg_class c join pg_namespace n on n.oid=c.relnamespace where pg_catalog.pg_table_is_visible(c.oid) and relname=%s
+INFO     2022-12-14 12:49:52.182 request id: app - sqlalchemy.log:log - [cached since 0.0117s ago] ('student',)
+INFO     2022-12-14 12:49:52.184 request id: app - sqlalchemy.log:log - select relname from pg_class c join pg_namespace n on n.oid=c.relnamespace where pg_catalog.pg_table_is_visible(c.oid) and relname=%s
+INFO     2022-12-14 12:49:52.185 request id: app - sqlalchemy.log:log - [cached since 0.01327s ago] ('study_group',)
+INFO     2022-12-14 12:49:52.185 request id: app - sqlalchemy.log:log - select relname from pg_class c join pg_namespace n on n.oid=c.relnamespace where pg_catalog.pg_table_is_visible(c.oid) and relname=%s
+INFO     2022-12-14 12:49:52.185 request id: app - sqlalchemy.log:log - [cached since 0.01516s ago] ('teacher',)
+INFO     2022-12-14 12:49:52.187 request id: app - sqlalchemy.log:log - select relname from pg_class c join pg_namespace n on n.oid=c.relnamespace where pg_catalog.pg_table_is_visible(c.oid) and relname=%s
+INFO     2022-12-14 12:49:52.187 request id: app - sqlalchemy.log:log - [cached since 0.01663s ago] ('task',)
+INFO     2022-12-14 12:49:52.188 request id: app - sqlalchemy.log:log - select relname from pg_class c join pg_namespace n on n.oid=c.relnamespace where pg_catalog.pg_table_is_visible(c.oid) and relname=%s
+INFO     2022-12-14 12:49:52.190 request id: app - sqlalchemy.log:log - [cached since 0.01838s ago] ('student_task',)
+INFO     2022-12-14 12:49:52.190 request id: app - sqlalchemy.log:log - select relname from pg_class c join pg_namespace n on n.oid=c.relnamespace where pg_catalog.pg_table_is_visible(c.oid) and relname=%s
+INFO     2022-12-14 12:49:52.191 request id: app - sqlalchemy.log:log - [cached since 0.02s ago] ('task_store',)
+INFO     2022-12-14 12:49:52.192 request id: app - sqlalchemy.log:log - 
+            SELECT EXISTS (
+                SELECT * FROM pg_catalog.pg_type t
+                WHERE t.typname = %s
+                AND pg_type_is_visible(t.oid)
+                )
+                
+INFO     2022-12-14 12:49:52.193 request id: app - sqlalchemy.log:log - [generated in 0.00034s] ('assessment_type',)
+INFO     2022-12-14 12:49:52.195 request id: app - sqlalchemy.log:log - 
+            SELECT EXISTS (
+                SELECT * FROM pg_catalog.pg_type t
+                WHERE t.typname = %s
+                AND pg_type_is_visible(t.oid)
+                )
+                
+INFO     2022-12-14 12:49:52.195 request id: app - sqlalchemy.log:log - [cached since 0.00274s ago] ('user_role',)
+INFO     2022-12-14 12:49:52.196 request id: app - sqlalchemy.log:log - 
+            SELECT EXISTS (
+                SELECT * FROM pg_catalog.pg_type t
+                WHERE t.typname = %s
+                AND pg_type_is_visible(t.oid)
+                )
+                
+INFO     2022-12-14 12:49:52.197 request id: app - sqlalchemy.log:log - [cached since 0.004353s ago] ('discipline_type',)
+INFO     2022-12-14 12:49:52.198 request id: app - sqlalchemy.log:log - 
+            SELECT EXISTS (
+                SELECT * FROM pg_catalog.pg_type t
+                WHERE t.typname = %s
+                AND pg_type_is_visible(t.oid)
+                )
+                
+INFO     2022-12-14 12:49:52.198 request id: app - sqlalchemy.log:log - [cached since 0.005925s ago] ('task_status',)
+INFO     2022-12-14 12:49:52.199 request id: app - sqlalchemy.log:log - 
+            SELECT EXISTS (
+                SELECT * FROM pg_catalog.pg_type t
+                WHERE t.typname = %s
+                AND pg_type_is_visible(t.oid)
+                )
+                
+INFO     2022-12-14 12:49:52.200 request id: app - sqlalchemy.log:log - [cached since 0.007818s ago] ('task_priority',)
+INFO     2022-12-14 12:49:52.201 request id: app - sqlalchemy.log:log - 
+            SELECT EXISTS (
+                SELECT * FROM pg_catalog.pg_type t
+                WHERE t.typname = %s
+                AND pg_type_is_visible(t.oid)
+                )
+                
+INFO     2022-12-14 12:49:52.202 request id: app - sqlalchemy.log:log - [cached since 0.009482s ago] ('student_task_grade',)
+INFO     2022-12-14 12:49:52.204 request id: app - sqlalchemy.log:log - 
+--------------------------------------------------------index-----------------------------------------------------------
+create index if not exists user_email_index on "user" using btree (email);
+create index if not exists user_full_name_index on "user" using btree (full_name);
+
+
+--------------------------------------------------------trigger---------------------------------------------------------
+
+create or replace function check_student_role() returns trigger as $insert_user_check_role$
+begin
+    if (select role from "user" where id = new.id) in ('student','student_leader','student_leader_assistant') = true then
+        insert into student(id, study_group_base_id) values (new.id, new.study_group_base_id);
+    end if;
+    return null;
+end;
+$insert_user_check_role$ language plpgsql;
+
+create or replace trigger insert_student_check_role before insert or update on student
+    for statement execute function check_student_role();
+
+
+
+create or replace function check_teacher_role() returns trigger as $insert_teacher_check_role$
+begin
+    if (select role from "user" where id = new.user_id) = 'teacher'::user_role then
+        insert into teacher values (new.id, new.discipline_id, new.user_id);
+    end if;
+    return null;
+end;
+$insert_teacher_check_role$ language plpgsql;
+
+create or replace trigger set_teacher_check_role before insert or update on teacher
+    for statement execute function check_teacher_role();
+
+
+
+create or replace function check_task_expiration_date()
+    returns trigger as $set_task_expiration_date$
+begin
+    if old.expiration_date >= clock_timestamp()
+           or new.expiration_date >= clock_timestamp() then
+        update task set status = 'overdue'::task_status where id = new.id;
+    end if;
+    return null;
+end;
+$set_task_expiration_date$ language plpgsql;
+
+create or replace trigger set_task_expiration_date before update on task
+    for statement execute function check_task_expiration_date();
+
+
+
+create or replace function check_student_task_completion_date()
+    returns trigger as $set_student_task_start_date$
+    declare t_id bigint;
+begin
+    if (select status from task where id = new.id) = 'completed'::task_status then
+        update student_task set completion_date = clock_timestamp()
+                            where id = new.id
+                            returning student_task.id into t_id;
+    end if;
+    if (select expiration_date from task where id = new.id) >= new.deadline_date then
+            update task set status = 'overdue'::task_status
+                        where id = new.id
+                        returning task.id into t_id;
+            return t_id;
+    end if;
+    return t_id;
+end;
+$set_student_task_start_date$ language plpgsql;
+
+create or replace trigger set_student_task_completion_date before update on student_task
+    for statement execute function check_student_task_completion_date();
+
+
+
+--------------------------------------------------------functions-------------------------------------------------------
+CREATE OR REPLACE FUNCTION truncate_tables(username IN VARCHAR) RETURNS void AS $$
+DECLARE
+    statements CURSOR FOR
+        SELECT tablename FROM pg_tables
+        WHERE tableowner = username AND schemaname = 'public';
+BEGIN
+    FOR stmt IN statements LOOP
+        EXECUTE 'TRUNCATE TABLE ' || quote_ident(stmt.tablename) || ' CASCADE;';
+    END LOOP;
+END;
+$$ LANGUAGE plpgsql;
+
+INFO     2022-12-14 12:49:52.204 request id: app - sqlalchemy.log:log - [generated in 0.00063s] ()
+INFO     2022-12-14 12:49:52.206 request id: app - sqlalchemy.log:log - ROLLBACK
+INFO     2022-12-14 13:21:23.548 request id: app - uvicorn.server:serve - Started server process [6544]
+INFO     2022-12-14 13:21:23.549 request id: app - uvicorn.server:serve - Started server process [6544]
+INFO     2022-12-14 13:21:23.549 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 13:21:23.549 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 13:21:23.550 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 13:21:23.550 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 13:21:23.551 request id: app - uvicorn.server:_log_started_message - Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO     2022-12-14 13:21:23.551 request id: app - uvicorn.server:_log_started_message - Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO     2022-12-14 13:21:32.928 request id: app - uvicorn.server:shutdown - Shutting down
+INFO     2022-12-14 13:21:32.928 request id: app - uvicorn.server:shutdown - Shutting down
+INFO     2022-12-14 13:21:33.038 request id: app - uvicorn.lifespan.on:shutdown - Waiting for application shutdown.
+INFO     2022-12-14 13:21:33.038 request id: app - uvicorn.lifespan.on:shutdown - Waiting for application shutdown.
+INFO     2022-12-14 13:21:33.039 request id: app - uvicorn.lifespan.on:shutdown - Application shutdown complete.
+INFO     2022-12-14 13:21:33.039 request id: app - uvicorn.lifespan.on:shutdown - Application shutdown complete.
+INFO     2022-12-14 13:21:33.040 request id: app - uvicorn.server:serve - Finished server process [6544]
+INFO     2022-12-14 13:21:33.040 request id: app - uvicorn.server:serve - Finished server process [6544]
+INFO     2022-12-14 13:46:55.756 request id: app - __main__:main - Creating initial data
+INFO     2022-12-14 13:50:00.136 request id: app - __main__:main - Creating initial data
+INFO     2022-12-14 13:50:24.863 request id: app - __main__:main - Creating initial data
+INFO     2022-12-14 13:50:25.476 request id: app - __main__:main - Initial data created
+INFO     2022-12-14 14:34:45.443 request id: app - __main__:main - Creating initial data
+INFO     2022-12-14 14:34:46.065 request id: app - __main__:main - Initial data created

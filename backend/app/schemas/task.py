@@ -7,15 +7,14 @@ from backend.app.db import models
 
 
 class TaskBase(BaseModel):
-    teacher_id: int
-    study_group_base_id: Optional[int]
+    teacher_id: Optional[int]
+    study_group_cipher_id: Optional[int]
     student_id: Optional[int]
-    title: str
+    title: Optional[str]
     description: Optional[str]
     status: Optional[str] = Field(models.task_status.enums[0], description=models.task_status.enums.__str__())
     priority: Optional[str] = Field(models.task_priority.enums[0], description=models.task_priority.enums.__str__())
     expiration_date: Optional[datetime]
-    create_date: Optional[datetime]
 
 
 # Properties to receive via API on creation
@@ -25,9 +24,7 @@ class TaskCreate(TaskBase):
 
 # Properties to receive via API on update
 class TaskUpdate(TaskBase):
-    description: Optional[str]
-    expiration_date: Optional[datetime]
-
+    pass
 
 class TaskInDBBase(TaskBase):
     id: Optional[int] = None

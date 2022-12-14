@@ -17,7 +17,7 @@ router = APIRouter()
 
 @router.post("/login/access-token", response_model=schemas.TokenPayload)
 async def login_access_token(
-        db: AsyncSession = Depends(deps.get_async_session),
+        db: AsyncSession = Depends(deps.get_db),
         form_data: OAuth2PasswordRequestForm = Depends()
 ) -> Any:
     """
@@ -33,16 +33,16 @@ async def login_access_token(
         raise HTTPException(status_code=status.HTTP_402_PAYMENT_REQUIRED, detail="Incorrect email or password or role")
     elif not crud.user.is_active(user):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Inactive user")
-    access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
-    data = security.create_access_token(sub=user.id, expires_delta=access_token_expires, scopes=form_data.scopes)
+    exp = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+    data = security.create_access_token(sub=user.id, expires_delta=exp, scopes=form_data.scopes)
     return data
 
 
 # noinspection PyUnusedLocal
 @router.get("/logout")
 async def logout(
-        db: AsyncSession = Depends(deps.get_async_session),
+        db: AsyncSession = Depends(deps.get_db),
         current_user: models.User = Depends(deps.get_current_active_user)
 ) -> Any:
-    await db.close()
+    await db.dispatch()
     return {'logout': True}

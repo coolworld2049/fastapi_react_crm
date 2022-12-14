@@ -1,8 +1,7 @@
-import asyncio
 import json
 import logging
 from datetime import datetime
-from typing import Optional, Callable, Any
+from typing import Optional, Callable, Any, AsyncGenerator
 
 from asyncpg import Connection
 from fastapi import Depends, status
@@ -17,24 +16,18 @@ from backend.app import crud, schemas
 from backend.app.core.config import settings
 from backend.app.core.security import oauth2Scheme
 from backend.app.db import User
-from backend.app.db.session import AsyncSessionLocal, asyncpg_database
+from backend.app.db.session import asyncpg_database, AsyncSessionFactory
 from backend.app.schemas.request_params import RequestParams
 
-loop = asyncio.new_event_loop()
-asyncio.set_event_loop(loop)
 
-
-async def get_async_session():
-    session: AsyncSession = AsyncSessionLocal()
-    try:
+async def get_db() -> AsyncGenerator:
+    async with AsyncSessionFactory() as session:
         session.current_user_id = None
         yield session
-    finally:
-        await session.close()
 
 
 async def get_current_user_async(
-        db: AsyncSession = Depends(get_async_session),
+        db: AsyncSession = Depends(get_db),
         token: str = Depends(oauth2Scheme)
 ) -> User:
     credentials_exception = HTTPException(
@@ -89,31 +82,43 @@ async def check_rolname(db: AsyncSession, db_user: str):
 
 
 async def create_user_in_role(db: AsyncSession | Connection, current_user: User, db_user: str):
-    create_db_user_q = """create user """ + db_user + """ inherit login password '""" + current_user.hashed_password \
+    _create_db_user_q = """create user """ + db_user + """ inherit login password '""" + current_user.hashed_password \
                        + """' valid until 'infinity' in role """ + current_user.role
+    create_db_user_q = "create user :db_user inherit login password :hashed_password valid until 'infinity'" \
+                       " in role :current_user_role"
+    params = {
+        'db_user': db_user,
+        'hashed_password': current_user.hashed_password,
+        'current_user_role': current_user.role
+    }
     if isinstance(db, Connection):
         await db.execute(create_db_user_q)
     elif isinstance(db, AsyncSession):
-        await db.execute(text(create_db_user_q))
+        await db.execute(text(create_db_user_q), params)
     logging.info(f'CREATE_user_in_role: {db_user}')
 
+async def drop_user_in_role(db: AsyncSession | Connection, db_user: str):
+    drop_db_user_q = """drop user """ + db_user
+    if isinstance(db, Connection):
+        await db.execute(drop_db_user_q)
+    elif isinstance(db, AsyncSession):
+        await db.execute(text(drop_db_user_q))
+    logging.info(f'DROP_user_in_role: {db_user}')
 
 async def get_session_user(db: AsyncSession):
     check_session_role_q = """select session_user, current_user"""
     check_session_role_q_result: Result = await db.execute(text(check_session_role_q))
     logging.info(f'get_session_user: {check_session_role_q_result.scalar()}')
 
+async def set_session_user(db: AsyncSession, db_user: str):
+    set_db_user_q = """set session authorization """ + db_user
+    logging.info(f'SET_session_user: {db_user}')
+    await db.execute(text(set_db_user_q))
 
 async def reset_session_user(db: AsyncSession):
     reset_q = '''reset session authorization'''
     logging.info(f'RESET_session_user')
     await db.execute(text(reset_q))
-
-
-async def set_session_user(db: AsyncSession, db_user: str):
-    set_db_user_q = """set session authorization """ + db_user
-    logging.info(f'SET_session_user: {db_user}')
-    await db.execute(text(set_db_user_q))
 
 
 async def get_current_active_user(
@@ -128,16 +133,6 @@ async def get_current_active_superuser(
         current_user: User = Depends(get_current_user_async),
 ) -> User:
     if not crud.user.is_superuser(current_user):
-        raise HTTPException(
-            status_code=400, detail="The user doesn't have enough privileges"
-        )
-    return current_user
-
-
-async def get_current_active_manager(
-        current_user: User = Depends(get_current_user_async),
-) -> User:
-    if not crud.user.is_manager(current_user):
         raise HTTPException(
             status_code=400, detail="The user doesn't have enough privileges"
         )

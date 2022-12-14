@@ -1,4 +1,3 @@
-from datetime import datetime
 from typing import Optional
 
 from pydantic import BaseModel, EmailStr, Field
@@ -15,7 +14,6 @@ class UserBase(BaseModel):
     avatar: Optional[str] = None
     is_active: bool = True
     is_superuser: bool = False
-    create_date: Optional[datetime]
 
 
 # Properties to receive via API on creation
