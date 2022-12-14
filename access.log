@@ -6204,3 +6204,2156 @@ INFO     2022-12-14 20:38:55.176 request id: app - uvicorn.lifespan.on:shutdown 
 INFO     2022-12-14 20:38:55.176 request id: app - uvicorn.lifespan.on:shutdown - Application shutdown complete.
 INFO     2022-12-14 20:38:55.177 request id: app - uvicorn.server:serve - Finished server process [22716]
 INFO     2022-12-14 20:38:55.177 request id: app - uvicorn.server:serve - Finished server process [22716]
+INFO     2022-12-14 21:02:11.484 request id: app - uvicorn.server:serve - Started server process [26652]
+INFO     2022-12-14 21:02:11.484 request id: app - uvicorn.server:serve - Started server process [26652]
+INFO     2022-12-14 21:02:11.484 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 21:02:11.485 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 21:02:11.486 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 21:02:11.486 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 21:02:17.234 request id: app - uvicorn.server:shutdown - Shutting down
+INFO     2022-12-14 21:02:17.234 request id: app - uvicorn.server:shutdown - Shutting down
+INFO     2022-12-14 21:02:17.345 request id: app - uvicorn.lifespan.on:shutdown - Waiting for application shutdown.
+INFO     2022-12-14 21:02:17.345 request id: app - uvicorn.lifespan.on:shutdown - Waiting for application shutdown.
+INFO     2022-12-14 21:02:17.346 request id: app - uvicorn.lifespan.on:shutdown - Application shutdown complete.
+INFO     2022-12-14 21:02:17.347 request id: app - uvicorn.lifespan.on:shutdown - Application shutdown complete.
+INFO     2022-12-14 21:02:17.347 request id: app - uvicorn.server:serve - Finished server process [26652]
+INFO     2022-12-14 21:02:17.348 request id: app - uvicorn.server:serve - Finished server process [26652]
+INFO     2022-12-14 21:05:06.617 request id: app - uvicorn.server:serve - Started server process [27144]
+INFO     2022-12-14 21:05:06.617 request id: app - uvicorn.server:serve - Started server process [27144]
+INFO     2022-12-14 21:05:06.618 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 21:05:06.618 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 21:05:06.618 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 21:05:06.619 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 21:05:11.378 request id: app - uvicorn.server:shutdown - Shutting down
+INFO     2022-12-14 21:05:11.378 request id: app - uvicorn.server:shutdown - Shutting down
+INFO     2022-12-14 21:05:11.488 request id: app - uvicorn.lifespan.on:shutdown - Waiting for application shutdown.
+INFO     2022-12-14 21:05:11.488 request id: app - uvicorn.lifespan.on:shutdown - Waiting for application shutdown.
+INFO     2022-12-14 21:05:11.489 request id: app - uvicorn.lifespan.on:shutdown - Application shutdown complete.
+INFO     2022-12-14 21:05:11.489 request id: app - uvicorn.lifespan.on:shutdown - Application shutdown complete.
+INFO     2022-12-14 21:05:11.489 request id: app - uvicorn.server:serve - Finished server process [27144]
+INFO     2022-12-14 21:05:11.490 request id: app - uvicorn.server:serve - Finished server process [27144]
+INFO     2022-12-14 21:31:22.402 request id: app - uvicorn.server:serve - Started server process [14852]
+INFO     2022-12-14 21:31:22.402 request id: app - uvicorn.server:serve - Started server process [14852]
+INFO     2022-12-14 21:31:22.403 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 21:31:22.403 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 21:31:22.404 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 21:31:22.405 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 21:31:22.409 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:51689 - "GET /favicon.ico HTTP/1.1" 404
+INFO     2022-12-14 21:31:22.523 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:51689 - "GET /docs HTTP/1.1" 200
+INFO     2022-12-14 21:31:23.260 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:51689 - "GET /api/v1/openapi.json HTTP/1.1" 200
+INFO     2022-12-14 21:31:25.718 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:51689 - "POST /api/v1/login/access-token HTTP/1.1" 200
+INFO     2022-12-14 21:31:38.380 request id: app - backend.app.api.deps:get_current_user_async - START
+INFO     2022-12-14 21:31:38.383 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:31:38.383 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:31:38.387 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:31:38.389 request id: app - backend.app.api.deps:check_rolname - check_rolname: ka52 role exist
+INFO     2022-12-14 21:31:38.390 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:31:38.393 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:31:38.393 request id: app - backend.app.api.deps:set_session_user - SET_session_user: ka52
+INFO     2022-12-14 21:31:38.396 request id: app - backend.app.api.deps:get_session_user - get_session_user: ka52
+INFO     2022-12-14 21:31:38.397 request id: app - backend.app.api.deps:get_current_user_async - END
+INFO     2022-12-14 21:31:38.435 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:51688 - "GET /api/v1/users/?sort=%5B%22id%22%2C%20%22ASC%22%5D&range=%5B0%2C%20500%5D HTTP/1.1" 200
+INFO     2022-12-14 21:31:56.897 request id: app - backend.app.api.deps:get_current_user_async - START
+INFO     2022-12-14 21:31:56.900 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:31:56.901 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:31:56.905 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:31:56.908 request id: app - backend.app.api.deps:check_rolname - check_rolname: ka52 role exist
+INFO     2022-12-14 21:31:56.908 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:31:56.911 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:31:56.912 request id: app - backend.app.api.deps:set_session_user - SET_session_user: ka52
+INFO     2022-12-14 21:31:56.914 request id: app - backend.app.api.deps:get_session_user - get_session_user: ka52
+INFO     2022-12-14 21:31:56.915 request id: app - backend.app.api.deps:get_current_user_async - END
+INFO     2022-12-14 21:31:56.930 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:51687 - "GET /api/v1/users/?sort=%5B%22id%22%2C%20%22ASC%22%5D&range=%5B0%2C%20100%5D HTTP/1.1" 200
+INFO     2022-12-14 21:32:10.975 request id: app - backend.app.api.deps:get_current_user_async - START
+INFO     2022-12-14 21:32:10.976 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:32:10.977 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:32:10.979 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:32:10.980 request id: app - backend.app.api.deps:check_rolname - check_rolname: ka52 role exist
+INFO     2022-12-14 21:32:10.981 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:32:10.983 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:32:10.983 request id: app - backend.app.api.deps:set_session_user - SET_session_user: ka52
+INFO     2022-12-14 21:32:10.985 request id: app - backend.app.api.deps:get_session_user - get_session_user: ka52
+INFO     2022-12-14 21:32:10.985 request id: app - backend.app.api.deps:get_current_user_async - END
+INFO     2022-12-14 21:32:11.820 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:51698 - "GET /api/v1/tasks/?sort=%5B%22id%22%2C%20%22ASC%22%5D&range=%5B0%2C%2010%5D HTTP/1.1" 200
+INFO     2022-12-14 21:32:40.645 request id: app - backend.app.api.deps:get_current_user_async - START
+INFO     2022-12-14 21:32:40.647 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:32:40.647 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:32:40.650 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:32:40.652 request id: app - backend.app.api.deps:check_rolname - check_rolname: ka52 role exist
+INFO     2022-12-14 21:32:40.652 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:32:40.654 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:32:40.654 request id: app - backend.app.api.deps:set_session_user - SET_session_user: ka52
+INFO     2022-12-14 21:32:40.656 request id: app - backend.app.api.deps:get_session_user - get_session_user: ka52
+INFO     2022-12-14 21:32:40.656 request id: app - backend.app.api.deps:get_current_user_async - END
+INFO     2022-12-14 21:32:40.760 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:51704 - "GET /api/v1/tasks/?sort=%5B%22id%22%2C%20%22ASC%22%5D&range=%5B0%2C%2010%5D&filter=%7B%22status%22%3A%20%22completed%22%7D HTTP/1.1" 500
+ERROR    2022-12-14 21:32:40.762 request id: app - uvicorn.protocols.http.h11_impl:run_asgi - Exception in ASGI application
+
+Traceback (most recent call last):
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 418, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                      │                └ <function AsyncAdapt_asyncpg_connection._prepare at 0x0000022579AE3640>
+                                      └ <AdaptedConnection <asyncpg.connection.Connection object at 0x000002257A285540>>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 660, in _prepare
+    prepared_stmt = await self._connection.prepare(operation)
+                          │    │                   └ 'SELECT count(task.id) AS count_1 \nFROM task \nWHERE task.status ILIKE $1'
+                          │    └ <member '_connection' of 'AsyncAdapt_asyncpg_connection' objects>
+                          └ <AdaptedConnection <asyncpg.connection.Connection object at 0x000002257A285540>>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\asyncpg\connection.py", line 565, in prepare
+    return await self._prepare(
+                 │    └ <function Connection._prepare at 0x0000022579D104C0>
+                 └ <asyncpg.connection.Connection object at 0x000002257A285540>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\asyncpg\connection.py", line 583, in _prepare
+    stmt = await self._get_statement(
+                 │    └ <function Connection._get_statement at 0x0000022579D101F0>
+                 └ <asyncpg.connection.Connection object at 0x000002257A285540>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\asyncpg\connection.py", line 397, in _get_statement
+    statement = await self._protocol.prepare(
+                      │    └ <member '_protocol' of 'Connection' objects>
+                      └ <asyncpg.connection.Connection object at 0x000002257A285540>
+
+  File "asyncpg\protocol\protocol.pyx", line 168, in prepare
+
+asyncpg.exceptions.UndefinedFunctionError: operator does not exist: task_status ~~* unknown
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1900, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x0000022579736290>
+    │    └ <sqlalchemy.dialects.postgresql.asyncpg.PGDialect_asyncpg object at 0x0000022579FAFF70>
+    └ <sqlalchemy.future.engine.Connection object at 0x000002257B399300>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ ('completed%',)
+    │      │       └ 'SELECT count(task.id) AS count_1 \nFROM task \nWHERE task.status ILIKE %s'
+    │      └ <function AsyncAdapt_asyncpg_cursor.execute at 0x0000022579AE2B90>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000002257A344AC0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 479, in execute
+    self._adapt_connection.await_(
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000002257A344AC0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 68, in await_only
+    return current.driver.switch(awaitable)
+           │                     └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x000002257A344900>
+           └ <_AsyncIoGreenlet object at 0x000002257A3BEB80 (otid=0x0000022579295050) dead>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 121, in greenlet_spawn
+    value = await result
+                  └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x000002257A344900>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 454, in _prepare_and_execute
+    self._handle_exception(error)
+    │    └ <function AsyncAdapt_asyncpg_cursor._handle_exception at 0x0000022579AE2950>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000002257A344AC0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 389, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    │    │                                   └ UndefinedFunctionError('operator does not exist: task_status ~~* unknown')
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000002257A344AC0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 682, in _handle_exception
+    raise translated_error from error
+          │                     └ UndefinedFunctionError('operator does not exist: task_status ~~* unknown')
+          └ ProgrammingError("<class 'asyncpg.exceptions.UndefinedFunctionError'>: operator does not exist: task_status ~~* unknown\nHINT...
+
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedFunctionError'>: operator does not exist: task_status ~~* unknown
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\multiprocessing\spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 316
+               │     └ 3
+               └ <function _main at 0x00000225759D6320>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\multiprocessing\spawn.py", line 129, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 316
+           │    └ <function BaseProcess._bootstrap at 0x0000022575934160>
+           └ <SpawnProcess name='SpawnProcess-1' parent=9524 started>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\multiprocessing\process.py", line 314, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x0000022575927760>
+    └ <SpawnProcess name='SpawnProcess-1' parent=9524 started>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {'config': <uvicorn.config.Config object at 0x0000022575892D70>, 'target': <bound method Server.run of <uvicorn.server.Server...
+    │    │        │    │        └ <SpawnProcess name='SpawnProcess-1' parent=9524 started>
+    │    │        │    └ ()
+    │    │        └ <SpawnProcess name='SpawnProcess-1' parent=9524 started>
+    │    └ <function subprocess_started at 0x0000022577D24310>
+    └ <SpawnProcess name='SpawnProcess-1' parent=9524 started>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\uvicorn\_subprocess.py", line 76, in subprocess_started
+    target(sockets=sockets)
+    │              └ [<socket.socket fd=704, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 8000)>]
+    └ <bound method Server.run of <uvicorn.server.Server object at 0x0000022575893460>>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\uvicorn\server.py", line 60, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           │       │   │    │             └ [<socket.socket fd=704, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 8000)>]
+           │       │   │    └ <function Server.serve at 0x0000022577D00EE0>
+           │       │   └ <uvicorn.server.Server object at 0x0000022575893460>
+           │       └ <function run at 0x0000022577528B80>
+           └ <module 'asyncio' from 'C:\\Users\\R\\AppData\\Local\\Programs\\Python\\Python310\\lib\\asyncio\\__init__.py'>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py", line 44, in run
+    return loop.run_until_complete(main)
+           │    │                  └ <coroutine object Server.serve at 0x0000022577D209E0>
+           │    └ <function BaseEventLoop.run_until_complete at 0x000002257752A560>
+           └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 633, in run_until_complete
+    self.run_forever()
+    │    └ <function BaseEventLoop.run_forever at 0x000002257752A4D0>
+    └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 600, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x000002257752C040>
+    └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 1896, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x0000022575D2F880>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+
+> File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 407, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+                   └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x0000022577D1EA10>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 78, in __call__
+    return await self.app(scope, receive, send)
+                 │    │   │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002257A04E410>>
+                 │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002257A04E...
+                 │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+                 │    └ <fastapi.applications.FastAPI object at 0x0000022577D84400>
+                 └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x0000022577D1EA10>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\applications.py", line 270, in __call__
+    await super().__call__(scope, receive, send)
+                           │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002257A04E410>>
+                           │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002257A04E...
+                           └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\applications.py", line 124, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002257A04E410>>
+          │    │                │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002257A04E...
+          │    │                └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x000002257A1A8220>
+          └ <fastapi.applications.FastAPI object at 0x0000022577D84400>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\errors.py", line 184, in __call__
+    raise exc
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+          │    │   │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x000002257A2E4310>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002257A04E...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.cors.CORSMiddleware object at 0x000002257A1A8130>
+          └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x000002257A1A8220>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\cors.py", line 84, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x000002257A2E4310>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002257A04E...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x000002257A1A8100>
+          └ <starlette.middleware.cors.CORSMiddleware object at 0x000002257A1A8130>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\exceptions.py", line 79, in __call__
+    raise exc
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+          │    │   │      │        └ <function ExceptionMiddleware.__call__.<locals>.sender at 0x000002257A3AFF40>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002257A04E...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000002257A1A80A0>
+          └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x000002257A1A8100>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 21, in __call__
+    raise e
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function ExceptionMiddleware.__call__.<locals>.sender at 0x000002257A3AFF40>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002257A04E...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <fastapi.routing.APIRouter object at 0x000002257A10C6A0>
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000002257A1A80A0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\routing.py", line 706, in __call__
+    await route.handle(scope, receive, send)
+          │     │      │      │        └ <function ExceptionMiddleware.__call__.<locals>.sender at 0x000002257A3AFF40>
+          │     │      │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002257A04E...
+          │     │      └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │     └ <function Route.handle at 0x0000022579191510>
+          └ APIRoute(path='/api/v1/tasks/', name='read_tasks', methods=['GET'])
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function ExceptionMiddleware.__call__.<locals>.sender at 0x000002257A3AFF40>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002257A04E...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <function request_response.<locals>.app at 0x000002257A197BE0>
+          └ APIRoute(path='/api/v1/tasks/', name='read_tasks', methods=['GET'])
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\routing.py", line 66, in app
+    response = await func(request)
+                     │    └ <starlette.requests.Request object at 0x000002257A226680>
+                     └ <function get_request_handler.<locals>.app at 0x000002257A197B50>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\routing.py", line 235, in app
+    raw_response = await run_endpoint_function(
+                         └ <function run_endpoint_function at 0x0000022579190160>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\routing.py", line 161, in run_endpoint_function
+    return await dependant.call(**values)
+                 │         │      └ {'db': <sqlalchemy.orm.session.AsyncSession object at 0x000002257A2264A0>, 'current_user': <backend.app.db.models.User object...
+                 │         └ <function read_tasks at 0x000002257A050820>
+                 └ <fastapi.dependencies.models.Dependant object at 0x000002257A204E20>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\.\backend\app\api\api_v1\endpoints\tasks.py", line 26, in read_tasks
+    items, total = await crud.task.get_multi(db, request_params=request_params)
+                         │    │    │         │                  └ RequestParams(skip=0, limit=11, order_by=<sqlalchemy.sql.elements.UnaryExpression object at 0x000002257A04FDF0>, filter_by=<s...
+                         │    │    │         └ <sqlalchemy.orm.session.AsyncSession object at 0x000002257A2264A0>
+                         │    │    └ <function CRUDBase.get_multi at 0x0000022579B75FC0>
+                         │    └ <backend.app.crud.task.CRUDTask object at 0x0000022579FE04F0>
+                         └ <module 'backend.app.crud' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\.\\backend\\app\\crud\\__init__.py'>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\.\backend\app\crud\base.py", line 46, in get_multi
+    total: Result = await db.execute(query_count)
+                          │  │       └ <sqlalchemy.sql.selectable.Select object at 0x000002257A04FD30>
+                          │  └ <function AsyncSession.execute at 0x0000022579A25240>
+                          └ <sqlalchemy.orm.session.AsyncSession object at 0x000002257A2264A0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 214, in execute
+    result = await greenlet_spawn(
+                   └ <function greenlet_spawn at 0x00000225792DBAC0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 126, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             │       │      │   └ <built-in function exc_info>
+             │       │      └ <module 'sys' (built-in)>
+             │       └ <method 'throw' of 'greenlet.greenlet' objects>
+             └ <_AsyncIoGreenlet object at 0x000002257A3BEB80 (otid=0x0000022579295050) dead>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\orm\session.py", line 1714, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+             │    │           │          │             └ immutabledict({'prebuffer_rows': True, '_result_disable_adapt_to_context': True, 'future_result': True})
+             │    │           │          └ None
+             │    │           └ <sqlalchemy.sql.selectable.Select object at 0x000002257A04FD30>
+             │    └ <function Connection._execute_20 at 0x0000022579688F70>
+             └ <sqlalchemy.future.engine.Connection object at 0x000002257B399300>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1705, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           │    │     │             │               └ immutabledict({'prebuffer_rows': True, '_result_disable_adapt_to_context': True, 'future_result': True})
+           │    │     │             └ immutabledict({})
+           │    │     └ ({},)
+           │    └ <sqlalchemy.future.engine.Connection object at 0x000002257B399300>
+           └ <bound method ClauseElement._execute_on_connection of <sqlalchemy.sql.selectable.Select object at 0x000002257A04FD30>>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\sql\elements.py", line 334, in _execute_on_connection
+    return connection._execute_clauseelement(
+           │          └ <function Connection._execute_clauseelement at 0x0000022579688DC0>
+           └ <sqlalchemy.future.engine.Connection object at 0x000002257B399300>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1572, in _execute_clauseelement
+    ret = self._execute_context(
+          │    └ <function Connection._execute_context at 0x0000022579689090>
+          └ <sqlalchemy.future.engine.Connection object at 0x000002257B399300>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1943, in _execute_context
+    self._handle_dbapi_exception(
+    │    └ <function Connection._handle_dbapi_exception at 0x0000022579689240>
+    └ <sqlalchemy.future.engine.Connection object at 0x000002257B399300>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 2124, in _handle_dbapi_exception
+    util.raise_(
+    │    └ <function raise_ at 0x00000225792A0D30>
+    └ <module 'sqlalchemy.util' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\venv\\lib\\site-packages\\sqlalchem...
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\compat.py", line 211, in raise_
+    raise exception
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1900, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x0000022579736290>
+    │    └ <sqlalchemy.dialects.postgresql.asyncpg.PGDialect_asyncpg object at 0x0000022579FAFF70>
+    └ <sqlalchemy.future.engine.Connection object at 0x000002257B399300>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ ('completed%',)
+    │      │       └ 'SELECT count(task.id) AS count_1 \nFROM task \nWHERE task.status ILIKE %s'
+    │      └ <function AsyncAdapt_asyncpg_cursor.execute at 0x0000022579AE2B90>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000002257A344AC0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 479, in execute
+    self._adapt_connection.await_(
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000002257A344AC0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 68, in await_only
+    return current.driver.switch(awaitable)
+           │                     └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x000002257A344900>
+           └ <_AsyncIoGreenlet object at 0x000002257A3BEB80 (otid=0x0000022579295050) dead>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 121, in greenlet_spawn
+    value = await result
+                  └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x000002257A344900>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 454, in _prepare_and_execute
+    self._handle_exception(error)
+    │    └ <function AsyncAdapt_asyncpg_cursor._handle_exception at 0x0000022579AE2950>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000002257A344AC0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 389, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    │    │                                   └ UndefinedFunctionError('operator does not exist: task_status ~~* unknown')
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000002257A344AC0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 682, in _handle_exception
+    raise translated_error from error
+          │                     └ UndefinedFunctionError('operator does not exist: task_status ~~* unknown')
+          └ ProgrammingError("<class 'asyncpg.exceptions.UndefinedFunctionError'>: operator does not exist: task_status ~~* unknown\nHINT...
+
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedFunctionError'>: operator does not exist: task_status ~~* unknown
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+[SQL: SELECT count(task.id) AS count_1 
+FROM task 
+WHERE task.status ILIKE %s]
+[parameters: ('completed%',)]
+(Background on this error at: https://sqlalche.me/e/14/f405)
+ERROR    2022-12-14 21:32:40.848 request id: app - uvicorn.protocols.http.h11_impl:run_asgi - Exception in ASGI application
+
+Traceback (most recent call last):
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 418, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                      │                └ <function AsyncAdapt_asyncpg_connection._prepare at 0x0000022579AE3640>
+                                      └ <AdaptedConnection <asyncpg.connection.Connection object at 0x000002257A285540>>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 660, in _prepare
+    prepared_stmt = await self._connection.prepare(operation)
+                          │    │                   └ 'SELECT count(task.id) AS count_1 \nFROM task \nWHERE task.status ILIKE $1'
+                          │    └ <member '_connection' of 'AsyncAdapt_asyncpg_connection' objects>
+                          └ <AdaptedConnection <asyncpg.connection.Connection object at 0x000002257A285540>>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\asyncpg\connection.py", line 565, in prepare
+    return await self._prepare(
+                 │    └ <function Connection._prepare at 0x0000022579D104C0>
+                 └ <asyncpg.connection.Connection object at 0x000002257A285540>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\asyncpg\connection.py", line 583, in _prepare
+    stmt = await self._get_statement(
+                 │    └ <function Connection._get_statement at 0x0000022579D101F0>
+                 └ <asyncpg.connection.Connection object at 0x000002257A285540>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\asyncpg\connection.py", line 397, in _get_statement
+    statement = await self._protocol.prepare(
+                      │    └ <member '_protocol' of 'Connection' objects>
+                      └ <asyncpg.connection.Connection object at 0x000002257A285540>
+
+  File "asyncpg\protocol\protocol.pyx", line 168, in prepare
+
+asyncpg.exceptions.UndefinedFunctionError: operator does not exist: task_status ~~* unknown
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1900, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x0000022579736290>
+    │    └ <sqlalchemy.dialects.postgresql.asyncpg.PGDialect_asyncpg object at 0x0000022579FAFF70>
+    └ <sqlalchemy.future.engine.Connection object at 0x000002257B399300>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ ('completed%',)
+    │      │       └ 'SELECT count(task.id) AS count_1 \nFROM task \nWHERE task.status ILIKE %s'
+    │      └ <function AsyncAdapt_asyncpg_cursor.execute at 0x0000022579AE2B90>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000002257A344AC0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 479, in execute
+    self._adapt_connection.await_(
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000002257A344AC0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 68, in await_only
+    return current.driver.switch(awaitable)
+           │                     └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x000002257A344900>
+           └ <_AsyncIoGreenlet object at 0x000002257A3BEB80 (otid=0x0000022579295050) dead>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 121, in greenlet_spawn
+    value = await result
+                  └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x000002257A344900>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 454, in _prepare_and_execute
+    self._handle_exception(error)
+    │    └ <function AsyncAdapt_asyncpg_cursor._handle_exception at 0x0000022579AE2950>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000002257A344AC0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 389, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    │    │                                   └ UndefinedFunctionError('operator does not exist: task_status ~~* unknown')
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000002257A344AC0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 682, in _handle_exception
+    raise translated_error from error
+          │                     └ UndefinedFunctionError('operator does not exist: task_status ~~* unknown')
+          └ ProgrammingError("<class 'asyncpg.exceptions.UndefinedFunctionError'>: operator does not exist: task_status ~~* unknown\nHINT...
+
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedFunctionError'>: operator does not exist: task_status ~~* unknown
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\multiprocessing\spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 316
+               │     └ 3
+               └ <function _main at 0x00000225759D6320>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\multiprocessing\spawn.py", line 129, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 316
+           │    └ <function BaseProcess._bootstrap at 0x0000022575934160>
+           └ <SpawnProcess name='SpawnProcess-1' parent=9524 started>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\multiprocessing\process.py", line 314, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x0000022575927760>
+    └ <SpawnProcess name='SpawnProcess-1' parent=9524 started>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {'config': <uvicorn.config.Config object at 0x0000022575892D70>, 'target': <bound method Server.run of <uvicorn.server.Server...
+    │    │        │    │        └ <SpawnProcess name='SpawnProcess-1' parent=9524 started>
+    │    │        │    └ ()
+    │    │        └ <SpawnProcess name='SpawnProcess-1' parent=9524 started>
+    │    └ <function subprocess_started at 0x0000022577D24310>
+    └ <SpawnProcess name='SpawnProcess-1' parent=9524 started>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\uvicorn\_subprocess.py", line 76, in subprocess_started
+    target(sockets=sockets)
+    │              └ [<socket.socket fd=704, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 8000)>]
+    └ <bound method Server.run of <uvicorn.server.Server object at 0x0000022575893460>>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\uvicorn\server.py", line 60, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           │       │   │    │             └ [<socket.socket fd=704, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 8000)>]
+           │       │   │    └ <function Server.serve at 0x0000022577D00EE0>
+           │       │   └ <uvicorn.server.Server object at 0x0000022575893460>
+           │       └ <function run at 0x0000022577528B80>
+           └ <module 'asyncio' from 'C:\\Users\\R\\AppData\\Local\\Programs\\Python\\Python310\\lib\\asyncio\\__init__.py'>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py", line 44, in run
+    return loop.run_until_complete(main)
+           │    │                  └ <coroutine object Server.serve at 0x0000022577D209E0>
+           │    └ <function BaseEventLoop.run_until_complete at 0x000002257752A560>
+           └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 633, in run_until_complete
+    self.run_forever()
+    │    └ <function BaseEventLoop.run_forever at 0x000002257752A4D0>
+    └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 600, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x000002257752C040>
+    └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 1896, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x0000022575D2F880>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+
+> File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 407, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+                   └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x0000022577D1EA10>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 78, in __call__
+    return await self.app(scope, receive, send)
+                 │    │   │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002257A04E410>>
+                 │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002257A04E...
+                 │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+                 │    └ <fastapi.applications.FastAPI object at 0x0000022577D84400>
+                 └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x0000022577D1EA10>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\applications.py", line 270, in __call__
+    await super().__call__(scope, receive, send)
+                           │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002257A04E410>>
+                           │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002257A04E...
+                           └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\applications.py", line 124, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002257A04E410>>
+          │    │                │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002257A04E...
+          │    │                └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x000002257A1A8220>
+          └ <fastapi.applications.FastAPI object at 0x0000022577D84400>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\errors.py", line 184, in __call__
+    raise exc
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+          │    │   │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x000002257A2E4310>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002257A04E...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.cors.CORSMiddleware object at 0x000002257A1A8130>
+          └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x000002257A1A8220>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\cors.py", line 84, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x000002257A2E4310>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002257A04E...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x000002257A1A8100>
+          └ <starlette.middleware.cors.CORSMiddleware object at 0x000002257A1A8130>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\exceptions.py", line 79, in __call__
+    raise exc
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+          │    │   │      │        └ <function ExceptionMiddleware.__call__.<locals>.sender at 0x000002257A3AFF40>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002257A04E...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000002257A1A80A0>
+          └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x000002257A1A8100>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 21, in __call__
+    raise e
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function ExceptionMiddleware.__call__.<locals>.sender at 0x000002257A3AFF40>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002257A04E...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <fastapi.routing.APIRouter object at 0x000002257A10C6A0>
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000002257A1A80A0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\routing.py", line 706, in __call__
+    await route.handle(scope, receive, send)
+          │     │      │      │        └ <function ExceptionMiddleware.__call__.<locals>.sender at 0x000002257A3AFF40>
+          │     │      │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002257A04E...
+          │     │      └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │     └ <function Route.handle at 0x0000022579191510>
+          └ APIRoute(path='/api/v1/tasks/', name='read_tasks', methods=['GET'])
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function ExceptionMiddleware.__call__.<locals>.sender at 0x000002257A3AFF40>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002257A04E...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <function request_response.<locals>.app at 0x000002257A197BE0>
+          └ APIRoute(path='/api/v1/tasks/', name='read_tasks', methods=['GET'])
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\routing.py", line 66, in app
+    response = await func(request)
+                     │    └ <starlette.requests.Request object at 0x000002257A226680>
+                     └ <function get_request_handler.<locals>.app at 0x000002257A197B50>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\routing.py", line 235, in app
+    raw_response = await run_endpoint_function(
+                         └ <function run_endpoint_function at 0x0000022579190160>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\routing.py", line 161, in run_endpoint_function
+    return await dependant.call(**values)
+                 │         │      └ {'db': <sqlalchemy.orm.session.AsyncSession object at 0x000002257A2264A0>, 'current_user': <backend.app.db.models.User object...
+                 │         └ <function read_tasks at 0x000002257A050820>
+                 └ <fastapi.dependencies.models.Dependant object at 0x000002257A204E20>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\.\backend\app\api\api_v1\endpoints\tasks.py", line 26, in read_tasks
+    items, total = await crud.task.get_multi(db, request_params=request_params)
+                         │    │    │         │                  └ RequestParams(skip=0, limit=11, order_by=<sqlalchemy.sql.elements.UnaryExpression object at 0x000002257A04FDF0>, filter_by=<s...
+                         │    │    │         └ <sqlalchemy.orm.session.AsyncSession object at 0x000002257A2264A0>
+                         │    │    └ <function CRUDBase.get_multi at 0x0000022579B75FC0>
+                         │    └ <backend.app.crud.task.CRUDTask object at 0x0000022579FE04F0>
+                         └ <module 'backend.app.crud' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\.\\backend\\app\\crud\\__init__.py'>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\.\backend\app\crud\base.py", line 46, in get_multi
+    total: Result = await db.execute(query_count)
+                          │  │       └ <sqlalchemy.sql.selectable.Select object at 0x000002257A04FD30>
+                          │  └ <function AsyncSession.execute at 0x0000022579A25240>
+                          └ <sqlalchemy.orm.session.AsyncSession object at 0x000002257A2264A0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 214, in execute
+    result = await greenlet_spawn(
+                   └ <function greenlet_spawn at 0x00000225792DBAC0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 126, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             │       │      │   └ <built-in function exc_info>
+             │       │      └ <module 'sys' (built-in)>
+             │       └ <method 'throw' of 'greenlet.greenlet' objects>
+             └ <_AsyncIoGreenlet object at 0x000002257A3BEB80 (otid=0x0000022579295050) dead>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\orm\session.py", line 1714, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+             │    │           │          │             └ immutabledict({'prebuffer_rows': True, '_result_disable_adapt_to_context': True, 'future_result': True})
+             │    │           │          └ None
+             │    │           └ <sqlalchemy.sql.selectable.Select object at 0x000002257A04FD30>
+             │    └ <function Connection._execute_20 at 0x0000022579688F70>
+             └ <sqlalchemy.future.engine.Connection object at 0x000002257B399300>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1705, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           │    │     │             │               └ immutabledict({'prebuffer_rows': True, '_result_disable_adapt_to_context': True, 'future_result': True})
+           │    │     │             └ immutabledict({})
+           │    │     └ ({},)
+           │    └ <sqlalchemy.future.engine.Connection object at 0x000002257B399300>
+           └ <bound method ClauseElement._execute_on_connection of <sqlalchemy.sql.selectable.Select object at 0x000002257A04FD30>>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\sql\elements.py", line 334, in _execute_on_connection
+    return connection._execute_clauseelement(
+           │          └ <function Connection._execute_clauseelement at 0x0000022579688DC0>
+           └ <sqlalchemy.future.engine.Connection object at 0x000002257B399300>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1572, in _execute_clauseelement
+    ret = self._execute_context(
+          │    └ <function Connection._execute_context at 0x0000022579689090>
+          └ <sqlalchemy.future.engine.Connection object at 0x000002257B399300>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1943, in _execute_context
+    self._handle_dbapi_exception(
+    │    └ <function Connection._handle_dbapi_exception at 0x0000022579689240>
+    └ <sqlalchemy.future.engine.Connection object at 0x000002257B399300>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 2124, in _handle_dbapi_exception
+    util.raise_(
+    │    └ <function raise_ at 0x00000225792A0D30>
+    └ <module 'sqlalchemy.util' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\venv\\lib\\site-packages\\sqlalchem...
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\compat.py", line 211, in raise_
+    raise exception
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1900, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x0000022579736290>
+    │    └ <sqlalchemy.dialects.postgresql.asyncpg.PGDialect_asyncpg object at 0x0000022579FAFF70>
+    └ <sqlalchemy.future.engine.Connection object at 0x000002257B399300>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ ('completed%',)
+    │      │       └ 'SELECT count(task.id) AS count_1 \nFROM task \nWHERE task.status ILIKE %s'
+    │      └ <function AsyncAdapt_asyncpg_cursor.execute at 0x0000022579AE2B90>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000002257A344AC0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 479, in execute
+    self._adapt_connection.await_(
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000002257A344AC0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 68, in await_only
+    return current.driver.switch(awaitable)
+           │                     └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x000002257A344900>
+           └ <_AsyncIoGreenlet object at 0x000002257A3BEB80 (otid=0x0000022579295050) dead>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 121, in greenlet_spawn
+    value = await result
+                  └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x000002257A344900>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 454, in _prepare_and_execute
+    self._handle_exception(error)
+    │    └ <function AsyncAdapt_asyncpg_cursor._handle_exception at 0x0000022579AE2950>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000002257A344AC0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 389, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    │    │                                   └ UndefinedFunctionError('operator does not exist: task_status ~~* unknown')
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x000002257A344AC0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 682, in _handle_exception
+    raise translated_error from error
+          │                     └ UndefinedFunctionError('operator does not exist: task_status ~~* unknown')
+          └ ProgrammingError("<class 'asyncpg.exceptions.UndefinedFunctionError'>: operator does not exist: task_status ~~* unknown\nHINT...
+
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedFunctionError'>: operator does not exist: task_status ~~* unknown
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+[SQL: SELECT count(task.id) AS count_1 
+FROM task 
+WHERE task.status ILIKE %s]
+[parameters: ('completed%',)]
+(Background on this error at: https://sqlalche.me/e/14/f405)
+INFO     2022-12-14 21:33:04.188 request id: app - uvicorn.server:shutdown - Shutting down
+INFO     2022-12-14 21:33:04.188 request id: app - uvicorn.server:shutdown - Shutting down
+INFO     2022-12-14 21:33:04.300 request id: app - uvicorn.lifespan.on:shutdown - Waiting for application shutdown.
+INFO     2022-12-14 21:33:04.300 request id: app - uvicorn.lifespan.on:shutdown - Waiting for application shutdown.
+INFO     2022-12-14 21:33:04.301 request id: app - uvicorn.lifespan.on:shutdown - Application shutdown complete.
+INFO     2022-12-14 21:33:04.302 request id: app - uvicorn.lifespan.on:shutdown - Application shutdown complete.
+INFO     2022-12-14 21:33:04.302 request id: app - uvicorn.server:serve - Finished server process [14852]
+INFO     2022-12-14 21:33:04.302 request id: app - uvicorn.server:serve - Finished server process [14852]
+INFO     2022-12-14 21:33:08.152 request id: app - uvicorn.server:serve - Started server process [9948]
+INFO     2022-12-14 21:33:08.153 request id: app - uvicorn.server:serve - Started server process [9948]
+INFO     2022-12-14 21:33:08.154 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 21:33:08.154 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 21:33:08.155 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 21:33:08.155 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 21:33:08.491 request id: app - backend.app.api.deps:get_current_user_async - START
+INFO     2022-12-14 21:33:08.494 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:33:08.495 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:33:08.499 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:33:08.502 request id: app - backend.app.api.deps:check_rolname - check_rolname: ka52 role exist
+INFO     2022-12-14 21:33:08.502 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:33:08.505 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:33:08.506 request id: app - backend.app.api.deps:set_session_user - SET_session_user: ka52
+INFO     2022-12-14 21:33:08.509 request id: app - backend.app.api.deps:get_session_user - get_session_user: ka52
+INFO     2022-12-14 21:33:08.510 request id: app - backend.app.api.deps:get_current_user_async - END
+INFO     2022-12-14 21:33:24.252 request id: app - uvicorn.server:shutdown - Shutting down
+INFO     2022-12-14 21:33:24.253 request id: app - uvicorn.server:shutdown - Shutting down
+INFO     2022-12-14 21:33:24.363 request id: app - uvicorn.server:shutdown - Waiting for connections to close. (CTRL+C to force quit)
+INFO     2022-12-14 21:33:24.364 request id: app - uvicorn.server:shutdown - Waiting for connections to close. (CTRL+C to force quit)
+INFO     2022-12-14 21:33:38.818 request id: app - uvicorn.server:serve - Started server process [26264]
+INFO     2022-12-14 21:33:38.819 request id: app - uvicorn.server:serve - Started server process [26264]
+INFO     2022-12-14 21:33:38.819 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 21:33:38.820 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 21:33:38.821 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 21:33:38.821 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 21:33:44.744 request id: app - backend.app.api.deps:get_current_user_async - START
+INFO     2022-12-14 21:33:44.747 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:33:44.747 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:33:44.750 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:33:44.753 request id: app - backend.app.api.deps:check_rolname - check_rolname: ka52 role exist
+INFO     2022-12-14 21:33:44.754 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:33:44.756 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:33:44.756 request id: app - backend.app.api.deps:set_session_user - SET_session_user: ka52
+INFO     2022-12-14 21:33:44.759 request id: app - backend.app.api.deps:get_session_user - get_session_user: ka52
+INFO     2022-12-14 21:33:44.759 request id: app - backend.app.api.deps:get_current_user_async - END
+INFO     2022-12-14 21:33:44.792 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:51732 - "GET /api/v1/tasks/?sort=%5B%22id%22%2C%20%22ASC%22%5D&range=%5B0%2C%2010%5D&filter=%7B%22task_status%22%3A%20%22completed%22%7D HTTP/1.1" 500
+ERROR    2022-12-14 21:33:44.793 request id: app - uvicorn.protocols.http.h11_impl:run_asgi - Exception in ASGI application
+
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\multiprocessing\spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 320
+               │     └ 3
+               └ <function _main at 0x0000027087676320>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\multiprocessing\spawn.py", line 129, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 320
+           │    └ <function BaseProcess._bootstrap at 0x00000270875D4160>
+           └ <SpawnProcess name='SpawnProcess-1' parent=6124 started>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\multiprocessing\process.py", line 314, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x00000270875C7760>
+    └ <SpawnProcess name='SpawnProcess-1' parent=6124 started>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {'config': <uvicorn.config.Config object at 0x0000027087532D70>, 'target': <bound method Server.run of <uvicorn.server.Server...
+    │    │        │    │        └ <SpawnProcess name='SpawnProcess-1' parent=6124 started>
+    │    │        │    └ ()
+    │    │        └ <SpawnProcess name='SpawnProcess-1' parent=6124 started>
+    │    └ <function subprocess_started at 0x0000027089A14310>
+    └ <SpawnProcess name='SpawnProcess-1' parent=6124 started>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\uvicorn\_subprocess.py", line 76, in subprocess_started
+    target(sockets=sockets)
+    │              └ [<socket.socket fd=784, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 8000)>]
+    └ <bound method Server.run of <uvicorn.server.Server object at 0x0000027087533460>>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\uvicorn\server.py", line 60, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           │       │   │    │             └ [<socket.socket fd=784, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 8000)>]
+           │       │   │    └ <function Server.serve at 0x00000270899F4EE0>
+           │       │   └ <uvicorn.server.Server object at 0x0000027087533460>
+           │       └ <function run at 0x0000027089218B80>
+           └ <module 'asyncio' from 'C:\\Users\\R\\AppData\\Local\\Programs\\Python\\Python310\\lib\\asyncio\\__init__.py'>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py", line 44, in run
+    return loop.run_until_complete(main)
+           │    │                  └ <coroutine object Server.serve at 0x0000027089A109E0>
+           │    └ <function BaseEventLoop.run_until_complete at 0x000002708921A560>
+           └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 633, in run_until_complete
+    self.run_forever()
+    │    └ <function BaseEventLoop.run_forever at 0x000002708921A4D0>
+    └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 600, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x000002708921C040>
+    └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 1896, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x00000270879FF880>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+
+> File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 407, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+                   └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x0000027089A0EA10>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 78, in __call__
+    return await self.app(scope, receive, send)
+                 │    │   │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002708BF163E0>>
+                 │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002708BF16...
+                 │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+                 │    └ <fastapi.applications.FastAPI object at 0x0000027089A74400>
+                 └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x0000027089A0EA10>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\applications.py", line 270, in __call__
+    await super().__call__(scope, receive, send)
+                           │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002708BF163E0>>
+                           │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002708BF16...
+                           └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\applications.py", line 124, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002708BF163E0>>
+          │    │                │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002708BF16...
+          │    │                └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x000002708BE94460>
+          └ <fastapi.applications.FastAPI object at 0x0000027089A74400>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\errors.py", line 184, in __call__
+    raise exc
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+          │    │   │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x000002708BF10790>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002708BF16...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.cors.CORSMiddleware object at 0x000002708BE94370>
+          └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x000002708BE94460>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\cors.py", line 84, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x000002708BF10790>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002708BF16...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x000002708BE94340>
+          └ <starlette.middleware.cors.CORSMiddleware object at 0x000002708BE94370>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\exceptions.py", line 79, in __call__
+    raise exc
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+          │    │   │      │        └ <function ExceptionMiddleware.__call__.<locals>.sender at 0x000002708BF10820>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002708BF16...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000002708BE942E0>
+          └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x000002708BE94340>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 21, in __call__
+    raise e
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function ExceptionMiddleware.__call__.<locals>.sender at 0x000002708BF10820>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002708BF16...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <fastapi.routing.APIRouter object at 0x000002708BDF88E0>
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000002708BE942E0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\routing.py", line 706, in __call__
+    await route.handle(scope, receive, send)
+          │     │      │      │        └ <function ExceptionMiddleware.__call__.<locals>.sender at 0x000002708BF10820>
+          │     │      │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002708BF16...
+          │     │      └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │     └ <function Route.handle at 0x000002708AE81510>
+          └ APIRoute(path='/api/v1/tasks/', name='read_tasks', methods=['GET'])
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function ExceptionMiddleware.__call__.<locals>.sender at 0x000002708BF10820>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002708BF16...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <function request_response.<locals>.app at 0x000002708BE87BE0>
+          └ APIRoute(path='/api/v1/tasks/', name='read_tasks', methods=['GET'])
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\routing.py", line 66, in app
+    response = await func(request)
+                     │    └ <starlette.requests.Request object at 0x000002708BF15ED0>
+                     └ <function get_request_handler.<locals>.app at 0x000002708BE87B50>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\routing.py", line 225, in app
+    solved_result = await solve_dependencies(
+                          └ <function solve_dependencies at 0x000002708AE5B9A0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\dependencies\utils.py", line 535, in solve_dependencies
+    solved = await run_in_threadpool(call, **sub_values)
+                   │                 │       └ {'sort_': '["id", "ASC"]', 'range_': '[0, 10]', 'filter_': '{"task_status": "completed"}'}
+                   │                 └ <function parse_react_admin_params.<locals>.inner at 0x000002708BD40790>
+                   └ <function run_in_threadpool at 0x0000027089C3D900>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\concurrency.py", line 41, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+                 │     │         │        │      └ ()
+                 │     │         │        └ functools.partial(<function parse_react_admin_params.<locals>.inner at 0x000002708BD40790>, sort_='["id", "ASC"]', range_='[0...
+                 │     │         └ <function run_sync at 0x0000027089C3F5B0>
+                 │     └ <module 'anyio.to_thread' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\venv\\lib\\site-packages\\anyio\\to...
+                 └ <module 'anyio' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\venv\\lib\\site-packages\\anyio\\__init__.py'>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\anyio\to_thread.py", line 31, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+                 └ <function get_asynclib at 0x0000027089C3F010>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\anyio\_backends\_asyncio.py", line 937, in run_sync_in_worker_thread
+    return await future
+                 └ <Future finished exception=KeyError('task_status')>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\anyio\_backends\_asyncio.py", line 867, in run
+    result = context.run(func, *args)
+             │       │   │      └ ()
+             │       │   └ functools.partial(<function parse_react_admin_params.<locals>.inner at 0x000002708BD40790>, sort_='["id", "ASC"]', range_='[0...
+             │       └ <method 'run' of '_contextvars.Context' objects>
+             └ <_contextvars.Context object at 0x000002708BCE9500>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\.\backend\app\api\deps.py", line 192, in inner
+    fb.append(model.__table__.c[k] == v)
+    │  │      │     │         │ │     └ 'completed'
+    │  │      │     │         │ └ 'task_status'
+    │  │      │     │         └ <property object at 0x000002708B2923E0>
+    │  │      │     └ Table('task', MetaData(), Column('id', BigInteger(), table=<task>, primary_key=True, nullable=False), Column('teacher_id', Bi...
+    │  │      └ <class 'backend.app.db.models.Task'>
+    │  └ <method 'append' of 'list' objects>
+    └ []
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\sql\base.py", line 1214, in __getitem__
+    return self._index[key]
+           │    │      └ 'task_status'
+           │    └ <member '_index' of 'ColumnCollection' objects>
+           └ <sqlalchemy.sql.base.ImmutableColumnCollection object at 0x000002708B85F880>
+
+KeyError: 'task_status'
+ERROR    2022-12-14 21:33:44.844 request id: app - uvicorn.protocols.http.h11_impl:run_asgi - Exception in ASGI application
+
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\multiprocessing\spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 320
+               │     └ 3
+               └ <function _main at 0x0000027087676320>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\multiprocessing\spawn.py", line 129, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 320
+           │    └ <function BaseProcess._bootstrap at 0x00000270875D4160>
+           └ <SpawnProcess name='SpawnProcess-1' parent=6124 started>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\multiprocessing\process.py", line 314, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x00000270875C7760>
+    └ <SpawnProcess name='SpawnProcess-1' parent=6124 started>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {'config': <uvicorn.config.Config object at 0x0000027087532D70>, 'target': <bound method Server.run of <uvicorn.server.Server...
+    │    │        │    │        └ <SpawnProcess name='SpawnProcess-1' parent=6124 started>
+    │    │        │    └ ()
+    │    │        └ <SpawnProcess name='SpawnProcess-1' parent=6124 started>
+    │    └ <function subprocess_started at 0x0000027089A14310>
+    └ <SpawnProcess name='SpawnProcess-1' parent=6124 started>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\uvicorn\_subprocess.py", line 76, in subprocess_started
+    target(sockets=sockets)
+    │              └ [<socket.socket fd=784, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 8000)>]
+    └ <bound method Server.run of <uvicorn.server.Server object at 0x0000027087533460>>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\uvicorn\server.py", line 60, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           │       │   │    │             └ [<socket.socket fd=784, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 8000)>]
+           │       │   │    └ <function Server.serve at 0x00000270899F4EE0>
+           │       │   └ <uvicorn.server.Server object at 0x0000027087533460>
+           │       └ <function run at 0x0000027089218B80>
+           └ <module 'asyncio' from 'C:\\Users\\R\\AppData\\Local\\Programs\\Python\\Python310\\lib\\asyncio\\__init__.py'>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py", line 44, in run
+    return loop.run_until_complete(main)
+           │    │                  └ <coroutine object Server.serve at 0x0000027089A109E0>
+           │    └ <function BaseEventLoop.run_until_complete at 0x000002708921A560>
+           └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 633, in run_until_complete
+    self.run_forever()
+    │    └ <function BaseEventLoop.run_forever at 0x000002708921A4D0>
+    └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 600, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x000002708921C040>
+    └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 1896, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x00000270879FF880>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+
+> File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 407, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+                   └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x0000027089A0EA10>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 78, in __call__
+    return await self.app(scope, receive, send)
+                 │    │   │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002708BF163E0>>
+                 │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002708BF16...
+                 │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+                 │    └ <fastapi.applications.FastAPI object at 0x0000027089A74400>
+                 └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x0000027089A0EA10>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\applications.py", line 270, in __call__
+    await super().__call__(scope, receive, send)
+                           │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002708BF163E0>>
+                           │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002708BF16...
+                           └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\applications.py", line 124, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002708BF163E0>>
+          │    │                │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002708BF16...
+          │    │                └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x000002708BE94460>
+          └ <fastapi.applications.FastAPI object at 0x0000027089A74400>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\errors.py", line 184, in __call__
+    raise exc
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+          │    │   │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x000002708BF10790>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002708BF16...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.cors.CORSMiddleware object at 0x000002708BE94370>
+          └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x000002708BE94460>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\cors.py", line 84, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x000002708BF10790>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002708BF16...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x000002708BE94340>
+          └ <starlette.middleware.cors.CORSMiddleware object at 0x000002708BE94370>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\exceptions.py", line 79, in __call__
+    raise exc
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+          │    │   │      │        └ <function ExceptionMiddleware.__call__.<locals>.sender at 0x000002708BF10820>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002708BF16...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000002708BE942E0>
+          └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x000002708BE94340>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 21, in __call__
+    raise e
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function ExceptionMiddleware.__call__.<locals>.sender at 0x000002708BF10820>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002708BF16...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <fastapi.routing.APIRouter object at 0x000002708BDF88E0>
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x000002708BE942E0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\routing.py", line 706, in __call__
+    await route.handle(scope, receive, send)
+          │     │      │      │        └ <function ExceptionMiddleware.__call__.<locals>.sender at 0x000002708BF10820>
+          │     │      │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002708BF16...
+          │     │      └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │     └ <function Route.handle at 0x000002708AE81510>
+          └ APIRoute(path='/api/v1/tasks/', name='read_tasks', methods=['GET'])
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function ExceptionMiddleware.__call__.<locals>.sender at 0x000002708BF10820>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x000002708BF16...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <function request_response.<locals>.app at 0x000002708BE87BE0>
+          └ APIRoute(path='/api/v1/tasks/', name='read_tasks', methods=['GET'])
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\routing.py", line 66, in app
+    response = await func(request)
+                     │    └ <starlette.requests.Request object at 0x000002708BF15ED0>
+                     └ <function get_request_handler.<locals>.app at 0x000002708BE87B50>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\routing.py", line 225, in app
+    solved_result = await solve_dependencies(
+                          └ <function solve_dependencies at 0x000002708AE5B9A0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\dependencies\utils.py", line 535, in solve_dependencies
+    solved = await run_in_threadpool(call, **sub_values)
+                   │                 │       └ {'sort_': '["id", "ASC"]', 'range_': '[0, 10]', 'filter_': '{"task_status": "completed"}'}
+                   │                 └ <function parse_react_admin_params.<locals>.inner at 0x000002708BD40790>
+                   └ <function run_in_threadpool at 0x0000027089C3D900>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\concurrency.py", line 41, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+                 │     │         │        │      └ ()
+                 │     │         │        └ functools.partial(<function parse_react_admin_params.<locals>.inner at 0x000002708BD40790>, sort_='["id", "ASC"]', range_='[0...
+                 │     │         └ <function run_sync at 0x0000027089C3F5B0>
+                 │     └ <module 'anyio.to_thread' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\venv\\lib\\site-packages\\anyio\\to...
+                 └ <module 'anyio' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\venv\\lib\\site-packages\\anyio\\__init__.py'>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\anyio\to_thread.py", line 31, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+                 └ <function get_asynclib at 0x0000027089C3F010>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\anyio\_backends\_asyncio.py", line 937, in run_sync_in_worker_thread
+    return await future
+                 └ <Future finished exception=KeyError('task_status')>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\anyio\_backends\_asyncio.py", line 867, in run
+    result = context.run(func, *args)
+             │       │   │      └ ()
+             │       │   └ functools.partial(<function parse_react_admin_params.<locals>.inner at 0x000002708BD40790>, sort_='["id", "ASC"]', range_='[0...
+             │       └ <method 'run' of '_contextvars.Context' objects>
+             └ <_contextvars.Context object at 0x000002708BCE9500>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\.\backend\app\api\deps.py", line 192, in inner
+    fb.append(model.__table__.c[k] == v)
+    │  │      │     │         │ │     └ 'completed'
+    │  │      │     │         │ └ 'task_status'
+    │  │      │     │         └ <property object at 0x000002708B2923E0>
+    │  │      │     └ Table('task', MetaData(), Column('id', BigInteger(), table=<task>, primary_key=True, nullable=False), Column('teacher_id', Bi...
+    │  │      └ <class 'backend.app.db.models.Task'>
+    │  └ <method 'append' of 'list' objects>
+    └ []
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\sql\base.py", line 1214, in __getitem__
+    return self._index[key]
+           │    │      └ 'task_status'
+           │    └ <member '_index' of 'ColumnCollection' objects>
+           └ <sqlalchemy.sql.base.ImmutableColumnCollection object at 0x000002708B85F880>
+
+KeyError: 'task_status'
+INFO     2022-12-14 21:36:11.985 request id: app - uvicorn.server:shutdown - Shutting down
+INFO     2022-12-14 21:36:11.985 request id: app - uvicorn.server:shutdown - Shutting down
+INFO     2022-12-14 21:36:12.096 request id: app - uvicorn.lifespan.on:shutdown - Waiting for application shutdown.
+INFO     2022-12-14 21:36:12.096 request id: app - uvicorn.lifespan.on:shutdown - Waiting for application shutdown.
+INFO     2022-12-14 21:36:12.097 request id: app - uvicorn.lifespan.on:shutdown - Application shutdown complete.
+INFO     2022-12-14 21:36:12.097 request id: app - uvicorn.lifespan.on:shutdown - Application shutdown complete.
+INFO     2022-12-14 21:36:12.098 request id: app - uvicorn.server:serve - Finished server process [26264]
+INFO     2022-12-14 21:36:12.098 request id: app - uvicorn.server:serve - Finished server process [26264]
+INFO     2022-12-14 21:36:14.275 request id: app - uvicorn.server:serve - Started server process [16268]
+INFO     2022-12-14 21:36:14.275 request id: app - uvicorn.server:serve - Started server process [16268]
+INFO     2022-12-14 21:36:14.275 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 21:36:14.276 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 21:36:14.277 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 21:36:14.277 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 21:36:15.762 request id: app - backend.app.api.deps:get_current_user_async - START
+INFO     2022-12-14 21:36:15.765 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:36:15.765 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:36:15.768 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:36:15.770 request id: app - backend.app.api.deps:check_rolname - check_rolname: ka52 role exist
+INFO     2022-12-14 21:36:15.771 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:36:15.773 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:36:15.773 request id: app - backend.app.api.deps:set_session_user - SET_session_user: ka52
+INFO     2022-12-14 21:36:15.776 request id: app - backend.app.api.deps:get_session_user - get_session_user: ka52
+INFO     2022-12-14 21:36:15.777 request id: app - backend.app.api.deps:get_current_user_async - END
+INFO     2022-12-14 21:36:15.961 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:51779 - "GET /api/v1/tasks/?sort=%5B%22id%22%2C%20%22ASC%22%5D&range=%5B0%2C%2010%5D&filter=%7B%22status%22%3A%20%22completed%22%7D HTTP/1.1" 200
+INFO     2022-12-14 21:36:29.113 request id: app - backend.app.api.deps:get_current_user_async - START
+INFO     2022-12-14 21:36:29.115 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:36:29.116 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:36:29.119 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:36:29.121 request id: app - backend.app.api.deps:check_rolname - check_rolname: ka52 role exist
+INFO     2022-12-14 21:36:29.121 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:36:29.124 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:36:29.124 request id: app - backend.app.api.deps:set_session_user - SET_session_user: ka52
+INFO     2022-12-14 21:36:29.126 request id: app - backend.app.api.deps:get_session_user - get_session_user: ka52
+INFO     2022-12-14 21:36:29.127 request id: app - backend.app.api.deps:get_current_user_async - END
+INFO     2022-12-14 21:36:29.131 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:51783 - "GET /api/v1/tasks/?sort=%5B%22id%22%2C%20%22ASC%22%5D&range=%5B0%2C%2010%5D&filter=%7B%22status%22%3A%20%22started%22%7D HTTP/1.1" 200
+INFO     2022-12-14 21:36:39.459 request id: app - backend.app.api.deps:get_current_user_async - START
+INFO     2022-12-14 21:36:39.461 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:36:39.461 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:36:39.463 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:36:39.465 request id: app - backend.app.api.deps:check_rolname - check_rolname: ka52 role exist
+INFO     2022-12-14 21:36:39.465 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:36:39.467 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:36:39.467 request id: app - backend.app.api.deps:set_session_user - SET_session_user: ka52
+INFO     2022-12-14 21:36:39.469 request id: app - backend.app.api.deps:get_session_user - get_session_user: ka52
+INFO     2022-12-14 21:36:39.469 request id: app - backend.app.api.deps:get_current_user_async - END
+INFO     2022-12-14 21:36:39.488 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:51784 - "GET /api/v1/tasks/?sort=%5B%22id%22%2C%20%22ASC%22%5D&range=%5B0%2C%2010%5D&filter=%7B%22priority%22%3A%20%22started%22%7D HTTP/1.1" 500
+ERROR    2022-12-14 21:36:39.489 request id: app - uvicorn.protocols.http.h11_impl:run_asgi - Exception in ASGI application
+
+Traceback (most recent call last):
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 442, in _prepare_and_execute
+    self._rows = await prepared_stmt.fetch(*parameters)
+    │    │             │             │      └ ('started',)
+    │    │             │             └ <function PreparedStatement.fetch at 0x00000293A0DE6710>
+    │    │             └ <asyncpg.prepared_stmt.PreparedStatement object at 0x00000293A12F36F0>
+    │    └ <member '_rows' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x00000293A1326490>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\asyncpg\prepared_stmt.py", line 176, in fetch
+    data = await self.__bind_execute(args, 0, timeout)
+                 │                   │        └ None
+                 │                   └ ('started',)
+                 └ <asyncpg.prepared_stmt.PreparedStatement object at 0x00000293A12F36F0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\asyncpg\prepared_stmt.py", line 241, in __bind_execute
+    data, status, _ = await self.__do_execute(
+                            └ <asyncpg.prepared_stmt.PreparedStatement object at 0x00000293A12F36F0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\asyncpg\prepared_stmt.py", line 230, in __do_execute
+    return await executor(protocol)
+                 │        └ <asyncpg.protocol.protocol.Protocol object at 0x00000293A0B1B1C0>
+                 └ <function PreparedStatement.__bind_execute.<locals>.<lambda> at 0x00000293A23FF7F0>
+
+  File "asyncpg\protocol\protocol.pyx", line 201, in bind_execute
+
+asyncpg.exceptions.InvalidTextRepresentationError: invalid input value for enum task_priority: "started"
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1900, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x00000293A0826290>
+    │    └ <sqlalchemy.dialects.postgresql.asyncpg.PGDialect_asyncpg object at 0x00000293A10D0220>
+    └ <sqlalchemy.future.engine.Connection object at 0x00000293A23A5E40>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ ('started',)
+    │      │       └ 'SELECT count(task.id) AS count_1 \nFROM task \nWHERE task.priority = %s'
+    │      └ <function AsyncAdapt_asyncpg_cursor.execute at 0x00000293A0BD2B90>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x00000293A1326490>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 479, in execute
+    self._adapt_connection.await_(
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x00000293A1326490>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 68, in await_only
+    return current.driver.switch(awaitable)
+           │                     └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x00000293A1325770>
+           └ <_AsyncIoGreenlet object at 0x00000293A2423EC0 (otid=0x00000293A0385050) dead>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 121, in greenlet_spawn
+    value = await result
+                  └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x00000293A1325770>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 454, in _prepare_and_execute
+    self._handle_exception(error)
+    │    └ <function AsyncAdapt_asyncpg_cursor._handle_exception at 0x00000293A0BD2950>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x00000293A1326490>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 389, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    │    │                                   └ InvalidTextRepresentationError('invalid input value for enum task_priority: "started"')
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x00000293A1326490>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 682, in _handle_exception
+    raise translated_error from error
+          │                     └ InvalidTextRepresentationError('invalid input value for enum task_priority: "started"')
+          └ Error('<class \'asyncpg.exceptions.InvalidTextRepresentationError\'>: invalid input value for enum task_priority: "started"')
+
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.Error: <class 'asyncpg.exceptions.InvalidTextRepresentationError'>: invalid input value for enum task_priority: "started"
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\multiprocessing\spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 324
+               │     └ 3
+               └ <function _main at 0x000002939CA66320>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\multiprocessing\spawn.py", line 129, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 324
+           │    └ <function BaseProcess._bootstrap at 0x000002939C9C4160>
+           └ <SpawnProcess name='SpawnProcess-1' parent=5152 started>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\multiprocessing\process.py", line 314, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x000002939C9B7760>
+    └ <SpawnProcess name='SpawnProcess-1' parent=5152 started>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {'config': <uvicorn.config.Config object at 0x000002939C922D70>, 'target': <bound method Server.run of <uvicorn.server.Server...
+    │    │        │    │        └ <SpawnProcess name='SpawnProcess-1' parent=5152 started>
+    │    │        │    └ ()
+    │    │        └ <SpawnProcess name='SpawnProcess-1' parent=5152 started>
+    │    └ <function subprocess_started at 0x000002939EE04310>
+    └ <SpawnProcess name='SpawnProcess-1' parent=5152 started>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\uvicorn\_subprocess.py", line 76, in subprocess_started
+    target(sockets=sockets)
+    │              └ [<socket.socket fd=568, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 8000)>]
+    └ <bound method Server.run of <uvicorn.server.Server object at 0x000002939C923460>>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\uvicorn\server.py", line 60, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           │       │   │    │             └ [<socket.socket fd=568, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 8000)>]
+           │       │   │    └ <function Server.serve at 0x000002939EDE4EE0>
+           │       │   └ <uvicorn.server.Server object at 0x000002939C923460>
+           │       └ <function run at 0x000002939E608B80>
+           └ <module 'asyncio' from 'C:\\Users\\R\\AppData\\Local\\Programs\\Python\\Python310\\lib\\asyncio\\__init__.py'>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py", line 44, in run
+    return loop.run_until_complete(main)
+           │    │                  └ <coroutine object Server.serve at 0x000002939EE009E0>
+           │    └ <function BaseEventLoop.run_until_complete at 0x000002939E60A560>
+           └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 633, in run_until_complete
+    self.run_forever()
+    │    └ <function BaseEventLoop.run_forever at 0x000002939E60A4D0>
+    └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 600, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x000002939E60C040>
+    └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 1896, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x000002939CDEF880>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+
+> File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 407, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+                   └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x000002939EDFEA10>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 78, in __call__
+    return await self.app(scope, receive, send)
+                 │    │   │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x00000293A10D35B0>>
+                 │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x00000293A10D3...
+                 │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+                 │    └ <fastapi.applications.FastAPI object at 0x000002939EE64400>
+                 └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x000002939EDFEA10>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\applications.py", line 270, in __call__
+    await super().__call__(scope, receive, send)
+                           │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x00000293A10D35B0>>
+                           │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x00000293A10D3...
+                           └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\applications.py", line 124, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x00000293A10D35B0>>
+          │    │                │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x00000293A10D3...
+          │    │                └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x00000293A12904C0>
+          └ <fastapi.applications.FastAPI object at 0x000002939EE64400>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\errors.py", line 184, in __call__
+    raise exc
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+          │    │   │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x00000293A13144C0>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x00000293A10D3...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.cors.CORSMiddleware object at 0x00000293A12903D0>
+          └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x00000293A12904C0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\cors.py", line 84, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x00000293A13144C0>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x00000293A10D3...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x00000293A12903A0>
+          └ <starlette.middleware.cors.CORSMiddleware object at 0x00000293A12903D0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\exceptions.py", line 79, in __call__
+    raise exc
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+          │    │   │      │        └ <function ExceptionMiddleware.__call__.<locals>.sender at 0x00000293A1314790>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x00000293A10D3...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x00000293A1290340>
+          └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x00000293A12903A0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 21, in __call__
+    raise e
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function ExceptionMiddleware.__call__.<locals>.sender at 0x00000293A1314790>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x00000293A10D3...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <fastapi.routing.APIRouter object at 0x00000293A11F8940>
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x00000293A1290340>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\routing.py", line 706, in __call__
+    await route.handle(scope, receive, send)
+          │     │      │      │        └ <function ExceptionMiddleware.__call__.<locals>.sender at 0x00000293A1314790>
+          │     │      │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x00000293A10D3...
+          │     │      └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │     └ <function Route.handle at 0x00000293A0279510>
+          └ APIRoute(path='/api/v1/tasks/', name='read_tasks', methods=['GET'])
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function ExceptionMiddleware.__call__.<locals>.sender at 0x00000293A1314790>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x00000293A10D3...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <function request_response.<locals>.app at 0x00000293A1287BE0>
+          └ APIRoute(path='/api/v1/tasks/', name='read_tasks', methods=['GET'])
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\routing.py", line 66, in app
+    response = await func(request)
+                     │    └ <starlette.requests.Request object at 0x00000293A131A110>
+                     └ <function get_request_handler.<locals>.app at 0x00000293A1287B50>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\routing.py", line 235, in app
+    raw_response = await run_endpoint_function(
+                         └ <function run_endpoint_function at 0x00000293A0278160>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\routing.py", line 161, in run_endpoint_function
+    return await dependant.call(**values)
+                 │         │      └ {'db': <sqlalchemy.orm.session.AsyncSession object at 0x00000293A1319CF0>, 'current_user': <backend.app.db.models.User object...
+                 │         └ <function read_tasks at 0x00000293A1140820>
+                 └ <fastapi.dependencies.models.Dependant object at 0x00000293A12F50C0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\.\backend\app\api\api_v1\endpoints\tasks.py", line 26, in read_tasks
+    items, total = await crud.task.get_multi(db, request_params=request_params)
+                         │    │    │         │                  └ RequestParams(skip=0, limit=11, order_by=<sqlalchemy.sql.elements.UnaryExpression object at 0x00000293A10D36A0>, filter_by=<s...
+                         │    │    │         └ <sqlalchemy.orm.session.AsyncSession object at 0x00000293A1319CF0>
+                         │    │    └ <function CRUDBase.get_multi at 0x00000293A0C660E0>
+                         │    └ <backend.app.crud.task.CRUDTask object at 0x00000293A10D07F0>
+                         └ <module 'backend.app.crud' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\.\\backend\\app\\crud\\__init__.py'>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\.\backend\app\crud\base.py", line 46, in get_multi
+    total: Result = await db.execute(query_count)
+                          │  │       └ <sqlalchemy.sql.selectable.Select object at 0x00000293A131A4D0>
+                          │  └ <function AsyncSession.execute at 0x00000293A0B15240>
+                          └ <sqlalchemy.orm.session.AsyncSession object at 0x00000293A1319CF0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 214, in execute
+    result = await greenlet_spawn(
+                   └ <function greenlet_spawn at 0x00000293A03CBAC0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 126, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             │       │      │   └ <built-in function exc_info>
+             │       │      └ <module 'sys' (built-in)>
+             │       └ <method 'throw' of 'greenlet.greenlet' objects>
+             └ <_AsyncIoGreenlet object at 0x00000293A2423EC0 (otid=0x00000293A0385050) dead>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\orm\session.py", line 1714, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+             │    │           │          │             └ immutabledict({'prebuffer_rows': True, '_result_disable_adapt_to_context': True, 'future_result': True})
+             │    │           │          └ None
+             │    │           └ <sqlalchemy.sql.selectable.Select object at 0x00000293A131A4D0>
+             │    └ <function Connection._execute_20 at 0x00000293A0778F70>
+             └ <sqlalchemy.future.engine.Connection object at 0x00000293A23A5E40>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1705, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           │    │     │             │               └ immutabledict({'prebuffer_rows': True, '_result_disable_adapt_to_context': True, 'future_result': True})
+           │    │     │             └ immutabledict({})
+           │    │     └ ({},)
+           │    └ <sqlalchemy.future.engine.Connection object at 0x00000293A23A5E40>
+           └ <bound method ClauseElement._execute_on_connection of <sqlalchemy.sql.selectable.Select object at 0x00000293A131A4D0>>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\sql\elements.py", line 334, in _execute_on_connection
+    return connection._execute_clauseelement(
+           │          └ <function Connection._execute_clauseelement at 0x00000293A0778DC0>
+           └ <sqlalchemy.future.engine.Connection object at 0x00000293A23A5E40>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1572, in _execute_clauseelement
+    ret = self._execute_context(
+          │    └ <function Connection._execute_context at 0x00000293A0779090>
+          └ <sqlalchemy.future.engine.Connection object at 0x00000293A23A5E40>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1943, in _execute_context
+    self._handle_dbapi_exception(
+    │    └ <function Connection._handle_dbapi_exception at 0x00000293A0779240>
+    └ <sqlalchemy.future.engine.Connection object at 0x00000293A23A5E40>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 2124, in _handle_dbapi_exception
+    util.raise_(
+    │    └ <function raise_ at 0x00000293A0390D30>
+    └ <module 'sqlalchemy.util' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\venv\\lib\\site-packages\\sqlalchem...
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\compat.py", line 211, in raise_
+    raise exception
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1900, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x00000293A0826290>
+    │    └ <sqlalchemy.dialects.postgresql.asyncpg.PGDialect_asyncpg object at 0x00000293A10D0220>
+    └ <sqlalchemy.future.engine.Connection object at 0x00000293A23A5E40>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ ('started',)
+    │      │       └ 'SELECT count(task.id) AS count_1 \nFROM task \nWHERE task.priority = %s'
+    │      └ <function AsyncAdapt_asyncpg_cursor.execute at 0x00000293A0BD2B90>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x00000293A1326490>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 479, in execute
+    self._adapt_connection.await_(
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x00000293A1326490>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 68, in await_only
+    return current.driver.switch(awaitable)
+           │                     └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x00000293A1325770>
+           └ <_AsyncIoGreenlet object at 0x00000293A2423EC0 (otid=0x00000293A0385050) dead>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 121, in greenlet_spawn
+    value = await result
+                  └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x00000293A1325770>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 454, in _prepare_and_execute
+    self._handle_exception(error)
+    │    └ <function AsyncAdapt_asyncpg_cursor._handle_exception at 0x00000293A0BD2950>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x00000293A1326490>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 389, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    │    │                                   └ InvalidTextRepresentationError('invalid input value for enum task_priority: "started"')
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x00000293A1326490>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 682, in _handle_exception
+    raise translated_error from error
+          │                     └ InvalidTextRepresentationError('invalid input value for enum task_priority: "started"')
+          └ Error('<class \'asyncpg.exceptions.InvalidTextRepresentationError\'>: invalid input value for enum task_priority: "started"')
+
+sqlalchemy.exc.DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.InvalidTextRepresentationError'>: invalid input value for enum task_priority: "started"
+[SQL: SELECT count(task.id) AS count_1 
+FROM task 
+WHERE task.priority = %s]
+[parameters: ('started',)]
+(Background on this error at: https://sqlalche.me/e/14/dbapi)
+ERROR    2022-12-14 21:36:39.512 request id: app - uvicorn.protocols.http.h11_impl:run_asgi - Exception in ASGI application
+
+Traceback (most recent call last):
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 442, in _prepare_and_execute
+    self._rows = await prepared_stmt.fetch(*parameters)
+    │    │             │             │      └ ('started',)
+    │    │             │             └ <function PreparedStatement.fetch at 0x00000293A0DE6710>
+    │    │             └ <asyncpg.prepared_stmt.PreparedStatement object at 0x00000293A12F36F0>
+    │    └ <member '_rows' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x00000293A1326490>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\asyncpg\prepared_stmt.py", line 176, in fetch
+    data = await self.__bind_execute(args, 0, timeout)
+                 │                   │        └ None
+                 │                   └ ('started',)
+                 └ <asyncpg.prepared_stmt.PreparedStatement object at 0x00000293A12F36F0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\asyncpg\prepared_stmt.py", line 241, in __bind_execute
+    data, status, _ = await self.__do_execute(
+                            └ <asyncpg.prepared_stmt.PreparedStatement object at 0x00000293A12F36F0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\asyncpg\prepared_stmt.py", line 230, in __do_execute
+    return await executor(protocol)
+                 │        └ <asyncpg.protocol.protocol.Protocol object at 0x00000293A0B1B1C0>
+                 └ <function PreparedStatement.__bind_execute.<locals>.<lambda> at 0x00000293A23FF7F0>
+
+  File "asyncpg\protocol\protocol.pyx", line 201, in bind_execute
+
+asyncpg.exceptions.InvalidTextRepresentationError: invalid input value for enum task_priority: "started"
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1900, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x00000293A0826290>
+    │    └ <sqlalchemy.dialects.postgresql.asyncpg.PGDialect_asyncpg object at 0x00000293A10D0220>
+    └ <sqlalchemy.future.engine.Connection object at 0x00000293A23A5E40>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ ('started',)
+    │      │       └ 'SELECT count(task.id) AS count_1 \nFROM task \nWHERE task.priority = %s'
+    │      └ <function AsyncAdapt_asyncpg_cursor.execute at 0x00000293A0BD2B90>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x00000293A1326490>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 479, in execute
+    self._adapt_connection.await_(
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x00000293A1326490>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 68, in await_only
+    return current.driver.switch(awaitable)
+           │                     └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x00000293A1325770>
+           └ <_AsyncIoGreenlet object at 0x00000293A2423EC0 (otid=0x00000293A0385050) dead>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 121, in greenlet_spawn
+    value = await result
+                  └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x00000293A1325770>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 454, in _prepare_and_execute
+    self._handle_exception(error)
+    │    └ <function AsyncAdapt_asyncpg_cursor._handle_exception at 0x00000293A0BD2950>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x00000293A1326490>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 389, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    │    │                                   └ InvalidTextRepresentationError('invalid input value for enum task_priority: "started"')
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x00000293A1326490>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 682, in _handle_exception
+    raise translated_error from error
+          │                     └ InvalidTextRepresentationError('invalid input value for enum task_priority: "started"')
+          └ Error('<class \'asyncpg.exceptions.InvalidTextRepresentationError\'>: invalid input value for enum task_priority: "started"')
+
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.Error: <class 'asyncpg.exceptions.InvalidTextRepresentationError'>: invalid input value for enum task_priority: "started"
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\multiprocessing\spawn.py", line 116, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 324
+               │     └ 3
+               └ <function _main at 0x000002939CA66320>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\multiprocessing\spawn.py", line 129, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 324
+           │    └ <function BaseProcess._bootstrap at 0x000002939C9C4160>
+           └ <SpawnProcess name='SpawnProcess-1' parent=5152 started>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\multiprocessing\process.py", line 314, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x000002939C9B7760>
+    └ <SpawnProcess name='SpawnProcess-1' parent=5152 started>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {'config': <uvicorn.config.Config object at 0x000002939C922D70>, 'target': <bound method Server.run of <uvicorn.server.Server...
+    │    │        │    │        └ <SpawnProcess name='SpawnProcess-1' parent=5152 started>
+    │    │        │    └ ()
+    │    │        └ <SpawnProcess name='SpawnProcess-1' parent=5152 started>
+    │    └ <function subprocess_started at 0x000002939EE04310>
+    └ <SpawnProcess name='SpawnProcess-1' parent=5152 started>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\uvicorn\_subprocess.py", line 76, in subprocess_started
+    target(sockets=sockets)
+    │              └ [<socket.socket fd=568, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 8000)>]
+    └ <bound method Server.run of <uvicorn.server.Server object at 0x000002939C923460>>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\uvicorn\server.py", line 60, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           │       │   │    │             └ [<socket.socket fd=568, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 8000)>]
+           │       │   │    └ <function Server.serve at 0x000002939EDE4EE0>
+           │       │   └ <uvicorn.server.Server object at 0x000002939C923460>
+           │       └ <function run at 0x000002939E608B80>
+           └ <module 'asyncio' from 'C:\\Users\\R\\AppData\\Local\\Programs\\Python\\Python310\\lib\\asyncio\\__init__.py'>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\runners.py", line 44, in run
+    return loop.run_until_complete(main)
+           │    │                  └ <coroutine object Server.serve at 0x000002939EE009E0>
+           │    └ <function BaseEventLoop.run_until_complete at 0x000002939E60A560>
+           └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 633, in run_until_complete
+    self.run_forever()
+    │    └ <function BaseEventLoop.run_forever at 0x000002939E60A4D0>
+    └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 600, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x000002939E60C040>
+    └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\base_events.py", line 1896, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x000002939CDEF880>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+
+  File "C:\Users\R\AppData\Local\Programs\Python\Python310\lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup(<Future finished result=None>)>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup(<Future finished result=None>)>
+
+> File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 407, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+                   └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x000002939EDFEA10>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 78, in __call__
+    return await self.app(scope, receive, send)
+                 │    │   │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x00000293A10D35B0>>
+                 │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x00000293A10D3...
+                 │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+                 │    └ <fastapi.applications.FastAPI object at 0x000002939EE64400>
+                 └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x000002939EDFEA10>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\applications.py", line 270, in __call__
+    await super().__call__(scope, receive, send)
+                           │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x00000293A10D35B0>>
+                           │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x00000293A10D3...
+                           └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\applications.py", line 124, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x00000293A10D35B0>>
+          │    │                │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x00000293A10D3...
+          │    │                └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x00000293A12904C0>
+          └ <fastapi.applications.FastAPI object at 0x000002939EE64400>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\errors.py", line 184, in __call__
+    raise exc
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+          │    │   │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x00000293A13144C0>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x00000293A10D3...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.cors.CORSMiddleware object at 0x00000293A12903D0>
+          └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x00000293A12904C0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\cors.py", line 84, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x00000293A13144C0>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x00000293A10D3...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x00000293A12903A0>
+          └ <starlette.middleware.cors.CORSMiddleware object at 0x00000293A12903D0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\exceptions.py", line 79, in __call__
+    raise exc
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\middleware\exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+          │    │   │      │        └ <function ExceptionMiddleware.__call__.<locals>.sender at 0x00000293A1314790>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x00000293A10D3...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x00000293A1290340>
+          └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x00000293A12903A0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 21, in __call__
+    raise e
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function ExceptionMiddleware.__call__.<locals>.sender at 0x00000293A1314790>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x00000293A10D3...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <fastapi.routing.APIRouter object at 0x00000293A11F8940>
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x00000293A1290340>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\routing.py", line 706, in __call__
+    await route.handle(scope, receive, send)
+          │     │      │      │        └ <function ExceptionMiddleware.__call__.<locals>.sender at 0x00000293A1314790>
+          │     │      │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x00000293A10D3...
+          │     │      └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │     └ <function Route.handle at 0x00000293A0279510>
+          └ APIRoute(path='/api/v1/tasks/', name='read_tasks', methods=['GET'])
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function ExceptionMiddleware.__call__.<locals>.sender at 0x00000293A1314790>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x00000293A10D3...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <function request_response.<locals>.app at 0x00000293A1287BE0>
+          └ APIRoute(path='/api/v1/tasks/', name='read_tasks', methods=['GET'])
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\starlette\routing.py", line 66, in app
+    response = await func(request)
+                     │    └ <starlette.requests.Request object at 0x00000293A131A110>
+                     └ <function get_request_handler.<locals>.app at 0x00000293A1287B50>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\routing.py", line 235, in app
+    raw_response = await run_endpoint_function(
+                         └ <function run_endpoint_function at 0x00000293A0278160>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\fastapi\routing.py", line 161, in run_endpoint_function
+    return await dependant.call(**values)
+                 │         │      └ {'db': <sqlalchemy.orm.session.AsyncSession object at 0x00000293A1319CF0>, 'current_user': <backend.app.db.models.User object...
+                 │         └ <function read_tasks at 0x00000293A1140820>
+                 └ <fastapi.dependencies.models.Dependant object at 0x00000293A12F50C0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\.\backend\app\api\api_v1\endpoints\tasks.py", line 26, in read_tasks
+    items, total = await crud.task.get_multi(db, request_params=request_params)
+                         │    │    │         │                  └ RequestParams(skip=0, limit=11, order_by=<sqlalchemy.sql.elements.UnaryExpression object at 0x00000293A10D36A0>, filter_by=<s...
+                         │    │    │         └ <sqlalchemy.orm.session.AsyncSession object at 0x00000293A1319CF0>
+                         │    │    └ <function CRUDBase.get_multi at 0x00000293A0C660E0>
+                         │    └ <backend.app.crud.task.CRUDTask object at 0x00000293A10D07F0>
+                         └ <module 'backend.app.crud' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\.\\backend\\app\\crud\\__init__.py'>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\.\backend\app\crud\base.py", line 46, in get_multi
+    total: Result = await db.execute(query_count)
+                          │  │       └ <sqlalchemy.sql.selectable.Select object at 0x00000293A131A4D0>
+                          │  └ <function AsyncSession.execute at 0x00000293A0B15240>
+                          └ <sqlalchemy.orm.session.AsyncSession object at 0x00000293A1319CF0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 214, in execute
+    result = await greenlet_spawn(
+                   └ <function greenlet_spawn at 0x00000293A03CBAC0>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 126, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+             │       │      │   └ <built-in function exc_info>
+             │       │      └ <module 'sys' (built-in)>
+             │       └ <method 'throw' of 'greenlet.greenlet' objects>
+             └ <_AsyncIoGreenlet object at 0x00000293A2423EC0 (otid=0x00000293A0385050) dead>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\orm\session.py", line 1714, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+             │    │           │          │             └ immutabledict({'prebuffer_rows': True, '_result_disable_adapt_to_context': True, 'future_result': True})
+             │    │           │          └ None
+             │    │           └ <sqlalchemy.sql.selectable.Select object at 0x00000293A131A4D0>
+             │    └ <function Connection._execute_20 at 0x00000293A0778F70>
+             └ <sqlalchemy.future.engine.Connection object at 0x00000293A23A5E40>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1705, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+           │    │     │             │               └ immutabledict({'prebuffer_rows': True, '_result_disable_adapt_to_context': True, 'future_result': True})
+           │    │     │             └ immutabledict({})
+           │    │     └ ({},)
+           │    └ <sqlalchemy.future.engine.Connection object at 0x00000293A23A5E40>
+           └ <bound method ClauseElement._execute_on_connection of <sqlalchemy.sql.selectable.Select object at 0x00000293A131A4D0>>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\sql\elements.py", line 334, in _execute_on_connection
+    return connection._execute_clauseelement(
+           │          └ <function Connection._execute_clauseelement at 0x00000293A0778DC0>
+           └ <sqlalchemy.future.engine.Connection object at 0x00000293A23A5E40>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1572, in _execute_clauseelement
+    ret = self._execute_context(
+          │    └ <function Connection._execute_context at 0x00000293A0779090>
+          └ <sqlalchemy.future.engine.Connection object at 0x00000293A23A5E40>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1943, in _execute_context
+    self._handle_dbapi_exception(
+    │    └ <function Connection._handle_dbapi_exception at 0x00000293A0779240>
+    └ <sqlalchemy.future.engine.Connection object at 0x00000293A23A5E40>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 2124, in _handle_dbapi_exception
+    util.raise_(
+    │    └ <function raise_ at 0x00000293A0390D30>
+    └ <module 'sqlalchemy.util' from 'C:\\Users\\R\\PycharmProjects\\fastapi-react-crm-backend\\venv\\lib\\site-packages\\sqlalchem...
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\compat.py", line 211, in raise_
+    raise exception
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\base.py", line 1900, in _execute_context
+    self.dialect.do_execute(
+    │    │       └ <function DefaultDialect.do_execute at 0x00000293A0826290>
+    │    └ <sqlalchemy.dialects.postgresql.asyncpg.PGDialect_asyncpg object at 0x00000293A10D0220>
+    └ <sqlalchemy.future.engine.Connection object at 0x00000293A23A5E40>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\engine\default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+    │      │       │          └ ('started',)
+    │      │       └ 'SELECT count(task.id) AS count_1 \nFROM task \nWHERE task.priority = %s'
+    │      └ <function AsyncAdapt_asyncpg_cursor.execute at 0x00000293A0BD2B90>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x00000293A1326490>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 479, in execute
+    self._adapt_connection.await_(
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x00000293A1326490>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 68, in await_only
+    return current.driver.switch(awaitable)
+           │                     └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x00000293A1325770>
+           └ <_AsyncIoGreenlet object at 0x00000293A2423EC0 (otid=0x00000293A0385050) dead>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 121, in greenlet_spawn
+    value = await result
+                  └ <coroutine object AsyncAdapt_asyncpg_cursor._prepare_and_execute at 0x00000293A1325770>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 454, in _prepare_and_execute
+    self._handle_exception(error)
+    │    └ <function AsyncAdapt_asyncpg_cursor._handle_exception at 0x00000293A0BD2950>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x00000293A1326490>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 389, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    │    │                                   └ InvalidTextRepresentationError('invalid input value for enum task_priority: "started"')
+    │    └ <member '_adapt_connection' of 'AsyncAdapt_asyncpg_cursor' objects>
+    └ <sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_cursor object at 0x00000293A1326490>
+
+  File "C:\Users\R\PycharmProjects\fastapi-react-crm-backend\venv\lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 682, in _handle_exception
+    raise translated_error from error
+          │                     └ InvalidTextRepresentationError('invalid input value for enum task_priority: "started"')
+          └ Error('<class \'asyncpg.exceptions.InvalidTextRepresentationError\'>: invalid input value for enum task_priority: "started"')
+
+sqlalchemy.exc.DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.InvalidTextRepresentationError'>: invalid input value for enum task_priority: "started"
+[SQL: SELECT count(task.id) AS count_1 
+FROM task 
+WHERE task.priority = %s]
+[parameters: ('started',)]
+(Background on this error at: https://sqlalche.me/e/14/dbapi)
+INFO     2022-12-14 21:37:12.584 request id: app - backend.app.api.deps:get_current_user_async - START
+INFO     2022-12-14 21:37:12.586 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:37:12.587 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:37:12.589 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:37:12.591 request id: app - backend.app.api.deps:check_rolname - check_rolname: ka52 role exist
+INFO     2022-12-14 21:37:12.591 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:37:12.593 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:37:12.594 request id: app - backend.app.api.deps:set_session_user - SET_session_user: ka52
+INFO     2022-12-14 21:37:12.596 request id: app - backend.app.api.deps:get_session_user - get_session_user: ka52
+INFO     2022-12-14 21:37:12.596 request id: app - backend.app.api.deps:get_current_user_async - END
+INFO     2022-12-14 21:37:12.603 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:51792 - "GET /api/v1/tasks/?sort=%5B%22id%22%2C%20%22ASC%22%5D&range=%5B0%2C%2010%5D&filter=%7B%22priority%22%3A%20%22low%22%7D HTTP/1.1" 200
+INFO     2022-12-14 21:38:24.431 request id: app - uvicorn.server:shutdown - Shutting down
+INFO     2022-12-14 21:38:24.431 request id: app - uvicorn.server:shutdown - Shutting down
+INFO     2022-12-14 21:38:24.542 request id: app - uvicorn.lifespan.on:shutdown - Waiting for application shutdown.
+INFO     2022-12-14 21:38:24.542 request id: app - uvicorn.lifespan.on:shutdown - Waiting for application shutdown.
+INFO     2022-12-14 21:38:24.543 request id: app - uvicorn.lifespan.on:shutdown - Application shutdown complete.
+INFO     2022-12-14 21:38:24.543 request id: app - uvicorn.lifespan.on:shutdown - Application shutdown complete.
+INFO     2022-12-14 21:38:24.544 request id: app - uvicorn.server:serve - Finished server process [16268]
+INFO     2022-12-14 21:38:24.544 request id: app - uvicorn.server:serve - Finished server process [16268]
+INFO     2022-12-14 21:38:26.177 request id: app - uvicorn.server:serve - Started server process [25020]
+INFO     2022-12-14 21:38:26.178 request id: app - uvicorn.server:serve - Started server process [25020]
+INFO     2022-12-14 21:38:26.178 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 21:38:26.178 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 21:38:26.179 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 21:38:26.179 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 21:38:30.415 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:51812 - "GET /docs HTTP/1.1" 200
+INFO     2022-12-14 21:38:30.664 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:51812 - "GET /api/v1/openapi.json HTTP/1.1" 200
+INFO     2022-12-14 21:38:59.340 request id: app - uvicorn.server:serve - Started server process [15492]
+INFO     2022-12-14 21:38:59.340 request id: app - uvicorn.server:serve - Started server process [15492]
+INFO     2022-12-14 21:38:59.341 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 21:38:59.341 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 21:38:59.342 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 21:38:59.342 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 21:40:28.117 request id: app - uvicorn.server:serve - Started server process [17916]
+INFO     2022-12-14 21:40:28.117 request id: app - uvicorn.server:serve - Started server process [17916]
+INFO     2022-12-14 21:40:28.118 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 21:40:28.118 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 21:40:28.118 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 21:40:28.118 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 21:42:32.578 request id: app - uvicorn.server:serve - Started server process [18888]
+INFO     2022-12-14 21:42:32.578 request id: app - uvicorn.server:serve - Started server process [18888]
+INFO     2022-12-14 21:42:32.578 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 21:42:32.579 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 21:42:32.579 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 21:42:32.579 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 21:47:01.579 request id: app - uvicorn.server:shutdown - Shutting down
+INFO     2022-12-14 21:47:01.580 request id: app - uvicorn.server:shutdown - Shutting down
+INFO     2022-12-14 21:47:01.689 request id: app - uvicorn.lifespan.on:shutdown - Waiting for application shutdown.
+INFO     2022-12-14 21:47:01.689 request id: app - uvicorn.lifespan.on:shutdown - Waiting for application shutdown.
+INFO     2022-12-14 21:47:01.690 request id: app - uvicorn.lifespan.on:shutdown - Application shutdown complete.
+INFO     2022-12-14 21:47:01.690 request id: app - uvicorn.lifespan.on:shutdown - Application shutdown complete.
+INFO     2022-12-14 21:47:01.690 request id: app - uvicorn.server:serve - Finished server process [18888]
+INFO     2022-12-14 21:47:01.691 request id: app - uvicorn.server:serve - Finished server process [18888]
+INFO     2022-12-14 21:47:18.812 request id: app - uvicorn.server:serve - Started server process [25824]
+INFO     2022-12-14 21:47:18.813 request id: app - uvicorn.server:serve - Started server process [25824]
+INFO     2022-12-14 21:47:18.813 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 21:47:18.814 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 21:47:18.814 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 21:47:18.815 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 21:47:20.361 request id: app - uvicorn.server:shutdown - Shutting down
+INFO     2022-12-14 21:47:20.361 request id: app - uvicorn.server:shutdown - Shutting down

@@ -9,6 +9,10 @@ class EnumBase(Enum):
         return re.sub(r'(?<!^)(?=[A-Z])', '_', str(cls.__name__)).lower()
 
     @classmethod
+    def col_name(cls):
+        return cls.as_snake_case().split('_')[-1]
+
+    @classmethod
     def to_list(cls) -> list:
         return list(map(lambda c: c.value, cls))
 
@@ -62,3 +66,12 @@ class StudentTaskGrade(EnumBase):
     bad = 'bad'
     passed = 'passed'
     not_passed = 'not_passed'
+
+pg_custom_type_colnames = [
+    UserRole.col_name(),
+    AssessmentType.col_name(),
+    DisciplineType.col_name(),
+    TaskStatus.col_name(),
+    TaskPriority.col_name(),
+    StudentTaskGrade.col_name()
+]

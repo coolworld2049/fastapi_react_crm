@@ -7,7 +7,7 @@ from backend.app.db import models
 
 class DisciplineBase(BaseModel):
     title: str
-    assessment_type: str = Field(models.assessment_type.enums[-1])
+    assessment_type: str = Field(models.classifiers.AssessmentType.exam.name)
 
 
 # Properties to receive via API on creation

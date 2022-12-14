@@ -15,7 +15,7 @@ from sqlalchemy.orm import DeclarativeMeta
 from backend.app import crud, schemas
 from backend.app.core.config import settings
 from backend.app.core.security import oauth2Scheme
-from backend.app.db import User
+from backend.app.db import User, classifiers
 from backend.app.db.session import asyncpg_database, AsyncSessionFactory
 from backend.app.schemas.request_params import RequestParams
 
@@ -185,11 +185,11 @@ def parse_react_admin_params(model: DeclarativeMeta | Any) -> Callable[[str | No
                 filter_dict: dict = dict(filter(lambda it: str(it[0]).isdigit() is False, ft.items()))
                 for k, v in filter_dict.items():
                     if isinstance(v, str):
-                        if k in ['role']:
-                            if v != "null":
-                                fb.append(model.__table__.c[k] == v)
-                            else:
+                        if k in classifiers.pg_custom_type_colnames:
+                            if v == "null":
                                 fb.append(model.__table__.c[k] == None)  # noqa
+                            else:
+                                fb.append(model.__table__.c[k] == v)
                         else:
                             if str(k).split('_')[-1] == 'date':
                                 fb.append(model.__table__.c[k] >= datetime.fromisoformat(v))

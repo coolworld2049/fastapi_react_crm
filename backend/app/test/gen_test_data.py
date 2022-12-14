@@ -5,7 +5,6 @@ import string
 import time
 
 from asyncpg import Connection
-from fastapi.encoders import jsonable_encoder
 from sqlalchemy.ext.asyncio import AsyncConnection
 
 from backend.app import crud, schemas
@@ -19,9 +18,9 @@ async def init_db_test():
     db = AsyncSessionFactory()
     asyncpg_conn: Connection = await asyncpg_database.get_connection()
     try:
-        multiplier = 40 # 500 ~ 1 min
+        multiplier = 500 # 500 ~ 1 min
         users_target = multiplier // 2
-        task_target = multiplier * 2
+        task_target = multiplier * 3
         campus_list = ['B-78', 'В-86', 'C-20', 'П-1']
         disciplines_list = [
             'Программные средства манипулирования данными (часть 1/1) [I.22-23]',
@@ -44,17 +43,24 @@ async def init_db_test():
         users: list[models.User] = []
         user_roles = [classifiers.UserRole.student.name, classifiers.UserRole.teacher.name]
         for us in range(0, users_target):
-            logger.info(f"UserCreate: {us}/{users_target}")
+            logger.info(f"UserCreate, UserContactCreate: {us}/{users_target}")
             role = random.choice(user_roles)
             user_in_student = schemas.UserCreate(
                 email=f'{role}{us}@gmail.com',
                 password=f'{role}{us}',
                 username=f'{role}{us}',
                 age=random.randint(18, 25),
-                phone=f"+7" + ''.join(random.choice(string.digits) for _ in range(10)),
                 role=role,
             )
-            users.append(await crud.user.create(db, obj_in=user_in_student))
+            user_in_student_obj = await crud.user.create(db, obj_in=user_in_student)
+            users.append(user_in_student_obj)
+
+            user_contacts_in = schemas.UserContactCreate(
+                id=user_in_student_obj.id,
+                phone=f"+7" + ''.join(random.choice(string.digits) for _ in range(10)),
+                telegram=f"https://t.me/{random.randint(222555666, 99988877766)}"
+            )
+            await crud.user_contact.create(db, obj_in=user_contacts_in)
 
         role_student_scope = [
             classifiers.UserRole.student.name,
@@ -75,27 +81,23 @@ async def init_db_test():
 
         disciplines: list[models.Discipline] = []
         disciplines_typed: list[models.DisciplineTyped] = []
-        assessment_types = [
-            classifiers.AssessmentType.exam.name,
-            classifiers.AssessmentType.test.name
-        ]
+
         for d in disciplines_list:
             logger.info(f"DisciplineCreate, DisciplineTypedCreate: {d}/{len(disciplines_list)}")
-            for at in assessment_types:
-                discipline_in = schemas.DisciplineCreate(
-                    title=d,
-                    assessment_type=at
+            discipline_in = schemas.DisciplineCreate(
+                title=d,
+                assessment_type=classifiers.AssessmentType.exam.name
+            )
+            dscp: models.Discipline = await crud.discipline.create(db, obj_in=discipline_in)
+            disciplines.append(dscp)
+            for dt in classifiers.DisciplineType.to_list():
+                discipline_typed_in = schemas.DisciplineTypedCreate(
+                    discipline_id=dscp.id,
+                    type=dt,
+                    classroom_number=f'{random.choice(string.ascii_letters)} {random.randint(0,400)}',
+                    campus_id=random.choice(campuses).id,
                 )
-                dscp: models.Discipline = await crud.discipline.create(db, obj_in=discipline_in)
-                disciplines.append(dscp)
-                for dt in classifiers.DisciplineType.to_list():
-                    discipline_typed_in = schemas.DisciplineTypedCreate(
-                        discipline_id=dscp.id,
-                        type=dt,
-                        classroom_number=f'{random.choice(string.ascii_letters)} {random.randint(0,400)}',
-                        campus_id=random.choice(campuses).id,
-                    )
-                    disciplines_typed.append(await crud.discipline_typed.create(db, obj_in=discipline_typed_in))
+                disciplines_typed.append(await crud.discipline_typed.create(db, obj_in=discipline_typed_in))
 
         study_group_ciphers: list[models.StudyGroupCipher] = []
         study_groups: list[models.StudyGroup] = []
@@ -129,12 +131,13 @@ async def init_db_test():
         teachers: list[models.Teacher] = []
         for ut in user_teacher_list:
             logger.info(f"TeacherCreate: {ut.id}/{len(user_teacher_list)}")
-            t_dscp: models.Discipline = random.choice(disciplines)
-            teacher_in = schemas.TeacherCreate(
-                user_id=ut.id,
-                discipline_id=t_dscp.id
-            )
-            teachers.append(await crud.teacher.create(db, obj_in=teacher_in))
+            for _ in range(2):
+                t_dscp: models.Discipline = random.choice(disciplines)
+                teacher_in = schemas.TeacherCreate(
+                    user_id=ut.id,
+                    discipline_id=t_dscp.id
+                )
+                teachers.append(await crud.teacher.create(db, obj_in=teacher_in))
 
         tasks: list[models.Task] = []
         student_tasks: list[models.TaskStudent] = []

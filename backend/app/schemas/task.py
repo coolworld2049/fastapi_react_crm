@@ -12,8 +12,14 @@ class TaskBase(BaseModel):
     student_id: Optional[int]
     title: Optional[str]
     description: Optional[str]
-    status: Optional[str] = Field(models.task_status.enums[0], description=models.task_status.enums.__str__())
-    priority: Optional[str] = Field(models.task_priority.enums[0], description=models.task_priority.enums.__str__())
+    status: Optional[str] = Field(
+        models.classifiers.TaskStatus.pending.name,
+        description=models.classifiers.TaskStatus.to_list().__str__()
+    )
+    priority: Optional[str] = Field(
+        models.classifiers.TaskPriority.high.name,
+        description=models.classifiers.TaskPriority.to_list().__str__()
+    )
     expiration_date: Optional[datetime]
 
 
@@ -24,7 +30,8 @@ class TaskCreate(TaskBase):
 
 # Properties to receive via API on update
 class TaskUpdate(TaskBase):
-    pass
+    description: Optional[str]
+
 
 class TaskInDBBase(TaskBase):
     id: Optional[int] = None

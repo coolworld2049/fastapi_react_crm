@@ -2,12 +2,12 @@ from typing import Optional
 
 from pydantic import BaseModel, EmailStr, Field
 
-from backend.app.db import models
+from backend.app.db import models, classifiers
 
 
 class UserBase(BaseModel):
     email: EmailStr
-    role: str = Field(models.user_role.enums[1], description=models.user_role.enums.__str__())
+    role: str = Field(classifiers.UserRole.anon, description=models.classifiers.UserRole.to_list().__str__())
     full_name: Optional[str]
     username: str
     age: Optional[int] = None

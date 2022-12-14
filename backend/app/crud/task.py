@@ -1,5 +1,3 @@
-from sqlalchemy.ext.asyncio import AsyncSession
-
 from backend.app.crud.base import CRUDBase
 from backend.app.db.models import Task, TaskStudent, TaskStore
 from backend.app.schemas import TaskCreate, TaskUpdate, TaskStudentCreate, TaskStudentUpdate, TaskStoreUpdate, \

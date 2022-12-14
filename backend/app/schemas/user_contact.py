@@ -1,9 +1,9 @@
 from typing import Optional
 
-from backend.app import schemas
+from pydantic import BaseModel
 
 
-class UserContactBase(schemas.User):
+class UserContactBase(BaseModel):
     phone: Optional[str]
     vk: Optional[str]
     telegram: Optional[str]
@@ -12,21 +12,28 @@ class UserContactBase(schemas.User):
 
 # Properties to receive via API on creation
 class UserContactCreate(UserContactBase):
-    pass
+    id: Optional[int]
 
 
 # Properties to receive via API on update
 class UserContactUpdate(UserContactBase):
-    pass
+    id: Optional[int]
+
+
+class UserContactInDBBase(UserContactBase):
+    id: Optional[int] = None
+
+    class Config:
+        orm_mode = True
 
 
 # Additional properties stored in DB but not returned by API
-class UserContactInDB(UserContactBase, schemas.User):
+class UserContactInDB(UserContactInDBBase):
     pass
 
 
 # Additional properties to return via API
-class UserContact(UserContactBase, schemas.User):
+class UserContact(UserContactInDBBase):
     pass
 
 

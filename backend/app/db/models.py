@@ -62,7 +62,7 @@ class User(Base):
     study_group_ciphers = relationship('StudyGroupCipher', secondary='student')
 
 
-class UserContact(User):
+class UserContact(Base):
     __tablename__ = 'user_contact'
 
     id = Column(ForeignKey('user.id'), primary_key=True)

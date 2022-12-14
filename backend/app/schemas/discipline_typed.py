@@ -1,8 +1,6 @@
 from typing import Optional
 
-from pydantic import BaseModel, Field
-
-from backend.app.db import models
+from pydantic import BaseModel
 
 
 class DisciplineTypedBase(BaseModel):

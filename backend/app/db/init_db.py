@@ -51,7 +51,7 @@ async def init_db():
                 full_name='i`m' + settings.FIRST_SUPERUSER_USERNAME,
                 username=settings.FIRST_SUPERUSER_USERNAME,
                 phone='+79998880001',
-                role=models.user_role.enums[0]
+                role=models.classifiers.UserRole.admin.name
             )
             await crud.user.create(db, obj_in=user_in_admin)
 
