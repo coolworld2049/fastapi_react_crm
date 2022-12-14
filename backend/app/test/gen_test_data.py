@@ -86,11 +86,11 @@ async def init_db_test():
             logger.info(f"DisciplineCreate, DisciplineTypedCreate: {d}/{len(disciplines_list)}")
             discipline_in = schemas.DisciplineCreate(
                 title=d,
-                assessment_type=classifiers.AssessmentType.exam.name
+                assessment_type=classifiers.TypeAssessment.exam.name
             )
             dscp: models.Discipline = await crud.discipline.create(db, obj_in=discipline_in)
             disciplines.append(dscp)
-            for dt in classifiers.DisciplineType.to_list():
+            for dt in classifiers.TypeDiscipline.to_list():
                 discipline_typed_in = schemas.DisciplineTypedCreate(
                     discipline_id=dscp.id,
                     type=dt,

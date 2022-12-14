@@ -28,13 +28,13 @@ class UserRole(EnumBase):
     student_leader_assistant = 'student_leader_assistant'
     teacher = 'teacher'
 
-class AssessmentType(EnumBase):
+class TypeAssessment(EnumBase):
     test = 'test'
     test_diff = 'test_diff'
     coursework = 'coursework'
     exam = 'exam'
 
-class DisciplineType(EnumBase):
+class TypeDiscipline(EnumBase):
     lecture = 'lecture'
     practice = 'practice'
     laboratory = 'laboratory'
@@ -69,8 +69,8 @@ class StudentTaskGrade(EnumBase):
 
 pg_custom_type_colnames = [
     UserRole.col_name(),
-    AssessmentType.col_name(),
-    DisciplineType.col_name(),
+    TypeAssessment.col_name(),
+    TypeDiscipline.col_name(),
     TaskStatus.col_name(),
     TaskPriority.col_name(),
     StudentTaskGrade.col_name()

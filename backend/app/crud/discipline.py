@@ -6,11 +6,9 @@ from backend.app.schemas import DisciplineCreate, DisciplineUpdate, DisciplineTy
 class CRUDDiscipline(CRUDBase[Discipline, DisciplineCreate, DisciplineUpdate]):
    pass
 
-
 discipline = CRUDDiscipline(Discipline)
 
 class CRUDDisciplineTyped(CRUDBase[DisciplineTyped, DisciplineTypedCreate, DisciplineTypedUpdate]):
    pass
-
 
 discipline_typed = CRUDDisciplineTyped(DisciplineTyped)

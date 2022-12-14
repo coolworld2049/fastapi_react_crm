@@ -6,11 +6,9 @@ from backend.app.schemas import StudyGroupCreate, StudyGroupUpdate, StudyGroupCi
 class CRUDStudyGroup(CRUDBase[StudyGroup, StudyGroupCreate, StudyGroupUpdate]):
    pass
 
-
 study_group = CRUDStudyGroup(StudyGroup)
 
 class CRUDStudyGroupCipher(CRUDBase[StudyGroupCipher, StudyGroupCipherCreate, StudyGroupCipherUpdate]):
    pass
-
 
 study_group_cipher = CRUDStudyGroupCipher(StudyGroupCipher)

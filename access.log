@@ -8357,3 +8357,152 @@ INFO     2022-12-14 21:47:18.814 request id: app - uvicorn.lifespan.on:startup -
 INFO     2022-12-14 21:47:18.815 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
 INFO     2022-12-14 21:47:20.361 request id: app - uvicorn.server:shutdown - Shutting down
 INFO     2022-12-14 21:47:20.361 request id: app - uvicorn.server:shutdown - Shutting down
+INFO     2022-12-14 21:51:47.741 request id: app - uvicorn.server:serve - Started server process [32520]
+INFO     2022-12-14 21:51:47.741 request id: app - uvicorn.server:serve - Started server process [32520]
+INFO     2022-12-14 21:51:47.742 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 21:51:47.742 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 21:51:47.743 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 21:51:47.743 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 21:51:52.598 request id: app - uvicorn.server:shutdown - Shutting down
+INFO     2022-12-14 21:51:52.598 request id: app - uvicorn.server:shutdown - Shutting down
+INFO     2022-12-14 21:51:55.405 request id: app - uvicorn.server:serve - Started server process [25912]
+INFO     2022-12-14 21:51:55.406 request id: app - uvicorn.server:serve - Started server process [25912]
+INFO     2022-12-14 21:51:55.406 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 21:51:55.407 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 21:51:55.407 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 21:51:55.408 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 21:51:57.830 request id: app - uvicorn.server:serve - Started server process [30468]
+INFO     2022-12-14 21:51:57.830 request id: app - uvicorn.server:serve - Started server process [30468]
+INFO     2022-12-14 21:51:57.831 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 21:51:57.831 request id: app - uvicorn.lifespan.on:startup - Waiting for application startup.
+INFO     2022-12-14 21:51:57.832 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 21:51:57.832 request id: app - uvicorn.lifespan.on:startup - Application startup complete.
+INFO     2022-12-14 21:51:58.428 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52085 - "GET /docs HTTP/1.1" 200
+INFO     2022-12-14 21:51:58.634 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52085 - "GET /api/v1/openapi.json HTTP/1.1" 200
+INFO     2022-12-14 21:56:08.600 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52240 - "OPTIONS /api/v1/users/me HTTP/1.1" 200
+INFO     2022-12-14 21:56:08.819 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52240 - "GET /api/v1/users/me HTTP/1.1" 401
+INFO     2022-12-14 21:56:10.517 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52240 - "OPTIONS /api/v1/users?filter=%7B%7D&range=%5B0%2C9%5D&sort=%5B%22id%22%2C%22ASC%22%5D HTTP/1.1" 200
+INFO     2022-12-14 21:56:10.520 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52240 - "GET /api/v1/users?filter=%7B%7D&range=%5B0%2C9%5D&sort=%5B%22id%22%2C%22ASC%22%5D HTTP/1.1" 307
+INFO     2022-12-14 21:56:10.527 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52240 - "OPTIONS /api/v1/users/?filter=%7B%7D&range=%5B0%2C9%5D&sort=%5B%22id%22%2C%22ASC%22%5D HTTP/1.1" 200
+INFO     2022-12-14 21:56:10.533 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52240 - "GET /api/v1/users/?filter=%7B%7D&range=%5B0%2C9%5D&sort=%5B%22id%22%2C%22ASC%22%5D HTTP/1.1" 401
+INFO     2022-12-14 21:56:16.225 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52244 - "POST /api/v1/login/access-token HTTP/1.1" 200
+INFO     2022-12-14 21:56:16.460 request id: app - backend.app.api.deps:get_current_user_async - START
+INFO     2022-12-14 21:56:16.463 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:56:16.463 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:56:16.466 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:56:16.470 request id: app - backend.app.api.deps:check_rolname - check_rolname: ka52 role exist
+INFO     2022-12-14 21:56:16.471 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:56:16.474 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:56:16.474 request id: app - backend.app.api.deps:set_session_user - SET_session_user: ka52
+INFO     2022-12-14 21:56:16.477 request id: app - backend.app.api.deps:get_session_user - get_session_user: ka52
+INFO     2022-12-14 21:56:16.478 request id: app - backend.app.api.deps:get_current_user_async - END
+INFO     2022-12-14 21:56:16.485 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52244 - "GET /api/v1/users/me HTTP/1.1" 200
+INFO     2022-12-14 21:56:18.682 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52244 - "OPTIONS /api/v1/users/role/client_base?filter=%7B%7D&range=%5B0%2C9%5D&sort=%5B%22id%22%2C%22ASC%22%5D HTTP/1.1" 200
+INFO     2022-12-14 21:56:18.688 request id: app - backend.app.api.deps:get_current_user_async - START
+INFO     2022-12-14 21:56:18.689 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:56:18.689 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:56:18.691 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:56:18.693 request id: app - backend.app.api.deps:check_rolname - check_rolname: ka52 role exist
+INFO     2022-12-14 21:56:18.693 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:56:18.695 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:56:18.696 request id: app - backend.app.api.deps:set_session_user - SET_session_user: ka52
+INFO     2022-12-14 21:56:18.698 request id: app - backend.app.api.deps:get_session_user - get_session_user: ka52
+INFO     2022-12-14 21:56:18.698 request id: app - backend.app.api.deps:get_current_user_async - END
+INFO     2022-12-14 21:56:18.700 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52244 - "GET /api/v1/users/role/client_base?filter=%7B%7D&range=%5B0%2C9%5D&sort=%5B%22id%22%2C%22ASC%22%5D HTTP/1.1" 200
+INFO     2022-12-14 21:56:19.913 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52244 - "OPTIONS /api/v1/tasks?filter=%7B%7D&range=%5B0%2C9%5D&sort=%5B%22id%22%2C%22ASC%22%5D HTTP/1.1" 200
+INFO     2022-12-14 21:56:19.915 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52244 - "GET /api/v1/tasks?filter=%7B%7D&range=%5B0%2C9%5D&sort=%5B%22id%22%2C%22ASC%22%5D HTTP/1.1" 307
+INFO     2022-12-14 21:56:19.921 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52244 - "OPTIONS /api/v1/tasks/?filter=%7B%7D&range=%5B0%2C9%5D&sort=%5B%22id%22%2C%22ASC%22%5D HTTP/1.1" 200
+INFO     2022-12-14 21:56:19.926 request id: app - backend.app.api.deps:get_current_user_async - START
+INFO     2022-12-14 21:56:19.928 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:56:19.928 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:56:19.930 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:56:19.932 request id: app - backend.app.api.deps:check_rolname - check_rolname: ka52 role exist
+INFO     2022-12-14 21:56:19.932 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:56:19.934 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:56:19.934 request id: app - backend.app.api.deps:set_session_user - SET_session_user: ka52
+INFO     2022-12-14 21:56:19.937 request id: app - backend.app.api.deps:get_session_user - get_session_user: ka52
+INFO     2022-12-14 21:56:19.937 request id: app - backend.app.api.deps:get_current_user_async - END
+INFO     2022-12-14 21:56:20.844 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52244 - "GET /api/v1/tasks/?filter=%7B%7D&range=%5B0%2C9%5D&sort=%5B%22id%22%2C%22ASC%22%5D HTTP/1.1" 200
+INFO     2022-12-14 21:56:27.628 request id: app - backend.app.api.deps:get_current_user_async - START
+INFO     2022-12-14 21:56:27.630 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:56:27.630 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:56:27.632 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:56:27.634 request id: app - backend.app.api.deps:check_rolname - check_rolname: ka52 role exist
+INFO     2022-12-14 21:56:27.634 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:56:27.636 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:56:27.637 request id: app - backend.app.api.deps:set_session_user - SET_session_user: ka52
+INFO     2022-12-14 21:56:27.639 request id: app - backend.app.api.deps:get_session_user - get_session_user: ka52
+INFO     2022-12-14 21:56:27.640 request id: app - backend.app.api.deps:get_current_user_async - END
+INFO     2022-12-14 21:56:27.641 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52256 - "GET /api/v1/users/role/client_base?filter=%7B%7D&range=%5B0%2C9%5D&sort=%5B%22id%22%2C%22ASC%22%5D HTTP/1.1" 200
+INFO     2022-12-14 21:56:28.689 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52256 - "OPTIONS /api/v1/users?filter=%7B%7D&range=%5B0%2C24%5D&sort=%5B%22id%22%2C%22DESC%22%5D HTTP/1.1" 200
+INFO     2022-12-14 21:56:28.691 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52256 - "GET /api/v1/users?filter=%7B%7D&range=%5B0%2C24%5D&sort=%5B%22id%22%2C%22DESC%22%5D HTTP/1.1" 307
+INFO     2022-12-14 21:56:28.693 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52257 - "OPTIONS /api/v1/users/role/client_base?filter=%7B%7D&range=%5B0%2C24%5D&sort=%5B%22id%22%2C%22DESC%22%5D HTTP/1.1" 200
+INFO     2022-12-14 21:56:28.695 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52257 - "OPTIONS /api/v1/users/role/manager_base?filter=%7B%7D&range=%5B0%2C24%5D&sort=%5B%22id%22%2C%22DESC%22%5D HTTP/1.1" 200
+INFO     2022-12-14 21:56:28.696 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52257 - "OPTIONS /api/v1/users/role/employees?filter=%7B%7D&range=%5B0%2C24%5D&sort=%5B%22id%22%2C%22DESC%22%5D HTTP/1.1" 200
+INFO     2022-12-14 21:56:28.700 request id: app - backend.app.api.deps:get_current_user_async - START
+INFO     2022-12-14 21:56:28.702 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:56:28.702 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:56:28.705 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:56:28.706 request id: app - backend.app.api.deps:check_rolname - check_rolname: ka52 role exist
+INFO     2022-12-14 21:56:28.706 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:56:28.709 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:56:28.709 request id: app - backend.app.api.deps:set_session_user - SET_session_user: ka52
+INFO     2022-12-14 21:56:28.711 request id: app - backend.app.api.deps:get_session_user - get_session_user: ka52
+INFO     2022-12-14 21:56:28.712 request id: app - backend.app.api.deps:get_current_user_async - END
+INFO     2022-12-14 21:56:28.713 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52257 - "GET /api/v1/users/role/client_base?filter=%7B%7D&range=%5B0%2C24%5D&sort=%5B%22id%22%2C%22DESC%22%5D HTTP/1.1" 200
+INFO     2022-12-14 21:56:28.783 request id: app - backend.app.api.deps:get_current_user_async - START
+INFO     2022-12-14 21:56:28.785 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:56:28.785 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:56:28.789 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:56:28.791 request id: app - backend.app.api.deps:check_rolname - check_rolname: ka52 role exist
+INFO     2022-12-14 21:56:28.791 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:56:28.794 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:56:28.794 request id: app - backend.app.api.deps:set_session_user - SET_session_user: ka52
+INFO     2022-12-14 21:56:28.797 request id: app - backend.app.api.deps:get_session_user - get_session_user: ka52
+INFO     2022-12-14 21:56:28.798 request id: app - backend.app.api.deps:get_current_user_async - END
+INFO     2022-12-14 21:56:28.799 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52256 - "GET /api/v1/users/role/employees?filter=%7B%7D&range=%5B0%2C24%5D&sort=%5B%22id%22%2C%22DESC%22%5D HTTP/1.1" 200
+INFO     2022-12-14 21:56:28.802 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52256 - "OPTIONS /api/v1/users/?filter=%7B%7D&range=%5B0%2C24%5D&sort=%5B%22id%22%2C%22DESC%22%5D HTTP/1.1" 200
+INFO     2022-12-14 21:56:28.808 request id: app - backend.app.api.deps:get_current_user_async - START
+INFO     2022-12-14 21:56:28.810 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:56:28.810 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:56:28.813 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:56:28.815 request id: app - backend.app.api.deps:check_rolname - check_rolname: ka52 role exist
+INFO     2022-12-14 21:56:28.815 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:56:28.817 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:56:28.818 request id: app - backend.app.api.deps:set_session_user - SET_session_user: ka52
+INFO     2022-12-14 21:56:28.820 request id: app - backend.app.api.deps:get_session_user - get_session_user: ka52
+INFO     2022-12-14 21:56:28.820 request id: app - backend.app.api.deps:get_current_user_async - END
+INFO     2022-12-14 21:56:28.831 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52256 - "GET /api/v1/users/?filter=%7B%7D&range=%5B0%2C24%5D&sort=%5B%22id%22%2C%22DESC%22%5D HTTP/1.1" 200
+INFO     2022-12-14 21:56:28.878 request id: app - backend.app.api.deps:get_current_user_async - START
+INFO     2022-12-14 21:56:28.880 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:56:28.881 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:56:28.884 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:56:28.887 request id: app - backend.app.api.deps:check_rolname - check_rolname: ka52 role exist
+INFO     2022-12-14 21:56:28.887 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:56:28.891 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:56:28.891 request id: app - backend.app.api.deps:set_session_user - SET_session_user: ka52
+INFO     2022-12-14 21:56:28.896 request id: app - backend.app.api.deps:get_session_user - get_session_user: ka52
+INFO     2022-12-14 21:56:28.897 request id: app - backend.app.api.deps:get_current_user_async - END
+INFO     2022-12-14 21:56:28.898 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52257 - "GET /api/v1/users/role/manager_base?filter=%7B%7D&range=%5B0%2C24%5D&sort=%5B%22id%22%2C%22DESC%22%5D HTTP/1.1" 200
+INFO     2022-12-14 21:56:29.600 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52257 - "OPTIONS /api/v1/companies?filter=%7B%7D&range=%5B0%2C9%5D&sort=%5B%22id%22%2C%22ASC%22%5D HTTP/1.1" 200
+INFO     2022-12-14 21:56:29.602 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52257 - "GET /api/v1/companies?filter=%7B%7D&range=%5B0%2C9%5D&sort=%5B%22id%22%2C%22ASC%22%5D HTTP/1.1" 404
+INFO     2022-12-14 21:56:30.778 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52257 - "GET /api/v1/tasks?filter=%7B%7D&range=%5B0%2C9%5D&sort=%5B%22id%22%2C%22ASC%22%5D HTTP/1.1" 307
+INFO     2022-12-14 21:56:30.857 request id: app - backend.app.api.deps:get_current_user_async - START
+INFO     2022-12-14 21:56:30.860 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:56:30.860 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:56:30.862 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:56:30.865 request id: app - backend.app.api.deps:check_rolname - check_rolname: ka52 role exist
+INFO     2022-12-14 21:56:30.865 request id: app - backend.app.api.deps:reset_session_user - RESET_session_user
+INFO     2022-12-14 21:56:30.869 request id: app - backend.app.api.deps:get_session_user - get_session_user: postgres
+INFO     2022-12-14 21:56:30.869 request id: app - backend.app.api.deps:set_session_user - SET_session_user: ka52
+INFO     2022-12-14 21:56:30.873 request id: app - backend.app.api.deps:get_session_user - get_session_user: ka52
+INFO     2022-12-14 21:56:30.873 request id: app - backend.app.api.deps:get_current_user_async - END
+INFO     2022-12-14 21:56:30.881 request id: app - uvicorn.protocols.http.h11_impl:send - 127.0.0.1:52257 - "GET /api/v1/tasks/?filter=%7B%7D&range=%5B0%2C9%5D&sort=%5B%22id%22%2C%22ASC%22%5D HTTP/1.1" 200
+INFO     2022-12-14 21:56:52.290 request id: app - uvicorn.server:shutdown - Shutting down
+INFO     2022-12-14 21:56:52.290 request id: app - uvicorn.server:shutdown - Shutting down
+INFO     2022-12-14 21:56:52.400 request id: app - uvicorn.lifespan.on:shutdown - Waiting for application shutdown.
+INFO     2022-12-14 21:56:52.400 request id: app - uvicorn.lifespan.on:shutdown - Waiting for application shutdown.
+INFO     2022-12-14 21:56:52.401 request id: app - uvicorn.lifespan.on:shutdown - Application shutdown complete.
+INFO     2022-12-14 21:56:52.401 request id: app - uvicorn.lifespan.on:shutdown - Application shutdown complete.
+INFO     2022-12-14 21:56:52.402 request id: app - uvicorn.server:serve - Finished server process [30468]
+INFO     2022-12-14 21:56:52.403 request id: app - uvicorn.server:serve - Finished server process [30468]

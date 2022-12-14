@@ -12,8 +12,8 @@ metadata = Base.metadata
 
 
 user_role = ps.ENUM(*classifiers.UserRole.to_list(), name=classifiers.UserRole.as_snake_case())
-assessment_type = ps.ENUM(*classifiers.AssessmentType.to_list(), name=classifiers.AssessmentType.as_snake_case())
-discipline_type = ps.ENUM(*classifiers.DisciplineType.to_list(), name=classifiers.DisciplineType.as_snake_case())
+type_assessment = ps.ENUM(*classifiers.TypeAssessment.to_list(), name=classifiers.TypeAssessment.as_snake_case())
+discipline_type = ps.ENUM(*classifiers.TypeDiscipline.to_list(), name=classifiers.TypeDiscipline.as_snake_case())
 task_status = ps.ENUM(*classifiers.TaskStatus.to_list(), name=classifiers.TaskStatus.as_snake_case())
 task_priority = ps.ENUM(*classifiers.TaskPriority.to_list(), name=classifiers.TaskPriority.as_snake_case())
 student_task_grade = ps.ENUM(*classifiers.StudentTaskGrade.to_list(), name=classifiers.StudentTaskGrade.as_snake_case())
@@ -31,7 +31,20 @@ class Discipline(Base):
 
     id = Column(BigInteger, primary_key=True)
     title = Column(Text, nullable=False)
-    assessment_type = Column(assessment_type)
+    assessment = Column(type_assessment)
+
+class DisciplineTyped(Base):
+    __tablename__ = 'discipline_typed'
+
+    id = Column(BigInteger, primary_key=True)
+    discipline_id = Column(ForeignKey('discipline.id'), nullable=False)
+    type = Column(discipline_type, nullable=False)
+    classroom_number = Column(Text, nullable=False)
+    campus_id = Column(ForeignKey('campus.id'), nullable=False)
+    create_date = Column(DateTime(True), server_default=text("LOCALTIMESTAMP"))
+
+    campus = relationship('Campus')
+    discipline = relationship('Discipline')
 
 class StudyGroupCipher(Base):
     __tablename__ = 'study_group_cipher'
@@ -70,20 +83,6 @@ class UserContact(Base):
     vk = Column(Text)
     telegram = Column(Text)
     discord = Column(Text)
-
-
-class DisciplineTyped(Base):
-    __tablename__ = 'discipline_typed'
-
-    id = Column(BigInteger, primary_key=True)
-    discipline_id = Column(ForeignKey('discipline.id'), nullable=False)
-    type = Column(discipline_type, nullable=False)
-    classroom_number = Column(Text, nullable=False)
-    campus_id = Column(ForeignKey('campus.id'), nullable=False)
-    create_date = Column(DateTime(True), server_default=text("LOCALTIMESTAMP"))
-
-    campus = relationship('Campus')
-    discipline = relationship('Discipline')
 
 
 class Student(Base):

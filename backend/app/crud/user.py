@@ -41,15 +41,10 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         return result
 
     # noinspection PyMethodMayBeStatic
-    async def get_by_id(self, db: AsyncSession, *, id: int) -> Optional[User]:
+    async def get_by_id(self, db: AsyncSession, *, id: int, role: str = None) -> Optional[User]:
         result: Result = await db.execute(sqlalchemy.select(User).where(User.id == id))
         return result.scalar()
 
-    # noinspection PyMethodMayBeStatic
-    async def get_by_id_role(self, db: AsyncSession, *, id: int, role: str) -> Optional[User]:
-        query = sqlalchemy.select(User).filter(User.role == role).filter(User.id == id)
-        result: Result = await db.execute(query)
-        return result.scalar()
 
     # noinspection PyMethodMayBeStatic
     async def get_by_email(self, db: AsyncSession, *, email: str) -> Optional[User]:
@@ -109,7 +104,6 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             res = await conn.fetch(q_json)
         return {'path_in': path_in, 'path_out': path_out, 'filename': filename}
 
-
 user = CRUDUser(User)
 
 
@@ -118,10 +112,12 @@ class CRUDUserContact(CRUDBase[UserContact, UserContactCreate, UserContactUpdate
 
 user_contact = CRUDUserContact(UserContact)
 
+
 class CRUDStudent(CRUDBase[Student, StudentCreate, StudentUpdate]):
    pass
 
 student = CRUDStudent(Student)
+
 
 class CRUDTeacher(CRUDBase[Teacher, TeacherCreate, TeacherUpdate]):
    pass

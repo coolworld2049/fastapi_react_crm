@@ -73,7 +73,7 @@ async def read_users_by_role_id(
     """
     user = None
     if rolname in classifiers.UserRole.to_list():
-        user = await crud.user.get_by_id_role(db, id=id, role=rolname)
+        user = await crud.user.get_by_id(db, id=id)
     return user
 
 
