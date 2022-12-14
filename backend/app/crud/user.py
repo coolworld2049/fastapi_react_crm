@@ -9,8 +9,9 @@ from backend.app import schemas
 from backend.app.core.config import ROOT_PATH
 from backend.app.core.security import get_password_hash, verify_password
 from backend.app.crud.base import CRUDBase
-from backend.app.db import User
+from backend.app.db import User, Student, Teacher
 from backend.app.db.session import asyncpg_database
+from backend.app.schemas import StudentUpdate, StudentCreate, TeacherCreate, TeacherUpdate
 from backend.app.schemas.user import UserCreate, UserUpdate
 
 
@@ -109,3 +110,16 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
 
 
 user = CRUDUser(User)
+
+
+class CRUDStudent(CRUDBase[Student, StudentCreate, StudentUpdate]):
+   pass
+
+
+student = CRUDStudent(Student)
+
+class CRUDTeacher(CRUDBase[Teacher, TeacherCreate, TeacherUpdate]):
+   pass
+
+
+teacher = CRUDTeacher(Teacher)

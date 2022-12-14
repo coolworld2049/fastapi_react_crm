@@ -7,10 +7,9 @@ from fastapi.responses import FileResponse
 from pydantic.networks import EmailStr
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
-
 from backend.app import crud, schemas
 from backend.app.api import deps
-from backend.app.db import models
+from backend.app.db import models, classifiers
 from backend.app.schemas.request_params import RequestParams
 
 router = APIRouter()
@@ -20,7 +19,7 @@ router = APIRouter()
 @router.get("/", response_model=List[schemas.User])
 async def read_users(
         response: Response,
-        db: AsyncSession = Depends(deps.get_async_session),
+        db: AsyncSession = Depends(deps.get_db),
         current_user: models.User = Depends(deps.get_current_active_user),
         request_params: RequestParams = Depends(deps.parse_react_admin_params(models.User))
 ) -> Any:
@@ -36,7 +35,7 @@ async def read_users(
 @router.get("/role/{rolname}", response_model=List[schemas.User])
 async def read_users_by_role(
         response: Response,
-        db: AsyncSession = Depends(deps.get_async_session),
+        db: AsyncSession = Depends(deps.get_db),
         current_user: models.User = Depends(deps.get_current_active_user),
         request_params: schemas.RequestParams = Depends(deps.parse_react_admin_params(models.User)),
         rolname: str = Query(None),
@@ -47,10 +46,11 @@ async def read_users_by_role(
     users = []
     total = None
     query_total = select(func.count(models.User.id))
-    if rolname in ['service_admin', 'student', 'student_leader', 'student_leader_assistant', 'teacher']:
+    if rolname in classifiers.UserRole.to_list():
         users, total = await crud.user.get_multi(db, request_params, role=rolname)
-    elif rolname == 'employees':
-        roles = ('manager_base', 'ranker_base')
+    elif rolname == 'students':
+        clsf = classifiers.UserRole
+        roles = tuple([clsf.student.name, clsf.student_leader.name, clsf.student_leader_assistant.name])
         users, total = await crud.user.get_multi(db, request_params, roles=roles)
     response.headers["Content-Range"] = f"{request_params.skip}-{request_params.skip + len(users)}/{total}"
     return users
@@ -62,7 +62,7 @@ async def read_users_by_role(
 @router.get("/role/{rolname}/{id}", response_model=schemas.User)
 async def read_users_by_role_id(
         response: Response,
-        db: AsyncSession = Depends(deps.get_async_session),
+        db: AsyncSession = Depends(deps.get_db),
         current_user: models.User = Depends(deps.get_current_active_user),
         request_params: schemas.RequestParams = Depends(deps.parse_react_admin_params(models.User)),
         rolname: str = Query(None),
@@ -71,7 +71,9 @@ async def read_users_by_role_id(
     """
     Retrieve users.
     """
-    user = await crud.user.get_by_id_role(db, id=id, role=rolname)
+    user = None
+    if rolname in classifiers.UserRole.to_list():
+        user = await crud.user.get_by_id_role(db, id=id, role=rolname)
     return user
 
 
@@ -79,7 +81,7 @@ async def read_users_by_role_id(
 @router.put("/role/{rolname}/{id}", response_model=schemas.User)
 async def update_user_by_role(
         *,
-        db: AsyncSession = Depends(deps.get_async_session),
+        db: AsyncSession = Depends(deps.get_db),
         user_in: schemas.UserUpdate,
         current_user: models.User = Depends(deps.get_current_active_superuser),
 ) -> Any:
@@ -100,7 +102,7 @@ async def update_user_by_role(
 @router.post("/", response_model=schemas.User)
 async def create_user(
         *,
-        db: AsyncSession = Depends(deps.get_async_session),
+        db: AsyncSession = Depends(deps.get_db),
         user_in: schemas.UserCreate,
         current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
@@ -126,7 +128,7 @@ async def create_user(
 @router.put("/me", response_model=schemas.User)
 async def update_user_me(
         *,
-        db: AsyncSession = Depends(deps.get_async_session),
+        db: AsyncSession = Depends(deps.get_db),
         password: str = Body(None),
         email: EmailStr = Body(None),
         current_user: models.User = Depends(deps.get_current_active_user),
@@ -147,7 +149,7 @@ async def update_user_me(
 # noinspection PyUnusedLocal
 @router.get("/me", response_model=schemas.User)
 async def read_user_me(
-        db: AsyncSession = Depends(deps.get_async_session),
+        db: AsyncSession = Depends(deps.get_db),
         current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
@@ -162,7 +164,7 @@ async def read_user_me(
 async def read_user_by_id(
         id: int,
         current_user: models.User = Depends(deps.get_current_active_user),
-        db: AsyncSession = Depends(deps.get_async_session),
+        db: AsyncSession = Depends(deps.get_db),
 ) -> Any:
     """
     Get a specific user by id.
@@ -196,7 +198,7 @@ async def create_user_report(
 @router.put("/{id}", response_model=schemas.User)
 async def update_user(
         *,
-        db: AsyncSession = Depends(deps.get_async_session),
+        db: AsyncSession = Depends(deps.get_db),
         id: int,
         user_in: schemas.UserUpdate,
         current_user: models.User = Depends(deps.get_current_active_superuser),
@@ -218,7 +220,7 @@ async def update_user(
 @router.delete("/{id}", response_model=schemas.User)
 async def delete_user(
         *,
-        db: AsyncSession = Depends(deps.get_async_session),
+        db: AsyncSession = Depends(deps.get_db),
         id: int,
         current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:

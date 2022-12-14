@@ -1,19 +1,23 @@
 # coding: utf-8
 import sqlalchemy.dialects.postgresql as ps
-from sqlalchemy import BigInteger, Boolean, CheckConstraint, Column, DateTime, Enum, ForeignKey, SmallInteger, String, \
+from sqlalchemy import BigInteger, Boolean, CheckConstraint, Column, DateTime, ForeignKey, SmallInteger, String, \
     Text, text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
+from backend.app.db import classifiers
+
 Base = declarative_base()
 metadata = Base.metadata
 
-user_role = ps.ENUM('admin', 'anon', 'student', 'student_leader', 'student_leader_assistant', 'teacher', name='user_role')
-assessment_type = ps.ENUM('pass', 'pass_diff', 'coursework', 'exam', name='assessment_type')
-discipline_type = ps.ENUM('lecture', 'practice', 'laboratory', 'coursework', 'pass', 'pass_diff', 'consultation', 'exam', 'project', name='discipline_type')
-task_status = ps.ENUM('unassigned', 'pending', 'started', 'verifying', 'accepted', 'overdue', 'completed', name='task_status')
-task_priority = ps.ENUM('high', 'medium', 'low', name='task_priority')
-student_task_grade = Enum('good', 'great', 'normal', 'bad', 'passed', 'not_passed', name='student_task_grade')
+
+user_role = ps.ENUM(*classifiers.UserRole.to_list(), name=classifiers.UserRole.as_snake_case())
+assessment_type = ps.ENUM(*classifiers.AssessmentType.to_list(), name=classifiers.AssessmentType.as_snake_case())
+discipline_type = ps.ENUM(*classifiers.DisciplineType.to_list(), name=classifiers.DisciplineType.as_snake_case())
+task_status = ps.ENUM(*classifiers.TaskStatus.to_list(), name=classifiers.TaskStatus.as_snake_case())
+task_priority = ps.ENUM(*classifiers.TaskPriority.to_list(), name=classifiers.TaskPriority.as_snake_case())
+student_task_grade = ps.ENUM(*classifiers.StudentTaskGrade.to_list(), name=classifiers.StudentTaskGrade.as_snake_case())
+
 
 class Campus(Base):
     __tablename__ = 'campus'
@@ -29,9 +33,8 @@ class Discipline(Base):
     title = Column(Text, nullable=False)
     assessment_type = Column(assessment_type)
 
-
-class StudyGroupBase(Base):
-    __tablename__ = 'study_group_base'
+class StudyGroupCipher(Base):
+    __tablename__ = 'study_group_cipher'
 
     id = Column(BigInteger, primary_key=True)
     cipher = Column(String(30))
@@ -56,7 +59,7 @@ class User(Base):
     is_superuser = Column(Boolean, nullable=False, server_default=text("false"))
     create_date = Column(DateTime(True), server_default=text("LOCALTIMESTAMP"))
 
-    study_group_bases = relationship('StudyGroupBase', secondary='student')
+    study_group_ciphers = relationship('StudyGroupCipher', secondary='student')
 
 
 class UserContact(User):
@@ -87,18 +90,18 @@ class Student(Base):
     __tablename__ = 'student'
 
     id = Column(ForeignKey('user.id'), primary_key=True)
-    study_group_base_id = Column(ForeignKey('study_group_base.id'), nullable=False)
+    study_group_cipher_id = Column(ForeignKey('study_group_cipher.id'), nullable=False)
 
 
 class StudyGroup(Base):
     __tablename__ = 'study_group'
 
     id = Column(BigInteger, primary_key=True)
-    study_group_base_id = Column(ForeignKey('study_group_base.id'), nullable=False)
+    study_group_cipher_id = Column(ForeignKey('study_group_cipher.id'), nullable=False)
     discipline_id = Column(ForeignKey('discipline.id'), nullable=False)
 
     discipline = relationship('Discipline')
-    study_group_base = relationship('StudyGroupBase')
+    study_group_cipher = relationship('StudyGroupCipher')
 
 
 class Teacher(Base):
@@ -120,7 +123,7 @@ class Task(Base):
 
     id = Column(BigInteger, primary_key=True)
     teacher_id = Column(ForeignKey('teacher.id'), nullable=False)
-    study_group_base_id = Column(ForeignKey('study_group_base.id'))
+    study_group_cipher_id = Column(ForeignKey('study_group_cipher.id'))
     student_id = Column(ForeignKey('student.id'))
     title = Column(Text, nullable=False)
     description = Column(Text)
@@ -130,11 +133,11 @@ class Task(Base):
     create_date = Column(DateTime(True), server_default=text("LOCALTIMESTAMP"))
 
     student = relationship('Student')
-    study_group_base = relationship('StudyGroupBase')
+    study_group_cipher = relationship('StudyGroupCipher')
     teacher = relationship('Teacher')
 
 
-class StudentTask(Task):
+class TaskStudent(Base):
     __tablename__ = 'student_task'
     __table_args__ = (
         CheckConstraint('completion_date < deadline_date'),
