@@ -1,19 +1,17 @@
-from typing import Any, Dict, Optional, Union, Tuple, List
+from typing import Any, Dict, Optional, Union, Tuple, List, Type
 
 import sqlalchemy
-from asyncpg import Connection
-from sqlalchemy import or_, and_, select
+from sqlalchemy import and_, select, Table
 from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import DeclarativeMeta
 
-from backend.app import schemas
-from backend.app.core.config import ROOT_PATH
 from backend.app.core.security import get_password_hash, verify_password
-from backend.app.crud.base import CRUDBase
-from backend.app.db import User, Student, Teacher, UserContact
-from backend.app.db.session import asyncpg_database
-from backend.app.schemas import StudentUpdate, StudentCreate, TeacherCreate, TeacherUpdate, UserContactUpdate, \
-    UserContactCreate, RequestParams
+from backend.app.crud.base import CRUDBase, ModelType
+from backend.app.db import User, Student, Teacher, UserContact, user_student_view, user_teacher_view
+from backend.app.schemas import RequestParams, UserContactCreate, UserContactUpdate
+from backend.app.schemas.student import StudentUpdate, StudentCreate
+from backend.app.schemas.teacher import TeacherUpdate, TeacherCreate
 from backend.app.schemas.user import UserCreate, UserUpdate
 
 
@@ -54,18 +52,19 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         result: Result = await db.execute(sqlalchemy.select(User).where(User.email == email))
         return result.scalar()
 
-    async def constr_role_eq_filter(self, role: str = None, roles: list[str] = None): # noqa
-        flt = None
-        if role and not roles:
-            flt = and_(self.model.role == role)
-        elif roles:
-            flt = and_(self.model.role.in_(tuple(roles)))
-        return flt
+    async def constr_user_role_filter(self, roles: list[str], column: Any  = None):
+        c_filter = None
+        if len(roles) > 0:
+            if column is None:
+                c_filter = and_(self.model.role.in_(tuple(roles)))
+            else:
+                c_filter = and_(column.in_(tuple(roles)))
+        return c_filter
 
     async def get_multi(
-            self, db: AsyncSession, request_params: RequestParams, role: str = None, roles: list[str] = None,
+            self, db: AsyncSession, request_params: RequestParams, roles: list[str] = None,
     ) -> Tuple[List[User], int]:
-        flt = await self.constr_role_eq_filter(roles, roles)
+        flt = await self.constr_user_role_filter(roles)
         users, total = await super().get_multi(db, request_params, flt)
         return users, total
 
@@ -92,36 +91,6 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
     def is_superuser(self, user: User) -> bool:
         return user.is_superuser
 
-    # noinspection PyMethodMayBeStatic,PyUnusedLocal
-    async def generate_report_user(
-            self,
-            report_in: schemas.ReportUserCreate
-    ) -> Dict[str, str]:
-        filename = f'user_{report_in.id}_report-delta_{report_in.start_timestamp.date()}_{report_in.end_timestamp.date()}.{report_in.ext}'
-        path_in = f'/tmp/{filename}'
-        path_out = f'{ROOT_PATH}/volumes/postgres/tmp/{filename}'
-
-        q_csv = f'''
-         COPY (select * from generate_report_by_period_and_employee(
-            '{report_in.start_timestamp}',
-            '{report_in.end_timestamp},
-            {report_in.id}
-            )) to '{path_in}' delimiter ',' csv header;
-        '''
-        q_json = f'''
-        COPY (select array_to_json(array_agg(row_to_json(results))) from generate_report_by_period_and_employee(
-            '{report_in.start_timestamp}',
-            '{report_in.end_timestamp}',
-            {report_in.id}
-            ) as results) to '{path_in}' with (format text, header false );
-        '''
-        conn: Connection = await asyncpg_database.get_connection()
-        if report_in.ext == 'csv':
-            res = await conn.fetch(q_csv)
-        elif report_in.ext == 'json':
-            res = await conn.fetch(q_json)
-        return {'path_in': path_in, 'path_out': path_out, 'filename': filename}
-
 
 user = CRUDUser(User)
 
@@ -135,21 +104,36 @@ user_contact = CRUDUserContact(UserContact)
 
 class CRUDStudent(CRUDBase[Student, StudentCreate, StudentUpdate]):
     async def get_multi_join(
-            self, db: AsyncSession, request_params: RequestParams, role: str = None, roles: list = None
-    ) -> Tuple[Union[User, Student], int]:
-        query = select(User).join(self.model)
-        flt = await user.constr_role_eq_filter(role, roles)
-        query = await super().constr_query_filter(query, request_params, flt)
+            self, db: AsyncSession, request_params: RequestParams, roles: list[str] = None
+    ):
+        query = user_student_view.select()
+        # query = select(User, Student).join(User, User.id == Student.id)
+
+        flt = await user.constr_user_role_filter(roles, user_student_view.c['role'])
+        query, query_count = await super().constr_query_filter(query, request_params, flt)
+        total: Result = await db.execute(query_count)
         result: Result = await db.execute(query)
-        r = result.scalars().all()
-        return r, len(r)
+        r = result.fetchall()
+        return r, total.scalar()
 
 
 student = CRUDStudent(Student)
 
 
 class CRUDTeacher(CRUDBase[Teacher, TeacherCreate, TeacherUpdate]):
-    pass
+    async def get_multi_join(
+            self, db: AsyncSession, request_params: RequestParams, roles: list[str] = None
+    ):
+        # query = select(Teacher).join(User, User.id == Teacher.user_id)
+        query = user_teacher_view.select()
+
+        flt = await user.constr_user_role_filter(roles, user_teacher_view.c['role'])
+        query, query_count = await super().constr_query_filter(query, request_params, flt)
+        total: Result = await db.execute(query_count)
+        result: Result = await db.execute(query)
+
+        r = result.fetchall()
+        return r, total.scalar()
 
 
 teacher = CRUDTeacher(Teacher)

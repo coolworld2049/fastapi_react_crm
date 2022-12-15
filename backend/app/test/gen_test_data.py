@@ -18,7 +18,7 @@ async def init_db_test():
     db = AsyncSessionFactory()
     asyncpg_conn: Connection = await asyncpg_database.get_connection()
     try:
-        multiplier = 50  # 500 ~ 86 sec
+        multiplier = 100  # 500 ~ 86 sec
         users_target = multiplier // 2
         task_target = multiplier * 3
         campus_list = ['B-78', 'В-86', 'C-20', 'П-1']
@@ -28,6 +28,7 @@ async def init_db_test():
         ]
         study_group_list = ['БСБО-04-20', 'БСБО-05-20', 'БСБО-06-20', 'БСБО-07-20', 'БСБО-08-20']
 
+        # await init_db()
         q_truncate = f'''SELECT truncate_tables('postgres');'''
         await asyncpg_conn.execute(q_truncate)
         async with engine.begin() as conn:
@@ -41,7 +42,7 @@ async def init_db_test():
         start = time.perf_counter()
         logger.info(q_truncate)
         users: list[models.User] = []
-        user_roles = [classifiers.UserRole.student.name, classifiers.UserRole.teacher.name]
+        user_roles = [*classifiers.user_role_student_subtypes, *classifiers.user_role_teacher_subtypes]
         for us in range(0, users_target):
             logger.info(f"UserCreate, UserContactCreate: {us}/{users_target}")
             role = random.choice(user_roles)
@@ -62,13 +63,8 @@ async def init_db_test():
             )
             await crud.user_contact.create(db, obj_in=user_contacts_in)
 
-        role_student_scope = [
-            classifiers.UserRole.student.name,
-            classifiers.UserRole.student_leader.name,
-            classifiers.UserRole.student_leader_assistant.name
-        ]
-        user_student_list = list(filter(lambda u: u.role in role_student_scope, users))
-        user_teacher_list = list(filter(lambda u: u.role == classifiers.UserRole.teacher.name, users))
+        user_student_list = list(filter(lambda u: u.role in classifiers.user_role_student_subtypes, users))
+        user_teacher_list = list(filter(lambda u: u.role in classifiers.user_role_teacher_subtypes, users))
 
         campuses: list[models.Campus] = []
         for c in campus_list:

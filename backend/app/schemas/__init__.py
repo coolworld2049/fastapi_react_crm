@@ -4,7 +4,7 @@ from .discipline_typed import *
 from .message import *
 from .report import *
 from .request_params import *
-from .student import *
+from .student import Student, StudentCreate, StudentBase, StudentUpdate, StudentInDBBase, StudentInDB
 from .study_group import *
 from .study_group_cipher import *
 from .task import *

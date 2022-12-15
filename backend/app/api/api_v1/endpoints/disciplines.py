@@ -1,0 +1,99 @@
+from typing import Any, List, Union
+
+from fastapi import APIRouter, Depends, HTTPException, Response
+from sqlalchemy.ext.asyncio import AsyncSession
+
+
+from backend.app import crud, schemas
+from backend.app.api import deps
+from backend.app.db import models
+from backend.app.schemas.request_params import RequestParams
+
+router = APIRouter()
+
+
+# noinspection PyUnusedLocal
+@router.get("/", response_model=List[Union[schemas.Discipline, schemas.DisciplineTyped]])
+async def read_disciplines(
+        response: Response,
+        db: AsyncSession = Depends(deps.get_db),
+        current_user: models.Discipline = Depends(deps.get_current_active_user),
+        request_params: RequestParams = Depends(deps.parse_react_admin_params(models.Discipline))
+) -> Any:
+    """
+    Retrieve Tasks.
+    """
+    items, total = await crud.discipline.get_multi_join(db, request_params=request_params)
+    response.headers["Content-Range"] = f"{request_params.skip}-{request_params.skip + len(items)}/{total}"
+    return items
+
+
+# noinspection PyUnusedLocal
+@router.post("/", response_model=schemas.Discipline)
+async def create_discipline(
+        *,
+        db: AsyncSession = Depends(deps.get_db),
+        item_in: schemas.DisciplineCreate,
+        current_user: models.Discipline = Depends(deps.get_current_active_user),
+) -> Any:
+    """
+    Create new task.
+    """
+    item = await crud.discipline.create(db=db, obj_in=item_in)
+    return item
+
+
+# noinspection PyUnusedLocal
+@router.put("/{id}", response_model=schemas.Discipline)
+async def update_discipline_id(
+        *,
+        db: AsyncSession = Depends(deps.get_db),
+        id: int,
+        item_in: schemas.DisciplineUpdate,
+        current_user: models.Discipline = Depends(deps.get_current_active_user),
+) -> Any:
+    """
+    Update an task.
+    """
+    item = await crud.discipline.get(db=db, id=id)
+    if not item:
+        raise HTTPException(status_code=404, detail="Item not found")
+    item = await crud.discipline.update(db=db, db_obj=item, obj_in=item_in)
+    return item
+
+
+# noinspection PyUnusedLocal
+@router.get("/{id}", response_model=schemas.Discipline)
+async def read_discipline_id(
+        *,
+        db: AsyncSession = Depends(deps.get_db),
+        id: int,
+        current_user: models.Discipline = Depends(deps.get_current_active_user),
+) -> Any:
+    """
+    Get task by ID.
+    """
+    item = await crud.discipline.get(db=db, id=id)
+    if not item:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return item
+
+
+# noinspection PyUnusedLocal
+@router.delete("/{id}", response_model=schemas.Discipline)
+async def delete_discipline_id(
+        *,
+        db: AsyncSession = Depends(deps.get_db),
+        id: int,
+        current_user: models.Discipline = Depends(deps.get_current_active_user),
+) -> Any:
+    """
+    Delete an task.
+    """
+    item = await crud.discipline.get(db=db, id=id)
+    if not item:
+        raise HTTPException(status_code=404, detail="Item not found")
+    if item.status != 'completed':
+        raise HTTPException(status_code=404, detail="Uncompleted task cannot be removed")
+    item = await crud.discipline.remove(db=db, id=id)
+    return item

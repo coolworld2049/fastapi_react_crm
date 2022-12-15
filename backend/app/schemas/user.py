@@ -2,14 +2,15 @@ from typing import Optional
 
 from pydantic import BaseModel, EmailStr, Field
 
-from backend.app.db import models, classifiers
+from backend.app import schemas
+from backend.app.db import models
 
 
 class UserBase(BaseModel):
-    email: EmailStr
-    role: str = Field(classifiers.UserRole.anon, description=models.classifiers.UserRole.to_list().__str__())
+    email: Optional[EmailStr]
+    role: Optional[str] = Field(None, description=models.classifiers.UserRole.to_list().__str__())
     full_name: Optional[str]
-    username: str
+    username: Optional[str]
     age: Optional[int]
     avatar: Optional[str]
     is_active: bool = True
@@ -18,6 +19,8 @@ class UserBase(BaseModel):
 
 # Properties to receive via API on creation
 class UserCreate(UserBase):
+    email: EmailStr
+    username: str
     password: str
 
 
@@ -26,7 +29,7 @@ class UserUpdate(UserBase):
     password: str
 
 
-class UserInDBBase(UserBase):
+class UserInDBBase(UserBase, schemas.StudentInDBBase, schemas.TeacherInDBBase):
     id: Optional[int] = None
 
     class Config:

@@ -18,3 +18,4 @@ fastapi-filter==0.4.1
 loguru==0.6.0
 asyncpg_utils
 pytz
+sqlalchemy_mixins

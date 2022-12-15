@@ -1,9 +1,11 @@
 # coding: utf-8
 import sqlalchemy.dialects.postgresql as ps
+import sqlalchemy_utils
 from sqlalchemy import BigInteger, Boolean, CheckConstraint, Column, DateTime, ForeignKey, SmallInteger, String, \
-    Text, text
+    Text, text, select, union
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
+from sqlalchemy_mixins import AllFeaturesMixin
 
 from backend.app.db import classifiers
 
@@ -49,6 +51,7 @@ class DisciplineTyped(Base):
 
 class StudyGroupCipher(Base):
     __tablename__ = 'study_group_cipher'
+
     id = Column(String(30), primary_key=True)
 
 
@@ -166,3 +169,12 @@ class TaskStore(Base):
     create_date = Column(DateTime(True), server_default=text("LOCALTIMESTAMP"))
 
     task = relationship('Task')
+
+
+user_students = select(User, Student.study_group_cipher_id).join(Student, Student.id == User.id)
+user_student_view = sqlalchemy_utils.create_view('user_student_view', user_students, metadata)
+
+user_teacher = select(
+    Teacher, User.full_name, User.email, User.role, User.username, User.age, User.avatar, User.create_date
+).join(Teacher, Teacher.user_id == User.id)
+user_teacher_view = sqlalchemy_utils.create_view('user_teacher_view', user_teacher, metadata)
