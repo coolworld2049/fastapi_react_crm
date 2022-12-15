@@ -8,7 +8,7 @@ from backend.app.db import models
 
 class TaskBase(BaseModel):
     teacher_id: Optional[int]
-    study_group_cipher_id: Optional[int]
+    study_group_cipher_id: Optional[str]
     student_id: Optional[int]
     title: Optional[str]
     description: Optional[str]

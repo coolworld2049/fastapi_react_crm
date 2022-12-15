@@ -10,7 +10,6 @@ from backend.app.db import classifiers
 Base = declarative_base()
 metadata = Base.metadata
 
-
 user_role = ps.ENUM(*classifiers.UserRole.to_list(), name=classifiers.UserRole.as_snake_case())
 type_assessment = ps.ENUM(*classifiers.TypeAssessment.to_list(), name=classifiers.TypeAssessment.as_snake_case())
 discipline_type = ps.ENUM(*classifiers.TypeDiscipline.to_list(), name=classifiers.TypeDiscipline.as_snake_case())
@@ -33,6 +32,7 @@ class Discipline(Base):
     title = Column(Text, nullable=False)
     assessment = Column(type_assessment)
 
+
 class DisciplineTyped(Base):
     __tablename__ = 'discipline_typed'
 
@@ -46,11 +46,10 @@ class DisciplineTyped(Base):
     campus = relationship('Campus')
     discipline = relationship('Discipline')
 
+
 class StudyGroupCipher(Base):
     __tablename__ = 'study_group_cipher'
-
-    id = Column(BigInteger, primary_key=True)
-    cipher = Column(String(30))
+    id = Column(String(30), primary_key=True)
 
 
 class User(Base):

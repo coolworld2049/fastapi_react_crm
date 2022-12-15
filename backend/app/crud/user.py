@@ -1,7 +1,8 @@
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, Optional, Union, Tuple, List
 
 import sqlalchemy
 from asyncpg import Connection
+from sqlalchemy import or_, and_, select
 from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -12,7 +13,7 @@ from backend.app.crud.base import CRUDBase
 from backend.app.db import User, Student, Teacher, UserContact
 from backend.app.db.session import asyncpg_database
 from backend.app.schemas import StudentUpdate, StudentCreate, TeacherCreate, TeacherUpdate, UserContactUpdate, \
-    UserContactCreate
+    UserContactCreate, RequestParams
 from backend.app.schemas.user import UserCreate, UserUpdate
 
 
@@ -42,14 +43,31 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
 
     # noinspection PyMethodMayBeStatic
     async def get_by_id(self, db: AsyncSession, *, id: int, role: str = None) -> Optional[User]:
-        result: Result = await db.execute(sqlalchemy.select(User).where(User.id == id))
+        q = sqlalchemy.select(User)
+        if role:
+            q = q.filter(User.role == role)
+        result: Result = await db.execute(q.where(User.id == id))
         return result.scalar()
-
 
     # noinspection PyMethodMayBeStatic
     async def get_by_email(self, db: AsyncSession, *, email: str) -> Optional[User]:
         result: Result = await db.execute(sqlalchemy.select(User).where(User.email == email))
         return result.scalar()
+
+    async def constr_role_eq_filter(self, role: str = None, roles: list[str] = None): # noqa
+        flt = None
+        if role and not roles:
+            flt = and_(self.model.role == role)
+        elif roles:
+            flt = and_(self.model.role.in_(tuple(roles)))
+        return flt
+
+    async def get_multi(
+            self, db: AsyncSession, request_params: RequestParams, role: str = None, roles: list[str] = None,
+    ) -> Tuple[List[User], int]:
+        flt = await self.constr_role_eq_filter(roles, roles)
+        users, total = await super().get_multi(db, request_params, flt)
+        return users, total
 
     # noinspection PyShadowingNames
     async def authenticate(
@@ -59,7 +77,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             password: str,
             db: AsyncSession,
     ) -> Optional[User]:
-        user = await self.get_by_email(db, email=email)  
+        user = await self.get_by_email(db, email=email)
         if not user:
             return None
         if not verify_password(password, user.hashed_password):
@@ -104,22 +122,34 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             res = await conn.fetch(q_json)
         return {'path_in': path_in, 'path_out': path_out, 'filename': filename}
 
+
 user = CRUDUser(User)
 
 
 class CRUDUserContact(CRUDBase[UserContact, UserContactCreate, UserContactUpdate]):
-   pass
+    pass
+
 
 user_contact = CRUDUserContact(UserContact)
 
 
 class CRUDStudent(CRUDBase[Student, StudentCreate, StudentUpdate]):
-   pass
+    async def get_multi_join(
+            self, db: AsyncSession, request_params: RequestParams, role: str = None, roles: list = None
+    ) -> Tuple[Union[User, Student], int]:
+        query = select(User).join(self.model)
+        flt = await user.constr_role_eq_filter(role, roles)
+        query = await super().constr_query_filter(query, request_params, flt)
+        result: Result = await db.execute(query)
+        r = result.scalars().all()
+        return r, len(r)
+
 
 student = CRUDStudent(Student)
 
 
 class CRUDTeacher(CRUDBase[Teacher, TeacherCreate, TeacherUpdate]):
-   pass
+    pass
+
 
 teacher = CRUDTeacher(Teacher)

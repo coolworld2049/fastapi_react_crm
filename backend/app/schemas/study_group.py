@@ -4,7 +4,7 @@ from pydantic import BaseModel
 
 
 class StudyGroupBase(BaseModel):
-    study_group_cipher_id: int
+    study_group_cipher_id: str
     discipline_id: int
 
 

@@ -18,7 +18,7 @@ async def init_db_test():
     db = AsyncSessionFactory()
     asyncpg_conn: Connection = await asyncpg_database.get_connection()
     try:
-        multiplier = 500 # 500 ~ 1 min
+        multiplier = 50  # 500 ~ 86 sec
         users_target = multiplier // 2
         task_target = multiplier * 3
         campus_list = ['B-78', 'В-86', 'C-20', 'П-1']
@@ -94,7 +94,7 @@ async def init_db_test():
                 discipline_typed_in = schemas.DisciplineTypedCreate(
                     discipline_id=dscp.id,
                     type=dt,
-                    classroom_number=f'{random.choice(string.ascii_letters)} {random.randint(0,400)}',
+                    classroom_number=f'{random.choice(string.ascii_letters)} {random.randint(0, 400)}',
                     campus_id=random.choice(campuses).id,
                 )
                 disciplines_typed.append(await crud.discipline_typed.create(db, obj_in=discipline_typed_in))
@@ -104,7 +104,7 @@ async def init_db_test():
         for sgc in study_group_list:
             logger.info(f"StudyGroupCipherCreate, StudyGroupCreate: {sgc}/{len(study_group_list)}")
             study_group_cipher_in = schemas.StudyGroupCipherCreate(
-                cipher=sgc
+                id=sgc
             )
             study_group_cipher_in_obj: models.StudyGroupCipher = \
                 await crud.study_group_cipher.create(db, obj_in=study_group_cipher_in)
@@ -144,7 +144,7 @@ async def init_db_test():
         for ts in range(task_target):
             logger.info(f"TaskCreate: {ts}/{task_target}")
             dt_now = datetime.datetime.now()
-            dt_fut = dt_now.replace(day=dt_now.day + abs(dt_now.day - random.randint(dt_now.day + 1, 30) ))
+            dt_fut = dt_now.replace(day=dt_now.day + abs(dt_now.day - random.randint(dt_now.day + 1, 30)))
 
             rnd_sg: models.StudyGroup = random.choice(study_group_ciphers)
             rnd_st: models.Student = random.choice(students)
@@ -183,7 +183,8 @@ async def init_db_test():
                         id=task_in_obj.id,
                         start_date=datetime.datetime.now()
                     )
-                    await crud.task_student.update(db, db_obj=student_task, obj_in=student_task_in_upd_first.dict(exclude_unset=True))
+                    await crud.task_student.update(db, db_obj=student_task,
+                                                   obj_in=student_task_in_upd_first.dict(exclude_unset=True))
 
                     logger.info(f"task_in.status: `accepted`")
                     logger.info(f"TaskStoreCreate")
@@ -198,7 +199,7 @@ async def init_db_test():
                     await crud.task_store.create(db, obj_in=task_store_in_started)
 
                     logger.info(f"verifying")
-                    task_in_verifying= schemas.TaskUpdate(
+                    task_in_verifying = schemas.TaskUpdate(
                         id=task_in_obj.id,
                         status=classifiers.TaskStatus.verifying.name,
                     )
@@ -215,12 +216,13 @@ async def init_db_test():
                         logger.info(f"TaskStudentUpdate")
                         student_task_in_upd_last = schemas.TaskStudentUpdate(
                             id=task_in_obj.id,
-                            points=random.randint(0,2),
+                            points=random.randint(0, 2),
                             grade=random.choice(classifiers.StudentTaskGrade.to_list()),
                             feedbak='good job dude/shawty',
                             completion_date=datetime.datetime.now()
                         )
-                        await crud.task_student.update(db, db_obj=student_task, obj_in=student_task_in_upd_last.dict(exclude_unset=True))
+                        await crud.task_student.update(db, db_obj=student_task,
+                                                       obj_in=student_task_in_upd_last.dict(exclude_unset=True))
 
         end = time.perf_counter()
         logger.info(f"gen process_time: {end - start:2}")

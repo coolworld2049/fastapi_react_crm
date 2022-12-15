@@ -18,7 +18,8 @@ class EnumBase(Enum):
 
     @classmethod
     def to_dict(cls) -> dict:
-        return  {c.name: c.value for c in cls}
+        return {c.name: c.value for c in cls}
+
 
 class UserRole(EnumBase):
     admin = 'admin'
@@ -28,11 +29,13 @@ class UserRole(EnumBase):
     student_leader_assistant = 'student_leader_assistant'
     teacher = 'teacher'
 
+
 class TypeAssessment(EnumBase):
     test = 'test'
     test_diff = 'test_diff'
     coursework = 'coursework'
     exam = 'exam'
+
 
 class TypeDiscipline(EnumBase):
     lecture = 'lecture'
@@ -42,8 +45,9 @@ class TypeDiscipline(EnumBase):
     consultation = 'consultation'
     test = 'test'
     test_diff = 'test_diff'
-    coursewor  = 'coursework'
+    coursewor = 'coursework'
     exam = 'exam'
+
 
 class TaskStatus(EnumBase):
     unassigned = 'unassigned'
@@ -54,10 +58,12 @@ class TaskStatus(EnumBase):
     overdue = 'overdue'
     completed = 'completed'
 
+
 class TaskPriority(EnumBase):
     high = 'high'
     medium = 'medium'
     low = 'low'
+
 
 class StudentTaskGrade(EnumBase):
     good = 'good'
@@ -66,6 +72,17 @@ class StudentTaskGrade(EnumBase):
     bad = 'bad'
     passed = 'passed'
     not_passed = 'not_passed'
+
+
+user_role_student_subtypes = [
+    UserRole.student.name,
+    UserRole.student_leader.name,
+    UserRole.student_leader_assistant.name
+]
+
+user_role_teacher_subtypes = [
+    UserRole.teacher.name
+]
 
 pg_custom_type_colnames = [
     UserRole.col_name(),

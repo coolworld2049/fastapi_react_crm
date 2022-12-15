@@ -27,7 +27,7 @@ def create_access_token(
     to_encode = {"expires_delta": str(expire), "sub": str(sub), "scopes": scopes}
     encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
 
-    token = schemas.TokenPayload(access_token=encoded_jwt, token_type="bearer", **to_encode)
+    token = schemas.Token(access_token=encoded_jwt, token_type="bearer", **to_encode)
     return token.dict()
 
 
