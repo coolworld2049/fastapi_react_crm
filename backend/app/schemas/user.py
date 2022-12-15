@@ -3,16 +3,18 @@ from typing import Optional
 from pydantic import BaseModel, EmailStr, Field
 
 from backend.app import schemas
-from backend.app.db import models
+from backend.app.db import classifiers
 
 
 class UserBase(BaseModel):
     email: Optional[EmailStr]
-    role: Optional[str] = Field(None, description=models.classifiers.UserRole.to_list().__str__())
+    role: Optional[str] = Field(None, description=classifiers.UserRole.to_list().__str__())
     full_name: Optional[str]
     username: Optional[str]
     age: Optional[int]
     avatar: Optional[str]
+    phone: Optional[str]
+    contacts: Optional[str | dict]
     is_active: bool = True
     is_superuser: bool = False
 
@@ -29,7 +31,7 @@ class UserUpdate(UserBase):
     password: str
 
 
-class UserInDBBase(UserBase, schemas.StudentInDBBase, schemas.TeacherInDBBase):
+class UserInDBBase(UserBase, schemas.StudentBase, schemas.TeacherBase):
     id: Optional[int] = None
 
     class Config:

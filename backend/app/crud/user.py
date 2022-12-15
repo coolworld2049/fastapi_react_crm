@@ -1,15 +1,14 @@
-from typing import Any, Dict, Optional, Union, Tuple, List, Type
+from typing import Any, Dict, Optional, Union, Tuple, List
 
 import sqlalchemy
-from sqlalchemy import and_, select, Table
+from sqlalchemy import and_, select
 from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import DeclarativeMeta
 
 from backend.app.core.security import get_password_hash, verify_password
-from backend.app.crud.base import CRUDBase, ModelType
-from backend.app.db import User, Student, Teacher, UserContact, user_student_view, user_teacher_view
-from backend.app.schemas import RequestParams, UserContactCreate, UserContactUpdate
+from backend.app.crud.base import CRUDBase
+from backend.app.db import User, Student, Teacher
+from backend.app.schemas import RequestParams
 from backend.app.schemas.student import StudentUpdate, StudentCreate
 from backend.app.schemas.teacher import TeacherUpdate, TeacherCreate
 from backend.app.schemas.user import UserCreate, UserUpdate
@@ -54,7 +53,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
 
     async def constr_user_role_filter(self, roles: list[str], column: Any  = None):
         c_filter = None
-        if len(roles) > 0:
+        if roles:
             if column is None:
                 c_filter = and_(self.model.role.in_(tuple(roles)))
             else:
@@ -95,21 +94,16 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
 user = CRUDUser(User)
 
 
-class CRUDUserContact(CRUDBase[UserContact, UserContactCreate, UserContactUpdate]):
-    pass
-
-
-user_contact = CRUDUserContact(UserContact)
-
-
 class CRUDStudent(CRUDBase[Student, StudentCreate, StudentUpdate]):
     async def get_multi_join(
             self, db: AsyncSession, request_params: RequestParams, roles: list[str] = None
     ):
-        query = user_student_view.select()
-        # query = select(User, Student).join(User, User.id == Student.id)
-
-        flt = await user.constr_user_role_filter(roles, user_student_view.c['role'])
+        query = select(
+            User.id,
+            User.email,User.role,User.full_name,User.username,User.avatar,User.age,User.phone,User.contacts,
+            Student.study_group_cipher_id,
+        ).join(User, User.id == Student.id)
+        flt = await user.constr_user_role_filter(roles)
         query, query_count = await super().constr_query_filter(query, request_params, flt)
         total: Result = await db.execute(query_count)
         result: Result = await db.execute(query)
@@ -124,14 +118,16 @@ class CRUDTeacher(CRUDBase[Teacher, TeacherCreate, TeacherUpdate]):
     async def get_multi_join(
             self, db: AsyncSession, request_params: RequestParams, roles: list[str] = None
     ):
-        # query = select(Teacher).join(User, User.id == Teacher.user_id)
-        query = user_teacher_view.select()
-
-        flt = await user.constr_user_role_filter(roles, user_teacher_view.c['role'])
+        query = select(
+            self.model.user_id,
+            User.id,
+            User.email, User.role, User.full_name, User.username, User.avatar, User.age,
+            self.model.discipline_id
+        ).join(User, User.id == self.model.user_id)
+        flt = await user.constr_user_role_filter(roles)
         query, query_count = await super().constr_query_filter(query, request_params, flt)
         total: Result = await db.execute(query_count)
         result: Result = await db.execute(query)
-
         r = result.fetchall()
         return r, total.scalar()
 

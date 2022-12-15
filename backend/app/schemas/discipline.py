@@ -2,12 +2,12 @@ from typing import Optional
 
 from pydantic import BaseModel, Field
 
-from backend.app.db import models
+from backend.app.db import models, classifiers
 
 
 class DisciplineBase(BaseModel):
     title: str
-    assessment: str = Field(models.classifiers.TypeAssessment.exam.name)
+    assessment: str = Field(classifiers.TypeAssessment.exam.name)
 
 
 # Properties to receive via API on creation

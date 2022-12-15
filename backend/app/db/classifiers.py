@@ -1,6 +1,8 @@
 import re
 from enum import Enum
 
+from sqlalchemy.dialects import postgresql as ps
+
 
 class EnumBase(Enum):
 
@@ -92,3 +94,9 @@ pg_custom_type_colnames = [
     TaskPriority.col_name(),
     StudentTaskGrade.col_name()
 ]
+user_role = ps.ENUM(*UserRole.to_list(), name=UserRole.as_snake_case())
+type_assessment = ps.ENUM(*TypeAssessment.to_list(), name=TypeAssessment.as_snake_case())
+discipline_type = ps.ENUM(*TypeDiscipline.to_list(), name=TypeDiscipline.as_snake_case())
+task_status = ps.ENUM(*TaskStatus.to_list(), name=TaskStatus.as_snake_case())
+task_priority = ps.ENUM(*TaskPriority.to_list(), name=TaskPriority.as_snake_case())
+student_task_grade = ps.ENUM(*StudentTaskGrade.to_list(), name=StudentTaskGrade.as_snake_case())

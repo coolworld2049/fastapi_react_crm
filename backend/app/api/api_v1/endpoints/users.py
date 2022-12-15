@@ -178,7 +178,8 @@ async def delete_user(
 # noinspection PyUnusedLocal
 @router.get(
     "/role/{rolname}",
-    response_model=List[Union[schemas.User, schemas.Teacher, schemas.Student]], response_model_exclude_unset=True
+    response_model=List[Union[schemas.User, schemas.Teacher, schemas.Student]],
+    response_model_exclude_unset=True
 )
 async def read_users_by_role_id(
         response: Response,

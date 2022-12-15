@@ -29,9 +29,9 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
 
     # noinspection PyMethodMayBeStatic
     async def constr_query_filter(
-            self, query: Any, request_params: RequestParams, constr_filters: Any = None
+            self, query: Any, request_params: RequestParams, constr_filters: Any = None, column: Any = None
     ) -> Tuple[str, str]:
-        query_count = select(func.count(self.model.id))
+        query_count = select(func.count(column) if column is not None else self.model.id)
         if request_params.filter_by is not None:
             query = query.filter(request_params.filter_by)
             query_count = query_count.filter(request_params.filter_by)
@@ -47,7 +47,7 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
             self, db: AsyncSession, request_params: RequestParams, filters: Any
     ) -> Tuple[List[ModelType], int]:
         query = select(self.model)
-        query, query_count = await self.constr_query_filter(query, request_params, filters)
+        query, query_count = await self.constr_query_filter(query, request_params, filters, self.model.id)
         total: Result = await db.execute(query_count)
         result: Result = await db.execute(query)
         r = result.scalars().all()

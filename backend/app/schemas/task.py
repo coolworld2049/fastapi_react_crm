@@ -3,7 +3,7 @@ from typing import Optional
 
 from pydantic import BaseModel, Field
 
-from backend.app.db import models
+from backend.app.db import models, classifiers
 
 
 class TaskBase(BaseModel):
@@ -13,12 +13,12 @@ class TaskBase(BaseModel):
     title: Optional[str]
     description: Optional[str]
     status: Optional[str] = Field(
-        models.classifiers.TaskStatus.pending.name,
-        description=models.classifiers.TaskStatus.to_list().__str__()
+        classifiers.TaskStatus.pending.name,
+        description=classifiers.TaskStatus.to_list().__str__()
     )
     priority: Optional[str] = Field(
-        models.classifiers.TaskPriority.high.name,
-        description=models.classifiers.TaskPriority.to_list().__str__()
+        classifiers.TaskPriority.high.name,
+        description=classifiers.TaskPriority.to_list().__str__()
     )
     expiration_date: Optional[datetime]
 

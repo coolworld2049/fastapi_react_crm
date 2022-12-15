@@ -1,23 +1,14 @@
-# coding: utf-8
-import sqlalchemy.dialects.postgresql as ps
-import sqlalchemy_utils
 from sqlalchemy import BigInteger, Boolean, CheckConstraint, Column, DateTime, ForeignKey, SmallInteger, String, \
-    Text, text, select, union
+    Text, text
+from sqlalchemy.dialects.postgresql import JSON
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-from sqlalchemy_mixins import AllFeaturesMixin
 
-from backend.app.db import classifiers
+from backend.app.db.classifiers import user_role, type_assessment, discipline_type, task_status, task_priority, \
+    student_task_grade
 
 Base = declarative_base()
 metadata = Base.metadata
-
-user_role = ps.ENUM(*classifiers.UserRole.to_list(), name=classifiers.UserRole.as_snake_case())
-type_assessment = ps.ENUM(*classifiers.TypeAssessment.to_list(), name=classifiers.TypeAssessment.as_snake_case())
-discipline_type = ps.ENUM(*classifiers.TypeDiscipline.to_list(), name=classifiers.TypeDiscipline.as_snake_case())
-task_status = ps.ENUM(*classifiers.TaskStatus.to_list(), name=classifiers.TaskStatus.as_snake_case())
-task_priority = ps.ENUM(*classifiers.TaskPriority.to_list(), name=classifiers.TaskPriority.as_snake_case())
-student_task_grade = ps.ENUM(*classifiers.StudentTaskGrade.to_list(), name=classifiers.StudentTaskGrade.as_snake_case())
 
 
 class Campus(Base):
@@ -70,22 +61,13 @@ class User(Base):
     username = Column(Text, nullable=False, unique=True)
     age = Column(SmallInteger)
     avatar = Column(Text)
+    phone = Column(Text)
+    contacts = Column(JSON)
     is_active = Column(Boolean, nullable=False, server_default=text("true"))
     is_superuser = Column(Boolean, nullable=False, server_default=text("false"))
     create_date = Column(DateTime(True), server_default=text("LOCALTIMESTAMP"))
 
     study_group_ciphers = relationship('StudyGroupCipher', secondary='student')
-
-
-class UserContact(Base):
-    __tablename__ = 'user_contact'
-
-    id = Column(ForeignKey('user.id'), primary_key=True)
-    phone = Column(String(20), nullable=False)
-    vk = Column(Text)
-    telegram = Column(Text)
-    discord = Column(Text)
-
 
 class Student(Base):
     __tablename__ = 'student'
@@ -169,12 +151,3 @@ class TaskStore(Base):
     create_date = Column(DateTime(True), server_default=text("LOCALTIMESTAMP"))
 
     task = relationship('Task')
-
-
-user_students = select(User, Student.study_group_cipher_id).join(Student, Student.id == User.id)
-user_student_view = sqlalchemy_utils.create_view('user_student_view', user_students, metadata)
-
-user_teacher = select(
-    Teacher, User.full_name, User.email, User.role, User.username, User.age, User.avatar, User.create_date
-).join(Teacher, Teacher.user_id == User.id)
-user_teacher_view = sqlalchemy_utils.create_view('user_teacher_view', user_teacher, metadata)

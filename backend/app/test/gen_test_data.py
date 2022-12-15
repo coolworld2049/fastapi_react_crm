@@ -1,5 +1,6 @@
 import asyncio
 import datetime
+import json
 import random
 import string
 import time
@@ -27,7 +28,22 @@ async def init_db_test():
             'Интерпретируемый язык программирования высокого уровня (часть 2/2) [I.22-23]'
         ]
         study_group_list = ['БСБО-04-20', 'БСБО-05-20', 'БСБО-06-20', 'БСБО-07-20', 'БСБО-08-20']
-
+        username_parts = [
+            'Coirdana'
+            'Aralar',
+            'Munris',
+            'ＥＸＣＬＵＳＩＶ',
+            '[NighT***FighteR]',
+            '㋛☢▶▷Shooter◀◁☢㋛',
+            'Yggrn',
+            'Doomcliff',
+            'Doule',
+            'itzOzzi',
+            '❶↔❶↔Жизньигра❶↔❶↔',
+            '♥˙˙·٠●Благ☉βчувствﻉмере.●•٠·˙˙♥',
+            'Andromaginn',
+            'ЛисочкаКисочка'
+        ]
         # await init_db()
         q_truncate = f'''SELECT truncate_tables('postgres');'''
         await asyncpg_conn.execute(q_truncate)
@@ -44,24 +60,21 @@ async def init_db_test():
         users: list[models.User] = []
         user_roles = [*classifiers.user_role_student_subtypes, *classifiers.user_role_teacher_subtypes]
         for us in range(0, users_target):
-            logger.info(f"UserCreate, UserContactCreate: {us}/{users_target}")
+            logger.info(f"UserCreate: {us}/{users_target}")
             role = random.choice(user_roles)
             user_in_student = schemas.UserCreate(
                 email=f'{role}{us}@gmail.com',
                 password=f'{role}{us}',
-                username=f'{role}{us}',
+                username=f'{role}{us}_{random.choice(username_parts)}',
+                full_name=f'i`m {role}{us}',
                 age=random.randint(18, 25),
+                phone='+7' + ''.join(random.choice(string.digits) for _ in range(10)),
+                contacts=json.dumps({'vk': 'link', 'telegram': 'link', 'discord': 'link'}),
                 role=role,
             )
             user_in_student_obj = await crud.user.create(db, obj_in=user_in_student)
             users.append(user_in_student_obj)
 
-            user_contacts_in = schemas.UserContactCreate(
-                id=user_in_student_obj.id,
-                phone=f"+7" + ''.join(random.choice(string.digits) for _ in range(10)),
-                telegram=f"https://t.me/{random.randint(222555666, 99988877766)}"
-            )
-            await crud.user_contact.create(db, obj_in=user_contacts_in)
 
         user_student_list = list(filter(lambda u: u.role in classifiers.user_role_student_subtypes, users))
         user_teacher_list = list(filter(lambda u: u.role in classifiers.user_role_teacher_subtypes, users))

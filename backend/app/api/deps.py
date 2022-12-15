@@ -160,7 +160,7 @@ def parse_react_admin_params(model: DeclarativeMeta | Any) -> Callable[[str | No
             filter_: Optional[str] = Query(
                 None,
                 alias="filter",
-                description='Format: `{"k": "v"}`',
+                description='Format: `{"id": 0}`',
             ),
 
     ):
