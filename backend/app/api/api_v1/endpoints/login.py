@@ -10,7 +10,6 @@ from backend.app import schemas, crud
 from backend.app.api import deps
 from backend.app.core import security
 from backend.app.core.config import settings
-from backend.app.db import models
 
 router = APIRouter()
 
@@ -36,13 +35,3 @@ async def login_access_token(
     exp = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     token = security.create_access_token(sub=user.id, expires_delta=exp, scopes=form_data.scopes)
     return token
-
-
-# noinspection PyUnusedLocal
-@router.get("/logout")
-async def logout(
-        db: AsyncSession = Depends(deps.get_db),
-        current_user: models.User = Depends(deps.get_current_active_user)
-) -> Any:
-    await db.dispatch()
-    return {'logout': True}

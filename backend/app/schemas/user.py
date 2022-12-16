@@ -31,7 +31,7 @@ class UserUpdate(UserBase):
     password: str
 
 
-class UserInDBBase(UserBase, schemas.StudentBase, schemas.TeacherBase):
+class UserInDBBase(UserBase):
     id: Optional[int] = None
 
     class Config:

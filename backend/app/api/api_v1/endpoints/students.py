@@ -1,4 +1,4 @@
-from typing import Any, List, Union
+from typing import Any, List
 
 from fastapi import APIRouter, Depends, HTTPException, Response
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -13,7 +13,7 @@ router = APIRouter()
 
 
 # noinspection PyUnusedLocal
-@router.get("/", response_model=List[Union[schemas.User, schemas.Student]])
+@router.get("/", response_model=List[schemas.Student])
 async def read_students(
         response: Response,
         db: AsyncSession = Depends(deps.get_db),
@@ -23,7 +23,7 @@ async def read_students(
     """
     Retrieve Tasks.
     """
-    items, total = await crud.student.get_multi_join(db, request_params=request_params)
+    items, total = await crud.student.get_multi(db, request_params=request_params)
     response.headers["Content-Range"] = f"{request_params.skip}-{request_params.skip + len(items)}/{total}"
     return items
 

@@ -44,14 +44,14 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         return query, query_count
 
     async def get_multi(
-            self, db: AsyncSession, request_params: RequestParams, filters: Any
+            self, db: AsyncSession, request_params: RequestParams, filters: Any = None
     ) -> Tuple[List[ModelType], int]:
         query = select(self.model)
         query, query_count = await self.constr_query_filter(query, request_params, filters, self.model.id)
         total: Result = await db.execute(query_count)
         result: Result = await db.execute(query)
         r = result.scalars().all()
-        return r, total.scalar()
+        return r, total.fetchone().count
 
     async def create(self, db: AsyncSession, *, obj_in: CreateSchemaType) -> ModelType:
         # obj_in_data = jsonable_encoder(obj_in)

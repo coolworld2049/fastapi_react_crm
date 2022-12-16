@@ -95,41 +95,13 @@ user = CRUDUser(User)
 
 
 class CRUDStudent(CRUDBase[Student, StudentCreate, StudentUpdate]):
-    async def get_multi_join(
-            self, db: AsyncSession, request_params: RequestParams, roles: list[str] = None
-    ):
-        query = select(
-            User.id,
-            User.email,User.role,User.full_name,User.username,User.avatar,User.age,User.phone,User.contacts,
-            Student.study_group_cipher_id,
-        ).join(User, User.id == Student.id)
-        flt = await user.constr_user_role_filter(roles)
-        query, query_count = await super().constr_query_filter(query, request_params, flt)
-        total: Result = await db.execute(query_count)
-        result: Result = await db.execute(query)
-        r = result.fetchall()
-        return r, total.scalar()
-
+    pass
 
 student = CRUDStudent(Student)
 
 
 class CRUDTeacher(CRUDBase[Teacher, TeacherCreate, TeacherUpdate]):
-    async def get_multi_join(
-            self, db: AsyncSession, request_params: RequestParams, roles: list[str] = None
-    ):
-        query = select(
-            self.model.user_id,
-            User.id,
-            User.email, User.role, User.full_name, User.username, User.avatar, User.age,
-            self.model.discipline_id
-        ).join(User, User.id == self.model.user_id)
-        flt = await user.constr_user_role_filter(roles)
-        query, query_count = await super().constr_query_filter(query, request_params, flt)
-        total: Result = await db.execute(query_count)
-        result: Result = await db.execute(query)
-        r = result.fetchall()
-        return r, total.scalar()
+    pass
 
 
 teacher = CRUDTeacher(Teacher)

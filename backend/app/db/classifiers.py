@@ -20,7 +20,7 @@ class EnumBase(Enum):
 
     @classmethod
     def to_dict(cls) -> dict:
-        return {c.name: c.value for c in cls}
+        return {cls.as_snake_case(): {c.name: c.value for c in cls}}
 
 
 class UserRole(EnumBase):
@@ -94,6 +94,7 @@ pg_custom_type_colnames = [
     TaskPriority.col_name(),
     StudentTaskGrade.col_name()
 ]
+
 user_role = ps.ENUM(*UserRole.to_list(), name=UserRole.as_snake_case())
 type_assessment = ps.ENUM(*TypeAssessment.to_list(), name=TypeAssessment.as_snake_case())
 discipline_type = ps.ENUM(*TypeDiscipline.to_list(), name=TypeDiscipline.as_snake_case())

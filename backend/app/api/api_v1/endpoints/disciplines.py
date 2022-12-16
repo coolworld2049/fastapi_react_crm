@@ -1,8 +1,7 @@
-from typing import Any, List, Union
+from typing import Any, List
 
 from fastapi import APIRouter, Depends, HTTPException, Response
 from sqlalchemy.ext.asyncio import AsyncSession
-
 
 from backend.app import crud, schemas
 from backend.app.api import deps
@@ -13,17 +12,17 @@ router = APIRouter()
 
 
 # noinspection PyUnusedLocal
-@router.get("/", response_model=List[Union[schemas.Discipline, schemas.DisciplineTyped]])
+@router.get("/", response_model=List[schemas.DisciplineTyped])
 async def read_disciplines(
         response: Response,
         db: AsyncSession = Depends(deps.get_db),
         current_user: models.Discipline = Depends(deps.get_current_active_user),
-        request_params: RequestParams = Depends(deps.parse_react_admin_params(models.Discipline))
+        request_params: RequestParams = Depends(deps.parse_react_admin_params(models.DisciplineTyped))
 ) -> Any:
     """
     Retrieve Tasks.
     """
-    items, total = await crud.discipline.get_multi_join(db, request_params=request_params)
+    items, total = await crud.discipline_typed.get_multi(db, request_params=request_params)
     response.headers["Content-Range"] = f"{request_params.skip}-{request_params.skip + len(items)}/{total}"
     return items
 
@@ -33,13 +32,13 @@ async def read_disciplines(
 async def create_discipline(
         *,
         db: AsyncSession = Depends(deps.get_db),
-        item_in: schemas.DisciplineCreate,
+        item_in: schemas.DisciplineTypedCreate,
         current_user: models.Discipline = Depends(deps.get_current_active_user),
 ) -> Any:
     """
-    Create new task.
+    Create new Discipline.
     """
-    item = await crud.discipline.create(db=db, obj_in=item_in)
+    item = await crud.discipline_typed.create(db=db, obj_in=item_in)
     return item
 
 
@@ -53,7 +52,7 @@ async def update_discipline_id(
         current_user: models.Discipline = Depends(deps.get_current_active_user),
 ) -> Any:
     """
-    Update an task.
+    Update an Discipline.
     """
     item = await crud.discipline.get(db=db, id=id)
     if not item:
@@ -71,7 +70,7 @@ async def read_discipline_id(
         current_user: models.Discipline = Depends(deps.get_current_active_user),
 ) -> Any:
     """
-    Get task by ID.
+    Get Discipline by ID.
     """
     item = await crud.discipline.get(db=db, id=id)
     if not item:
@@ -88,7 +87,7 @@ async def delete_discipline_id(
         current_user: models.Discipline = Depends(deps.get_current_active_user),
 ) -> Any:
     """
-    Delete an task.
+    Delete an Discipline.
     """
     item = await crud.discipline.get(db=db, id=id)
     if not item:

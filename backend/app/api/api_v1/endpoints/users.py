@@ -176,11 +176,7 @@ async def delete_user(
 
 
 # noinspection PyUnusedLocal
-@router.get(
-    "/role/{rolname}",
-    response_model=List[Union[schemas.User, schemas.Teacher, schemas.Student]],
-    response_model_exclude_unset=True
-)
+@router.get("/role/{rolname}", response_model=List[schemas.User])
 async def read_users_by_role_id(
         response: Response,
         db: AsyncSession = Depends(deps.get_db),
@@ -191,20 +187,16 @@ async def read_users_by_role_id(
     """
     Retrieve users.
     """
-    user = None
-    total = None
-    if rolname in classifiers.user_role_student_subtypes and rolname != 'students':
-        user, total = await crud.student.get_multi_join(db, request_params, roles=[rolname])
-    elif rolname in classifiers.user_role_teacher_subtypes and rolname != 'students':
-        user, total = await crud.teacher.get_multi_join(db, request_params, roles=[rolname])
-    elif rolname == 'students':
-        user, total = await crud.student.get_multi_join(db, request_params,
-                                                roles=classifiers.user_role_student_subtypes)
+    roles = None
+    if rolname == 'students':
+        roles = classifiers.user_role_student_subtypes
     elif rolname == 'teachers':
-        user, total = await crud.teacher.get_multi_join(db, request_params,
-                                                        roles=classifiers.user_role_teacher_subtypes)
+        roles = classifiers.user_role_teacher_subtypes
     elif rolname in classifiers.UserRole.to_list():
-        user, total = await crud.user.get_multi(db, request_params, [rolname])
+        roles = [rolname]
+    if not roles:
+        raise HTTPException(403, 'role not set')
+    user, total = await crud.user.get_multi(db, request_params, roles)
     response.headers["Content-Range"] = f"{request_params.skip}-{request_params.skip + len(user)}/{total}"
     return user
 
