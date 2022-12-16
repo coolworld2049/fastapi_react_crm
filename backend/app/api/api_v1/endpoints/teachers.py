@@ -17,7 +17,7 @@ router = APIRouter()
 async def read_teachers(
         response: Response,
         db: AsyncSession = Depends(deps.get_db),
-        current_user: models.Teacher = Depends(deps.get_current_active_user),
+        current_user: models.User = Depends(deps.get_current_active_user),
         request_params: RequestParams = Depends(deps.parse_react_admin_params(models.Teacher))
 ) -> Any:
     """
@@ -34,7 +34,7 @@ async def create_teacher(
         *,
         db: AsyncSession = Depends(deps.get_db),
         item_in: schemas.TeacherCreate,
-        current_user: models.Teacher = Depends(deps.get_current_active_user),
+        current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
     Create new task.
@@ -50,7 +50,7 @@ async def update_teacher_id(
         db: AsyncSession = Depends(deps.get_db),
         id: int,
         item_in: schemas.TeacherUpdate,
-        current_user: models.Teacher = Depends(deps.get_current_active_user),
+        current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
     Update an task.
@@ -68,7 +68,7 @@ async def read_teacher_id(
         *,
         db: AsyncSession = Depends(deps.get_db),
         id: int,
-        current_user: models.Teacher = Depends(deps.get_current_active_user),
+        current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
     Get task by ID.
@@ -85,7 +85,7 @@ async def delete_teacher_id(
         *,
         db: AsyncSession = Depends(deps.get_db),
         id: int,
-        current_user: models.Teacher = Depends(deps.get_current_active_user),
+        current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
     Delete an task.
@@ -93,7 +93,5 @@ async def delete_teacher_id(
     item = await crud.teacher.get(db=db, id=id)
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
-    if item.status != 'completed':
-        raise HTTPException(status_code=404, detail="Uncompleted task cannot be removed")
     item = await crud.teacher.remove(db=db, id=id)
     return item

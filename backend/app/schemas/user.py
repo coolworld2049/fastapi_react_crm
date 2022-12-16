@@ -14,7 +14,6 @@ class UserBase(BaseModel):
     age: Optional[int]
     avatar: Optional[str]
     phone: Optional[str]
-    contacts: Optional[str | dict]
     is_active: bool = True
     is_superuser: bool = False
 
@@ -28,7 +27,7 @@ class UserCreate(UserBase):
 
 # Properties to receive via API on update
 class UserUpdate(UserBase):
-    password: str
+    pass
 
 
 class UserInDBBase(UserBase):

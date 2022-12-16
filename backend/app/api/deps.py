@@ -186,12 +186,11 @@ def parse_react_admin_params(model: DeclarativeMeta | Any) -> Callable[[str | No
                 fb = []
                 filter_dict: dict = dict(filter(lambda it: str(it[0]).isdigit() is False, ft.items()))
                 for k, v in filter_dict.items():
-                    if isinstance(v, str):
+                    if v is None:
+                        fb.append(model.__table__.c[k] == None)  # noqa
+                    elif isinstance(v, str):
                         if k in classifiers.pg_custom_type_colnames:
-                            if v == "null":
-                                fb.append(model.__table__.c[k] == None)  # noqa
-                            else:
-                                fb.append(model.__table__.c[k] == v)
+                            fb.append(model.__table__.c[k] == v)
                         else:
                             if str(k).split('_')[-1] == 'date':
                                 fb.append(model.__table__.c[k] >= datetime.fromisoformat(v))
@@ -199,9 +198,14 @@ def parse_react_admin_params(model: DeclarativeMeta | Any) -> Callable[[str | No
                                 fb.append(model.__table__.c[k].ilike(f'{v}%'))
                     elif isinstance(v, int):
                         fb.append(model.__table__.c[k] == v)
+                    elif isinstance(v, list) and isinstance(v[0], list):
+                        fb.append(model.__table__.c[k].in_(tuple(v[0])))
                     elif isinstance(v, list):
                         fb.append(model.__table__.c[k].in_(tuple(v)))
-                filter_by = and_(*fb)
+                    else:
+                        raise HTTPException(400, f"Invalid filters {filter_dict}")
+                if len(fb) > 0:
+                    filter_by = and_(*fb)
 
         return RequestParams(skip=skip, limit=limit, order_by=order_by, filter_by=filter_by)
 

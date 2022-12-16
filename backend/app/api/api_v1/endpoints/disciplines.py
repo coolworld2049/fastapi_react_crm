@@ -12,17 +12,17 @@ router = APIRouter()
 
 
 # noinspection PyUnusedLocal
-@router.get("/", response_model=List[schemas.DisciplineTyped])
+@router.get("/", response_model=List[schemas.Discipline])
 async def read_disciplines(
         response: Response,
         db: AsyncSession = Depends(deps.get_db),
-        current_user: models.Discipline = Depends(deps.get_current_active_user),
-        request_params: RequestParams = Depends(deps.parse_react_admin_params(models.DisciplineTyped))
+        current_user: models.User = Depends(deps.get_current_active_user),
+        request_params: RequestParams = Depends(deps.parse_react_admin_params(models.Discipline))
 ) -> Any:
     """
     Retrieve Tasks.
     """
-    items, total = await crud.discipline_typed.get_multi(db, request_params=request_params)
+    items, total = await crud.discipline.get_multi(db, request_params=request_params)
     response.headers["Content-Range"] = f"{request_params.skip}-{request_params.skip + len(items)}/{total}"
     return items
 
@@ -32,8 +32,8 @@ async def read_disciplines(
 async def create_discipline(
         *,
         db: AsyncSession = Depends(deps.get_db),
-        item_in: schemas.DisciplineTypedCreate,
-        current_user: models.Discipline = Depends(deps.get_current_active_user),
+        item_in: schemas.DisciplineCreate,
+        current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
     Create new Discipline.
@@ -49,7 +49,7 @@ async def update_discipline_id(
         db: AsyncSession = Depends(deps.get_db),
         id: int,
         item_in: schemas.DisciplineUpdate,
-        current_user: models.Discipline = Depends(deps.get_current_active_user),
+        current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
     Update an Discipline.
@@ -67,7 +67,7 @@ async def read_discipline_id(
         *,
         db: AsyncSession = Depends(deps.get_db),
         id: int,
-        current_user: models.Discipline = Depends(deps.get_current_active_user),
+        current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
     Get Discipline by ID.
@@ -84,7 +84,7 @@ async def delete_discipline_id(
         *,
         db: AsyncSession = Depends(deps.get_db),
         id: int,
-        current_user: models.Discipline = Depends(deps.get_current_active_user),
+        current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
     Delete an Discipline.
@@ -92,7 +92,5 @@ async def delete_discipline_id(
     item = await crud.discipline.get(db=db, id=id)
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
-    if item.status != 'completed':
-        raise HTTPException(status_code=404, detail="Uncompleted task cannot be removed")
     item = await crud.discipline.remove(db=db, id=id)
     return item

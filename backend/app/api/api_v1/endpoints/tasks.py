@@ -93,7 +93,5 @@ async def delete_task(
     item = await crud.task.get(db=db, id=id)
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
-    if item.status != 'completed':
-        raise HTTPException(status_code=404, detail="Uncompleted task cannot be removed")
     item = await crud.task.remove(db=db, id=id)
     return item

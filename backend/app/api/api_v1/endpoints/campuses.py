@@ -17,7 +17,7 @@ router = APIRouter()
 async def read_campuss(
         response: Response,
         db: AsyncSession = Depends(deps.get_db),
-        current_user: models.Campus = Depends(deps.get_current_active_user),
+        current_user: models.User = Depends(deps.get_current_active_user),
         request_params: RequestParams = Depends(deps.parse_react_admin_params(models.Campus))
 ) -> Any:
     """
@@ -34,7 +34,7 @@ async def create_campus(
         *,
         db: AsyncSession = Depends(deps.get_db),
         item_in: schemas.CampusCreate,
-        current_user: models.Campus = Depends(deps.get_current_active_user),
+        current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
     Create new Campus.
@@ -50,7 +50,7 @@ async def update_campus_id(
         db: AsyncSession = Depends(deps.get_db),
         id: int,
         item_in: schemas.CampusUpdate,
-        current_user: models.Campus = Depends(deps.get_current_active_user),
+        current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
     Update an Campus.
@@ -67,8 +67,8 @@ async def update_campus_id(
 async def read_campus_id(
         *,
         db: AsyncSession = Depends(deps.get_db),
-        id: int,
-        current_user: models.Campus = Depends(deps.get_current_active_user),
+        id: str,
+        current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
     Get Campus by ID.
@@ -85,7 +85,7 @@ async def delete_campus_id(
         *,
         db: AsyncSession = Depends(deps.get_db),
         id: int,
-        current_user: models.Campus = Depends(deps.get_current_active_user),
+        current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
     Delete an Campus.
@@ -93,7 +93,5 @@ async def delete_campus_id(
     item = await crud.campus.get(db=db, id=id)
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
-    if item.status != 'completed':
-        raise HTTPException(status_code=404, detail="Uncompleted Campus cannot be removed")
     item = await crud.campus.remove(db=db, id=id)
     return item

@@ -17,7 +17,7 @@ router = APIRouter()
 async def read_study_group(
         response: Response,
         db: AsyncSession = Depends(deps.get_db),
-        current_user: models.StudyGroup = Depends(deps.get_current_active_user),
+        current_user: models.User = Depends(deps.get_current_active_user),
         request_params: RequestParams = Depends(deps.parse_react_admin_params(models.StudyGroup))
 ) -> Any:
     """
@@ -34,7 +34,7 @@ async def create_study_group(
         *,
         db: AsyncSession = Depends(deps.get_db),
         item_in: schemas.StudyGroupCreate,
-        current_user: models.StudyGroup = Depends(deps.get_current_active_user),
+        current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
     Create new StudyGroup.
@@ -50,7 +50,7 @@ async def update_study_group_id(
         db: AsyncSession = Depends(deps.get_db),
         id: int,
         item_in: schemas.StudyGroupUpdate,
-        current_user: models.StudyGroup = Depends(deps.get_current_active_user),
+        current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
     Update an StudyGroup.
@@ -68,7 +68,7 @@ async def read_study_group_id(
         *,
         db: AsyncSession = Depends(deps.get_db),
         id: int,
-        current_user: models.StudyGroup = Depends(deps.get_current_active_user),
+        current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
     Get StudyGroup by ID.
@@ -85,7 +85,7 @@ async def delete_study_group_id(
         *,
         db: AsyncSession = Depends(deps.get_db),
         id: int,
-        current_user: models.StudyGroup = Depends(deps.get_current_active_user),
+        current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
     Delete an StudyGroup.
@@ -93,7 +93,5 @@ async def delete_study_group_id(
     item = await crud.study_group.get(db=db, id=id)
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
-    if item.status != 'completed':
-        raise HTTPException(status_code=404, detail="Uncompleted StudyGroup cannot be removed")
     item = await crud.study_group.remove(db=db, id=id)
     return item

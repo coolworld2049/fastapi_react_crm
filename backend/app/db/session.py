@@ -12,7 +12,6 @@ from backend.app.core.config import settings
 
 engine: AsyncEngine = engine.create_async_engine(
     settings.ASYNC_POSTGRES_URL,
-    poolclass=QueuePool,
     future=True,
     echo=False,
     json_serializer=jsonable_encoder,

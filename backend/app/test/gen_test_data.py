@@ -25,7 +25,13 @@ async def init_db_test():
         campus_list = ['B-78', 'В-86', 'C-20', 'П-1']
         disciplines_list = [
             'Программные средства манипулирования данными (часть 1/1) [I.22-23]',
-            'Интерпретируемый язык программирования высокого уровня (часть 2/2) [I.22-23]'
+            'Интерпретируемый язык программирования высокого уровня (часть 2/2) [I.22-23]',
+            'Алгоритмы параллельных вычислений (часть 1/1) [I.22-23]',
+            'Методы искусственного интеллекта (часть 1/1) [I.22-23]',
+            'Моделирование систем (часть 1/1) [I.22-23]',
+            'Программные средства решения прикладных задач искусственного интеллекта (ЦК)',
+            'Средства моделирования разработки программного обеспечения (часть 1/1) [I.22-23]',
+            'Философия (часть 1/1) [I.22-23]'
         ]
         study_group_list = ['БСБО-04-20', 'БСБО-05-20', 'БСБО-06-20', 'БСБО-07-20', 'БСБО-08-20']
         username_parts = [
@@ -69,12 +75,10 @@ async def init_db_test():
                 full_name=f'i`m {role}{us}',
                 age=random.randint(18, 25),
                 phone='+7' + ''.join(random.choice(string.digits) for _ in range(10)),
-                contacts=json.dumps({'vk': 'link', 'telegram': 'link', 'discord': 'link'}),
                 role=role,
             )
             user_in_student_obj = await crud.user.create(db, obj_in=user_in_student)
             users.append(user_in_student_obj)
-
 
         user_student_list = list(filter(lambda u: u.role in classifiers.user_role_student_subtypes, users))
         user_teacher_list = list(filter(lambda u: u.role in classifiers.user_role_teacher_subtypes, users))
@@ -95,15 +99,15 @@ async def init_db_test():
             logger.info(f"DisciplineCreate, DisciplineTypedCreate: {d}/{len(disciplines_list)}")
             discipline_in = schemas.DisciplineCreate(
                 title=d,
-                assessment_type=classifiers.TypeAssessment.exam.name
+                assessment=random.choice([classifiers.TypeAssessment.test.name, classifiers.TypeAssessment.exam.name])
             )
             dscp: models.Discipline = await crud.discipline.create(db, obj_in=discipline_in)
             disciplines.append(dscp)
-            for dt in classifiers.TypeDiscipline.to_list():
+            for dt in random.choices(classifiers.DisciplineType.to_list(), k=4):
                 discipline_typed_in = schemas.DisciplineTypedCreate(
                     discipline_id=dscp.id,
                     type=dt,
-                    classroom_number=f'{random.choice(string.ascii_letters)} {random.randint(0, 400)}',
+                    classroom_number=f'{random.choice(string.ascii_uppercase)}-{random.randint(0, 400)}',
                     campus_id=random.choice(campuses).id,
                 )
                 disciplines_typed.append(await crud.discipline_typed.create(db, obj_in=discipline_typed_in))
@@ -140,11 +144,10 @@ async def init_db_test():
         teachers: list[models.Teacher] = []
         for ut in user_teacher_list:
             logger.info(f"TeacherCreate: {ut.id}/{len(user_teacher_list)}")
-            for _ in range(2):
-                t_dscp: models.Discipline = random.choice(disciplines)
+            for dd in random.choices(disciplines, k=3):
                 teacher_in = schemas.TeacherCreate(
                     user_id=ut.id,
-                    discipline_id=t_dscp.id
+                    discipline_id=dd.id
                 )
                 teachers.append(await crud.teacher.create(db, obj_in=teacher_in))
 

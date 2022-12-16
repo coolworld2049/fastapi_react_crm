@@ -47,4 +47,5 @@ class TaskInDB(TaskInDBBase):
 
 # Additional properties to return via API
 class Task(TaskInDBBase):
-    pass
+    create_date: Optional[datetime]
+

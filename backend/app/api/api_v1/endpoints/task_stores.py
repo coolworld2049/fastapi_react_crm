@@ -93,7 +93,5 @@ async def delete_task_store(
     item = await crud.task_store.get(db=db, id=id)
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
-    if item.status != 'completed':
-        raise HTTPException(status_code=404, detail="Uncompleted task_store cannot be removed")
     item = await crud.task_store.remove(db=db, id=id)
     return item

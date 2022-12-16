@@ -3,6 +3,8 @@ from enum import Enum
 
 from sqlalchemy.dialects import postgresql as ps
 
+instances: dict = {}
+
 
 class EnumBase(Enum):
 
@@ -39,7 +41,7 @@ class TypeAssessment(EnumBase):
     exam = 'exam'
 
 
-class TypeDiscipline(EnumBase):
+class DisciplineType(EnumBase):
     lecture = 'lecture'
     practice = 'practice'
     laboratory = 'laboratory'
@@ -89,7 +91,7 @@ user_role_teacher_subtypes = [
 pg_custom_type_colnames = [
     UserRole.col_name(),
     TypeAssessment.col_name(),
-    TypeDiscipline.col_name(),
+    DisciplineType.col_name(),
     TaskStatus.col_name(),
     TaskPriority.col_name(),
     StudentTaskGrade.col_name()
@@ -97,7 +99,14 @@ pg_custom_type_colnames = [
 
 user_role = ps.ENUM(*UserRole.to_list(), name=UserRole.as_snake_case())
 type_assessment = ps.ENUM(*TypeAssessment.to_list(), name=TypeAssessment.as_snake_case())
-discipline_type = ps.ENUM(*TypeDiscipline.to_list(), name=TypeDiscipline.as_snake_case())
+discipline_type = ps.ENUM(*DisciplineType.to_list(), name=DisciplineType.as_snake_case())
 task_status = ps.ENUM(*TaskStatus.to_list(), name=TaskStatus.as_snake_case())
 task_priority = ps.ENUM(*TaskPriority.to_list(), name=TaskPriority.as_snake_case())
 student_task_grade = ps.ENUM(*StudentTaskGrade.to_list(), name=StudentTaskGrade.as_snake_case())
+
+instances.update(UserRole.to_dict())
+instances.update(TypeAssessment.to_dict())
+instances.update(DisciplineType.to_dict())
+instances.update(TaskStatus.to_dict())
+instances.update(TaskPriority.to_dict())
+instances.update(StudentTaskGrade.to_dict())

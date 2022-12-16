@@ -62,12 +62,12 @@ class User(Base):
     age = Column(SmallInteger)
     avatar = Column(Text)
     phone = Column(Text)
-    contacts = Column(JSON)
     is_active = Column(Boolean, nullable=False, server_default=text("true"))
     is_superuser = Column(Boolean, nullable=False, server_default=text("false"))
     create_date = Column(DateTime(True), server_default=text("LOCALTIMESTAMP"))
 
     study_group_ciphers = relationship('StudyGroupCipher', secondary='student')
+
 
 class Student(Base):
     __tablename__ = 'student'
