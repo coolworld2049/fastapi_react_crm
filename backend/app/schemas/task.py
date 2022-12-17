@@ -3,7 +3,7 @@ from typing import Optional
 
 from pydantic import BaseModel, Field
 
-from backend.app.db import models, classifiers
+from backend.app.db import classifiers
 
 
 class TaskBase(BaseModel):

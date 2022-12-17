@@ -4,7 +4,7 @@ from pydantic import BaseModel
 
 
 class DisciplineTypedBase(BaseModel):
-    discipline_id: int
+    discipline_id: Optional[int]
     classroom_number: Optional[str]
     campus_id: Optional[str]
     type: Optional[str]

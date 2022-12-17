@@ -2,7 +2,6 @@ from typing import Optional
 
 from pydantic import BaseModel, EmailStr, Field
 
-from backend.app import schemas
 from backend.app.db import classifiers
 
 

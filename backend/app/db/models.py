@@ -1,24 +1,25 @@
 from sqlalchemy import BigInteger, Boolean, CheckConstraint, Column, DateTime, ForeignKey, SmallInteger, String, \
-    Text, text
-from sqlalchemy.dialects.postgresql import JSON
+    Text, text, select
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
+from sqlalchemy_utils import create_view
 
 from backend.app.db.classifiers import user_role, type_assessment, discipline_type, task_status, task_priority, \
     student_task_grade
+from sqlalchemy_mixins import AllFeaturesMixin
 
 Base = declarative_base()
 metadata = Base.metadata
 
 
-class Campus(Base):
+class Campus(Base, AllFeaturesMixin):
     __tablename__ = 'campus'
 
     id = Column(Text, primary_key=True)
     address = Column(Text)
 
 
-class Discipline(Base):
+class Discipline(Base, AllFeaturesMixin):
     __tablename__ = 'discipline'
 
     id = Column(BigInteger, primary_key=True)
@@ -26,7 +27,7 @@ class Discipline(Base):
     assessment = Column(type_assessment)
 
 
-class DisciplineTyped(Base):
+class DisciplineTyped(Base, AllFeaturesMixin):
     __tablename__ = 'discipline_typed'
 
     id = Column(BigInteger, primary_key=True)
@@ -40,13 +41,13 @@ class DisciplineTyped(Base):
     discipline = relationship('Discipline')
 
 
-class StudyGroupCipher(Base):
+class StudyGroupCipher(Base, AllFeaturesMixin):
     __tablename__ = 'study_group_cipher'
 
     id = Column(String(30), primary_key=True)
 
 
-class User(Base):
+class User(Base, AllFeaturesMixin):
     __tablename__ = 'user'
     __table_args__ = (
         CheckConstraint('full_name <> (role)::text'),
@@ -69,14 +70,14 @@ class User(Base):
     study_group_ciphers = relationship('StudyGroupCipher', secondary='student')
 
 
-class Student(Base):
+class Student(Base, AllFeaturesMixin):
     __tablename__ = 'student'
 
     id = Column(ForeignKey('user.id'), primary_key=True)
     study_group_cipher_id = Column(ForeignKey('study_group_cipher.id'), nullable=False)
 
 
-class StudyGroup(Base):
+class StudyGroup(Base, AllFeaturesMixin):
     __tablename__ = 'study_group'
 
     id = Column(BigInteger, primary_key=True)
@@ -87,18 +88,18 @@ class StudyGroup(Base):
     study_group_cipher = relationship('StudyGroupCipher')
 
 
-class Teacher(Base):
+class Teacher(Base, AllFeaturesMixin):
     __tablename__ = 'teacher'
 
     id = Column(BigInteger, primary_key=True)
-    discipline_id = Column(ForeignKey('discipline.id'), nullable=False)
+    discipline_typed_id = Column(ForeignKey('discipline_typed.id'), nullable=False)
     user_id = Column(ForeignKey('user.id'), nullable=False)
 
-    discipline = relationship('Discipline')
+    discipline_typed = relationship('DisciplineTyped')
     user = relationship('User')
 
 
-class Task(Base):
+class Task(Base, AllFeaturesMixin):
     __tablename__ = 'task'
     __table_args__ = (
         CheckConstraint('expiration_date >= create_date'),
@@ -120,7 +121,7 @@ class Task(Base):
     teacher = relationship('Teacher')
 
 
-class TaskStudent(Base):
+class TaskStudent(Base, AllFeaturesMixin):
     __tablename__ = 'student_task'
     __table_args__ = (
         CheckConstraint('completion_date < deadline_date'),
@@ -136,7 +137,7 @@ class TaskStudent(Base):
     completion_date = Column(DateTime(True))
 
 
-class TaskStore(Base):
+class TaskStore(Base, AllFeaturesMixin):
     __tablename__ = 'task_store'
     __table_args__ = (
         CheckConstraint('size <= 838860800'),
@@ -151,3 +152,34 @@ class TaskStore(Base):
     create_date = Column(DateTime(True), server_default=text("LOCALTIMESTAMP"))
 
     task = relationship('Task')
+
+
+# StudyGroup, Discipline
+study_group_disciplines_statement = select(
+    StudyGroup.id, StudyGroup.study_group_cipher_id, StudyGroup.discipline_id,
+    Discipline.title, Discipline.assessment
+).select_from(StudyGroupCipher) \
+    .join(StudyGroup, StudyGroupCipher.id == StudyGroup.study_group_cipher_id) \
+    .join(Discipline, Discipline.id == StudyGroup.discipline_id)
+
+study_group_discipline_view = create_view('study_group_discipline_view', study_group_disciplines_statement, metadata)
+
+
+class StudyGroupDiscipline(Base, AllFeaturesMixin):
+    __table__ = study_group_discipline_view
+
+
+# Teacher, DisciplineTyped, StudyGroup
+teacher_study_group_discipline_statement = select(
+    Teacher.id, Teacher.user_id,
+    StudyGroup.study_group_cipher_id, Teacher.discipline_typed_id.label('discipline_typed_id')
+).select_from(DisciplineTyped) \
+    .join(Teacher, DisciplineTyped.id == Teacher.discipline_typed_id) \
+    .join(StudyGroup, DisciplineTyped.discipline_id == StudyGroup.discipline_id)
+
+teacher_study_group_discipline_view = create_view('teacher_study_group_discipline_view',
+                                                  teacher_study_group_discipline_statement, metadata)
+
+
+class TeacherStudyGroupDiscipline(Base, AllFeaturesMixin):
+    __table__ = teacher_study_group_discipline_view

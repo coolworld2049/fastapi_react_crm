@@ -1,4 +1,4 @@
-from typing import Any, Dict, List
+from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.params import Query
@@ -19,13 +19,13 @@ async def read_classifiers(
 ) -> Any:
 
     if name == 'students':
-        result = [{k: [{'id': k2, 'name': k2} for k2 in v if str(k2).split('_')[0] == 'student']}
+        result = [{k: [{'id': k2, 'name': v2} for k2, v2 in v.items() if str(k2).split('_')[0] == 'student']}
                   for k, v in classifiers.instances.items() if k == 'user_role']
     elif name == 'teachers':
-        result = [{k: [{'id': k2, 'name': k2} for k2 in v if str(k2).split('_')[0] == 'teacher']}
+        result = [{k: [{'id': k2, 'name': v2} for k2, v2 in v.items() if str(k2).split('_')[0] == 'teacher']}
                   for k, v in classifiers.instances.items() if k == 'user_role']
     elif name == 'all':
-        result = [{k: [{'id': k2, 'name': k2} for k2 in v]} for k, v in classifiers.instances.items()]
+        result = [{k: [{'id': k2, 'name': v2} for k2, v2 in v.items()]} for k, v in classifiers.instances.items()]
     else:
         result = [{'id': k, 'name': v} for k, v in classifiers.instances.get(name).items()]
     if not result:

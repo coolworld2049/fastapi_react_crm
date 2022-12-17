@@ -201,6 +201,8 @@ def parse_react_admin_params(model: DeclarativeMeta | Any) -> Callable[[str | No
                     elif isinstance(v, list) and isinstance(v[0], list):
                         fb.append(model.__table__.c[k].in_(tuple(v[0])))
                     elif isinstance(v, list):
+                        if all(str(x).isdigit() for x in v):
+                            v = [int(x) for x in v]
                         fb.append(model.__table__.c[k].in_(tuple(v)))
                     else:
                         raise HTTPException(400, f"Invalid filters {filter_dict}")

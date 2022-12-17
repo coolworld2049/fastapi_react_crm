@@ -1,7 +1,7 @@
 from typing import Any, Dict, Optional, Union, Tuple, List
 
 import sqlalchemy
-from sqlalchemy import and_, select
+from sqlalchemy import and_
 from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 

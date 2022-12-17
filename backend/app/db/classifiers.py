@@ -36,7 +36,7 @@ class UserRole(EnumBase):
 
 class TypeAssessment(EnumBase):
     test = 'test'
-    test_diff = 'test_diff'
+    test_diff = 'assessment test'
     coursework = 'coursework'
     exam = 'exam'
 

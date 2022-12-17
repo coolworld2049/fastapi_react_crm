@@ -6,7 +6,6 @@ from fastapi.encoders import jsonable_encoder
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession, AsyncEngine, engine
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.pool import QueuePool
 
 from backend.app.core.config import settings
 

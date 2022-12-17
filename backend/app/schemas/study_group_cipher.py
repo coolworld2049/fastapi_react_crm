@@ -4,7 +4,7 @@ from pydantic import BaseModel
 
 
 class StudyGroupCipherBase(BaseModel):
-    id: str
+    id: Optional[str]
 
 
 # Properties to receive via API on creation
