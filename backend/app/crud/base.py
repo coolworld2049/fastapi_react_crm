@@ -1,8 +1,7 @@
 from typing import Any, Dict, Generic, List, Optional, Type, TypeVar, Union, Tuple
 
-from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
-from sqlalchemy import select, or_, func
+from sqlalchemy import select, func
 from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -28,27 +27,31 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         result: Result = await db.execute(select(self.model).where(self.model.id == id))
         return result.scalar()
 
-    async def get_multi(
-            self, db: AsyncSession, request_params: RequestParams, role: str = None, roles: tuple[str] = None,
-    ) -> Tuple[List[ModelType], int]:
-        query = select(self.model)
-        query_count = select(func.count(self.model.id))
+    # noinspection PyMethodMayBeStatic
+    async def constr_query_filter(
+            self, query: Any, request_params: RequestParams, constr_filters: Any = None, column: Any = None
+    ) -> Tuple[str, str]:
+        query_count = select(func.count(column) if column is not None else self.model.id)
         if request_params.filter_by is not None:
             query = query.filter(request_params.filter_by)
             query_count = query_count.filter(request_params.filter_by)
-        if role and not roles:
-            query = query.filter(self.model.role == role)
-            query_count = query_count.filter(self.model.role == role)
-        elif roles:
-            f = [self.model.role == r for r in roles]
-            query = query.filter(or_(*f))
-            query_count = query_count.filter(or_(*f))
-        total: Result = await db.execute(query_count)
+        if constr_filters is not None:
+            query = query.filter(constr_filters)
+            query_count = query_count.filter(constr_filters)
         query = query.offset(request_params.skip) \
             .limit(request_params.limit) \
             .order_by(request_params.order_by)
+        return query, query_count
+
+    async def get_multi(
+            self, db: AsyncSession, request_params: RequestParams, filters: Any = None
+    ) -> Tuple[List[ModelType], int]:
+        query = select(self.model)
+        query, query_count = await self.constr_query_filter(query, request_params, filters, self.model.id)
+        total: Result = await db.execute(query_count)
         result: Result = await db.execute(query)
-        return result.scalars().all(), total.scalar()
+        r = result.scalars().all()
+        return r, total.fetchone().count
 
     async def create(self, db: AsyncSession, *, obj_in: CreateSchemaType) -> ModelType:
         # obj_in_data = jsonable_encoder(obj_in)
@@ -83,3 +86,4 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         await db.delete(obj)
         await db.commit()
         return obj
+

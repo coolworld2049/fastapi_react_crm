@@ -1,15 +1,13 @@
 from typing import Optional
 
-from pydantic import BaseModel, Field
-
-from backend.app.db import models
+from pydantic import BaseModel
 
 
 class DisciplineTypedBase(BaseModel):
-    discipline_id: int
-    type: str
-    classroom_number: str
-    campus_id: str
+    discipline_id: Optional[int]
+    classroom_number: Optional[str]
+    campus_id: Optional[str]
+    type: Optional[str]
 
 
 # Properties to receive via API on creation

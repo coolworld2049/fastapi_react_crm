@@ -5,8 +5,8 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.params import Query
 from fastapi.responses import FileResponse
 from pydantic.networks import EmailStr
-from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
+
 from backend.app import crud, schemas
 from backend.app.api import deps
 from backend.app.db import models, classifiers
@@ -29,73 +29,6 @@ async def read_users(
     users, total = await crud.user.get_multi(db, request_params)
     response.headers["Content-Range"] = f"{request_params.skip}-{request_params.skip + len(users)}/{total}"
     return users
-
-
-# noinspection PyUnusedLocal
-@router.get("/role/{rolname}", response_model=List[schemas.User])
-async def read_users_by_role(
-        response: Response,
-        db: AsyncSession = Depends(deps.get_db),
-        current_user: models.User = Depends(deps.get_current_active_user),
-        request_params: schemas.RequestParams = Depends(deps.parse_react_admin_params(models.User)),
-        rolname: str = Query(None),
-) -> Any:
-    """
-    Retrieve users.
-    """
-    users = []
-    total = None
-    query_total = select(func.count(models.User.id))
-    if rolname in classifiers.UserRole.to_list():
-        users, total = await crud.user.get_multi(db, request_params, role=rolname)
-    elif rolname == 'students':
-        clsf = classifiers.UserRole
-        roles = tuple([clsf.student.name, clsf.student_leader.name, clsf.student_leader_assistant.name])
-        users, total = await crud.user.get_multi(db, request_params, roles=roles)
-    response.headers["Content-Range"] = f"{request_params.skip}-{request_params.skip + len(users)}/{total}"
-    return users
-
-
-# -----------------------------------------------------------------------------------------------------------------------
-
-# noinspection PyUnusedLocal
-@router.get("/role/{rolname}/{id}", response_model=schemas.User)
-async def read_users_by_role_id(
-        response: Response,
-        db: AsyncSession = Depends(deps.get_db),
-        current_user: models.User = Depends(deps.get_current_active_user),
-        request_params: schemas.RequestParams = Depends(deps.parse_react_admin_params(models.User)),
-        rolname: str = Query(None),
-        id: int = Query(None)
-) -> Any:
-    """
-    Retrieve users.
-    """
-    user = None
-    if rolname in classifiers.UserRole.to_list():
-        user = await crud.user.get_by_id_role(db, id=id, role=rolname)
-    return user
-
-
-# noinspection PyUnusedLocal
-@router.put("/role/{rolname}/{id}", response_model=schemas.User)
-async def update_user_by_role(
-        *,
-        db: AsyncSession = Depends(deps.get_db),
-        user_in: schemas.UserUpdate,
-        current_user: models.User = Depends(deps.get_current_active_superuser),
-) -> Any:
-    """
-    Update a user by role.
-    """
-    user = await crud.user.get_by_email(db, email=user_in.email)
-    if not user:
-        raise HTTPException(
-            status_code=404,
-            detail="The user with this username does not exist in the system",
-        )
-    user = await crud.user.update(db, db_obj=user, obj_in=user_in)
-    return user
 
 
 # noinspection PyUnusedLocal
@@ -237,3 +170,55 @@ async def delete_user(
 
     item = await crud.user.remove(db=db, id=id)
     return item
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+
+
+# noinspection PyUnusedLocal
+@router.get("/role/{rolname}", response_model=List[schemas.User])
+async def read_users_by_role_id(
+        response: Response,
+        db: AsyncSession = Depends(deps.get_db),
+        current_user: models.User = Depends(deps.get_current_active_user),
+        request_params: schemas.RequestParams = Depends(deps.parse_react_admin_params(models.User)),
+        rolname: str = Query(None),
+) -> Any:
+    """
+    Retrieve users.
+    """
+    roles = None
+    if rolname == 'students':
+        roles = classifiers.user_role_student_subtypes
+    elif rolname == 'teachers':
+        roles = classifiers.user_role_teacher_subtypes
+    elif rolname in classifiers.UserRole.to_list():
+        roles = [rolname]
+    if not roles:
+        raise HTTPException(403, 'role not set')
+    user, total = await crud.user.get_multi(db, request_params, roles)
+    response.headers["Content-Range"] = f"{request_params.skip}-{request_params.skip + len(user)}/{total}"
+    return user
+
+
+# noinspection PyUnusedLocal
+@router.put("/role/{rolname}/{id}", response_model=schemas.User)
+async def update_user_by_role(
+        *,
+        db: AsyncSession = Depends(deps.get_db),
+        user_in: schemas.UserUpdate,
+        current_user: models.User = Depends(deps.get_current_active_superuser),
+        rolname: str = Query(None),
+        id: int = Query(None)
+) -> Any:
+    """
+    Update a user by role.
+    """
+    user = await crud.user.get_by_id(db, id=id)
+    if not user:
+        raise HTTPException(
+            status_code=404,
+            detail="The user with this username does not exist in the system",
+        )
+    user = await crud.user.update(db, db_obj=user, obj_in=user_in)
+    return user

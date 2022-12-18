@@ -3,14 +3,17 @@ from typing import Optional
 
 from pydantic import BaseModel, Field
 
-from backend.app.db import models
+from backend.app.db import classifiers
 
 
 class TaskStudentBase(BaseModel):
     points: Optional[int]
     comment: Optional[str]
     feedback: Optional[str]
-    grade: Optional[str] = Field(None, description=models.student_task_grade.enums.__str__())
+    grade: Optional[str] = Field(
+        None,
+        description=classifiers.StudentTaskGrade.great.name.__str__()
+    )
     deadline_date: Optional[datetime]
     start_date: Optional[datetime]
     completion_date: Optional[datetime]

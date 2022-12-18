@@ -1,2 +1,2 @@
-from .models import *
 from .classifiers import *
+from .models import *

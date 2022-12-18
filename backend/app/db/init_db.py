@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncConnection
 
 from backend.app import crud, schemas
 from backend.app.core.config import settings, ROOT_PATH
-from backend.app.db import models, metadata
+from backend.app.db import metadata, classifiers
 from backend.app.db.session import engine, AsyncSessionFactory, asyncpg_database
 
 
@@ -29,8 +29,8 @@ async def init_db():
         pass
 
     try:
-        with open(f"{ROOT_PATH}/db/sql/roles.sql", encoding='utf-8') as file:
-            await asyncpg_conn.execute(file.read())
+        with open(f"{ROOT_PATH}/db/sql/roles.sql", encoding='utf-8') as file_2:
+            await asyncpg_conn.execute(file_2.read())
     except DuplicateObjectError:
         pass
 
@@ -51,7 +51,7 @@ async def init_db():
                 full_name='i`m' + settings.FIRST_SUPERUSER_USERNAME,
                 username=settings.FIRST_SUPERUSER_USERNAME,
                 phone='+79998880001',
-                role=models.user_role.enums[0]
+                role=classifiers.UserRole.admin.name
             )
             await crud.user.create(db, obj_in=user_in_admin)
 
