@@ -1,16 +1,16 @@
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, Optional, Union, Tuple, List
 
 import sqlalchemy
-from asyncpg import Connection
+from sqlalchemy import and_
 from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from backend.app import schemas
-from backend.app.core.config import ROOT_PATH
 from backend.app.core.security import get_password_hash, verify_password
 from backend.app.crud.base import CRUDBase
-from backend.app.db import User
-from backend.app.db.session import asyncpg_database
+from backend.app.db import User, Student, Teacher
+from backend.app.schemas import RequestParams
+from backend.app.schemas.student import StudentUpdate, StudentCreate
+from backend.app.schemas.teacher import TeacherUpdate, TeacherCreate
 from backend.app.schemas.user import UserCreate, UserUpdate
 
 
@@ -39,20 +39,33 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         return result
 
     # noinspection PyMethodMayBeStatic
-    async def get_by_id(self, db: AsyncSession, *, id: int) -> Optional[User]:
-        result: Result = await db.execute(sqlalchemy.select(User).where(User.id == id))
-        return result.scalar()
-
-    # noinspection PyMethodMayBeStatic
-    async def get_by_id_role(self, db: AsyncSession, *, id: int, role: str) -> Optional[User]:
-        query = sqlalchemy.select(User).filter(User.role == role).filter(User.id == id)
-        result: Result = await db.execute(query)
+    async def get_by_id(self, db: AsyncSession, *, id: int, role: str = None) -> Optional[User]:
+        q = sqlalchemy.select(User)
+        if role:
+            q = q.filter(User.role == role)
+        result: Result = await db.execute(q.where(User.id == id))
         return result.scalar()
 
     # noinspection PyMethodMayBeStatic
     async def get_by_email(self, db: AsyncSession, *, email: str) -> Optional[User]:
         result: Result = await db.execute(sqlalchemy.select(User).where(User.email == email))
         return result.scalar()
+
+    async def constr_user_role_filter(self, roles: list[str], column: Any  = None):
+        c_filter = None
+        if roles:
+            if column is None:
+                c_filter = and_(self.model.role.in_(tuple(roles)))
+            else:
+                c_filter = and_(column.in_(tuple(roles)))
+        return c_filter
+
+    async def get_multi(
+            self, db: AsyncSession, request_params: RequestParams, roles: list[str] = None,
+    ) -> Tuple[List[User], int]:
+        flt = await self.constr_user_role_filter(roles)
+        users, total = await super().get_multi(db, request_params, flt)
+        return users, total
 
     # noinspection PyShadowingNames
     async def authenticate(
@@ -62,7 +75,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             password: str,
             db: AsyncSession,
     ) -> Optional[User]:
-        user = await self.get_by_email(db, email=email)  
+        user = await self.get_by_email(db, email=email)
         if not user:
             return None
         if not verify_password(password, user.hashed_password):
@@ -77,35 +90,18 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
     def is_superuser(self, user: User) -> bool:
         return user.is_superuser
 
-    # noinspection PyMethodMayBeStatic,PyUnusedLocal
-    async def generate_report_user(
-            self,
-            report_in: schemas.ReportUserCreate
-    ) -> Dict[str, str]:
-        filename = f'user_{report_in.id}_report-delta_{report_in.start_timestamp.date()}_{report_in.end_timestamp.date()}.{report_in.ext}'
-        path_in = f'/tmp/{filename}'
-        path_out = f'{ROOT_PATH}/volumes/postgres/tmp/{filename}'
-
-        q_csv = f'''
-         COPY (select * from generate_report_by_period_and_employee(
-            '{report_in.start_timestamp}',
-            '{report_in.end_timestamp},
-            {report_in.id}
-            )) to '{path_in}' delimiter ',' csv header;
-        '''
-        q_json = f'''
-        COPY (select array_to_json(array_agg(row_to_json(results))) from generate_report_by_period_and_employee(
-            '{report_in.start_timestamp}',
-            '{report_in.end_timestamp}',
-            {report_in.id}
-            ) as results) to '{path_in}' with (format text, header false );
-        '''
-        conn: Connection = await asyncpg_database.get_connection()
-        if report_in.ext == 'csv':
-            res = await conn.fetch(q_csv)
-        elif report_in.ext == 'json':
-            res = await conn.fetch(q_json)
-        return {'path_in': path_in, 'path_out': path_out, 'filename': filename}
-
 
 user = CRUDUser(User)
+
+
+class CRUDStudent(CRUDBase[Student, StudentCreate, StudentUpdate]):
+    pass
+
+student = CRUDStudent(Student)
+
+
+class CRUDTeacher(CRUDBase[Teacher, TeacherCreate, TeacherUpdate]):
+    pass
+
+
+teacher = CRUDTeacher(Teacher)

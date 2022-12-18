@@ -15,10 +15,9 @@ class TokenBase(BaseModel):
 
 class TokenPayload(TokenBase):
     sub: Optional[str]
-    scopes: List[str]
+    scopes: Optional[List[str]]
 
 
 class Token(TokenPayload):
-    pass
-
-
+    class Config:
+        fields = {'sub': {'exclude': True}, 'scopes': {'exclude': True}, 'expires_delta': {'exclude': True}}

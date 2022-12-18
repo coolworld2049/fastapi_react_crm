@@ -1,3 +1,4 @@
+import logging
 import pathlib
 from pathlib import Path
 
@@ -13,15 +14,16 @@ from backend.app.api.api_v1.api import api_router
 from backend.app.core.config import settings, ROOT_PATH
 from backend.app.utils.custom_logger import CustomizeLogger
 
+logger = logging.getLogger()
 
 def create_app() -> FastAPI:
-    config_path = pathlib.Path(f"{ROOT_PATH}/utils/logging_config.json")
+    logger_config_path = pathlib.Path(f"{ROOT_PATH}/utils/logging_config.json")
 
     _app = FastAPI(title="fast-api-react-crm",
                    openapi_url=f"{settings.API_V1_STR}/openapi.json",
                    debug=True, )
 
-    _logger = CustomizeLogger.make_logger(config_path)
+    _logger = CustomizeLogger.make_logger(logger_config_path)
     _app.logger = _logger
 
     return _app

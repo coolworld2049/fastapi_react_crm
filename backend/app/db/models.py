@@ -1,43 +1,53 @@
-# coding: utf-8
-import sqlalchemy.dialects.postgresql as ps
-from sqlalchemy import BigInteger, Boolean, CheckConstraint, Column, DateTime, Enum, ForeignKey, SmallInteger, String, \
-    Text, text
+from sqlalchemy import BigInteger, Boolean, CheckConstraint, Column, DateTime, ForeignKey, SmallInteger, String, \
+    Text, text, select
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
+from sqlalchemy_utils import create_view
+
+from backend.app.db.classifiers import user_role, type_assessment, discipline_type, task_status, task_priority, \
+    student_task_grade
+from sqlalchemy_mixins import AllFeaturesMixin
 
 Base = declarative_base()
 metadata = Base.metadata
 
-user_role = ps.ENUM('admin', 'anon', 'student', 'student_leader', 'student_leader_assistant', 'teacher', name='user_role')
-assessment_type = ps.ENUM('pass', 'pass_diff', 'coursework', 'exam', name='assessment_type')
-discipline_type = ps.ENUM('lecture', 'practice', 'laboratory', 'coursework', 'pass', 'pass_diff', 'consultation', 'exam', 'project', name='discipline_type')
-task_status = ps.ENUM('unassigned', 'pending', 'started', 'verifying', 'accepted', 'overdue', 'completed', name='task_status')
-task_priority = ps.ENUM('high', 'medium', 'low', name='task_priority')
-student_task_grade = Enum('good', 'great', 'normal', 'bad', 'passed', 'not_passed', name='student_task_grade')
 
-class Campus(Base):
+class Campus(Base, AllFeaturesMixin):
     __tablename__ = 'campus'
 
     id = Column(Text, primary_key=True)
     address = Column(Text)
 
 
-class Discipline(Base):
+class Discipline(Base, AllFeaturesMixin):
     __tablename__ = 'discipline'
 
     id = Column(BigInteger, primary_key=True)
     title = Column(Text, nullable=False)
-    assessment_type = Column(assessment_type)
+    assessment = Column(type_assessment)
 
 
-class StudyGroupBase(Base):
-    __tablename__ = 'study_group_base'
+class DisciplineTyped(Base, AllFeaturesMixin):
+    __tablename__ = 'discipline_typed'
 
     id = Column(BigInteger, primary_key=True)
-    cipher = Column(String(30))
+    discipline_id = Column(ForeignKey('discipline.id'), nullable=False)
+    type = Column(discipline_type, nullable=False)
+    classroom_number = Column(Text, nullable=False)
+    campus_id = Column(ForeignKey('campus.id'), nullable=False)
+    create_date = Column(DateTime(True), server_default=text("LOCALTIMESTAMP"))
+
+    campus = relationship('Campus')
+    discipline = relationship('Discipline')
 
 
-class User(Base):
+class StudyGroupCipher(Base, AllFeaturesMixin):
+    __tablename__ = 'study_group_cipher'
+
+    id = Column(String(30), primary_key=True)
+
+
+class User(Base, AllFeaturesMixin):
     __tablename__ = 'user'
     __table_args__ = (
         CheckConstraint('full_name <> (role)::text'),
@@ -52,67 +62,44 @@ class User(Base):
     username = Column(Text, nullable=False, unique=True)
     age = Column(SmallInteger)
     avatar = Column(Text)
+    phone = Column(Text)
     is_active = Column(Boolean, nullable=False, server_default=text("true"))
     is_superuser = Column(Boolean, nullable=False, server_default=text("false"))
     create_date = Column(DateTime(True), server_default=text("LOCALTIMESTAMP"))
 
-    study_group_bases = relationship('StudyGroupBase', secondary='student')
+    study_group_ciphers = relationship('StudyGroupCipher', secondary='student')
 
 
-class UserContact(User):
-    __tablename__ = 'user_contact'
-
-    id = Column(ForeignKey('user.id'), primary_key=True)
-    phone = Column(String(20), nullable=False)
-    vk = Column(Text)
-    telegram = Column(Text)
-    discord = Column(Text)
-
-
-class DisciplineTyped(Base):
-    __tablename__ = 'discipline_typed'
-
-    id = Column(BigInteger, primary_key=True)
-    discipline_id = Column(ForeignKey('discipline.id'), nullable=False)
-    type = Column(discipline_type, nullable=False)
-    classroom_number = Column(Text, nullable=False)
-    campus_id = Column(ForeignKey('campus.id'), nullable=False)
-    create_date = Column(DateTime(True), server_default=text("LOCALTIMESTAMP"))
-
-    campus = relationship('Campus')
-    discipline = relationship('Discipline')
-
-
-class Student(Base):
+class Student(Base, AllFeaturesMixin):
     __tablename__ = 'student'
 
     id = Column(ForeignKey('user.id'), primary_key=True)
-    study_group_base_id = Column(ForeignKey('study_group_base.id'), nullable=False)
+    study_group_cipher_id = Column(ForeignKey('study_group_cipher.id'), nullable=False)
 
 
-class StudyGroup(Base):
+class StudyGroup(Base, AllFeaturesMixin):
     __tablename__ = 'study_group'
 
     id = Column(BigInteger, primary_key=True)
-    study_group_base_id = Column(ForeignKey('study_group_base.id'), nullable=False)
+    study_group_cipher_id = Column(ForeignKey('study_group_cipher.id'), nullable=False)
     discipline_id = Column(ForeignKey('discipline.id'), nullable=False)
 
     discipline = relationship('Discipline')
-    study_group_base = relationship('StudyGroupBase')
+    study_group_cipher = relationship('StudyGroupCipher')
 
 
-class Teacher(Base):
+class Teacher(Base, AllFeaturesMixin):
     __tablename__ = 'teacher'
 
     id = Column(BigInteger, primary_key=True)
-    discipline_id = Column(ForeignKey('discipline.id'), nullable=False)
+    discipline_typed_id = Column(ForeignKey('discipline_typed.id'), nullable=False)
     user_id = Column(ForeignKey('user.id'), nullable=False)
 
-    discipline = relationship('Discipline')
+    discipline_typed = relationship('DisciplineTyped')
     user = relationship('User')
 
 
-class Task(Base):
+class Task(Base, AllFeaturesMixin):
     __tablename__ = 'task'
     __table_args__ = (
         CheckConstraint('expiration_date >= create_date'),
@@ -120,7 +107,7 @@ class Task(Base):
 
     id = Column(BigInteger, primary_key=True)
     teacher_id = Column(ForeignKey('teacher.id'), nullable=False)
-    study_group_base_id = Column(ForeignKey('study_group_base.id'))
+    study_group_cipher_id = Column(ForeignKey('study_group_cipher.id'))
     student_id = Column(ForeignKey('student.id'))
     title = Column(Text, nullable=False)
     description = Column(Text)
@@ -130,11 +117,11 @@ class Task(Base):
     create_date = Column(DateTime(True), server_default=text("LOCALTIMESTAMP"))
 
     student = relationship('Student')
-    study_group_base = relationship('StudyGroupBase')
+    study_group_cipher = relationship('StudyGroupCipher')
     teacher = relationship('Teacher')
 
 
-class StudentTask(Task):
+class TaskStudent(Base, AllFeaturesMixin):
     __tablename__ = 'student_task'
     __table_args__ = (
         CheckConstraint('completion_date < deadline_date'),
@@ -150,7 +137,7 @@ class StudentTask(Task):
     completion_date = Column(DateTime(True))
 
 
-class TaskStore(Base):
+class TaskStore(Base, AllFeaturesMixin):
     __tablename__ = 'task_store'
     __table_args__ = (
         CheckConstraint('size <= 838860800'),
@@ -165,3 +152,34 @@ class TaskStore(Base):
     create_date = Column(DateTime(True), server_default=text("LOCALTIMESTAMP"))
 
     task = relationship('Task')
+
+
+# StudyGroup, Discipline
+study_group_disciplines_statement = select(
+    StudyGroup.id, StudyGroup.study_group_cipher_id, StudyGroup.discipline_id,
+    Discipline.title, Discipline.assessment
+).select_from(StudyGroupCipher) \
+    .join(StudyGroup, StudyGroupCipher.id == StudyGroup.study_group_cipher_id) \
+    .join(Discipline, Discipline.id == StudyGroup.discipline_id)
+
+study_group_discipline_view = create_view('study_group_discipline_view', study_group_disciplines_statement, metadata)
+
+
+class StudyGroupDiscipline(Base, AllFeaturesMixin):
+    __table__ = study_group_discipline_view
+
+
+# Teacher, DisciplineTyped, StudyGroup
+teacher_study_group_discipline_statement = select(
+    Teacher.id, Teacher.user_id,
+    StudyGroup.study_group_cipher_id, Teacher.discipline_typed_id.label('discipline_typed_id')
+).select_from(DisciplineTyped) \
+    .join(Teacher, DisciplineTyped.id == Teacher.discipline_typed_id) \
+    .join(StudyGroup, DisciplineTyped.discipline_id == StudyGroup.discipline_id)
+
+teacher_study_group_discipline_view = create_view('teacher_study_group_discipline_view',
+                                                  teacher_study_group_discipline_statement, metadata)
+
+
+class TeacherStudyGroupDiscipline(Base, AllFeaturesMixin):
+    __table__ = teacher_study_group_discipline_view

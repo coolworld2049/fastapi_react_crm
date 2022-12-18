@@ -1,19 +1,21 @@
-from sqlalchemy.ext.asyncio import AsyncSession
-
 from backend.app.crud.base import CRUDBase
-from backend.app.db.models import Task
-from backend.app.schemas import TaskCreate, TaskUpdate
+from backend.app.db.models import Task, TaskStudent, TaskStore
+from backend.app.schemas import TaskCreate, TaskUpdate, TaskStudentCreate, TaskStudentUpdate, TaskStoreUpdate, \
+    TaskStoreCreate
 
 
 class CRUDTask(CRUDBase[Task, TaskCreate, TaskUpdate]):
-    async def create(
-            self, db: AsyncSession, *, obj_in: TaskCreate
-    ) -> Task:
-        create_data: dict = obj_in.dict()
-        db_obj = self.model(**create_data)  
-        db.add(db_obj)
-        await db.commit()
-        return db_obj
-
+    pass
 
 task = CRUDTask(Task)
+
+class CRUDTaskStudent(CRUDBase[TaskStudent, TaskStudentCreate, TaskStudentUpdate]):
+    pass
+
+task_student = CRUDTaskStudent(TaskStudent)
+
+
+class CRUDTaskStore(CRUDBase[TaskStore, TaskStoreCreate, TaskStoreUpdate]):
+    pass
+
+task_store = CRUDTaskStore(TaskStore)

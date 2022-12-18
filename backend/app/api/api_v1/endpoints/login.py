@@ -10,14 +10,13 @@ from backend.app import schemas, crud
 from backend.app.api import deps
 from backend.app.core import security
 from backend.app.core.config import settings
-from backend.app.db import models
 
 router = APIRouter()
 
 
-@router.post("/login/access-token", response_model=schemas.TokenPayload)
+@router.post("/login/access-token", response_model=schemas.Token)
 async def login_access_token(
-        db: AsyncSession = Depends(deps.get_async_session),
+        db: AsyncSession = Depends(deps.get_db),
         form_data: OAuth2PasswordRequestForm = Depends()
 ) -> Any:
     """
@@ -33,16 +32,6 @@ async def login_access_token(
         raise HTTPException(status_code=status.HTTP_402_PAYMENT_REQUIRED, detail="Incorrect email or password or role")
     elif not crud.user.is_active(user):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Inactive user")
-    access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
-    data = security.create_access_token(sub=user.id, expires_delta=access_token_expires, scopes=form_data.scopes)
-    return data
-
-
-# noinspection PyUnusedLocal
-@router.get("/logout")
-async def logout(
-        db: AsyncSession = Depends(deps.get_async_session),
-        current_user: models.User = Depends(deps.get_current_active_user)
-) -> Any:
-    await db.close()
-    return {'logout': True}
+    exp = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+    token = security.create_access_token(sub=user.id, expires_delta=exp, scopes=form_data.scopes)
+    return token

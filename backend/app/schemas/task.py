@@ -3,19 +3,24 @@ from typing import Optional
 
 from pydantic import BaseModel, Field
 
-from backend.app.db import models
+from backend.app.db import classifiers
 
 
 class TaskBase(BaseModel):
-    teacher_id: int
-    study_group_base_id: Optional[int]
+    teacher_id: Optional[int]
+    study_group_cipher_id: Optional[str]
     student_id: Optional[int]
-    title: str
+    title: Optional[str]
     description: Optional[str]
-    status: Optional[str] = Field(models.task_status.enums[0], description=models.task_status.enums.__str__())
-    priority: Optional[str] = Field(models.task_priority.enums[0], description=models.task_priority.enums.__str__())
+    status: Optional[str] = Field(
+        classifiers.TaskStatus.pending.name,
+        description=classifiers.TaskStatus.to_list().__str__()
+    )
+    priority: Optional[str] = Field(
+        classifiers.TaskPriority.high.name,
+        description=classifiers.TaskPriority.to_list().__str__()
+    )
     expiration_date: Optional[datetime]
-    create_date: Optional[datetime]
 
 
 # Properties to receive via API on creation
@@ -26,7 +31,6 @@ class TaskCreate(TaskBase):
 # Properties to receive via API on update
 class TaskUpdate(TaskBase):
     description: Optional[str]
-    expiration_date: Optional[datetime]
 
 
 class TaskInDBBase(TaskBase):
@@ -43,4 +47,5 @@ class TaskInDB(TaskInDBBase):
 
 # Additional properties to return via API
 class Task(TaskInDBBase):
-    pass
+    create_date: Optional[datetime]
+
