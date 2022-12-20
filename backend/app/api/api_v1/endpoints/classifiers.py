@@ -6,6 +6,7 @@ from starlette.responses import Response
 
 from backend.app.api import deps
 from backend.app.db import models, classifiers
+from backend.app.schemas import RequestParams
 
 router = APIRouter()
 
@@ -28,7 +29,7 @@ async def read_classifiers(
         result = [{k: [{'id': k2, 'name': v2} for k2, v2 in v.items()]} for k, v in classifiers.instances.items()]
     else:
         result = [{'id': k, 'name': v} for k, v in classifiers.instances.get(name).items()]
-    if not result:
+    if not len(result) > 0:
         raise HTTPException(404, 'classifiers not exist')
     response.headers["Content-Range"] = f"{0}-{0 + len(result)}/{len(result)}"
     return result

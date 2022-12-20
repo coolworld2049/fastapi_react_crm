@@ -76,7 +76,7 @@ create table if not exists discipline (
     assessment type_assessment
 );
 
-create table if not exists discipline_typed (
+create table if not exists typed_discipline (
     id bigserial primary key,
     discipline_id bigint references discipline(id) not null,
     "type" discipline_type not null,

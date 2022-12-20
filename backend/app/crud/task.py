@@ -7,15 +7,19 @@ from backend.app.schemas import TaskCreate, TaskUpdate, TaskStudentCreate, TaskS
 class CRUDTask(CRUDBase[Task, TaskCreate, TaskUpdate]):
     pass
 
+
 task = CRUDTask(Task)
+
 
 class CRUDTaskStudent(CRUDBase[TaskStudent, TaskStudentCreate, TaskStudentUpdate]):
     pass
+
 
 task_student = CRUDTaskStudent(TaskStudent)
 
 
 class CRUDTaskStore(CRUDBase[TaskStore, TaskStoreCreate, TaskStoreUpdate]):
     pass
+
 
 task_store = CRUDTaskStore(TaskStore)

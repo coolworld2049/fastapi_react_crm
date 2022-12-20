@@ -29,7 +29,7 @@ async def login_access_token(
     except HTTPException as e:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=e.detail)
     if not user:
-        raise HTTPException(status_code=status.HTTP_402_PAYMENT_REQUIRED, detail="Incorrect email or password or role")
+        raise HTTPException(status_code=status.HTTP_402_PAYMENT_REQUIRED, detail="Incorrect email or password")
     elif not crud.user.is_active(user):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Inactive user")
     exp = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)

@@ -34,6 +34,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             update_data = obj_in.dict(exclude_unset=True)
         if update_data.get('password'):
             update_data.pop('password')
+            # noinspection PyUnresolvedReferences
             update_data.update({'hashed_password': get_password_hash(obj_in.password)})
         result = await super().update(db, db_obj=db_obj, obj_in=update_data)
         return result
@@ -51,7 +52,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         result: Result = await db.execute(sqlalchemy.select(User).where(User.email == email))
         return result.scalar()
 
-    async def constr_user_role_filter(self, roles: list[str], column: Any  = None):
+    async def constr_user_role_filter(self, roles: list[str], column: Any = None):
         c_filter = None
         if roles:
             if column is None:
@@ -90,12 +91,17 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
     def is_superuser(self, user: User) -> bool:
         return user.is_superuser
 
+    # noinspection PyMethodMayBeStatic,PyShadowingNames
+    def is_online(self, user: User) -> bool:
+        return user.is_online
+
 
 user = CRUDUser(User)
 
 
 class CRUDStudent(CRUDBase[Student, StudentCreate, StudentUpdate]):
     pass
+
 
 student = CRUDStudent(Student)
 

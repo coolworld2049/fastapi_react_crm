@@ -15,6 +15,10 @@ class DisciplineCreate(DisciplineBase):
     pass
 
 
+class DisciplineStudyGroupCreate(BaseModel):
+    id: Optional[int]
+
+
 # Properties to receive via API on update
 class DisciplineUpdate(DisciplineBase):
     pass
@@ -35,5 +39,3 @@ class DisciplineInDB(DisciplineInDBBase):
 # Additional properties to return via API
 class Discipline(DisciplineInDBBase):
     pass
-
-

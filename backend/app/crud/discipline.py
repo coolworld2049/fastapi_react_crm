@@ -1,6 +1,6 @@
 from backend.app.crud.base import CRUDBase
-from backend.app.db.models import Discipline, DisciplineTyped
-from backend.app.schemas import DisciplineCreate, DisciplineUpdate, DisciplineTypedCreate, DisciplineTypedUpdate
+from backend.app.db.models import Discipline, TypedDiscipline
+from backend.app.schemas import DisciplineCreate, DisciplineUpdate, TypedDisciplineCreate, TypedDisciplineUpdate
 
 
 class CRUDDiscipline(CRUDBase[Discipline, DisciplineCreate, DisciplineUpdate]):
@@ -10,8 +10,8 @@ class CRUDDiscipline(CRUDBase[Discipline, DisciplineCreate, DisciplineUpdate]):
 discipline = CRUDDiscipline(Discipline)
 
 
-class CRUDDisciplineTyped(CRUDBase[DisciplineTyped, DisciplineTypedCreate, DisciplineTypedUpdate]):
+class CRUDTypedDiscipline(CRUDBase[TypedDiscipline, TypedDisciplineCreate, TypedDisciplineUpdate]):
     pass
 
 
-discipline_typed = CRUDDisciplineTyped(DisciplineTyped)
+typed_discipline = CRUDTypedDiscipline(TypedDiscipline)

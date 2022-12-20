@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from pydantic import BaseModel
 
@@ -11,6 +11,11 @@ class StudyGroupBase(BaseModel):
 # Properties to receive via API on creation
 class StudyGroupCreate(StudyGroupBase):
     pass
+
+
+class StudyGroupDisciplineCreate(BaseModel):
+    study_group_cipher_id: str
+    discipline_id: List[int]
 
 
 # Properties to receive via API on update
@@ -33,5 +38,3 @@ class StudyGroupInDB(StudyGroupInDBBase):
 # Additional properties to return via API
 class StudyGroup(StudyGroupInDBBase):
     pass
-
-

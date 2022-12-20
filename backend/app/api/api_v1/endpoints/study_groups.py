@@ -3,7 +3,6 @@ from typing import Any, List
 from fastapi import APIRouter, Depends, HTTPException, Response
 from sqlalchemy.ext.asyncio import AsyncSession
 
-
 from backend.app import crud, schemas
 from backend.app.api import deps
 from backend.app.db import models
@@ -33,13 +32,13 @@ async def read_study_group(
 async def create_study_group(
         *,
         db: AsyncSession = Depends(deps.get_db),
-        item_in: schemas.StudyGroupCreate,
+        item_in: schemas.StudyGroupDisciplineCreate,
         current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
     Create new StudyGroup.
     """
-    item = await crud.study_group.create(db=db, obj_in=item_in)
+    item = await crud.study_group.create_with_disciplines(db=db, obj_in=item_in)
     return item
 
 

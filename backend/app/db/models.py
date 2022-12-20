@@ -27,8 +27,8 @@ class Discipline(Base, AllFeaturesMixin):
     assessment = Column(type_assessment)
 
 
-class DisciplineTyped(Base, AllFeaturesMixin):
-    __tablename__ = 'discipline_typed'
+class TypedDiscipline(Base, AllFeaturesMixin):
+    __tablename__ = 'typed_discipline'
 
     id = Column(BigInteger, primary_key=True)
     discipline_id = Column(ForeignKey('discipline.id'), nullable=False)
@@ -63,6 +63,7 @@ class User(Base, AllFeaturesMixin):
     age = Column(SmallInteger)
     avatar = Column(Text)
     phone = Column(Text)
+    is_online = Column(Boolean, nullable=False, server_default=text("true"))
     is_active = Column(Boolean, nullable=False, server_default=text("true"))
     is_superuser = Column(Boolean, nullable=False, server_default=text("false"))
     create_date = Column(DateTime(True), server_default=text("LOCALTIMESTAMP"))
@@ -74,7 +75,7 @@ class Student(Base, AllFeaturesMixin):
     __tablename__ = 'student'
 
     id = Column(ForeignKey('user.id'), primary_key=True)
-    study_group_cipher_id = Column(ForeignKey('study_group_cipher.id'), nullable=False)
+    study_group_cipher_id = Column(ForeignKey('study_group_cipher.id'))
 
 
 class StudyGroup(Base, AllFeaturesMixin):
@@ -92,10 +93,10 @@ class Teacher(Base, AllFeaturesMixin):
     __tablename__ = 'teacher'
 
     id = Column(BigInteger, primary_key=True)
-    discipline_typed_id = Column(ForeignKey('discipline_typed.id'), nullable=False)
+    typed_discipline_id = Column(ForeignKey('typed_discipline.id'))
     user_id = Column(ForeignKey('user.id'), nullable=False)
 
-    discipline_typed = relationship('DisciplineTyped')
+    typed_discipline = relationship('TypedDiscipline')
     user = relationship('User')
 
 
@@ -154,7 +155,7 @@ class TaskStore(Base, AllFeaturesMixin):
     task = relationship('Task')
 
 
-# StudyGroup, Discipline
+# StudyGroupCipher, Discipline
 study_group_disciplines_statement = select(
     StudyGroup.id, StudyGroup.study_group_cipher_id, StudyGroup.discipline_id,
     Discipline.title, Discipline.assessment
@@ -167,19 +168,3 @@ study_group_discipline_view = create_view('study_group_discipline_view', study_g
 
 class StudyGroupDiscipline(Base, AllFeaturesMixin):
     __table__ = study_group_discipline_view
-
-
-# Teacher, DisciplineTyped, StudyGroup
-teacher_study_group_discipline_statement = select(
-    Teacher.id, Teacher.user_id,
-    StudyGroup.study_group_cipher_id, Teacher.discipline_typed_id.label('discipline_typed_id')
-).select_from(DisciplineTyped) \
-    .join(Teacher, DisciplineTyped.id == Teacher.discipline_typed_id) \
-    .join(StudyGroup, DisciplineTyped.discipline_id == StudyGroup.discipline_id)
-
-teacher_study_group_discipline_view = create_view('teacher_study_group_discipline_view',
-                                                  teacher_study_group_discipline_statement, metadata)
-
-
-class TeacherStudyGroupDiscipline(Base, AllFeaturesMixin):
-    __table__ = teacher_study_group_discipline_view

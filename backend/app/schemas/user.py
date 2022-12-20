@@ -13,6 +13,7 @@ class UserBase(BaseModel):
     age: Optional[int]
     avatar: Optional[str]
     phone: Optional[str]
+    is_online: Optional[bool] = True
     is_active: bool = True
     is_superuser: bool = False
 

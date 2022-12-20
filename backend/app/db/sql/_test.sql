@@ -22,7 +22,7 @@ insert into discipline
 values (10, 'Программные средства манипулирования данными (часть 1/1) [I.22-23]', 'exam'),
        (20, 'Интерпретируемый язык программирования высокого уровня (часть 2/2) [I.22-23]', 'exam');
 
-insert into discipline_typed
+insert into typed_discipline
 values (100, 10, 'practice'::type_discipline, '105-2', 'В-78'),
        (200, 10, 'lecture'::type_discipline, 'A-10', 'В-78');
 

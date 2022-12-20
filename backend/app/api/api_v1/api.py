@@ -2,7 +2,7 @@ from fastapi import APIRouter
 
 from backend.app.api.api_v1.endpoints import login, users, tasks, students, disciplines, teachers, campuses, \
     study_groups, study_group_ciphers, task_students, task_stores, typed_disciplines, classifiers, \
-    study_group_disciplines, teacher_study_group_disciplines
+    study_group_disciplines
 
 api_router = APIRouter()
 api_router.include_router(login.router, tags=["login"])
@@ -25,4 +25,3 @@ api_router.include_router(task_stores.router, prefix="/task_stores", tags=["task
 
 
 api_router.include_router(study_group_disciplines.router, prefix="/study_group_disciplines", tags=["study_group_disciplines"])
-api_router.include_router(teacher_study_group_disciplines.router, prefix="/teacher_study_group_disciplines", tags=["teacher_study_group_disciplines"])

@@ -30,7 +30,6 @@ class UserRole(EnumBase):
     anon = 'anon'
     student = 'student'
     student_leader = 'student_leader'
-    student_leader_assistant = 'student_leader_assistant'
     teacher = 'teacher'
 
 
@@ -42,15 +41,9 @@ class TypeAssessment(EnumBase):
 
 
 class DisciplineType(EnumBase):
-    lecture = 'lecture'
     practice = 'practice'
     laboratory = 'laboratory'
-    project = 'project'
-    consultation = 'consultation'
-    test = 'test'
-    test_diff = 'test_diff'
-    coursewor = 'coursework'
-    exam = 'exam'
+    lecture = 'lecture'
 
 
 class TaskStatus(EnumBase):
@@ -81,11 +74,20 @@ class StudentTaskGrade(EnumBase):
 user_role_student_subtypes = [
     UserRole.student.name,
     UserRole.student_leader.name,
-    UserRole.student_leader_assistant.name
 ]
+
 
 user_role_teacher_subtypes = [
     UserRole.teacher.name
+]
+
+discipline_type_lecture_subtypes = [
+    DisciplineType.lecture.name
+]
+
+discipline_type_practice_subtypes = [
+    DisciplineType.practice.name,
+    DisciplineType.laboratory.name,
 ]
 
 pg_custom_type_colnames = [

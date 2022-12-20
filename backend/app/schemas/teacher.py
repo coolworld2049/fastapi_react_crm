@@ -4,19 +4,21 @@ from pydantic import BaseModel
 
 
 class TeacherBase(BaseModel):
-    discipline_typed_id: Optional[int]
+    typed_discipline_id: Optional[int]
     user_id: Optional[int]
 
 
 # Properties to receive via API on creation
 class TeacherCreate(TeacherBase):
-    discipline_typed_id: int
+    typed_discipline_id: int
     user_id: int
 
 
 # Properties to receive via API on update
 class TeacherUpdate(TeacherBase):
-    discipline_typed_id: int
+    user_id: int
+
+    typed_discipline_id: int
 
 
 class TeacherInDBBase(TeacherBase):
