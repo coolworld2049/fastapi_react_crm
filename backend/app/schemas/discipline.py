@@ -7,16 +7,12 @@ from backend.app.db import classifiers
 
 class DisciplineBase(BaseModel):
     title: str
-    assessment: str = Field(classifiers.TypeAssessment.exam.name)
+    assessment: Optional[str]
 
 
 # Properties to receive via API on creation
 class DisciplineCreate(DisciplineBase):
     pass
-
-
-class DisciplineStudyGroupCreate(BaseModel):
-    id: Optional[int]
 
 
 # Properties to receive via API on update

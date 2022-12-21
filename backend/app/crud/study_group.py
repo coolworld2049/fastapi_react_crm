@@ -9,12 +9,12 @@ from backend.app.crud.base import CRUDBase
 from backend.app.db import models
 from backend.app.db.models import StudyGroup, StudyGroupCipher
 from backend.app.schemas import StudyGroupUpdate, StudyGroupCipherCreate, StudyGroupCipherUpdate, \
-    StudyGroupDisciplineCreate
+    StudyGroupTaskCreate
 
 
-class CRUDStudyGroup(CRUDBase[StudyGroup, StudyGroupDisciplineCreate, StudyGroupUpdate]):
+class CRUDStudyGroup(CRUDBase[StudyGroup, StudyGroupTaskCreate, StudyGroupUpdate]):
     async def create_with_disciplines(
-            self, db: AsyncSession, obj_in: StudyGroupDisciplineCreate
+            self, db: AsyncSession, obj_in: StudyGroupTaskCreate
     ) -> List[StudyGroup]:
         scg_id = obj_in.study_group_cipher_id
         for discipline_id in obj_in.discipline_id:
@@ -26,7 +26,7 @@ class CRUDStudyGroup(CRUDBase[StudyGroup, StudyGroupDisciplineCreate, StudyGroup
             db.add(db_obj)
             await db.commit()
             await db.refresh(db_obj)
-        scg_db_obj: Result = await db.execute(select(self.model).where(self.model.study_group_cipher_id == scg_id))
+        scg_db_obj: Result = await db.execute(select(self.model).where(self.model.id == scg_id))
         return scg_db_obj.scalars().all()
 
 
@@ -40,10 +40,10 @@ class CRUDStudyGroupCipher(CRUDBase[StudyGroupCipher, StudyGroupCipherCreate, St
 study_group_cipher = CRUDStudyGroupCipher(StudyGroupCipher)
 
 
-class CRUDStudyGroupDiscipline(CRUDBase[models.StudyGroupDiscipline, None, schemas.StudyGroupDisciplineUpdate]):
-    async def get_multi(self, *args, **kwargs) -> Tuple[List[models.StudyGroupDiscipline], int]:
+class CRUDStudyGroupTask(CRUDBase[models.StudyGroupTask, schemas.StudyGroupTaskCreate, schemas.StudyGroupTaskUpdate]):
+    async def get_multi(self, *args, **kwargs) -> Tuple[List[models.StudyGroupTask], int]:
         return await super().get_multi(*args, **kwargs)
 
 
-study_group_discipline = CRUDStudyGroupDiscipline(models.StudyGroupDiscipline)
+study_group_task = CRUDStudyGroupTask(models.StudyGroupTask)
 

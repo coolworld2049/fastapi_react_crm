@@ -4,8 +4,8 @@ from pydantic import BaseModel
 
 
 class StudentBase(BaseModel):
-    study_group_cipher_id: Optional[str]
-    discipline_ids: Optional[list]
+    study_group_cipher_id: str
+    role: str
 
 
 # Properties to receive via API on creation

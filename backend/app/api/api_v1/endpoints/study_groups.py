@@ -47,7 +47,7 @@ async def create_study_group(
 async def update_study_group_id(
         *,
         db: AsyncSession = Depends(deps.get_db),
-        id: int,
+        id: str,
         item_in: schemas.StudyGroupUpdate,
         current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
@@ -66,7 +66,7 @@ async def update_study_group_id(
 async def read_study_group_id(
         *,
         db: AsyncSession = Depends(deps.get_db),
-        id: int,
+        id: str,
         current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
@@ -83,7 +83,7 @@ async def read_study_group_id(
 async def delete_study_group_id(
         *,
         db: AsyncSession = Depends(deps.get_db),
-        id: int,
+        id: str,
         current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """

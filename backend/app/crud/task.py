@@ -1,7 +1,7 @@
 from backend.app.crud.base import CRUDBase
-from backend.app.db.models import Task, TaskStudent, TaskStore
-from backend.app.schemas import TaskCreate, TaskUpdate, TaskStudentCreate, TaskStudentUpdate, TaskStoreUpdate, \
-    TaskStoreCreate
+from backend.app.db.models import Task, StudentTask, StudentTaskStore
+from backend.app.schemas import TaskCreate, TaskUpdate, StudentTaskCreate, StudentTaskUpdate, \
+    StudentTaskStoreCreate, StudentTaskStoreUpdate
 
 
 class CRUDTask(CRUDBase[Task, TaskCreate, TaskUpdate]):
@@ -11,15 +11,15 @@ class CRUDTask(CRUDBase[Task, TaskCreate, TaskUpdate]):
 task = CRUDTask(Task)
 
 
-class CRUDTaskStudent(CRUDBase[TaskStudent, TaskStudentCreate, TaskStudentUpdate]):
+class CRUDStudentTask(CRUDBase[StudentTask, StudentTaskCreate, StudentTaskUpdate]):
     pass
 
 
-task_student = CRUDTaskStudent(TaskStudent)
+student_task = CRUDStudentTask(StudentTask)
 
 
-class CRUDTaskStore(CRUDBase[TaskStore, TaskStoreCreate, TaskStoreUpdate]):
+class CRUDStudentTaskStore(CRUDBase[StudentTaskStore, StudentTaskStoreCreate, StudentTaskStoreUpdate]):
     pass
 
 
-task_store = CRUDTaskStore(TaskStore)
+student_task_store = CRUDStudentTaskStore(StudentTaskStore)

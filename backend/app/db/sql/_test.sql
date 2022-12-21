@@ -5,59 +5,76 @@ values (1, 'admin@gmail.com', 'admin', 'admin', 'i`m admin', 'ka52helicopter', 3
        (3, 'student2@gmail.com', 'student2', 'student', 'i`m student2', 'mig31fighter', 20, null, true, false),
        (4, 'student3@gmail.com', 'student3', 'student', 'i`m student3', 'mig32fighter', 20, null, true, false),
        (5, 'teacher1@gmail.com', 'teacher1', 'teacher', 'i`m teacher1', 'mig28fighter', 35, null, true, false),
-       (6, 'teacher2@gmail.com', 'teacher2', 'teacher', 'i`m teacher2', 'mig29fighter', 35, null, true, false);
+       (6, 'teacher2@gmail.com', 'teacher2', 'teacher', 'i`m teacher2', 'mig29fighter', 35, null, true, false),
+       (7, 'teacher7@gmail.com', 'teacher7', 'teacher', 'i`m teacher7', 'mig27fighter', 35, null, true, false);
 
-
-insert into user_contact
-values (1, '+79998887766'),
-       (2, '+79998887754'),
-       (3, '+79998887745'),
-       (4, '+79998887775'),
-       (5, '+79998887741');
 
 insert into campus
-values ('В-78'), ('С-20'), ('П-1');
+values ('В-78', 'Moсква, ...'), ('С-20', 'Moсква, ...'), ('П-1', 'Moсква, ...');
 
 insert into discipline
 values (10, 'Программные средства манипулирования данными (часть 1/1) [I.22-23]', 'exam'),
-       (20, 'Интерпретируемый язык программирования высокого уровня (часть 2/2) [I.22-23]', 'exam');
-
-insert into typed_discipline
-values (100, 10, 'practice'::type_discipline, '105-2', 'В-78'),
-       (200, 10, 'lecture'::type_discipline, 'A-10', 'В-78');
-
+       (20, 'Интерпретируемый язык программирования высокого уровня (часть 2/2) [I.22-23]', 'test');
 
 insert into study_group_cipher
-values ('БСБО-07-20'),
-       ('БСБО-06-20'),
-       ('БСБО-04-20');
+values ('БСБО-04-20'),
+       ('БСБО-05-20'),
+       ('БСБО-06-20');
 
 insert into study_group
-values (1111, 1000, 10),
-       (2222, 1000, 20),
-       (3333, 2000, 10),
-       (4444, 2000, 20),
-       (5555, 3000, 10),
-       (6666, 3000, 20);
+values ('БСБО-04-20', 10),
+       ('БСБО-04-20', 20),
+       ('БСБО-05-20', 10),
+       ('БСБО-05-20', 20),
+       ('БСБО-06-20', 10),
+       ('БСБО-06-20', 20);
 
 insert into student
-values (2, 1000),
-       (3, 2000),
-       (4, 3000);
+values (2, 'student', 'БСБО-04-20'),
+       (3, 'leader', 'БСБО-04-20'),
+       (4, 'student', 'БСБО-06-20');
 
 insert into teacher
-values (1010, 10, 5),
-       (1020, 20, 6);
+values (1, 5, 'lecturer', 10, '105-2', 'В-78'),
+       (2, 5, 'practicioner', 10, 'A-10', 'В-78'),
+       (3, 6, 'lecturer', 20, '223', 'С-20'),
+       (4, 6, 'practicioner', 20, '512', 'П-1'),
+       (5, 7, 'practicioner', 20, '512', 'П-1');
+
+insert into teacher
+values (6, 7, 'practicioner', 10, '512', 'П-1');
+
+insert into teacher
+values (7, 7, 'lecturer', 10, '512', 'П-1');
+
 
 --teacher
 insert into task
-values (9001, 1010, 1000, null, 'практики 1-8', 'do', 'pending', 'medium', '09-12-2023 12:00:00 +03:00'),
-       (9002, 1010, 1000, null, 'курсовая работа', 'do', 'pending', 'high', '24-12-2023 12:00:00 +03:00'),
-       (9003, 1020, null, 2, 'доклад postgres', 'do', 'pending', 'high', '28-12-2023 12:00:00 +03:00'),
-       (9004, 1020, null, 3, 'доклад mongodb', 'do', 'pending', 'medium', '29-12-2023 12:00:00 +03:00'),
-       (9005, 1020, null, 4, 'доклад mssql', 'do', 'pending', 'low', '30-12-2023 12:00:00 +03:00');
-insert into student_task values (9003, null, null, null, null, '01-12-2023 12:00:00 +03:00');
+values (9001, 2, 'практики1-4'),
+       (9002, 2, 'доп задание'),
+       (9003, 7, 'курсовая работа'),
 
+       (9004, 3, 'доклад'),
+       (9005, 3, 'реферат'),
+       (9006, 5, 'практики 1-8');
+
+
+insert into study_group_task
+values (9001, 'БСБО-04-20', 'pending', timestamptz('09-12-2023 12:00:00')),
+       (9003, 'БСБО-06-20', 'pending', timestamptz('09-12-2023 12:00:00')),
+       (9006, 'БСБО-06-20', 'pending', timestamptz('09-12-2023 12:00:00'));
+
+
+insert into student_task
+values (9002, 2, 'pending', null, null, null, null,  timestamptz('09-12-2023 12:00:00')),
+       (9004, 3, 'started', null, null, null, null,  timestamptz('09-12-2023 12:00:00')),
+       (9005, 4, 'started', null, null, null, null,  timestamptz('09-12-2023 12:00:00'));
+
+insert into student_task_store values (7001, 9002, 2, 'https://drive.google.com/drive/...', 7879878, 'report1.pdf');
+insert into student_task_store values (7002, 9004, 3, 'https://drive.google.com/drive/asad', 15545888, 'report2.pdf');
+
+
+/*
 --student
 update task set status = 'started' where id = 9003;
 
@@ -75,3 +92,4 @@ update task set status = 'completed' where id = 9003;
 -- noinspection SqlResolve
 update student_task set points = 5, grade = 'great', feedback = 'good job', completion_date = clock_timestamp()
                     where id = 9003; --trigger
+*/

@@ -5,7 +5,7 @@ create index if not exists user_full_name_index on "user" using btree (full_name
 
 
 --------------------------------------------------------trigger---------------------------------------------------------
-
+/*
 create or replace function check_user_role() returns trigger as $insert_user_check_role$
 begin
     if split_part(new.role::text, '_', 1) = 'student' or new.role::text = 'student' then
@@ -14,7 +14,11 @@ begin
         if split_part(new.role::text, '_', 1) = 'teacher' or new.role::text = 'teacher' then
             insert into teacher(user_id) values (new.id);
         else
-            raise exception 'invalid user role';
+            if new.role = 'admin'::user_role or new.role = 'anon'::user_role then
+                return new;
+            else
+                raise exception 'invalid user role';
+            end if;
         end if;
     end if;
     return new;
@@ -23,8 +27,9 @@ $insert_user_check_role$ language plpgsql;
 
 create or replace trigger insert_user_check_role after insert on "user"
     for each row execute function check_user_role();
+*/
 
-
+/*
 create or replace function check_student_role() returns trigger as $insert_student_check_role$
 begin
     if (select  split_part(role::text, '_', 1) from "user" where id = new.id) = 'student' then
@@ -94,7 +99,7 @@ $set_student_task_start_date$ language plpgsql;
 
 create or replace trigger set_student_task_completion_date before update on student_task
     for statement execute function check_student_task_completion_date();
-
+*/
 
 --------------------------------------------------------functions-------------------------------------------------------
 create or replace function truncate_tables(username in varchar) returns void as $$

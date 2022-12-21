@@ -7,7 +7,7 @@ from backend.app.db import classifiers
 
 class UserBase(BaseModel):
     email: Optional[EmailStr]
-    role: Optional[str] = Field(None, description=classifiers.UserRole.to_list().__str__())
+    role: Optional[str]
     full_name: Optional[str]
     username: Optional[str]
     age: Optional[int]

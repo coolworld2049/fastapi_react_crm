@@ -6,7 +6,6 @@ from starlette.responses import Response
 
 from backend.app.api import deps
 from backend.app.db import models, classifiers
-from backend.app.schemas import RequestParams
 
 router = APIRouter()
 

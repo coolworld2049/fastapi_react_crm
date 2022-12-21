@@ -1,9 +1,4 @@
 
-create user app_user with password 'password';
-grant connect on database myapp to app_user;
-grant usage on schema public to app_user;
-grant select on all tables in schema public to app_user;
-
 ------------------------------------------------------privileges--------------------------------------------------------
 
 grant all privileges on all tables in schema public to admin;
