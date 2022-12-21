@@ -1,35 +1,34 @@
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel, Field
-
-from backend.app.db import classifiers
+from pydantic import BaseModel
 
 
-class TaskStudentBase(BaseModel):
+class StudentTaskBase(BaseModel):
+    id: int # task_id
+    student_id: int
+    status: str
     points: Optional[int]
     comment: Optional[str]
     feedback: Optional[str]
-    grade: Optional[str] = Field(
-        None,
-        description=classifiers.StudentTaskGrade.great.name.__str__()
-    )
+    grade: Optional[str]
     deadline_date: Optional[datetime]
-    start_date: Optional[datetime]
     completion_date: Optional[datetime]
 
 
 # Properties to receive via API on creation
-class TaskStudentCreate(TaskStudentBase):
+class StudentTaskCreate(StudentTaskBase):
     id: int
+    student_id: int
 
 
 # Properties to receive via API on update
-class TaskStudentUpdate(TaskStudentBase):
+class StudentTaskUpdate(StudentTaskBase):
     id: int
+    student_id: int
 
 
-class TaskStudentInDBBase(TaskStudentBase):
+class StudentTaskInDBBase(StudentTaskBase):
     id: Optional[int] = None
 
     class Config:
@@ -37,10 +36,12 @@ class TaskStudentInDBBase(TaskStudentBase):
 
 
 # Additional properties stored in DB but not returned by API
-class TaskStudentInDB(TaskStudentInDBBase):
+class StudentTaskInDB(StudentTaskInDBBase):
     pass
 
 
 # Additional properties to return via API
-class TaskStudent(TaskStudentInDBBase):
+class StudentTask(StudentTaskInDBBase):
     pass
+
+

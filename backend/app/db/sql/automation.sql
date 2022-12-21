@@ -5,32 +5,60 @@ create index if not exists user_full_name_index on "user" using btree (full_name
 
 
 --------------------------------------------------------trigger---------------------------------------------------------
-
-create or replace function check_student_role() returns trigger as $insert_user_check_role$
+/*
+create or replace function check_user_role() returns trigger as $insert_user_check_role$
 begin
-    if (select role from "user" where id = new.id) in ('student','student_leader','student_leader_assistant') = true then
-        insert into student(id, study_group_cipher_id) values (new.id, new.study_group_cipher_id);
+    if split_part(new.role::text, '_', 1) = 'student' or new.role::text = 'student' then
+        insert into student(id) values (new.id);
+    else
+        if split_part(new.role::text, '_', 1) = 'teacher' or new.role::text = 'teacher' then
+            insert into teacher(user_id) values (new.id);
+        else
+            if new.role = 'admin'::user_role or new.role = 'anon'::user_role then
+                return new;
+            else
+                raise exception 'invalid user role';
+            end if;
+        end if;
     end if;
-    return null;
+    return new;
 end;
 $insert_user_check_role$ language plpgsql;
 
+create or replace trigger insert_user_check_role after insert on "user"
+    for each row execute function check_user_role();
+*/
+
+/*
+create or replace function check_student_role() returns trigger as $insert_student_check_role$
+begin
+    if (select  split_part(role::text, '_', 1) from "user" where id = new.id) = 'student' then
+        insert into student(id, study_group_cipher_id) values (new.id, new.study_group_cipher_id);
+    else
+        raise exception 'user_role is not in student roles';
+    end if;
+    return null;
+end;
+$insert_student_check_role$ language plpgsql;
+
 create or replace trigger insert_student_check_role before insert or update on student
-    for statement execute function check_student_role();
+    for each row execute function check_student_role();
 
 
 
 create or replace function check_teacher_role() returns trigger as $insert_teacher_check_role$
 begin
-    if (select role from "user" where id = new.user_id) = 'teacher'::user_role then
-        insert into teacher values (new.id, new.discipline_id, new.user_id);
+    if (select split_part(role::text, '_', 1) from "user" where id = new.user_id) = 'teacher' then
+        insert into teacher values (new.id, new.typed_discipline_id, new.user_id);
+    else
+        raise exception 'user_role is not in teacher roles';
     end if;
     return null;
-end;
+end
 $insert_teacher_check_role$ language plpgsql;
 
 create or replace trigger set_teacher_check_role before insert or update on teacher
-    for statement execute function check_teacher_role();
+    for each row execute function check_teacher_role();
 
 
 
@@ -71,7 +99,7 @@ $set_student_task_start_date$ language plpgsql;
 
 create or replace trigger set_student_task_completion_date before update on student_task
     for statement execute function check_student_task_completion_date();
-
+*/
 
 --------------------------------------------------------functions-------------------------------------------------------
 create or replace function truncate_tables(username in varchar) returns void as $$
@@ -106,3 +134,13 @@ begin
     execute 'alter user ' || username || ' identified by ' || old_password || ' replace ' || new_password;
 end;
 $$ language plpgsql;
+
+with recursive cte as (
+   select oid from pg_roles where rolname = 'ka52'
+
+   union all
+   select m.roleid
+   from   cte
+   join   pg_auth_members m on m.member = cte.oid
+   )
+select oid, oid::regrole::text as rolename from cte;  -- oid & name

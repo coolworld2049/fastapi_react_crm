@@ -29,27 +29,21 @@ class UserRole(EnumBase):
     admin = 'admin'
     anon = 'anon'
     student = 'student'
-    student_leader = 'student_leader'
-    student_leader_assistant = 'student_leader_assistant'
     teacher = 'teacher'
+
+
+class StudentRole(EnumBase):
+    student = 'student'
+    leader = 'leader'
+
+
+class TeacherRole(EnumBase):
+    lecturer = 'lecturer'
+    practicioner = 'practicioner'
 
 
 class TypeAssessment(EnumBase):
     test = 'test'
-    test_diff = 'assessment test'
-    coursework = 'coursework'
-    exam = 'exam'
-
-
-class DisciplineType(EnumBase):
-    lecture = 'lecture'
-    practice = 'practice'
-    laboratory = 'laboratory'
-    project = 'project'
-    consultation = 'consultation'
-    test = 'test'
-    test_diff = 'test_diff'
-    coursewor = 'coursework'
     exam = 'exam'
 
 
@@ -78,35 +72,28 @@ class StudentTaskGrade(EnumBase):
     not_passed = 'not_passed'
 
 
-user_role_student_subtypes = [
-    UserRole.student.name,
-    UserRole.student_leader.name,
-    UserRole.student_leader_assistant.name
-]
-
-user_role_teacher_subtypes = [
-    UserRole.teacher.name
-]
-
 pg_custom_type_colnames = [
     UserRole.col_name(),
+    StudentRole.col_name(),
+    TeacherRole.col_name(),
     TypeAssessment.col_name(),
-    DisciplineType.col_name(),
     TaskStatus.col_name(),
     TaskPriority.col_name(),
     StudentTaskGrade.col_name()
 ]
 
 user_role = ps.ENUM(*UserRole.to_list(), name=UserRole.as_snake_case())
+student_role = ps.ENUM(*StudentRole.to_list(), name=StudentRole.as_snake_case())
+teacher_role = ps.ENUM(*TeacherRole.to_list(), name=TeacherRole.as_snake_case())
 type_assessment = ps.ENUM(*TypeAssessment.to_list(), name=TypeAssessment.as_snake_case())
-discipline_type = ps.ENUM(*DisciplineType.to_list(), name=DisciplineType.as_snake_case())
 task_status = ps.ENUM(*TaskStatus.to_list(), name=TaskStatus.as_snake_case())
 task_priority = ps.ENUM(*TaskPriority.to_list(), name=TaskPriority.as_snake_case())
 student_task_grade = ps.ENUM(*StudentTaskGrade.to_list(), name=StudentTaskGrade.as_snake_case())
 
 instances.update(UserRole.to_dict())
+instances.update(StudentRole.to_dict())
+instances.update(TeacherRole.to_dict())
 instances.update(TypeAssessment.to_dict())
-instances.update(DisciplineType.to_dict())
 instances.update(TaskStatus.to_dict())
 instances.update(TaskPriority.to_dict())
 instances.update(StudentTaskGrade.to_dict())

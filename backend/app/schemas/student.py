@@ -4,7 +4,8 @@ from pydantic import BaseModel
 
 
 class StudentBase(BaseModel):
-    study_group_cipher_id: Optional[str]
+    study_group_cipher_id: str
+    role: str
 
 
 # Properties to receive via API on creation
@@ -14,7 +15,7 @@ class StudentCreate(StudentBase):
 
 # Properties to receive via API on update
 class StudentUpdate(StudentBase):
-    study_group_cipher_id: str
+    pass
 
 
 class StudentInDBBase(StudentBase):

@@ -1,6 +1,6 @@
 import logging
 
-from asyncpg import DuplicateTableError, DuplicateObjectError, Connection
+from asyncpg import DuplicateObjectError, Connection, UndefinedTableError, DuplicateTableError
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncConnection
 
@@ -8,6 +8,7 @@ from backend.app import crud, schemas
 from backend.app.core.config import settings, ROOT_PATH
 from backend.app.db import metadata, classifiers
 from backend.app.db.session import engine, AsyncSessionFactory, asyncpg_database
+from backend.app.main import logger
 
 
 async def init_db():
@@ -17,16 +18,18 @@ async def init_db():
         try:
             metadata.bind = engine
             await conn.execute(text('set timezone to "Europe/Moscow";'))
-            await conn.run_sync(metadata.create_all, checkfirst=True)
+            await conn.run_sync(metadata.create_all)
         except Exception as e:
-            logging.error(f'init_db: Base.metadata.create_all(): {e}')
+            logging.exception(f'init_db: Base.metadata.create_all(): {e}')
 
     asyncpg_conn: Connection = await asyncpg_database.get_connection()
     try:
         with open(f"{ROOT_PATH}/db/sql/automation.sql", encoding='utf-8') as file_1:
             await asyncpg_conn.execute(file_1.read())
-    except DuplicateObjectError:
-        pass
+    except DuplicateObjectError as e1:
+        logger.error(e1)
+    except UndefinedTableError as e2:
+        logger.error(e2)
 
     try:
         with open(f"{ROOT_PATH}/db/sql/roles.sql", encoding='utf-8') as file_2:

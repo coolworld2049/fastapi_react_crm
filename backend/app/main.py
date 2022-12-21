@@ -16,6 +16,7 @@ from backend.app.utils.custom_logger import CustomizeLogger
 
 logger = logging.getLogger()
 
+
 def create_app() -> FastAPI:
     logger_config_path = pathlib.Path(f"{ROOT_PATH}/utils/logging_config.json")
 
@@ -47,7 +48,8 @@ app.include_router(api_router, prefix=settings.API_V1_STR)
 BASE_PATH = Path(__file__).resolve().parent
 
 app.mount("/static", StaticFiles(directory=f"{BASE_PATH}/static", html=True), name="static")
-app.mount("/static/users/reports", StaticFiles(directory=f"{BASE_PATH}/volumes/postgres/tmp"), name="static/users/reports")
+app.mount("/static/users/reports", StaticFiles(directory=f"{BASE_PATH}/volumes/postgres/tmp"),
+          name="static/users/reports")
 
 
 def custom_openapi():

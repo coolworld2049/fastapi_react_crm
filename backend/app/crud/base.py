@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from sqlalchemy import select, func
 from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import DeclarativeMeta
 
 from backend.app.db import Base
 from backend.app.schemas.request_params import RequestParams
@@ -23,8 +24,14 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         """
         self.model = model
 
-    async def get(self, db: AsyncSession, id: Any) -> Optional[ModelType]:
-        result: Result = await db.execute(select(self.model).where(self.model.id == id))
+    async def get(self, db: AsyncSession, id: Any, obj_col: DeclarativeMeta = None) -> Optional[ModelType]:
+        q = select(self.model)
+        if not obj_col:
+            q = q.where(self.model.id == id)
+        else:
+            q = q.where(obj_col == id)
+
+        result: Result = await db.execute(q)
         return result.scalar()
 
     # noinspection PyMethodMayBeStatic
@@ -55,7 +62,7 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
 
     async def create(self, db: AsyncSession, *, obj_in: CreateSchemaType) -> ModelType:
         # obj_in_data = jsonable_encoder(obj_in)
-        db_obj = self.model(**obj_in.dict())
+        db_obj = self.model(**obj_in.dict(exclude_none=True))
         db.add(db_obj)
         await db.commit()
         await db.refresh(db_obj)
@@ -68,7 +75,7 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
             db_obj: ModelType,
             obj_in: Union[UpdateSchemaType, Dict[str, Any]]
     ) -> ModelType:
-        obj_data: dict = db_obj.__dict__
+        obj_data: dict = db_obj.to_dict()
         if isinstance(obj_in, dict):
             update_data = obj_in
         else:
@@ -86,4 +93,3 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         await db.delete(obj)
         await db.commit()
         return obj
-

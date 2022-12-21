@@ -3,25 +3,27 @@ from typing import Optional
 from pydantic import BaseModel
 
 
-class TaskStoreBase(BaseModel):
+class StudentTaskStoreBase(BaseModel):
     task_id: int
+    student_id: int
     url: str
     size: Optional[int]
     filename: Optional[str]
-    media_type: Optional[str]
 
 
 # Properties to receive via API on creation
-class TaskStoreCreate(TaskStoreBase):
-    pass
+class StudentTaskStoreCreate(StudentTaskStoreBase):
+    task_id: int
+    student_id: int
 
 
 # Properties to receive via API on update
-class TaskStoreUpdate(TaskStoreBase):
-    pass
+class StudentTaskStoreUpdate(StudentTaskStoreBase):
+    task_id: int
+    student_id: int
 
 
-class TaskStoreInDBBase(TaskStoreBase):
+class StudentTaskStoreInDBBase(StudentTaskStoreBase):
     id: Optional[int] = None
 
     class Config:
@@ -29,10 +31,10 @@ class TaskStoreInDBBase(TaskStoreBase):
 
 
 # Additional properties stored in DB but not returned by API
-class TaskStoreInDB(TaskStoreInDBBase):
+class StudentTaskStoreInDB(StudentTaskStoreInDBBase):
     pass
 
 
 # Additional properties to return via API
-class TaskStore(TaskStoreInDBBase):
+class StudentTaskStore(StudentTaskStoreInDBBase):
     pass
