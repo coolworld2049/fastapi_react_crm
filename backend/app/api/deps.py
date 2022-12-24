@@ -1,10 +1,10 @@
 import json
-import logging
 from datetime import datetime
 from typing import Optional, Callable, Any, AsyncGenerator
 
 from asyncpg import Connection
 from fastapi import Depends, status
+from fastapi.logger import logger
 from fastapi import HTTPException, Query
 from jose import jwt, JWTError
 from sqlalchemy import asc, desc, text, and_
@@ -18,6 +18,7 @@ from backend.app.core.security import oauth2Scheme
 from backend.app.db import User, classifiers
 from backend.app.db.session import AsyncSessionFactory
 from backend.app.schemas.request_params import RequestParams
+
 
 
 async def get_db() -> AsyncGenerator:
@@ -55,7 +56,6 @@ async def get_current_user_async(
     if user is None:
         raise credentials_exception
 
-    logging.info('START')
     db_user = user.username
     await get_session_user(db)
     await reset_session_user(db)
@@ -67,59 +67,64 @@ async def get_current_user_async(
     await get_session_user(db)
     await set_session_user(db, db_user)
     await get_session_user(db)
-    logging.info('END')
     return user
 
 
 async def check_rolname(db: AsyncSession, db_user: str, current_user: User):
     if not current_user.is_active:
-        raise HTTPException(403, 'user is not active')
+        raise HTTPException(400, 'user is not active')
     if not current_user.username == db_user:
-        raise HTTPException(403, 'username not valid')
+        raise HTTPException(400, 'username not valid')
     check_q = """select rolname from pg_roles where rolname = :db_user"""
-    check_q_result: Result = await db.execute(text(check_q), {'db_user': db_user})
+    check_q_result: Result = await db.execute(text(check_q), {'db_user': db_user.lower()})
 
-    check_result = check_q_result.scalar()
-    logging.info(f"check_rolname: {f'{db_user} role exist' if check_result else f'{db_user} role not exist'}")
+    check_result = check_q_result.fetchall()
+    if settings.debug:
+        logger.info(f"check_rolname: {f'{db_user} role exist' if check_result else f'{db_user} role not exist'}")
     return check_result
 
 
 async def create_user_in_role(db: AsyncSession, current_user: User, db_user: str):
     create_db_user_q = '''select create_user_in_role(:db_user, :hashed_password, :role)'''
     params = {
-        'db_user': db_user,
+        'db_user': db_user.lower(),
         'hashed_password': current_user.hashed_password,
         'role': current_user.role
     }
     await db.execute(text(create_db_user_q), params=params)
     await db.commit()
-    logging.info(f'CREATE_user_in_role: {create_db_user_q}')
+    if settings.debug:
+        logger.info(f'CREATE_user_in_role: {create_db_user_q}')
 
 
 async def drop_user_in_role(db: AsyncSession | Connection, db_user: str):
-    drop_db_user_q = """drop user """ + db_user
+    drop_db_user_q = """drop user """ + db_user.lower()
     if isinstance(db, Connection):
         await db.execute(drop_db_user_q)
     elif isinstance(db, AsyncSession):
         await db.execute(text(drop_db_user_q))
-    logging.info(f'DROP_user_in_role: {db_user}')
+    if settings.debug:
+        logger.info(f'DROP_user_in_role: {db_user}')
 
 
 async def get_session_user(db: AsyncSession):
     check_session_role_q = """select session_user, current_user"""
     check_session_role_q_result: Result = await db.execute(text(check_session_role_q))
-    logging.info(f'get_session_user: {check_session_role_q_result.scalar()}')
+    if settings.debug:
+        logger.info(f'get_session_user: {check_session_role_q_result.scalar()}')
 
 
 async def set_session_user(db: AsyncSession, db_user: str):
-    set_db_user_q = """set session authorization """ + db_user
-    logging.info(f'SET_session_user: {db_user}')
+    set_db_user_q = """set session authorization """ + db_user.lower()
+    if settings.debug:
+        logger.info(f'SET_session_user: {db_user}')
     await db.execute(text(set_db_user_q))
 
 
 async def reset_session_user(db: AsyncSession):
     reset_q = '''reset session authorization'''
-    logging.info(f'RESET_session_user')
+    if settings.debug:
+        logger.info(f'RESET_session_user')
     await db.execute(text(reset_q))
 
 
@@ -164,7 +169,7 @@ def parse_react_admin_params(model: DeclarativeMeta | Any) -> Callable[[str | No
             ),
 
     ):
-        skip, limit = 0, 10
+        skip, limit = 0, 50
         if range_:
             start, end = json.loads(range_)
             skip, limit = start, (end - start + 1)

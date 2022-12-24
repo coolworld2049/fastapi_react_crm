@@ -2,27 +2,25 @@ from typing import Optional
 
 from pydantic import BaseModel
 
+from backend.app import schemas
+
 
 class TeacherBase(BaseModel):
     user_id: int
     role: str  # type teacher_role
-    discipline_id: int
+    discipline_id: int | list
     room_number: Optional[str]
     campus_id: Optional[str]
 
 
 # Properties to receive via API on creation
 class TeacherCreate(TeacherBase):
-    user_id: int
-    role: str  # type teacher_role
-    discipline_id: int
+    pass
 
 
 # Properties to receive via API on update
 class TeacherUpdate(TeacherBase):
-    user_id: int
-    role: str  # type teacher_role
-    discipline_id: str
+    pass
 
 
 class TeacherInDBBase(TeacherBase):

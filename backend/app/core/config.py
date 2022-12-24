@@ -10,6 +10,8 @@ ROOT_PATH = pathlib.Path(__file__).resolve().parent.parent
 
 
 class Settings(BaseSettings):
+    debug = True
+
     APP_NAME = 'fastapi-react-crm-backend'
     APP_VERSION = '0.0.1'
     ENVIRONMENT = f'{pathlib.Path(__file__).resolve().parent.parent}/.env'

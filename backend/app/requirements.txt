@@ -21,3 +21,4 @@ pytz
 sqlalchemy_mixins
 sqlalchemy_views
 nltk
+exrex

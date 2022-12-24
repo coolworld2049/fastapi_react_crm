@@ -3,6 +3,7 @@ from typing import Union, Any, List
 
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt
+from passlib.hash import bcrypt
 from passlib.context import CryptContext
 
 from backend.app import schemas

@@ -4,18 +4,14 @@ from pydantic import BaseModel
 
 
 class StudyGroupBase(BaseModel):
-    id: str # sgc_id
+    id: str  # sgc_id
     discipline_id: int
 
 
 # Properties to receive via API on creation
 class StudyGroupCreate(StudyGroupBase):
-    pass
-
-
-class StudyGroupDisciplineCreate(BaseModel):
     id: str
-    discipline_id: List[int]
+    discipline_id: int | List[int]
 
 
 # Properties to receive via API on update

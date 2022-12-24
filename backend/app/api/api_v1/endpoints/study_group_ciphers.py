@@ -1,6 +1,8 @@
 from typing import Any, List
 
+from asyncpg import InsufficientPrivilegeError
 from fastapi import APIRouter, Depends, HTTPException, Response
+from sqlalchemy.exc import ProgrammingError, IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 
@@ -39,8 +41,13 @@ async def create_study_group_cipher(
     """
     Create new task.
     """
-    item = await crud.study_group_cipher.create(db=db, obj_in=item_in)
-    return item
+    try:
+        item = await crud.study_group_cipher.create(db=db, obj_in=item_in)
+        return item
+    except AssertionError as e:
+        raise HTTPException(400, e.args)
+    except IntegrityError as ie:
+        raise HTTPException(409, ie.detail)
 
 
 # noinspection PyUnusedLocal
@@ -58,8 +65,11 @@ async def update_study_group_cipher_id(
     item = await crud.study_group_cipher.get(db=db, id=id)
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
-    item = await crud.study_group_cipher.update(db=db, db_obj=item, obj_in=item_in)
-    return item
+    try:
+        item = await crud.study_group_cipher.update(db=db, db_obj=item, obj_in=item_in)
+        return item
+    except ProgrammingError as e:
+        raise HTTPException(405, detail=str(e.args))
 
 
 # noinspection PyUnusedLocal

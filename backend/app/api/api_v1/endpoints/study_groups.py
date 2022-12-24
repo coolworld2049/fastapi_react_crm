@@ -28,11 +28,11 @@ async def read_study_group(
 
 
 # noinspection PyUnusedLocal
-@router.post("/", response_model=schemas.StudyGroup)
+@router.post("/", response_model=List[schemas.StudyGroup])
 async def create_study_group(
         *,
         db: AsyncSession = Depends(deps.get_db),
-        item_in: schemas.StudyGroupDisciplineCreate,
+        item_in: schemas.StudyGroupCreate,
         current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """

@@ -1,6 +1,7 @@
 from typing import Any, List
 
 from fastapi import APIRouter, Depends, HTTPException, Response
+from sqlalchemy import and_
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.app import crud, schemas

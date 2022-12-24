@@ -80,8 +80,9 @@ async def update_user_me(
 
 
 # noinspection PyUnusedLocal
-@router.get("/me", response_model=schemas.User)
+@router.get("/me", response_model=List[schemas.User])
 async def read_user_me(
+        response: Response,
         db: AsyncSession = Depends(deps.get_db),
         current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
@@ -89,7 +90,8 @@ async def read_user_me(
     Get current user.
     """
     user = await crud.user.get(db, id=current_user.id)
-    return user
+    response.headers["Content-Range"] = f"{0}-{1}/{1}"
+    return [user]
 
 
 # noinspection PyUnusedLocal
@@ -188,14 +190,11 @@ async def read_users_by_role_id(
     Retrieve users.
     """
     roles = None
-    if rolname == 'students':
-        roles = classifiers.user_role_student_subtypes
-    elif rolname == 'teachers':
-        roles = classifiers.user_role_teacher_subtypes
-    elif rolname in classifiers.UserRole.to_list():
+
+    if rolname in classifiers.UserRole.to_list():
         roles = [rolname]
-    if not roles:
-        raise HTTPException(403, 'role not set')
+    elif not roles:
+        raise HTTPException(404, 'role not set')
     user, total = await crud.user.get_multi(db, request_params, roles)
     response.headers["Content-Range"] = f"{request_params.skip}-{request_params.skip + len(user)}/{total}"
     return user
