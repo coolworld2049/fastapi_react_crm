@@ -30,7 +30,7 @@ async def init_db_test():
     db: AsyncSession = AsyncSessionFactory()
     asyncpg_conn: Connection = await asyncpg_database.get_connection()
     try:
-        users_count = 50  # 100 ~ 26 sec
+        users_count = 500  # 500 ~ 115 sec
         ration_teachers_to_students = users_count // 2
         campus_count = 10
 
