@@ -80,7 +80,7 @@ async def update_user_me(
 
 
 # noinspection PyUnusedLocal
-@router.get("/me", response_model=List[schemas.User])
+@router.get("/me", response_model=schemas.User)
 async def read_user_me(
         response: Response,
         db: AsyncSession = Depends(deps.get_db),
@@ -91,7 +91,7 @@ async def read_user_me(
     """
     user = await crud.user.get(db, id=current_user.id)
     response.headers["Content-Range"] = f"{0}-{1}/{1}"
-    return [user]
+    return user
 
 
 # noinspection PyUnusedLocal
