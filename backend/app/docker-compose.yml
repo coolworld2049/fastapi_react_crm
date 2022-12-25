@@ -20,23 +20,16 @@ services:
       - ${PG_PORT}:${PG_PORT}
     volumes:
       - ./volumes/postgres/tmp:/tmp
-    networks:
-      - api_server
 
   web:
     build: .
     restart: on-failure
     depends_on:
      - postgres
-     - mongo
     env_file:
       - .env
     environment:
       - TZ="Europe/Moscow"
     ports:
       - "8000:8000"
-    networks:
-      - api_server
 
-networks:
-  api_server:
