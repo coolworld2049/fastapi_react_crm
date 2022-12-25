@@ -18,17 +18,11 @@ async def read_classifiers(
         name: str = Query(None)
 ) -> Any:
 
-    if name == 'students':
-        result = [{k: [{'id': k2, 'name': v2} for k2, v2 in v.items() if str(k2).split('_')[0] == 'student']}
-                  for k, v in classifiers.instances.items() if k == 'user_role']
-    elif name == 'teachers':
-        result = [{k: [{'id': k2, 'name': v2} for k2, v2 in v.items() if str(k2).split('_')[0] == 'teacher']}
-                  for k, v in classifiers.instances.items() if k == 'user_role']
-    elif name == 'all':
+    if name == 'all':
         result = [{k: [{'id': k2, 'name': v2} for k2, v2 in v.items()]} for k, v in classifiers.instances.items()]
     else:
         result = [{'id': k, 'name': v} for k, v in classifiers.instances.get(name).items()]
-    if not result:
+    if not len(result) > 0:
         raise HTTPException(404, 'classifiers not exist')
     response.headers["Content-Range"] = f"{0}-{0 + len(result)}/{len(result)}"
     return result

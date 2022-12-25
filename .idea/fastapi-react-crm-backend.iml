@@ -9,8 +9,10 @@
       <excludeFolder url="file://$MODULE_DIR$/backend/app/logs" />
       <excludeFolder url="file://$MODULE_DIR$/backend/logs" />
       <excludeFolder url="file://$MODULE_DIR$/venv311" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/httpRequests" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.11 (fastapi-react-crm-backend)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.10 (fastapi-react-crm-backend)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TemplatesService">

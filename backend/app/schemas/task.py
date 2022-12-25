@@ -1,26 +1,16 @@
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel, Field
-
-from backend.app.db import classifiers
+from pydantic import BaseModel
 
 
 class TaskBase(BaseModel):
-    teacher_id: Optional[int]
-    study_group_cipher_id: Optional[str]
-    student_id: Optional[int]
-    title: Optional[str]
+    teacher_user_id: int
+    teacher_role: str
+    teacher_discipline_id: int
+    title: str
     description: Optional[str]
-    status: Optional[str] = Field(
-        classifiers.TaskStatus.pending.name,
-        description=classifiers.TaskStatus.to_list().__str__()
-    )
-    priority: Optional[str] = Field(
-        classifiers.TaskPriority.high.name,
-        description=classifiers.TaskPriority.to_list().__str__()
-    )
-    expiration_date: Optional[datetime]
+    create_date: Optional[datetime]
 
 
 # Properties to receive via API on creation
@@ -30,7 +20,7 @@ class TaskCreate(TaskBase):
 
 # Properties to receive via API on update
 class TaskUpdate(TaskBase):
-    description: Optional[str]
+    pass
 
 
 class TaskInDBBase(TaskBase):

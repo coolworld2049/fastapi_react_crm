@@ -1,11 +1,14 @@
 import asyncio
 import datetime
+import json
 import random
 import string
 import time
 
-from asyncpg import Connection
-from sqlalchemy.ext.asyncio import AsyncConnection
+from asyncpg import Connection, UndefinedFunctionError
+from faker import Faker
+from sqlalchemy.exc import IntegrityError
+from sqlalchemy.ext.asyncio import AsyncConnection, AsyncSession
 
 from backend.app import crud, schemas
 from backend.app.db import classifiers, models, metadata
@@ -13,114 +16,101 @@ from backend.app.db.init_db import init_db
 from backend.app.db.session import asyncpg_database, AsyncSessionFactory, engine
 from backend.app.main import logger
 
+fake: Faker = Faker()
+
+
+def gen_rand_password(number: int, rnd_str_length: int = 4):
+    r_str = ''.join(random.choice(string.ascii_letters) for _ in range(rnd_str_length)).capitalize()
+    return f"{''.join(random.choice(string.ascii_letters) for _ in range(rnd_str_length)).capitalize()}" \
+           f"{r_str}{number}{number * 2}" \
+           f"{''.join(random.choice(string.ascii_letters) for _ in range(rnd_str_length)).capitalize()}" \
+           f"{random.choice(['!', '@', '#', '$', '&', '*'])}"
 
 async def init_db_test():
-    db = AsyncSessionFactory()
+    db: AsyncSession = AsyncSessionFactory()
     asyncpg_conn: Connection = await asyncpg_database.get_connection()
     try:
-        multiplier = 100  # 500 ~ 86 sec
-        users_target = multiplier // 2
-        task_target = multiplier * 3
-        campus_list = ['B-78', 'В-86', 'C-20', 'П-1']
+        users_count = 50  # 100 ~ 26 sec
+        ration_teachers_to_students = users_count // 2
+        campus_count = 10
+
         disciplines_list = [
-            'Программные средства манипулирования данными (часть 1/1) [I.22-23]',
-            'Интерпретируемый язык программирования высокого уровня (часть 2/2) [I.22-23]',
-            'Алгоритмы параллельных вычислений (часть 1/1) [I.22-23]',
-            'Методы искусственного интеллекта (часть 1/1) [I.22-23]',
-            'Моделирование систем (часть 1/1) [I.22-23]',
-            'Программные средства решения прикладных задач искусственного интеллекта (ЦК)',
-            'Средства моделирования разработки программного обеспечения (часть 1/1) [I.22-23]',
-            'Философия (часть 1/1) [I.22-23]'
-            'Матан',
-            'Линал',
-            'Дизайн',
+            'Software Modeling',
             'C++',
             'Python',
-            'C#'
+            'C#',
+            'Java',
+            'Kotlin'
         ]
-        study_group_list = ['БСБО-04-20', 'БСБО-05-20', 'БСБО-06-20', 'БСБО-07-20', 'БСБО-08-20']
-        username_parts = [
-            'Coirdana'
-            'Aralar',
-            'Munris',
-            'ＥＸＣＬＵＳＩＶ',
-            '[NighT***FighteR]',
-            '㋛☢▶▷Shooter◀◁☢㋛',
-            'Yggrn',
-            'Doomcliff',
-            'Doule',
-            'itzOzzi',
-            '❶↔❶↔Жизньигра❶↔❶↔',
-            '♥˙˙·٠●Благ☉βчувствﻉмере.●•٠·˙˙♥',
-            'Andromaginn',
-            'ЛисочкаКисочка'
-        ]
-        # await init_db()
-        q_truncate = f'''SELECT truncate_tables('postgres');'''
-        await asyncpg_conn.execute(q_truncate)
+        study_group_list = [f"ABCD-{0 if x < 10 else ''}{x}-22" for x in range(1, 21)]
+
+        q_truncate = f'''select truncate_tables('postgres')'''
+        logger.info(q_truncate)
+        try:
+            await asyncpg_conn.execute(q_truncate)
+        except UndefinedFunctionError:
+            await init_db()
+            await asyncpg_conn.execute(q_truncate)
+
         async with engine.begin() as conn:
             conn: AsyncConnection
             try:
                 metadata.bind = engine
                 await conn.run_sync(metadata.drop_all, checkfirst=True)
             except Exception as e:
-                logger.error(f'init_db: Base.metadata.drop_all: {e}')
+                logger.error(f'metadata.drop_all: {e.args}')
         await init_db()
+
         start = time.perf_counter()
-        logger.info(q_truncate)
+
         users: list[models.User] = []
-        user_roles = [*classifiers.user_role_student_subtypes, *classifiers.user_role_teacher_subtypes]
-        for us in range(0, users_target):
-            logger.info(f"UserCreate: {us}/{users_target}")
-            role = random.choice(user_roles)
-            user_in_student = schemas.UserCreate(
+        users_cred_list = []
+        role = classifiers.UserRole.teacher.name
+        for us in range(users_count):
+            logger.info(f"UserCreate: {us}/{users_count}")
+            us += 2
+            if us >= ration_teachers_to_students:
+                role = classifiers.UserRole.student.name
+
+            user_in = schemas.UserCreate(
                 email=f'{role}{us}@gmail.com',
-                password=f'{role}{us}',
-                username=f'{role}{us}_{random.choice(username_parts)}',
-                full_name=f'i`m {role}{us}',
+                password=gen_rand_password(us),
+                username=f'{role}{us}{random.randint(1000,10000)}',
+                full_name=fake.name(),
                 age=random.randint(18, 25),
                 phone='+7' + ''.join(random.choice(string.digits) for _ in range(10)),
-                role=role,
+                role=role
             )
-            user_in_student_obj = await crud.user.create(db, obj_in=user_in_student)
-            users.append(user_in_student_obj)
+            users_cred_list.append({
+                user_in.role: {
+                    'email': user_in.email,
+                    'password': user_in.password
+                }
+            })
+            user_in_obj = await crud.user.create(db, obj_in=user_in)
+            users.append(user_in_obj)
 
-        user_student_list = list(filter(lambda u: u.role in classifiers.user_role_student_subtypes, users))
-        user_teacher_list = list(filter(lambda u: u.role in classifiers.user_role_teacher_subtypes, users))
+        with open(f"users_cred_list.json", 'w') as wr:
+            wr.write(json.dumps(users_cred_list, indent=4))
 
         campuses: list[models.Campus] = []
-        for c in campus_list:
-            logger.info(f"CampusCreate: {c}/{len(campus_list)}")
+        for c in range(campus_count):
+            logger.info(f"CampusCreate: {c}/{campus_count}")
             campus_in = schemas.CampusCreate(
-                id=c,
-                address='г.Москва'
+                id=''.join(random.choice(string.ascii_uppercase) for _ in range(2)) +
+                   f"-{random.randint(1, campus_count)}",
+                address=fake.address()
             )
             campuses.append(await crud.campus.create(db, obj_in=campus_in))
 
         disciplines: list[models.Discipline] = []
-        disciplines_typed: list[models.DisciplineTyped] = []
-
         for d in disciplines_list:
-            logger.info(f"DisciplineCreate, DisciplineTypedCreate: {d}/{len(disciplines_list)}")
+            logger.info(f"DisciplineCreate, TypedDisciplineCreate: {d}/{len(disciplines_list)}")
             discipline_in = schemas.DisciplineCreate(
-                title=d,
-                assessment=random.choice([classifiers.TypeAssessment.test.name, classifiers.TypeAssessment.exam.name])
+                title=d
             )
             dscp: models.Discipline = await crud.discipline.create(db, obj_in=discipline_in)
             disciplines.append(dscp)
-            temp = [random.choice(classifiers.DisciplineType.to_list())]
-            for dt in range(2):
-                curr = random.choice(classifiers.DisciplineType.to_list())
-                while curr in temp:
-                    curr = random.choice(classifiers.DisciplineType.to_list())
-                temp.append(curr)
-                discipline_typed_in = schemas.DisciplineTypedCreate(
-                    discipline_id=dscp.id,
-                    type=curr,
-                    classroom_number=f'{random.choice(string.ascii_uppercase)}-{random.randint(0, 400)}',
-                    campus_id=random.choice(campuses).id,
-                )
-                disciplines_typed.append(await crud.discipline_typed.create(db, obj_in=discipline_typed_in))
 
         study_group_ciphers: list[models.StudyGroupCipher] = []
         study_groups: list[models.StudyGroup] = []
@@ -132,120 +122,98 @@ async def init_db_test():
             study_group_cipher_in_obj: models.StudyGroupCipher = \
                 await crud.study_group_cipher.create(db, obj_in=study_group_cipher_in)
             study_group_ciphers.append(study_group_cipher_in_obj)
-            rnd_dscp = random.choices(disciplines_typed, k=random.randint(4, 10))
-            for sg_dscp in rnd_dscp:
+
+            for sg_dscp in disciplines[:random.randint(2, len(disciplines))]:
                 study_group_in = schemas.StudyGroupCreate(
-                    study_group_cipher_id=study_group_cipher_in_obj.id,
-                    discipline_id=sg_dscp.discipline_id
+                    id=study_group_cipher_in_obj.id,
+                    discipline_id=sg_dscp.id
                 )
-                study_group_in_obj = \
-                    await crud.study_group.create(db, obj_in=study_group_in)
+                study_group_in_obj = await crud.study_group.create(db, obj_in=study_group_in)
                 study_groups.append(study_group_in_obj)
 
         students: list[models.Student] = []
-        for us in user_student_list:
-            logger.info(f"StudentCreate: {us.id}/{len(user_student_list)}")
-            sg_cph: models.StudyGroupCipher = random.choice(study_group_ciphers)
-            student_in = schemas.StudentCreate(
-                id=us.id,
-                study_group_cipher_id=sg_cph.id
-            )
-            students.append(await crud.student.create(db, obj_in=student_in))
+        teachers_list: list[models.Teacher] = []
 
-        teachers: list[models.Teacher] = []
-        for ut in user_teacher_list:
-            logger.info(f"TeacherCreate: {ut.id}/{len(user_teacher_list)}")
-            for dd in random.choices(disciplines_typed, k=3):
-                teacher_in = schemas.TeacherCreate(
-                    user_id=ut.id,
-                    discipline_typed_id=dd.id
+        for us in users:
+            if str(us.role) == classifiers.UserRole.student.name:
+                logger.info(f"StudentCreate")
+                sgc: models.StudyGroup = random.choice(study_group_ciphers)
+                user_student = await crud.student.get(db, id=us.id)
+                student_in = schemas.StudentUpdate(
+                    id=us.id,
+                    study_group_cipher_id=sgc.id,
+                    role=random.choice(classifiers.StudentRole.to_list())
                 )
-                teachers.append(await crud.teacher.create(db, obj_in=teacher_in))
+                students.append(await crud.student.update(db, db_obj=user_student, obj_in=student_in))
+
+            elif str(us.role) == classifiers.UserRole.teacher.name:
+                logger.info(f"TeacherCreate")
+                teacher_in = schemas.TeacherCreate(
+                    user_id=us.id,
+                    role=random.choice(classifiers.TeacherRole.to_list()),
+                    discipline_id=random.choice(disciplines).id,
+                    room_number=f"{random.choice(string.ascii_letters)}-{random.randint(1, 400)}",
+                    campus_id=random.choice(campuses).id
+                )
+                teacher_in_obj = await crud.teacher.create(db, obj_in=teacher_in)
+                teachers_list.append(teacher_in_obj)
 
         tasks: list[models.Task] = []
-        student_tasks: list[models.TaskStudent] = []
-        for ts in range(task_target):
-            logger.info(f"TaskCreate: {ts}/{task_target}")
-            dt_now = datetime.datetime.now()
-            dt_fut = dt_now.replace(day=dt_now.day + abs(dt_now.day - random.randint(dt_now.day + 1, 30)))
+        student_tasks: list[models.StudentTask] = []
+        student_task_stores: list[models.StudentTaskStore] = []
+        study_group_tasks: list[models.StudyGroupTask] = []
 
-            rnd_sg: models.StudyGroup = random.choice(study_group_ciphers)
-            rnd_st: models.Student = random.choice(students)
-
-            rnd_arg: dict = random.choice([
-                {'study_group_cipher_id': rnd_sg.id},
-                {'student_id': rnd_st.id}
-            ])
+        for i, teacher in enumerate(teachers_list):
+            logger.info(f"TaskCreate")
             task_in = schemas.TaskCreate(
-                teacher_id=random.choice(teachers).id,
-                **rnd_arg,
-                title=''.join(random.choice(string.ascii_letters) for _ in range(10)),
-                description=''.join(random.choice(string.ascii_letters) for _ in range(300)),
-                status=classifiers.TaskStatus.started.name,
-                priority=random.choice(classifiers.TaskPriority.to_list()),
-                expiration_date=dt_fut
+                teacher_user_id=teacher.user_id,
+                teacher_role=teacher.role,
+                teacher_discipline_id=teacher.discipline_id,
+                title=f'Task[{i+1}]. {fake.sentence()}',
+                description=fake.sentence()
             )
             task_in_obj: models.Task = await crud.task.create(db, obj_in=task_in)
             tasks.append(task_in_obj)
-            task: models.Task = await crud.task.get(db, id=task_in_obj.id)
-
-            if rnd_arg.get('student_id'):
-                logger.info(f"TaskStudentCreate: {ts}/{task_target}")
-                student_task_in = schemas.TaskStudentCreate(
-                    id=task_in_obj.id,
-                    comment=''.join(random.choice(string.ascii_letters) for _ in range(50)),
-                    deadline_date=task.expiration_date,
+        try:
+            for ts in tasks[:len(tasks) // 2]:
+                dt_now = datetime.datetime.now()
+                student_task_in = schemas.StudentTaskCreate(
+                    id=ts.id,
+                    student_id=random.choice(students).id,
+                    grade=random.choice(classifiers.StudentTaskGrade.to_list()),
+                    status=classifiers.TaskStatus.started.name,
+                    priority=random.choice(classifiers.TaskPriority.to_list()),
+                    deadline_date=dt_now.replace(
+                        day=dt_now.day + abs(dt_now.day - random.randint(dt_now.day + 1, 30)))
                 )
-                student_task_in_obj = await crud.task_student.create(db, obj_in=student_task_in)
+                student_task_in_obj: models.StudentTask = await crud.student_task.create(db, obj_in=student_task_in)
                 student_tasks.append(student_task_in_obj)
-                student_task: models.TaskStudent = await crud.task_student.get(db, id=student_task_in_obj.id)
 
-                if task_in.status == classifiers.TaskStatus.started.name:
-                    logger.info(f"task_in.status: `started`")
-                    student_task_in_upd_first = schemas.TaskStudentUpdate(
-                        id=task_in_obj.id,
-                        start_date=datetime.datetime.now()
+                student_task_store_in = schemas.StudentTaskStoreCreate(
+                    task_id=ts.id,
+                    student_id=random.choice(students).id,
+                    url='https://cloud.com/' + ''.join(random.choice(string.ascii_letters) for _ in range(100)),
+                    size=random.randint(100000, 100000000)
+                )
+                student_task_store_in_obj: models.StudentTaskStore = \
+                    await crud.student_task_store.create(db, obj_in=student_task_store_in)
+                student_task_stores.append(student_task_store_in_obj)
+
+            for sgt in tasks[len(tasks) // 2:]:
+                for sgc in study_group_ciphers[:random.randint(1, len(study_group_ciphers) // 2)]:
+                    dt_now = datetime.datetime.now()
+                    study_group_task_in = schemas.StudyGroupTaskCreate(
+                        id=sgt.id,
+                        study_group_cipher_id=sgc.id,
+                        status=classifiers.TaskStatus.pending.name,
+                        deadline_date=dt_now.replace(
+                            day=dt_now.day + abs(dt_now.day - random.randint(dt_now.day + 1, 30)))
                     )
-                    await crud.task_student.update(db, db_obj=student_task,
-                                                   obj_in=student_task_in_upd_first.dict(exclude_unset=True))
-
-                    logger.info(f"task_in.status: `accepted`")
-                    logger.info(f"TaskStoreCreate")
-
-                    # ...status = accepted
-                    task_store_in_started = schemas.TaskStoreCreate(
-                        task_id=task_in_obj.id,
-                        url=f'https://cloud.storage.com/files/{task_in_obj.id}/',
-                        filename=f'report{task_in_obj.id}',
-                        size=random.randint(1000, 1000000)
-                    )
-                    await crud.task_store.create(db, obj_in=task_store_in_started)
-
-                    logger.info(f"verifying")
-                    task_in_verifying = schemas.TaskUpdate(
-                        id=task_in_obj.id,
-                        status=classifiers.TaskStatus.verifying.name,
-                    )
-                    await crud.task.update(db, db_obj=task, obj_in=task_in_verifying.dict(exclude_unset=True))
-
-                    logger.info(f"completed")
-                    task_in_completed = schemas.TaskUpdate(
-                        id=task_in_obj.id,
-                        status=classifiers.TaskStatus.completed.name,
-                    )
-                    await crud.task.update(db, db_obj=task, obj_in=task_in_completed.dict(exclude_unset=True))
-
-                    if student_task_in:
-                        logger.info(f"TaskStudentUpdate")
-                        student_task_in_upd_last = schemas.TaskStudentUpdate(
-                            id=task_in_obj.id,
-                            points=random.randint(0, 2),
-                            grade=random.choice(classifiers.StudentTaskGrade.to_list()),
-                            feedbak='good job dude/shawty',
-                            completion_date=datetime.datetime.now()
-                        )
-                        await crud.task_student.update(db, db_obj=student_task,
-                                                       obj_in=student_task_in_upd_last.dict(exclude_unset=True))
+                    study_group_task_in_in_obj: models.StudyGroupTask = \
+                        await crud.study_group_task.create(db, obj_in=study_group_task_in)
+                    study_group_tasks.append(study_group_task_in_in_obj)
+        except IntegrityError as e:
+            logger.error(e.args)
 
         end = time.perf_counter()
         logger.info(f"gen process_time: {end - start:2}")

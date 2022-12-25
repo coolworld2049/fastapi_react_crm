@@ -38,7 +38,7 @@ async def create_discipline(
     """
     Create new Discipline.
     """
-    item = await crud.discipline_typed.create(db=db, obj_in=item_in)
+    item = await crud.discipline.create(db=db, obj_in=item_in)
     return item
 
 

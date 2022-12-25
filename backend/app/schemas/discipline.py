@@ -1,13 +1,10 @@
 from typing import Optional
 
-from pydantic import BaseModel, Field
-
-from backend.app.db import classifiers
+from pydantic import BaseModel
 
 
 class DisciplineBase(BaseModel):
     title: str
-    assessment: str = Field(classifiers.TypeAssessment.exam.name)
 
 
 # Properties to receive via API on creation
@@ -35,5 +32,3 @@ class DisciplineInDB(DisciplineInDBBase):
 # Additional properties to return via API
 class Discipline(DisciplineInDBBase):
     pass
-
-
