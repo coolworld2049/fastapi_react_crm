@@ -2,10 +2,9 @@ from typing import Optional
 
 from pydantic import BaseModel
 
-
 class StudentBase(BaseModel):
-    study_group_cipher_id: str
-    role: str
+    study_group_cipher_id: Optional[str]
+    role: Optional[str]
 
 
 # Properties to receive via API on creation

@@ -16,34 +16,12 @@ services:
       - PGPORT=${PG_PORT}
       - PGTZ=${PG_TZ}
       - TZ=${PG_TZ}
-      # env vars useful for our sql scripts
-      - DB_NAME=${PG_NAME}
-      - DB_USER=${PG_USER}
-      - DB_PASS=${PG_PASS}
     ports:
       - ${PG_PORT}:${PG_PORT}
     volumes:
-      - ./db/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./volumes/postgres/tmp:/tmp
     networks:
       - api_server
-
-  mongo:
-    image: mongo:${MONGO_VERSION}
-    container_name: ${PROJECT_NAME}_mongo
-    restart: always
-    command: mongod --port ${MONGO_PORT}
-    env_file:
-      - .env
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
-      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
-      - TZ=Europe/Moscow
-    ports:
-      - ${MONGO_PORT}:${MONGO_PORT}
-    volumes:
-      - ./volumes/mongo:/data/db
 
   web:
     build: .

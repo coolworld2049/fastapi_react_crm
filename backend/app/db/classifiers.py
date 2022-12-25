@@ -42,9 +42,6 @@ class TeacherRole(EnumBase):
     practicioner = 'practicioner'
 
 
-class TypeAssessment(EnumBase):
-    test = 'test'
-    exam = 'exam'
 
 
 class TaskStatus(EnumBase):
@@ -76,7 +73,6 @@ pg_custom_type_colnames = [
     UserRole.col_name(),
     StudentRole.col_name(),
     TeacherRole.col_name(),
-    TypeAssessment.col_name(),
     TaskStatus.col_name(),
     TaskPriority.col_name(),
     StudentTaskGrade.col_name()
@@ -85,7 +81,6 @@ pg_custom_type_colnames = [
 user_role = ps.ENUM(*UserRole.to_list(), name=UserRole.as_snake_case())
 student_role = ps.ENUM(*StudentRole.to_list(), name=StudentRole.as_snake_case())
 teacher_role = ps.ENUM(*TeacherRole.to_list(), name=TeacherRole.as_snake_case())
-type_assessment = ps.ENUM(*TypeAssessment.to_list(), name=TypeAssessment.as_snake_case())
 task_status = ps.ENUM(*TaskStatus.to_list(), name=TaskStatus.as_snake_case())
 task_priority = ps.ENUM(*TaskPriority.to_list(), name=TaskPriority.as_snake_case())
 student_task_grade = ps.ENUM(*StudentTaskGrade.to_list(), name=StudentTaskGrade.as_snake_case())
@@ -93,7 +88,6 @@ student_task_grade = ps.ENUM(*StudentTaskGrade.to_list(), name=StudentTaskGrade.
 instances.update(UserRole.to_dict())
 instances.update(StudentRole.to_dict())
 instances.update(TeacherRole.to_dict())
-instances.update(TypeAssessment.to_dict())
 instances.update(TaskStatus.to_dict())
 instances.update(TaskPriority.to_dict())
 instances.update(StudentTaskGrade.to_dict())

@@ -1,13 +1,10 @@
 from typing import Optional
 
-from pydantic import BaseModel, Field
-
-from backend.app.db import classifiers
+from pydantic import BaseModel
 
 
 class DisciplineBase(BaseModel):
     title: str
-    assessment: Optional[str]
 
 
 # Properties to receive via API on creation

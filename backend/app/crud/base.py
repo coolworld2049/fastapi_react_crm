@@ -4,7 +4,6 @@ from pydantic import BaseModel
 from sqlalchemy import select, func
 from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import DeclarativeMeta
 
 from backend.app.db import Base
 from backend.app.schemas.request_params import RequestParams
@@ -24,34 +23,30 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         """
         self.model = model
 
-    async def get(self, db: AsyncSession, id: Any, obj_col: DeclarativeMeta = None) -> Optional[ModelType]:
-        q = select(self.model)
-        if not obj_col:
-            q = q.where(self.model.id == id)
-        else:
-            q = q.where(obj_col == id)
-
+    async def get(self, db: AsyncSession, id: Any) -> Optional[ModelType]:
+        q = select(self.model).where(self.model.id == id)
         result: Result = await db.execute(q)
         return result.scalar()
 
     # noinspection PyMethodMayBeStatic
     async def constr_query_filter(
-            self, query: Any, request_params: RequestParams, constr_filters: Any = None, column: Any = None
+            self, query: Any, request_params: RequestParams = None, constr_filters: Any = None, column: Any = None
     ) -> Tuple[str, str]:
         query_count = select(func.count(column) if column is not None else self.model.id)
-        if request_params.filter_by is not None:
-            query = query.filter(request_params.filter_by)
-            query_count = query_count.filter(request_params.filter_by)
-        if constr_filters is not None:
-            query = query.filter(constr_filters)
-            query_count = query_count.filter(constr_filters)
-        query = query.offset(request_params.skip) \
-            .limit(request_params.limit) \
-            .order_by(request_params.order_by)
+        if request_params:
+            if request_params.filter_by is not None:
+                query = query.filter(request_params.filter_by)
+                query_count = query_count.filter(request_params.filter_by)
+            if constr_filters is not None:
+                query = query.filter(constr_filters)
+                query_count = query_count.filter(constr_filters)
+            query = query.offset(request_params.skip) \
+                .limit(request_params.limit) \
+                .order_by(request_params.order_by)
         return query, query_count
 
     async def get_multi(
-            self, db: AsyncSession, request_params: RequestParams, filters: Any = None
+            self, db: AsyncSession, request_params: RequestParams = None, filters: Any = None
     ) -> Tuple[List[ModelType], int]:
         query = select(self.model)
         query, query_count = await self.constr_query_filter(query, request_params, filters, self.model.id)

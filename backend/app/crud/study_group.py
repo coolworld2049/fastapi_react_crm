@@ -9,17 +9,17 @@ from backend.app.crud.base import CRUDBase
 from backend.app.db import models
 from backend.app.db.models import StudyGroup, StudyGroupCipher
 from backend.app.schemas import StudyGroupUpdate, StudyGroupCipherCreate, StudyGroupCipherUpdate, \
-    StudyGroupTaskCreate
+    StudyGroupCreate
 
 
-class CRUDStudyGroup(CRUDBase[StudyGroup, StudyGroupTaskCreate, StudyGroupUpdate]):
+class CRUDStudyGroup(CRUDBase[StudyGroup, StudyGroupCreate, StudyGroupUpdate]):
     async def create_with_disciplines(
-            self, db: AsyncSession, obj_in: StudyGroupTaskCreate
+            self, db: AsyncSession, obj_in: StudyGroupCreate
     ) -> List[StudyGroup]:
-        scg_id = obj_in.study_group_cipher_id
+        scg_id = obj_in.id
         for discipline_id in obj_in.discipline_id:
             _obj_in = schemas.StudyGroupCreate(
-                study_group_cipher_id=scg_id,
+                id=scg_id,
                 discipline_id=discipline_id
             )
             db_obj = self.model(**_obj_in.dict())

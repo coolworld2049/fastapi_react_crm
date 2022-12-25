@@ -4,17 +4,19 @@ from pathlib import Path
 
 import uvicorn
 from fastapi import FastAPI
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.utils import get_openapi
 from fastapi.routing import APIRoute
-from starlette.responses import FileResponse
+from starlette.responses import FileResponse, PlainTextResponse
 from starlette.staticfiles import StaticFiles
 
 from backend.app.api.api_v1.api import api_router
 from backend.app.core.config import settings, ROOT_PATH
 from backend.app.utils.custom_logger import CustomizeLogger
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
 
 
 def create_app() -> FastAPI:
@@ -50,6 +52,18 @@ BASE_PATH = Path(__file__).resolve().parent
 app.mount("/static", StaticFiles(directory=f"{BASE_PATH}/static", html=True), name="static")
 app.mount("/static/users/reports", StaticFiles(directory=f"{BASE_PATH}/volumes/postgres/tmp"),
           name="static/users/reports")
+
+
+# noinspection PyUnusedLocal
+@app.exception_handler(StarletteHTTPException)
+async def http_exception_handler(request, exc):
+    return PlainTextResponse(str(exc.detail), status_code=exc.status_code)
+
+
+# noinspection PyUnusedLocal
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request, exc):
+    return PlainTextResponse(str(exc), status_code=400)
 
 
 def custom_openapi():

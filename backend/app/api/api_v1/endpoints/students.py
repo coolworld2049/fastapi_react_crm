@@ -1,6 +1,7 @@
-from typing import Any, List
+from typing import Any, List, Union
 
 from fastapi import APIRouter, Depends, HTTPException, Response
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.app import crud, schemas
@@ -32,14 +33,17 @@ async def read_students(
 async def create_student(
         *,
         db: AsyncSession = Depends(deps.get_db),
-        item_in: schemas.StudentCreate,
+        item_in: Union[schemas.UserCreate],
         current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
-    Create new task.
+    Create new Student.
     """
-    item = await crud.student.create(db=db, obj_in=item_in)
-    return item
+    try:
+        item = await crud.student.create(db=db, obj_in=item_in)
+        return item
+    except IntegrityError as ie:
+        raise HTTPException(409, ie.detail)
 
 
 # noinspection PyUnusedLocal
@@ -52,7 +56,7 @@ async def update_student_id(
         current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
-    Update an task.
+    Update a Student.
     """
     item = await crud.student.get(db=db, id=id)
     if not item:
@@ -70,7 +74,7 @@ async def read_student_id(
         current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
-    Get task by ID.
+    Get Student by ID.
     """
     item = await crud.student.get(db=db, id=id)
     if not item:
@@ -87,7 +91,7 @@ async def delete_student_id(
         current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
-    Delete an task.
+    Delete a Student.
     """
     item = await crud.student.get(db=db, id=id)
     if not item:

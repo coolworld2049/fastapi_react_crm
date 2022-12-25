@@ -5,9 +5,10 @@ from pydantic import BaseModel
 
 
 class StudentTaskBase(BaseModel):
-    id: int # task_id
+    id: int  # task_id
     student_id: int
     status: str
+    priority: str
     points: Optional[int]
     comment: Optional[str]
     feedback: Optional[str]
@@ -20,7 +21,8 @@ class StudentTaskBase(BaseModel):
 class StudentTaskCreate(StudentTaskBase):
     id: int
     student_id: int
-
+    status: str
+    priority: str
 
 # Properties to receive via API on update
 class StudentTaskUpdate(StudentTaskBase):

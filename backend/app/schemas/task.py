@@ -5,10 +5,11 @@ from pydantic import BaseModel
 
 
 class TaskBase(BaseModel):
-    teacher_id: int
+    teacher_user_id: int
+    teacher_role: str
+    teacher_discipline_id: int
     title: str
     description: Optional[str]
-    priority: str
     create_date: Optional[datetime]
 
 

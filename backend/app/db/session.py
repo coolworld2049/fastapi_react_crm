@@ -24,9 +24,7 @@ AsyncSessionFactory = sessionmaker(
     autoflush=False
 )
 
-
 asyncpg_database = Database(settings.POSTGRES_URL)
-
 
 async def get_async_db() -> AsyncGenerator:
     session: AsyncSession = AsyncSessionFactory()  # noqa
