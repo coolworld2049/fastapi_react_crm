@@ -54,11 +54,13 @@ app.mount("/static/users/reports", StaticFiles(directory=f"{BASE_PATH}/volumes/p
           name="static/users/reports")
 
 
+# noinspection PyUnusedLocal
 @app.exception_handler(StarletteHTTPException)
 async def http_exception_handler(request, exc):
     return PlainTextResponse(str(exc.detail), status_code=exc.status_code)
 
 
+# noinspection PyUnusedLocal
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request, exc):
     return PlainTextResponse(str(exc), status_code=400)

@@ -4,7 +4,6 @@ from pydantic import BaseModel
 from sqlalchemy import select, func
 from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import DeclarativeMeta
 
 from backend.app.db import Base
 from backend.app.schemas.request_params import RequestParams

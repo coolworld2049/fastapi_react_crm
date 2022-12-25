@@ -19,9 +19,10 @@ from backend.app.main import logger
 fake: Faker = Faker()
 
 
-def gen_rand_password(text: str, number: int, rnd_str_length: int = 4):
+def gen_rand_password(number: int, rnd_str_length: int = 4):
     r_str = ''.join(random.choice(string.ascii_letters) for _ in range(rnd_str_length)).capitalize()
-    return f"{text.capitalize()}{r_str}{number}{number * 2}" \
+    return f"{''.join(random.choice(string.ascii_letters) for _ in range(rnd_str_length)).capitalize()}" \
+           f"{r_str}{number}{number * 2}" \
            f"{''.join(random.choice(string.ascii_letters) for _ in range(rnd_str_length)).capitalize()}" \
            f"{random.choice(['!', '@', '#', '$', '&', '*'])}"
 
@@ -29,35 +30,25 @@ async def init_db_test():
     db: AsyncSession = AsyncSessionFactory()
     asyncpg_conn: Connection = await asyncpg_database.get_connection()
     try:
-        users_count = 50  # 100 ~ 33 sec, 1000 ~ 230 sec
+        users_count = 50  # 100 ~ 26 sec
         ration_teachers_to_students = users_count // 2
+        campus_count = 10
 
-        campus_list = ['B-78', 'В-86', 'C-20', 'П-1']
         disciplines_list = [
-            'Программные средства манипулирования данными (часть 1/1) [I.22-23]',
-            'Интерпретируемый язык программирования высокого уровня (часть 2/2) [I.22-23]',
-            'Алгоритмы параллельных вычислений (часть 1/1) [I.22-23]',
-            'Методы искусственного интеллекта (часть 1/1) [I.22-23]',
-            'Моделирование систем (часть 1/1) [I.22-23]',
-            'Программные средства решения прикладных задач искусственного интеллекта (ЦК)',
-            'Средства моделирования разработки программного обеспечения (часть 1/1) [I.22-23]',
-            'Философия (часть 1/1) [I.22-23]',
             'Software Modeling',
-            'Blochain',
             'C++',
             'Python',
             'C#',
             'Java',
-            'Kotlin',
-            'Ktor'
+            'Kotlin'
         ]
-        study_group_list = [f"БСБО-{0 if x < 10 else ''}{x}-20" for x in range(1, 21)]
+        study_group_list = [f"ABCD-{0 if x < 10 else ''}{x}-22" for x in range(1, 21)]
 
-        q_truncate = f'''SELECT truncate_tables('postgres');'''
+        q_truncate = f'''select truncate_tables('postgres')'''
         logger.info(q_truncate)
         try:
             await asyncpg_conn.execute(q_truncate)
-        except UndefinedFunctionError as e:
+        except UndefinedFunctionError:
             await init_db()
             await asyncpg_conn.execute(q_truncate)
 
@@ -83,7 +74,7 @@ async def init_db_test():
 
             user_in = schemas.UserCreate(
                 email=f'{role}{us}@gmail.com',
-                password=gen_rand_password(role, us),
+                password=gen_rand_password(us),
                 username=f'{role}{us}{random.randint(1000,10000)}',
                 full_name=fake.name(),
                 age=random.randint(18, 25),
@@ -103,10 +94,11 @@ async def init_db_test():
             wr.write(json.dumps(users_cred_list, indent=4))
 
         campuses: list[models.Campus] = []
-        for c in campus_list:
-            logger.info(f"CampusCreate: {c}/{len(campus_list)}")
+        for c in range(campus_count):
+            logger.info(f"CampusCreate: {c}/{campus_count}")
             campus_in = schemas.CampusCreate(
-                id=c,
+                id=''.join(random.choice(string.ascii_uppercase) for _ in range(2)) +
+                   f"-{random.randint(1, campus_count)}",
                 address=fake.address()
             )
             campuses.append(await crud.campus.create(db, obj_in=campus_in))
@@ -115,8 +107,7 @@ async def init_db_test():
         for d in disciplines_list:
             logger.info(f"DisciplineCreate, TypedDisciplineCreate: {d}/{len(disciplines_list)}")
             discipline_in = schemas.DisciplineCreate(
-                title=d,
-                assessment=random.choice(classifiers.TypeAssessment.to_list())
+                title=d
             )
             dscp: models.Discipline = await crud.discipline.create(db, obj_in=discipline_in)
             disciplines.append(dscp)
@@ -174,40 +165,39 @@ async def init_db_test():
 
         for i, teacher in enumerate(teachers_list):
             logger.info(f"TaskCreate")
-            for j in range(random.randint(1, 4)):
-                task_in = schemas.TaskCreate(
-                    teacher_user_id=teacher.user_id,
-                    teacher_role=teacher.role,
-                    teacher_discipline_id=teacher.discipline_id,
-                    title=f'Task[{i+1}, {j+1}]. {fake.sentence()}',
-                    description=fake.sentence()
-                )
-                task_in_obj: models.Task = await crud.task.create(db, obj_in=task_in)
-                tasks.append(task_in_obj)
+            task_in = schemas.TaskCreate(
+                teacher_user_id=teacher.user_id,
+                teacher_role=teacher.role,
+                teacher_discipline_id=teacher.discipline_id,
+                title=f'Task[{i+1}]. {fake.sentence()}',
+                description=fake.sentence()
+            )
+            task_in_obj: models.Task = await crud.task.create(db, obj_in=task_in)
+            tasks.append(task_in_obj)
         try:
             for ts in tasks[:len(tasks) // 2]:
-                for st in students[:len(students) // 2]:
-                    dt_now = datetime.datetime.now()
-                    student_task_in = schemas.StudentTaskCreate(
-                        id=ts.id,
-                        student_id=st.id,
-                        status=classifiers.TaskStatus.started.name,
-                        priority=random.choice(classifiers.TaskPriority.to_list()),
-                        deadline_date=dt_now.replace(
-                            day=dt_now.day + abs(dt_now.day - random.randint(dt_now.day + 1, 30)))
-                    )
-                    student_task_in_obj: models.StudentTask = await crud.student_task.create(db, obj_in=student_task_in)
-                    student_tasks.append(student_task_in_obj)
+                dt_now = datetime.datetime.now()
+                student_task_in = schemas.StudentTaskCreate(
+                    id=ts.id,
+                    student_id=random.choice(students).id,
+                    grade=random.choice(classifiers.StudentTaskGrade.to_list()),
+                    status=classifiers.TaskStatus.started.name,
+                    priority=random.choice(classifiers.TaskPriority.to_list()),
+                    deadline_date=dt_now.replace(
+                        day=dt_now.day + abs(dt_now.day - random.randint(dt_now.day + 1, 30)))
+                )
+                student_task_in_obj: models.StudentTask = await crud.student_task.create(db, obj_in=student_task_in)
+                student_tasks.append(student_task_in_obj)
 
-                    student_task_store_in = schemas.StudentTaskStoreCreate(
-                        task_id=ts.id,
-                        student_id=st.id,
-                        url='https://cloud.com/' + ''.join(random.choice(string.ascii_letters) for _ in range(100)),
-                        size=random.randint(100000, 100000000)
-                    )
-                    student_task_store_in_obj: models.StudentTaskStore = \
-                        await crud.student_task_store.create(db, obj_in=student_task_store_in)
-                    student_task_stores.append(student_task_store_in_obj)
+                student_task_store_in = schemas.StudentTaskStoreCreate(
+                    task_id=ts.id,
+                    student_id=random.choice(students).id,
+                    url='https://cloud.com/' + ''.join(random.choice(string.ascii_letters) for _ in range(100)),
+                    size=random.randint(100000, 100000000)
+                )
+                student_task_store_in_obj: models.StudentTaskStore = \
+                    await crud.student_task_store.create(db, obj_in=student_task_store_in)
+                student_task_stores.append(student_task_store_in_obj)
 
             for sgt in tasks[len(tasks) // 2:]:
                 for sgc in study_group_ciphers[:random.randint(1, len(study_group_ciphers) // 2)]:

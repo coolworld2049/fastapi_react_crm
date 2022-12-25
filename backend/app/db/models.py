@@ -1,14 +1,13 @@
-# coding: utf-8
-import re
-
 from sqlalchemy import BigInteger, Boolean, CheckConstraint, Column, DateTime, Enum, ForeignKey, SmallInteger, String, \
     Text, text, Sequence, ForeignKeyConstraint, select, func
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship, validates
+from sqlalchemy.orm import relationship
 from sqlalchemy_mixins import AllFeaturesMixin
 from sqlalchemy_utils import create_view
 
-from backend.app.db import classifiers, user_role, type_assessment, student_role, task_status
+from backend.app.db import classifiers, user_role, student_role, task_status, student_task_grade, \
+    task_priority
+
 
 Base = declarative_base()
 metadata = Base.metadata
@@ -16,7 +15,6 @@ metadata = Base.metadata
 
 class BaseDbModel(Base, AllFeaturesMixin):
     __abstract__ = True
-    pass
 
 
 class Campus(BaseDbModel):
@@ -31,7 +29,6 @@ class Discipline(BaseDbModel):
 
     id = Column(BigInteger, primary_key=True)
     title = Column(Text, nullable=False)
-    assessment = Column(type_assessment)
 
     study_group_cipher = relationship('StudyGroupCipher', secondary='study_group')
 
@@ -47,7 +44,6 @@ class User(BaseDbModel):
     __table_args__ = (
         CheckConstraint('full_name <> (role)::text'),
         CheckConstraint('username <> (role)::text'),
-        CheckConstraint('is_reserved_username(username)')
     )
 
     id = Column(BigInteger, primary_key=True)
@@ -98,8 +94,10 @@ class Teacher(BaseDbModel):
 class Task(BaseDbModel):
     __tablename__ = 'task'
     __table_args__ = (
-        ForeignKeyConstraint(('teacher_user_id', 'teacher_role', 'teacher_discipline_id'),
-                             ['teacher.user_id', 'teacher.role', 'teacher.discipline_id']),
+        ForeignKeyConstraint(
+            ('teacher_user_id', 'teacher_role', 'teacher_discipline_id'),
+            ('teacher.user_id', 'teacher.role', 'teacher.discipline_id')
+        ),
     )
 
     id = Column(BigInteger, Sequence('task_id_seq'), nullable=False, unique=True)
@@ -122,11 +120,10 @@ class StudentTask(BaseDbModel):
     id = Column(ForeignKey('task.id'), primary_key=True, nullable=False)
     student_id = Column(ForeignKey('student.id'), primary_key=True, nullable=False)
     status = Column(task_status, nullable=False, server_default=text("'pending'::task_status"))
-    priority = Column(Enum('high', 'medium', 'low', name='task_priority'), nullable=False)
+    priority = Column(task_priority, nullable=False)
     points = Column(SmallInteger)
     comment = Column(Text)
-    feedback = Column(Text)
-    grade = Column(Enum('good', 'great', 'normal', 'bad', 'passed', 'not_passed', name='task_grade_type'))
+    grade = Column(student_task_grade)
     deadline_date = Column(DateTime(True))
     completion_date = Column(DateTime(True))
 
@@ -164,6 +161,7 @@ class StudyGroupTask(BaseDbModel):
     task = relationship('Task')
     study_group_cipher = relationship('StudyGroupCipher')
 
+# -----------------------------------------------------views------------------------------------------------------------
 
 teacher_lecturer_discipline_st = select(
     Teacher.user_id,

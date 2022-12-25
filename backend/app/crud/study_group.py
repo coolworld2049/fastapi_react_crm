@@ -9,7 +9,7 @@ from backend.app.crud.base import CRUDBase
 from backend.app.db import models
 from backend.app.db.models import StudyGroup, StudyGroupCipher
 from backend.app.schemas import StudyGroupUpdate, StudyGroupCipherCreate, StudyGroupCipherUpdate, \
-    StudyGroupTaskCreate, StudyGroupCreate
+    StudyGroupCreate
 
 
 class CRUDStudyGroup(CRUDBase[StudyGroup, StudyGroupCreate, StudyGroupUpdate]):

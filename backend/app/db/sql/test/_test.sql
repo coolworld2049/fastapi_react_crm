@@ -13,26 +13,26 @@ insert into campus
 values ('В-78', 'Moсква, ...'), ('С-20', 'Moсква, ...'), ('П-1', 'Moсква, ...');
 
 insert into discipline
-values (10, 'Программные средства манипулирования данными (часть 1/1) [I.22-23]', 'exam'),
-       (20, 'Интерпретируемый язык программирования высокого уровня (часть 2/2) [I.22-23]', 'test');
+values (10, 'Программные средства манипулирования данными (часть 1/1) [I.22-23]', '{exam,coursework}'),
+       (20, 'Интерпретируемый язык программирования высокого уровня (часть 2/2) [I.22-23]', '{test}');
 
 insert into study_group_cipher
-values ('БСБО-04-20'),
-       ('БСБО-05-20'),
-       ('БСБО-06-20');
+values ('ABCD-04-20'),
+       ('ABCD-05-20'),
+       ('ABCD-06-20');
 
 insert into study_group
-values ('БСБО-04-20', 10),
-       ('БСБО-04-20', 20),
-       ('БСБО-05-20', 10),
-       ('БСБО-05-20', 20),
-       ('БСБО-06-20', 10),
-       ('БСБО-06-20', 20);
+values ('ABCD-04-20', 10),
+       ('ABCD-04-20', 20),
+       ('ABCD-05-20', 10),
+       ('ABCD-05-20', 20),
+       ('ABCD-06-20', 10),
+       ('ABCD-06-20', 20);
 
 insert into student
-values (2, 'student', 'БСБО-04-20'),
-       (3, 'leader', 'БСБО-04-20'),
-       (4, 'student', 'БСБО-06-20');
+values (2, 'student', 'ABCD-04-20'),
+       (3, 'leader', 'ABCD-04-20'),
+       (4, 'student', 'ABCD-06-20');
 
 insert into teacher
 values (1, 5, 'lecturer', 10, '105-2', 'В-78'),
@@ -61,9 +61,9 @@ values (9001, 5, 'practicioner', 10, 'практики1-4'),
 
 
 insert into study_group_task
-values (9001, 'БСБО-04-20', 'pending', timestamptz('09-12-2023 12:00:00')),
-       (9003, 'БСБО-06-20', 'pending', timestamptz('09-12-2023 12:00:00')),
-       (9006, 'БСБО-06-20', 'pending', timestamptz('09-12-2023 12:00:00'));
+values (9001, 'ABCD-04-20', 'pending', timestamptz('09-12-2023 12:00:00')),
+       (9003, 'ABCD-06-20', 'pending', timestamptz('09-12-2023 12:00:00')),
+       (9006, 'ABCD-06-20', 'pending', timestamptz('09-12-2023 12:00:00'));
 
 
 insert into student_task

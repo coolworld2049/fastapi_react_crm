@@ -195,7 +195,7 @@ async def read_users_by_role_id(
         roles = [rolname]
     elif not roles:
         raise HTTPException(404, 'role not set')
-    user, total = await crud.user.get_multi(db, request_params, roles)
+    user, total = await crud.user.get_multi_with_role(db, request_params, roles)
     response.headers["Content-Range"] = f"{request_params.skip}-{request_params.skip + len(user)}/{total}"
     return user
 

@@ -1,4 +1,4 @@
-from typing import Any, Union, List, Optional
+from typing import Any, Union, List
 
 from sqlalchemy import select
 from sqlalchemy.engine import Result

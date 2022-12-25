@@ -161,3 +161,6 @@ cython_debug/
 #.idea/
 !/test/access.log
 !/access.log
+!/backend/app/test/access.log
+
+!/backend/app/test/users_cred_list.json

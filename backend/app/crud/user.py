@@ -59,7 +59,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
                 c_filter = and_(column.in_(tuple(roles)))
         return c_filter
 
-    async def get_multi(
+    async def get_multi_with_role(
             self, db: AsyncSession, request_params: RequestParams, roles: list[str] = None,
     ) -> Tuple[List[User], int]:
         flt = await self.constr_user_role_filter(roles)

@@ -15,11 +15,6 @@ create type teacher_role as enum (
     'practicioner'
 );
 
-create type type_assessment as enum (
-    'test',
-    'exam'
-);
-
 create type task_status as enum (
     'unassigned',
     'pending',
@@ -53,7 +48,6 @@ create table if not exists "user"
     age smallint,
     phone varchar(20),
     avatar text,
-    is_online boolean default true,
     is_active boolean not null default true,
     "is_superuser" boolean not null default false,
     create_date timestamptz default localtimestamp,
@@ -61,10 +55,10 @@ create table if not exists "user"
     constraint c_full_name_is_not_role check ( full_name != "role"::text)
 );
 
+
 create table if not exists discipline (
     id bigserial primary key,
-    title text not null,
-    assessment type_assessment
+    title text not null
 );
 
 create table if not exists campus (
@@ -126,7 +120,6 @@ create table if not exists student_task (
     priority task_priority not null default 'medium'::task_priority,
     points smallint,
     "comment" text,
-    feedback text,
     grade task_grade_type,
     deadline_date timestamptz,
     completion_date timestamptz,

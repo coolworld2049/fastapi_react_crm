@@ -33,7 +33,7 @@ async def read_students(
 async def create_student(
         *,
         db: AsyncSession = Depends(deps.get_db),
-        item_in: Union[Any, schemas.UserCreate],
+        item_in: Union[schemas.UserCreate],
         current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
@@ -91,7 +91,7 @@ async def delete_student_id(
         current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
-    Delete an Student.
+    Delete a Student.
     """
     item = await crud.student.get(db=db, id=id)
     if not item:

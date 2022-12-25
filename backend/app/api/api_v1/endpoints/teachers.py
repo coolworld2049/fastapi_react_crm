@@ -33,7 +33,7 @@ async def read_teachers(
 async def create_teacher(
         *,
         db: AsyncSession = Depends(deps.get_db),
-        item_in: Union[Any, schemas.UserCreate],
+        item_in: Union[schemas.UserCreate],
         current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
@@ -44,6 +44,7 @@ async def create_teacher(
         return item
     except IntegrityError as ie:
         raise HTTPException(409, ie.detail)
+
 
 # noinspection PyUnusedLocal
 @router.get("/me", response_model=List[schemas.Teacher])
@@ -104,7 +105,7 @@ async def delete_teacher_id(
         current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
-    Delete an Teacher.
+    Delete a Teacher.
     """
     item = await crud.teacher.get(db=db, user_id=id)
     if not item:

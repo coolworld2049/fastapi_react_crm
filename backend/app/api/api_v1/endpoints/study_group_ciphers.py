@@ -1,10 +1,8 @@
 from typing import Any, List
 
-from asyncpg import InsufficientPrivilegeError
 from fastapi import APIRouter, Depends, HTTPException, Response
 from sqlalchemy.exc import ProgrammingError, IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
-
 
 from backend.app import crud, schemas
 from backend.app.api import deps

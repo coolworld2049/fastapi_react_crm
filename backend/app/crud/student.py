@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from backend.app import schemas, crud
 from backend.app.crud import CRUDBase
 from backend.app.db import Student, models
-from backend.app.schemas import StudentCreate, StudentUpdate
+from backend.app.schemas import StudentUpdate, StudentCreate
 
 
 class CRUDStudent(CRUDBase[Student, StudentCreate, StudentUpdate]):
