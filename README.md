@@ -1,5 +1,15 @@
-# fastapi-react-crm-backend
+# FastAPI + React CRM 
 
+<div>
+<img src="assets/fastapi-logo.png" alt="fastapi-logo" height="60" /> <img
+src="assets/react-logo.png" alt="react-logo" height="60" /> &nbsp; &nbsp; <img
+src="assets/react-admin.png" alt="react-admin" height="60" /> &nbsp; &nbsp; <img
+src="assets/typescript.png" alt="react-logo" height="60" /> &nbsp;&nbsp;&nbsp;
+<img src="assets/postgres.png" alt="react-logo" height="60" /> <img
+src="assets/sql-alchemy.png" alt="sql-alchemy" height="60" />
+</div>
+
+---
 
 https://user-images.githubusercontent.com/82733942/220992840-8c7e6fd3-8399-4231-a6ba-69469296de4b.mp4
 
