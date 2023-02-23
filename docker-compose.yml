@@ -1,0 +1,81 @@
+version: '3.9'
+
+services:
+
+  postgres:
+    image: postgres:15
+    env_file:
+      - .env
+    environment:
+      - PGPORT=${PG_PORT}
+      - PGTZ=${TZ}
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    ports:
+      - ${PG_PORT}:${PG_PORT}
+
+
+  queue:
+    image: rabbitmq:3-management
+    env_file:
+      - .env
+    environment:
+      - RABBITMQ_HOST=queue
+    ports:
+      - ${RABBITMQ_PORT}:${RABBITMQ_PORT}
+      - ${RABBITMQ_HTTP_PORT}:${RABBITMQ_HTTP_PORT}
+
+  redis:
+    image: redislabs/redismod
+    expose:
+      - ${REDIS_PORT}
+
+
+  celeryworker:
+    build:
+      context: backend
+      dockerfile: celeryworker.dockerfile
+    depends_on:
+      - postgres
+      - queue
+      - redis
+    env_file:
+      - .env
+    environment:
+      - PG_HOST=postgres
+      - REDIS_HOST=redis
+      - RABBITMQ_HOST=queue
+      - SERVER_NAME=${DOMAIN}
+      - SERVER_HOST=https://${DOMAIN}
+
+
+  backend:
+    build:
+      context: backend
+      dockerfile: app.dockerfile
+    command: ./start.sh
+    env_file:
+      - .env
+    environment:
+      - PG_HOST=postgres
+      - REDIS_HOST=redis
+      - RABBITMQ_HOST=queue
+      - SERVER_NAME=${DOMAIN}
+      - SERVER_HOST=https://${DOMAIN}
+    depends_on:
+      - postgres
+    ports:
+      - ${PORT}:${PORT}
+
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: frontend.dockerfile
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+
+volumes:
+  postgres-data:

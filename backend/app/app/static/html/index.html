@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="{{ url_for('static', path='/css/index.css') }}" rel="stylesheet"/>
+
+    <title>Fast Api Menu</title>
+</head>
+<body>
+<div class="container">
+    <div class="child">
+        <a href={{proto}}://{{host}}:{{port}}/docs><p>docs</p></a>
+        <a href={{proto}}://{{host}}:{{port}}/docs/dark-theme><p>docs dark-theme</p></a>
+        <a href={{proto}}://{{host}}:{{port}}/redoc><p>redoc</p></a>
+        <a href={{proto}}://{{host}}:{{port}}/api/v1/openapi.json><p>openapi.json</p></a>
+    </div>
+</div>
+</body>
+</html>
