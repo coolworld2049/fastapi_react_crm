@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+
+  flower:
+    image: mher/flower
+    environment:
+      - CELERY_BROKER_URL=pyamqp://${RABBITMQ_DEFAULT_USER}:${RABBITMQ_DEFAULT_PASS}@queue:${RABBITMQ_PORT}/
+      - FLOWER_PORT=5555
+    ports:
+      - ${FLOWER_PORT}:${FLOWER_PORT}
+
+
+  redisinsight:
+    image: redislabs/redisinsight:latest
+    ports:
+      - ${REDIS_INSIGHT_PORT}:${REDIS_INSIGHT_PORT}
+
