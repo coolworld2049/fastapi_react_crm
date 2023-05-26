@@ -2,7 +2,7 @@
 create or replace function check_user_role_after() returns trigger as $insert_user_role_after$
 begin
     if new.role::text = 'student' then
-        insert into student(id) values (new.id);
+        insert into student(id, role) values (new.id, new.role::text::student_role);
     end if;
     return old;
 end;

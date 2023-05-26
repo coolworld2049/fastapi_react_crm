@@ -1,16 +1,17 @@
-
-insert into "user"
-values (1, 'admin@gmail.com', 'admin', 'admin', 'i`m admin', 'ka52helicopter', 30, null, true, true),
-       (2, 'student1@gmail.com', 'student1', 'student', 'i`m student1', 'mig30fighter', 20, null, true, false),
-       (3, 'student2@gmail.com', 'student2', 'student', 'i`m student2', 'mig31fighter', 20, null, true, false),
-       (4, 'student3@gmail.com', 'student3', 'student', 'i`m student3', 'mig32fighter', 20, null, true, false),
-       (5, 'teacher1@gmail.com', 'teacher1', 'teacher', 'i`m teacher1', 'mig28fighter', 35, null, true, false),
-       (6, 'teacher2@gmail.com', 'teacher2', 'teacher', 'i`m teacher2', 'mig29fighter', 35, null, true, false),
-       (7, 'teacher7@gmail.com', 'teacher7', 'teacher', 'i`m teacher7', 'mig27fighter', 35, null, true, false);
+insert into "user"(id, email, hashed_password, role, full_name, username, age, phone, avatar, is_active, is_superuser)
+values (1, 'admin@gmail.com', 'admin', 'admin', 'i`m admin', 'ka52helicopter', 30, null, null, true, true),
+       (2, 'student1@gmail.com', 'student1', 'student', 'i`m student1', 'mig30fighter', 20, null, null, true, false),
+       (3, 'student2@gmail.com', 'student2', 'student', 'i`m student2', 'mig31fighter', 20, null, null, true, false),
+       (4, 'student3@gmail.com', 'student3', 'student', 'i`m student3', 'mig32fighter', 20, null, null, true, false),
+       (5, 'teacher1@gmail.com', 'teacher1', 'teacher', 'i`m teacher1', 'mig28fighter', 35, null, null, true, false),
+       (6, 'teacher2@gmail.com', 'teacher2', 'teacher', 'i`m teacher2', 'mig29fighter', 35, null, null, true, false),
+       (7, 'teacher3@gmail.com', 'teacher7', 'teacher', 'i`m teacher7', 'mig27fighter', 35, null, null, true, false);
 
 
 insert into campus
-values ('В-78', 'Moсква, ...'), ('С-20', 'Moсква, ...'), ('П-1', 'Moсква, ...');
+values ('В-78', 'Moсква, ...'),
+       ('С-20', 'Moсква, ...'),
+       ('П-1', 'Moсква, ...');
 
 insert into discipline
 values (10, 'Программные средства манипулирования данными (часть 1/1) [I.22-23]'),
@@ -29,10 +30,9 @@ values ('ABCD-04-20', 10),
        ('ABCD-06-20', 10),
        ('ABCD-06-20', 20);
 
-insert into student
-values (2, 'student', 'ABCD-04-20'),
-       (3, 'leader', 'ABCD-04-20'),
-       (4, 'student', 'ABCD-06-20');
+update student set role='student'::student_role, study_group_cipher_id='ABCD-04-20' where id=2;
+update student set role='leader'::student_role, study_group_cipher_id='ABCD-04-20' where id=3;
+update student set role='student'::student_role, study_group_cipher_id='ABCD-06-20' where id=4;
 
 insert into teacher
 values (1, 5, 'lecturer', 10, '105-2', 'В-78'),
@@ -46,7 +46,6 @@ values (6, 7, 'practicioner', 10, '512', 'П-1');
 
 insert into teacher
 values (7, 7, 'lecturer', 10, '512', 'П-1');
-
 
 
 --teacher
@@ -71,8 +70,10 @@ values (9002, 2, 'pending', 'low', null, null, null, null, timestamptz('09-12-20
        (9004, 3, 'started', 'low', null, null, null, null, timestamptz('09-12-2023 12:00:00')),
        (9005, 4, 'started', 'low', null, null, null, null, timestamptz('09-12-2023 12:00:00'));
 
-insert into student_task_store values (7001, 9002, 2, 'https://drive.google.com/drive/...', 7879878, 'report1.pdf');
-insert into student_task_store values (7002, 9004, 3, 'https://drive.google.com/drive/asad', 15545888, 'report2.pdf');
+insert into student_task_store
+values (7001, 9002, 2, 'https://drive.google.com/drive/...', 7879878, 'report1.pdf');
+insert into student_task_store
+values (7002, 9004, 3, 'https://drive.google.com/drive/asad', 15545888, 'report2.pdf');
 
 
 /*
